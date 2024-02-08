@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Card, CardBody, Input, InputProps, Progress } from "@nextui-org/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  Input,
+  InputProps,
+  Progress,
+} from "@nextui-org/react";
+import { IoCloseSharp } from "react-icons/io5";
+import { TbUpload } from "react-icons/tb";
 import StyledImage from "./StyledImage";
 
 interface FileUploadProps extends InputProps {
@@ -76,6 +85,12 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload, ...props }) => {
     });
   };
 
+  const handleDeletePreview = (index: number) => {
+    const updatedPreviews = [...filePreviews];
+    updatedPreviews.splice(index, 1);
+    setFilePreviews(updatedPreviews);
+  };
+
   return (
     <Card>
       <CardBody>
@@ -96,18 +111,19 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload, ...props }) => {
             className="hidden"
             multiple // Enable multiple file selection
           />
-          <p className="text-gray-600">Drag & drop your files here</p>
-          <p className="mt-2">or</p>
           <label
             htmlFor={props.id || "file-input"}
-            className="cursor-pointer text-blue-500 underline"
+            className="cursor-pointer text-gray-500 w-full h-full flex flex-col items-center justify-center"
           >
-            Browse for files
+            {/* Content inside label */}
+            <p className="">Drag & drop your files here</p>
+            <TbUpload className="text-6xl my-2" />
+            <span className="">Browse for files</span>
           </label>
         </div>
         <div className="flex flex-row flex-wrap gap-4">
           {filePreviews.map((preview, index) => (
-            <div key={index} className="mt-3">
+            <div key={index} className="mt-3 relative">
               <StyledImage
                 src={preview}
                 alt={`File Preview ${index + 1}`}
@@ -115,6 +131,15 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload, ...props }) => {
                 width={100}
                 height={100}
               />
+              <Button
+                isIconOnly
+                color="danger"
+                size="sm"
+                onClick={() => handleDeletePreview(index)}
+                className="absolute top-0 right-0 p-2 text-white rounded-full z-10"
+              >
+                <IoCloseSharp className="text-5xl" />
+              </Button>
             </div>
           ))}
         </div>
@@ -132,7 +157,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload, ...props }) => {
 };
 
 // Usage
-const YourComponent: React.FC = () => {
+const StyledFileUpload: React.FC = () => {
   const handleFileUpload = (files: FileList) => {
     // Handle the uploaded files here
     console.log("Uploaded files:", files);
@@ -145,4 +170,4 @@ const YourComponent: React.FC = () => {
   );
 };
 
-export default YourComponent;
+export default StyledFileUpload;
