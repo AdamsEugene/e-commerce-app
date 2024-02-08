@@ -1,8 +1,8 @@
 import { Metadata } from "next/types";
 import AuthWrapper from "../components/AuthWrapper";
 import Forms from "../components/Forms";
-import { INPUT_PROPS } from "@/_shared/components/StyledInput";
 import { MdMail, MdOutlineSecurity } from "react-icons/md";
+import { INPUT_PROPS } from "@/components/StyledInput";
 
 export const metadata: Metadata = {
   title: "Login",
