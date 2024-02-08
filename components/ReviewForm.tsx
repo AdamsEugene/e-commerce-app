@@ -21,7 +21,7 @@ export default function ReviewForm(props: PROPS) {
       // Scroll the form into view when isReviewVisible is true
       formRef.current.scrollIntoView({
         behavior: "smooth",
-        block: "start",
+        block: "center",
         inline: "nearest",
       });
     }

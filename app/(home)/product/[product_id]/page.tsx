@@ -5,7 +5,7 @@ import Details from "../components/Details";
 import GridCard from "@/components/GridCard";
 import ImageGallery from "@/components/swiper/ImageGallery";
 import AddReview from "@/components/AddReview";
-import Review from "@/components/Review";
+import ReviewList from "@/components/Reviews";
 
 export const metadata: Metadata = {
   title: "Products Name",
@@ -22,14 +22,17 @@ export default function Products() {
           <Details />
         </div>
       </div>
-      <div className="main products">
-        <GridCard />
+      <div className="main flex flex-col justify-center items-center">
+        use cases
       </div>
       <div className="main flex flex-col justify-center items-center">
         <AddReview />
       </div>
       <div className="main flex flex-col justify-center items-center">
-        <Review />
+        <ReviewList />
+      </div>
+      <div className="main products">
+        <GridCard />
       </div>
     </section>
   );
