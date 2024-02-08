@@ -1,6 +1,6 @@
-import ImageGallery from "@/_shared/components/swiper/ImageGallery";
 import { Metadata } from "next/types";
 
+import ImageGallery from "@/components/swiper/ImageGallery";
 import "../../../../(home)/home.css";
 
 export const metadata: Metadata = {
