@@ -5,6 +5,7 @@ import Ratings from "./Ratings";
 import StyledInput from "./StyledInput";
 import StyledTextarea from "./StyledTextarea";
 import StyledButton from "./StyledButton";
+import StyledFileUpload from "./StyledFileUpload";
 
 type PROPS = {
   isReviewVisible: boolean;
@@ -51,6 +52,7 @@ export default function ReviewForm(props: PROPS) {
             maxRows={8}
           />
           <h4 className="text-lg font-bold">Picture/Video (optional)</h4>
+          <StyledFileUpload />
           <StyledInput
             label="Name (displayed publicly like John Smith)"
             placeholder="Enter your name (public)"
