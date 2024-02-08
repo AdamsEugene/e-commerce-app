@@ -105,7 +105,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload, ...props }) => {
             Browse for files
           </label>
         </div>
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-row flex-wrap gap-4">
           {filePreviews.map((preview, index) => (
             <div key={index} className="mt-3">
               <StyledImage
