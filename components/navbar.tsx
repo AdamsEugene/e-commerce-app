@@ -19,10 +19,7 @@ import {
   NavbarItem,
   NavbarMenuItem,
 } from "@nextui-org/navbar";
-import { Button } from "@nextui-org/button";
-import { Kbd } from "@nextui-org/kbd";
 import { Link } from "@nextui-org/link";
-import { Input } from "@nextui-org/input";
 
 import { link as linkStyles } from "@nextui-org/theme";
 import useKeyboardShortcut from "use-keyboard-shortcut";
@@ -32,15 +29,7 @@ import NextLink from "next/link";
 import clsx from "clsx";
 
 import { ThemeSwitch } from "@/components/theme-switch";
-import {
-  TwitterIcon,
-  GithubIcon,
-  DiscordIcon,
-  HeartFilledIcon,
-  SearchIcon,
-  CartIcon,
-  NotificationIcon,
-} from "@/components/icons";
+import { TwitterIcon, CartIcon, NotificationIcon } from "@/components/icons";
 
 import { Logo } from "@/components/icons";
 import StyledInput from "./StyledInput";
@@ -63,6 +52,9 @@ export const Navbar = () => {
       repeatOnHold: false,
     }
   );
+
+  const randomIntFromInterval = (min: number, max: number) =>
+    Math.floor(Math.random() * (max - min + 1) + min);
 
   return (
     <NextUINavbar maxWidth="xl" position="sticky" className="mt-2">
@@ -124,7 +116,7 @@ export const Navbar = () => {
               />
             </PopoverTrigger>
             <PopoverContent className="p-1">
-              {(Math.random() * 10) % 2 === 0 ? (
+              {randomIntFromInterval(1, 6) <= 3 ? (
                 <UserCard />
               ) : (
                 <SignupOrLogin />

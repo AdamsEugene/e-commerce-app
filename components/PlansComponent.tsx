@@ -37,7 +37,7 @@ const PlansComponent: FC = () => {
 const Plan: FC<PlanProps> = ({ backgroundColor, planDuration, icon }) => {
   const IconComponent = icon;
   return (
-    <Card className="w-full" style={{ backgroundColor }} isPressable>
+    <Card className="w-full" isPressable isHoverable shadow="sm">
       <CardHeader className="flex gap-3">
         <IconComponent size={30} className="text-yellow-500" />
         <div className="flex flex-col">

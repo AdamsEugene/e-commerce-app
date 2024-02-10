@@ -1,13 +1,16 @@
 "use client";
 
-import { Avatar, Button, Card, Divider } from "@nextui-org/react";
-import React, { useEffect, useRef, useState } from "react";
-import { Pagination } from "@nextui-org/react";
+import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
+import { Avatar, Card, Divider, Pagination } from "@nextui-org/react";
 import { FiSearch } from "react-icons/fi";
-import Ratings from "./Ratings";
-import reviewData from "@/utils/reviews";
+import useKeyboardShortcut from "use-keyboard-shortcut";
+
 import StyledInput from "./StyledInput";
 import StyledDropdown from "./Dropdown";
+import { Button } from "@nextui-org/react";
+import reviewData from "@/utils/reviews";
+import Ratings from "./Ratings";
+import ConditionalRender from "./ConditionalRender";
 
 type ReviewProps = {
   rating: number;
@@ -17,6 +20,139 @@ type ReviewProps = {
   verified: boolean;
   reviewTitle: string;
   review: string;
+};
+
+const languages = [
+  { key: "all", label: "All" },
+  { key: "french", label: "French" },
+];
+
+const ReviewList = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedKeys, setSelectedKeys] = useState<string>("all");
+  const [enableSearch, setEnableSearch] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [allData, setAllData] = useState<ReviewProps[]>(reviewData);
+  const deferredSearchTerm = useDeferredValue(searchTerm);
+
+  const reviewRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLDivElement>(null);
+
+  const itemsPerPage = 5;
+
+  const filteredReviews = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    if (deferredSearchTerm) {
+      const data = reviewData.filter((review) =>
+        review.reviewTitle
+          .toLowerCase()
+          .includes(deferredSearchTerm.toLowerCase())
+      );
+      setAllData(data);
+      return data.slice(startIndex, endIndex);
+    } else return reviewData.slice(startIndex, endIndex);
+  }, [currentPage, deferredSearchTerm]);
+
+  const handleSelect = (key: any) => {
+    setSelectedKeys(key);
+  };
+
+  const handleSearchClick = () => {
+    setEnableSearch(true);
+    inputRef.current?.focus();
+    // setSearchTerm("");
+  };
+
+  const handleSearchChange = (value: string) => {
+    setSearchTerm(value);
+    !value && setAllData(reviewData);
+  };
+
+  const { flushHeldKeys } = useKeyboardShortcut(
+    ["Meta", "J"],
+    (shortcutKeys) => handleSearchClick(),
+    {
+      overrideSystem: false,
+      ignoreInputFields: false,
+      repeatOnHold: false,
+    }
+  );
+
+  useEffect(() => {
+    const scrollOptions: ScrollIntoViewOptions = {
+      behavior: "smooth",
+      block: "center",
+      inline: "end",
+    };
+
+    const handleScrollIntoView = () => {
+      if (enableSearch && reviewRef.current) {
+        reviewRef.current.scrollIntoView(scrollOptions);
+        setEnableSearch(false);
+      }
+    };
+
+    const timeoutId = setTimeout(handleScrollIntoView, 0);
+
+    return () => clearTimeout(timeoutId);
+  }, [enableSearch, reviewRef]);
+
+  return (
+    <div className="space-y-6 flex flex-col items-center w-full">
+      <div className="flex w-[80%]">
+        <div ref={reviewRef} className="w-[80%] p-4">
+          <StyledInput
+            baseRef={inputRef}
+            placeholder="Search for a review"
+            iconStart
+            both
+            keys="J"
+            Icon={FiSearch}
+            onClick={handleSearchClick}
+            onChange={({ target }) => handleSearchChange(target.value)}
+          />
+        </div>
+        <Divider orientation="vertical" className="mx-4 h-[100]" />
+        <div className="flex items-center gap-4 w-[20%] p-4">
+          <p className="text-2xl font-bold text-gray-400">Filter</p>
+          <StyledDropdown
+            Trigger={
+              <Button
+                variant="solid"
+                color="secondary"
+                className="capitalize min-w-[150px]"
+                fullWidth
+              >
+                {selectedKeys}
+              </Button>
+            }
+            dropdownItems={languages}
+            handleSelect={handleSelect}
+            selectedKeys={selectedKeys}
+          />
+        </div>
+      </div>
+
+      {filteredReviews.map((review, index) => (
+        <Reviews key={index} {...review} />
+      ))}
+      <ConditionalRender
+        Component={
+          <Pagination
+            showControls
+            total={Math.ceil(allData.length / itemsPerPage)}
+            initialPage={1}
+            color="secondary"
+            page={currentPage}
+            onChange={setCurrentPage}
+          />
+        }
+        condition={allData.length > itemsPerPage}
+      />
+      <Divider className="my-4" />
+    </div>
+  );
 };
 
 function Reviews(props: ReviewProps) {
@@ -47,7 +183,7 @@ function Reviews(props: ReviewProps) {
   return (
     <>
       <Divider className="my-4" />
-      <Card className="p-6 rounded-lg shadow-md w-full">
+      <Card className="p-6 rounded-lg shadow-md w-full" shadow="sm">
         <div className="flex items-center justify-between space-x-4 pt-4">
           <Ratings noComment rating={rating} />
           <p className="text-gray-500">{date}</p>
@@ -87,52 +223,4 @@ function Reviews(props: ReviewProps) {
   );
 }
 
-const languages = [
-  { key: "english", label: "English" },
-  { key: "french", label: "French" },
-];
-
-export default function ReviewList() {
-  const [selectedKeys, setSelectedKeys] = useState<string>("english");
-
-  const handleSelect = (key: any) => {
-    setSelectedKeys(key);
-  };
-
-  return (
-    <div className="space-y-6 flex flex-col items-center">
-      <div className="flex w-[80%]">
-        <div className="w-[80%] p-4">
-          <StyledInput
-            placeholder="Search for a review"
-            iconStart
-            both
-            Icon={FiSearch}
-          />
-        </div>
-        <div className="w-[20%] p-4 ml-4">
-          <StyledDropdown
-            Trigger={
-              <Button
-                variant="solid"
-                color="secondary"
-                className="capitalize"
-                fullWidth
-              >
-                {selectedKeys}
-              </Button>
-            }
-            dropdownItems={languages}
-            handleSelect={handleSelect}
-            selectedKeys={selectedKeys}
-          />
-        </div>
-      </div>
-
-      {reviewData.map((review, index) => (
-        <Reviews key={index} {...review} />
-      ))}
-      <Pagination showControls total={10} initialPage={1} color="secondary" />
-    </div>
-  );
-}
+export default ReviewList;

@@ -50,7 +50,6 @@ export default function AddReview() {
 
   return (
     <>
-      <h3 className="text-3xl font-bold mb-4">What our customers say:</h3>
       <div className="flex justify-evenly lg:flex-row lg:w-full sm:flex-col sm:w-[90%]">
         <div className="flex flex-col flex-1 justify-center items-center w-full">
           <div className="flex flex-col gap-3 sm:mb-4 sm:items-center">

@@ -6,6 +6,7 @@ import StyledInput from "./StyledInput";
 import StyledTextarea from "./StyledTextarea";
 import StyledButton from "./StyledButton";
 import StyledFileUpload from "./StyledFileUpload";
+import { Divider } from "@nextui-org/react";
 
 type PROPS = {
   isReviewVisible: boolean;
@@ -36,7 +37,9 @@ export default function ReviewForm(props: PROPS) {
           isReviewVisible ? "opacity-100 visible" : "hidden opacity-0"
         }`}
       >
-        <h3 className="text-2xl font-bold">Write a review</h3>
+        <div className="w-full">
+          <h3 className="text-3xl font-bold mb-4">Write a review</h3>
+        </div>
         <p className="text-lg">Rating</p>
         <Ratings noComment size={4} initRating={5} isPressable />
         <div className="flex flex-col items-center gap-4 lg:w-[80%] md:w-[80%] sm:w-[90%]">
@@ -73,6 +76,7 @@ export default function ReviewForm(props: PROPS) {
             <StyledButton content="Submit Review" color="secondary" />
           </div>
         </div>
+        <Divider className="mt-6" />
       </div>
     </>
   );

@@ -38,6 +38,7 @@ export default function ImageGallery() {
               shadow="lg"
               width={300}
               height={300}
+              className="!h-[470px]"
             />
           </SwiperSlide>
         ))}
@@ -60,6 +61,7 @@ export default function ImageGallery() {
               shadow="lg"
               width={100}
               height={100}
+              className="!h-[80px]"
             />
           </SwiperSlide>
         ))}

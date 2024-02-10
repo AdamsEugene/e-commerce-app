@@ -36,7 +36,7 @@ const Offers: React.FC<OffersProps> = ({ data }) => {
 
 const ShippingOption: React.FC = () => {
   return (
-    <Card className="max-w-[100%]">
+    <Card className="max-w-[100%]" isHoverable shadow="sm">
       <CardBody>
         <Offers data={data} />
       </CardBody>

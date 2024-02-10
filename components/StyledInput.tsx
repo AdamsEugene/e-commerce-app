@@ -6,10 +6,11 @@ export type INPUT_PROPS = {
   Icon?: IconType;
   iconStart?: boolean;
   both?: boolean;
+  keys?: string;
 } & InputProps;
 
 export default function StyledInput(props: INPUT_PROPS) {
-  const { Icon, iconStart, both, ...others } = props;
+  const { Icon, iconStart, both, keys, ...others } = props;
 
   if (both && Icon) {
     return (
@@ -20,7 +21,7 @@ export default function StyledInput(props: INPUT_PROPS) {
         }}
         {...others}
         labelPlacement="outside"
-        endContent={<Kbd keys={["command"]}>K</Kbd>}
+        endContent={<Kbd keys={["command"]}>{keys || "K"}</Kbd>}
         startContent={
           <Icon className="text-lg text-default-400 pointer-events-none flex-shrink-0" />
         }

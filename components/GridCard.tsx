@@ -8,7 +8,12 @@ import StyledImage from "./StyledImage";
 import productList from "@/utils/productList";
 import { siteConfig } from "@/config/site";
 
-export default function GridCard() {
+type PROPS = {
+  numberOfItems?: number;
+};
+
+export default function GridCard(props: PROPS) {
+  const { numberOfItems = productList.length } = props;
   const router = useRouter();
 
   const navigateTo = (id: string) => {
@@ -16,7 +21,7 @@ export default function GridCard() {
   };
   return (
     <div className="flex flex-wrap justify-center gap-4">
-      {productList.map((item, index) => (
+      {productList.slice(0, numberOfItems).map((item, index) => (
         <Card
           shadow="sm"
           key={index}
