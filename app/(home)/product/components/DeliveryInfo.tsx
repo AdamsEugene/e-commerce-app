@@ -6,6 +6,11 @@ import generateData from "@/utils/generateDataForSelect";
 import { Checkbox, Select, SelectItem } from "@nextui-org/react";
 import React from "react";
 import { MdMail, MdOutlineSecurity } from "react-icons/md";
+import { IoPerson } from "react-icons/io5";
+import { FaPhone, FaRegFileZipper } from "react-icons/fa6";
+import { FaAddressCard, FaCity } from "react-icons/fa";
+import { TbBuildingEstate } from "react-icons/tb";
+import { TfiWorld } from "react-icons/tfi";
 
 const formData: INPUT_PROPS[] = [
   {
@@ -19,42 +24,42 @@ const formData: INPUT_PROPS[] = [
     label: "First name",
     placeholder: "",
     type: "text",
-    Icon: MdOutlineSecurity,
+    Icon: IoPerson,
     isRequired: true,
   },
   {
     label: "Last name",
     placeholder: "",
     type: "text",
-    Icon: MdOutlineSecurity,
+    Icon: IoPerson,
     isRequired: true,
   },
   {
     label: "Telephone",
     placeholder: "",
     type: "phone",
-    Icon: MdOutlineSecurity,
+    Icon: FaPhone,
     isRequired: true,
   },
   {
     label: "Delivery address",
     placeholder: "",
     type: "address",
-    Icon: MdOutlineSecurity,
+    Icon: FaAddressCard,
     isRequired: true,
   },
   {
     label: "Suburb/town",
     placeholder: "",
     type: "text",
-    Icon: MdOutlineSecurity,
+    Icon: FaCity,
     isRequired: true,
   },
   {
     label: "Postcode/ZIP Code",
     placeholder: "",
     type: "password",
-    Icon: MdOutlineSecurity,
+    Icon: FaRegFileZipper,
     isRequired: true,
   },
 ];
@@ -63,7 +68,7 @@ const formData2 = [
   {
     label: "State/territory",
     placeholder: "",
-    Icon: MdOutlineSecurity,
+    Icon: TbBuildingEstate,
     isRequired: true,
     children: [],
     data: generateData(9),
@@ -71,7 +76,7 @@ const formData2 = [
   {
     label: "Country",
     placeholder: "",
-    Icon: MdOutlineSecurity,
+    Icon: TfiWorld,
     isRequired: true,
     children: [],
     data: generateData(20),

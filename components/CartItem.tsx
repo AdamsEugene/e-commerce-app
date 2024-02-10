@@ -88,15 +88,10 @@ const CartItem: React.FC<{
           </div>
         </div>
         <div className="flex flex-col justify-between">
-          <Button
-            isIconOnly
-            color="default"
-            size="sm"
+          <IoCloseSharp
+            className="text-1xl text-gray-500"
             onClick={() => removeItem(item.key)}
-            className="p-2 rounded-full"
-          >
-            <IoCloseSharp className="text-5xl" />
-          </Button>
+          />
           <p className="text-base font-semibold ml-auto">${item.amount}</p>
         </div>
       </div>
