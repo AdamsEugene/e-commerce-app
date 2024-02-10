@@ -14,7 +14,7 @@ export default function RootLayout({ children }: PROPS["children"]) {
   return (
     <>
       <Navbar />
-      <main className="w-full mx-auto flex-grow">{children}</main>
+      <main className="w-full mx-auto">{children}</main>
     </>
   );
 }

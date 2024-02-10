@@ -1,16 +1,13 @@
 "use client";
 
-import CountrySelect from "@/components/CountrySelect";
-import StyledInput, { INPUT_PROPS } from "@/components/StyledInput";
-import generateData from "@/utils/generateDataForSelect";
-import { Checkbox, Select, SelectItem } from "@nextui-org/react";
 import React from "react";
-import { MdMail, MdOutlineSecurity } from "react-icons/md";
+import { MdMail } from "react-icons/md";
 import { IoPerson } from "react-icons/io5";
 import { FaPhone, FaRegFileZipper } from "react-icons/fa6";
 import { FaAddressCard, FaCity } from "react-icons/fa";
-import { TbBuildingEstate } from "react-icons/tb";
-import { TfiWorld } from "react-icons/tfi";
+import { Checkbox } from "@nextui-org/react";
+import SelectWithIcon, { SELECT_ICON_PROPS } from "@/components/SelectWithIcon";
+import StyledInput, { INPUT_PROPS } from "@/components/StyledInput";
 
 const formData: INPUT_PROPS[] = [
   {
@@ -64,24 +61,45 @@ const formData: INPUT_PROPS[] = [
   },
 ];
 
-const formData2 = [
-  {
-    label: "State/territory",
-    placeholder: "",
-    Icon: TbBuildingEstate,
-    isRequired: true,
-    children: [],
-    data: generateData(9),
-  },
-  {
-    label: "Country",
-    placeholder: "",
-    Icon: TfiWorld,
-    isRequired: true,
-    children: [],
-    data: generateData(20),
-  },
-];
+const stateData: SELECT_ICON_PROPS = {
+  label: "State/territory",
+  isRequired: true,
+  data: [
+    { key: "argentina", src: "https://flagcdn.com/ar.svg", name: "Argentina" },
+    { key: "venezuela", src: "https://flagcdn.com/ve.svg", name: "Venezuela" },
+    { key: "brazil", src: "https://flagcdn.com/br.svg", name: "Brazil" },
+    {
+      key: "switzerland",
+      src: "https://flagcdn.com/ch.svg",
+      name: "Switzerland",
+    },
+    { key: "germany", src: "https://flagcdn.com/de.svg", name: "Germany" },
+    { key: "spain", src: "https://flagcdn.com/es.svg", name: "Spain" },
+    { key: "france", src: "https://flagcdn.com/fr.svg", name: "France" },
+    { key: "italy", src: "https://flagcdn.com/it.svg", name: "Italy" },
+    { key: "mexico", src: "https://flagcdn.com/mx.svg", name: "Mexico" },
+  ],
+};
+
+const countryData: SELECT_ICON_PROPS = {
+  label: "Country",
+  isRequired: true,
+  data: [
+    { key: "argentina", src: "https://flagcdn.com/ar.svg", name: "Argentina" },
+    { key: "venezuela", src: "https://flagcdn.com/ve.svg", name: "Venezuela" },
+    { key: "brazil", src: "https://flagcdn.com/br.svg", name: "Brazil" },
+    {
+      key: "switzerland",
+      src: "https://flagcdn.com/ch.svg",
+      name: "Switzerland",
+    },
+    { key: "germany", src: "https://flagcdn.com/de.svg", name: "Germany" },
+    { key: "spain", src: "https://flagcdn.com/es.svg", name: "Spain" },
+    { key: "france", src: "https://flagcdn.com/fr.svg", name: "France" },
+    { key: "italy", src: "https://flagcdn.com/it.svg", name: "Italy" },
+    { key: "mexico", src: "https://flagcdn.com/mx.svg", name: "Mexico" },
+  ],
+};
 
 export default function DeliveryInfo() {
   return (
@@ -89,9 +107,11 @@ export default function DeliveryInfo() {
       {formData.map((data) => (
         <StyledInput key={data.label as string} {...data} iconStart />
       ))}
-      <CountrySelect />
-      <CountrySelect />
-      <Checkbox defaultSelected color="secondary">Same billing address</Checkbox>
+      <SelectWithIcon {...stateData} />
+      <SelectWithIcon {...countryData} />
+      <Checkbox defaultSelected color="secondary">
+        Same billing address
+      </Checkbox>
     </div>
   );
 }

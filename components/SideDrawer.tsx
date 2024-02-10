@@ -1,11 +1,6 @@
 "use client";
 
-import React, {
-  PropsWithChildren,
-  useState,
-  useEffect,
-  useRef,
-} from "react";
+import React, { PropsWithChildren, useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import {
@@ -56,7 +51,6 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
       }
     };
   }, [isMouseOver, isOpen, toggleDrawer]);
-
 
   return (
     <>
@@ -138,7 +132,7 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
                   <Divider />
                   <StyledButton
                     as={Link}
-                    href={`${params.product_id}/buy-now`}
+                    href={`/checkout`}
                     className="w-full"
                     content="GO TO CHECKOUT"
                     color="secondary"

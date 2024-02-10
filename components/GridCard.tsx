@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
-import { useRouter } from "next/navigation";
 import { Card, CardBody, CardFooter } from "@nextui-org/react";
 
 import StyledImage from "./StyledImage";
 import productList from "@/utils/productList";
 import { siteConfig } from "@/config/site";
+import Link from "next/link";
 
 type PROPS = {
   numberOfItems?: number;
@@ -14,19 +14,19 @@ type PROPS = {
 
 export default function GridCard(props: PROPS) {
   const { numberOfItems = productList.length } = props;
-  const router = useRouter();
 
-  const navigateTo = (id: string) => {
-    router.push(`${siteConfig.pages.product}/${id}`, { scroll: true });
-  };
+  const navigateTo = (id: string) => {};
+
   return (
     <div className="flex flex-wrap justify-center gap-4">
       {productList.slice(0, numberOfItems).map((item, index) => (
         <Card
           shadow="sm"
+          as={Link}
+          href={`${siteConfig.pages.product}/${item.productId}`}
           key={index}
           isPressable
-          onPress={() => navigateTo(item.productId)}
+          // onPress={() => navigateTo(item.productId)}
           // className="w-1/6"
         >
           <CardBody className="overflow-visible p-0">
