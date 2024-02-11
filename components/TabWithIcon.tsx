@@ -63,7 +63,13 @@ const providers: SELECT_ICON_PROPS = {
 export default function TabWithIcon() {
   return (
     <div className="flex w-full flex-col">
-      <Tabs aria-label="Options" color="secondary" variant="light" fullWidth>
+      <Tabs
+        aria-label="Options"
+        color="secondary"
+        variant="light"
+        fullWidth
+        defaultSelectedKey={"momo"}
+      >
         <Tab
           key="card"
           title={

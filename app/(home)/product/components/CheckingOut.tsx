@@ -1,30 +1,14 @@
 "use client";
 
-import { Metadata } from "next/types";
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  Divider,
-  ModalBody,
-  ModalContent,
-  useDisclosure,
-} from "@nextui-org/react";
+import { Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
 
 import "../../../(home)/home.css";
 import ItemsInCarts from "./ItemsInCarts";
 import DeliveryInfo from "./DeliveryInfo";
 import PaymentMethod from "./PaymentMethod";
 import OrderSummary from "./OrderSummary";
-import StyledModal from "@/components/StyledModal";
-
-export const metadata: Metadata = {
-  title: "Products Name",
-};
 
 export default function CheckingOut() {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
   return (
     <div className="main flex gap-5 w-full pt-4">
       <div className="w-full">

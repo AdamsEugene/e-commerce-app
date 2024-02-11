@@ -51,8 +51,8 @@ export default function ItemsInCarts(props: PROPS) {
               Component={
                 <div className="flex flex-col gap-2">
                   <div className="flex justify-between">
-                    <p className="text-lg font-bold">SUBTOTAL</p>
-                    <p className="text-lg font-bold">$1,399USD</p>
+                    <p className="text-lg font-bold text-gray-500">SUBTOTAL</p>
+                    <p className="text-lg font-bold text-gray-500">$1,399USD</p>
                   </div>
                   <PurchaseType {...plan} />
                 </div>

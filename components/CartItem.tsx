@@ -55,7 +55,9 @@ const CartItem: React.FC<{
           height={70}
         />
         <div className="flex flex-grow flex-col gap-2">
-          <p className="text-base font-semibold">{item.itemName}</p>
+          <p className="text-base font-semibold text-gray-500">
+            {item.itemName}
+          </p>
           <div className="flex gap-2 items-center">
             <p className="text-sm text-gray-500 w-12">Color: </p>
             <p className="text-sm text-gray-300">Color: {item.color}</p>
@@ -92,7 +94,9 @@ const CartItem: React.FC<{
             className="text-1xl text-gray-500"
             onClick={() => removeItem(item.key)}
           />
-          <p className="text-base font-semibold ml-auto">${item.amount}</p>
+          <p className="text-base font-semibold ml-auto text-gray-500">
+            ${item.amount}
+          </p>
         </div>
       </div>
       <Divider className="my-4" />
