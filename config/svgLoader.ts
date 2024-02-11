@@ -1,7 +1,7 @@
-import loading from "./loading.svg";
-
 const svg_s = {
-  loading,
+  mtn: "/assets/svgs/mtn.svg",
+  airtel: "/assets/svgs/airtel.svg",
+  vodafone: "/assets/svgs/vodafone.svg",
 };
 
 const svgLoader = (name: string) => {

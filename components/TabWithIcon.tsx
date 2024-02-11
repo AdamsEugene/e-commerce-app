@@ -9,6 +9,7 @@ import { GoCrossReference } from "react-icons/go";
 import StyledInput, { INPUT_PROPS } from "./StyledInput";
 import StyledButton from "./StyledButton";
 import SelectWithIcon, { SELECT_ICON_PROPS } from "./SelectWithIcon";
+import svgLoader from "@/config/svgLoader";
 
 const formData: INPUT_PROPS[] = [
   {
@@ -49,11 +50,11 @@ const providers: SELECT_ICON_PROPS = {
   label: "Provide",
   isRequired: true,
   data: [
-    { key: "mtn", src: "https://flagcdn.com/ar.svg", name: "MTN" },
-    { key: "vodafone", src: "https://flagcdn.com/ve.svg", name: "Vodafone" },
+    { key: "mtn", src: svgLoader("mtn"), name: "MTN" },
+    { key: "vodafone", src: svgLoader("vodafone"), name: "Vodafone" },
     {
       key: "airtel/tigo",
-      src: "https://flagcdn.com/br.svg",
+      src: svgLoader("airtel"),
       name: "Airtel/Tigo",
     },
   ],

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   CardFooter,
   CardHeader,
@@ -11,12 +11,15 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import { MdErrorOutline } from "react-icons/md";
+import { motion, useMotionValue } from "framer-motion";
 
 import Loading from "@/components/Loading";
 import StyledButton from "@/components/StyledButton";
 import StyledModal from "@/components/StyledModal";
 import formatCurrency from "@/utils/formatCurrency";
 import generateOrderSummaryData from "@/utils/orderSummary";
+import CircularProgress from "@/components/CircularProgress";
+import TrackingDelivery from "./TrackingDelivery";
 
 type SUMMARY_DATA = {
   name: string;
@@ -32,8 +35,19 @@ const summaryData: SUMMARY_DATA[] = [
 ];
 
 export default function OrderSummary() {
+  const [status, setStatus] = useState<"pending" | "error" | "success">(
+    "success"
+  );
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
+  // Renamed
+  const {
+    isOpen: newIsOpen,
+    onOpen: newOnOpen,
+    onOpenChange: newOnOpenChange,
+  } = useDisclosure();
+
+  const progress = useMotionValue(90);
   const orderSummaryData = generateOrderSummaryData(4);
 
   return (
@@ -102,31 +116,81 @@ export default function OrderSummary() {
         <ModalContent>
           {(onClose) => (
             <ModalBody>
-              <CardHeader></CardHeader>
-              <div className="flex flex-col gap-4">
+              <CardHeader>
+                <p className="text-2xl text-gray-600">Wait a minute</p>
+              </CardHeader>
+              <Divider />
+              <div className="flex flex-col gap-8 mt-2">
                 <ul className="flex flex-col gap-4">
                   {summaryData.map((item) => (
                     <li
                       key={item.name}
                       className="flex justify-between items-center"
                     >
-                      <p className="text-2xl text-gray-600">{item.name}</p>
+                      <p className="text-xl text-gray-600">{item.name}</p>
                       {item.status === "pending" ? (
                         <Loading size="sm" color="secondary" className="mr-2" />
                       ) : item.status === "success" ? (
-                        <Checkbox defaultSelected color="secondary" />
+                        <Checkbox defaultSelected color="secondary" size="lg" />
                       ) : (
                         <Checkbox
                           defaultSelected
                           color="danger"
                           icon={<MdErrorOutline />}
+                          size="lg"
                         />
                       )}
                       <></>
                     </li>
                   ))}
                 </ul>
+                <Divider />
+                <div className="flex flex-col justify-center items-center w-full gap-4">
+                  <motion.div
+                    initial={{ x: 0 }}
+                    animate={{ x: 100 }}
+                    style={{ x: progress }}
+                    transition={{ duration: 4 }}
+                  />
+                  <CircularProgress progress={progress} path="success" />
+                  {status === "error" ? (
+                    <p className="text-xl text-red-400">Transaction failed</p>
+                  ) : (
+                    <>
+                      <p className="text-xl text-green-400">
+                        Transaction completed
+                      </p>
+                      <StyledButton
+                        content="Track your delivery"
+                        onClick={newOnOpen}
+                      />
+                    </>
+                  )}
+                  {/* <CancelProgress /> */}
+                </div>
               </div>
+              <CardFooter></CardFooter>
+            </ModalBody>
+          )}
+        </ModalContent>
+      </StyledModal>
+      <StyledModal
+        isOpen={newIsOpen}
+        onOpenChange={newOnOpenChange}
+        placement="top"
+        backdrop="blur"
+        size="2xl"
+        className="search_result"
+        scrollBehavior="inside"
+      >
+        <ModalContent>
+          {(onClose) => (
+            <ModalBody>
+              <CardHeader>
+                <p className="text-2xl text-gray-600">Tracking your delivery</p>
+              </CardHeader>
+              <Divider />
+              <TrackingDelivery />
               <CardFooter></CardFooter>
             </ModalBody>
           )}
