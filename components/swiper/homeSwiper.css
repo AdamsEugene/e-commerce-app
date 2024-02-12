@@ -2,6 +2,18 @@
   width: 100%;
   height: 100%;
 }
+.homeSwiper .swiper-wrapper {
+  border-radius: 0 !important;
+}
+
+.homeSwiper.swiper-slide {
+  border-radius: 0 !important;
+  background-color: red;
+}
+
+.homeSwiper .rounded-large {
+  border-radius: 0 !important;
+}
 
 .swiper-slide {
   background-position: center;

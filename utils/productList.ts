@@ -1,6 +1,13 @@
 import imageByIndex from "./imageByIndex";
 
-const productList = [
+export type PRODUCTS = {
+  productId: string;
+  title: string;
+  img: any;
+  price: string;
+};
+
+const productList: PRODUCTS[] = [
   { productId: "1", title: "Orange", img: imageByIndex(6), price: "$5.50" },
   { productId: "2", title: "Tangerine", img: imageByIndex(7), price: "$3.00" },
   { productId: "3", title: "Raspberry", img: imageByIndex(8), price: "$10.00" },

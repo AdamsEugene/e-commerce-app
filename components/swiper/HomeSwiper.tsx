@@ -11,13 +11,13 @@ import "swiper/css/pagination";
 import "./homeSwiper.css";
 
 // import required modules
-import { EffectFade, Navigation, Pagination } from "swiper/modules";
+import { EffectFade, Navigation, Pagination, Autoplay } from "swiper/modules";
 import StyledImage from "../StyledImage";
 import imageByIndex from "@/utils/imageByIndex";
 
 export default function HomeSwiper() {
   return (
-    <>
+    <div className="flex h-[31.25rem]">
       <Swiper
         spaceBetween={30}
         effect={"fade"}
@@ -25,7 +25,40 @@ export default function HomeSwiper() {
         pagination={{
           clickable: true,
         }}
-        modules={[EffectFade, Navigation, Pagination]}
+        autoplay={{
+          delay: 10000,
+          disableOnInteraction: false,
+        }}
+        loop={true}
+        modules={[EffectFade, Navigation, Pagination, Autoplay]}
+        className="homeSwiper"
+      >
+        <SwiperSlide>
+          <StyledImage width={200} height={200} src={imageByIndex(8)} />
+        </SwiperSlide>
+        <SwiperSlide>
+          <StyledImage width={200} height={200} src={imageByIndex(23)} />
+        </SwiperSlide>
+        <SwiperSlide>
+          <StyledImage width={200} height={200} src={imageByIndex(12)} />
+        </SwiperSlide>
+        <SwiperSlide>
+          <StyledImage width={200} height={200} src={imageByIndex(316)} />
+        </SwiperSlide>
+      </Swiper>
+      <Swiper
+        spaceBetween={30}
+        effect={"fade"}
+        navigation={true}
+        pagination={{
+          clickable: true,
+        }}
+        autoplay={{
+          delay: 10050,
+          disableOnInteraction: false,
+        }}
+        loop={true}
+        modules={[EffectFade, Navigation, Pagination, Autoplay]}
         className="homeSwiper"
       >
         <SwiperSlide>
@@ -41,6 +74,6 @@ export default function HomeSwiper() {
           <StyledImage width={200} height={200} src={imageByIndex(9)} />
         </SwiperSlide>
       </Swiper>
-    </>
+    </div>
   );
 }
