@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import CartItem from "@/components/CartItem";
 import cartItems, { ItemsInCart } from "@/utils/cartItem";
 import ConditionalRenderAB from "@/components/ConditionalRenderAB";
 import StyledImage from "@/components/StyledImage";
 import PurchaseType from "@/components/PurchaseType";
 import ConditionalRender from "@/components/ConditionalRender";
+import TabsForCartItems from "@/components/TabsForCartItems";
 
 type PROPS = {
   buyNow?: boolean;
@@ -33,9 +33,7 @@ export default function ItemsInCarts(props: PROPS) {
   const { buyNow = false } = props;
   const [allItems, setAllItems] = useState<ItemsInCart[]>(cartItems);
 
-  const removeItem = (id: string) => {
-    setAllItems((p) => p.filter((item) => item.key !== id));
-  };
+
 
   return (
     <div className="w-full">
@@ -43,9 +41,7 @@ export default function ItemsInCarts(props: PROPS) {
         condition={allItems.length > 0}
         ComponentA={
           <>
-            {allItems.map((item) => (
-              <CartItem key={item.key} item={item} removeItem={removeItem} />
-            ))}
+            <TabsForCartItems />
             <ConditionalRender
               condition={buyNow}
               Component={

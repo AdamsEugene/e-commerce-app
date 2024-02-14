@@ -58,7 +58,7 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
         open={isOpen}
         onClose={() => toggleDrawer(false)}
         direction="right"
-        lockBackgroundScroll
+        // lockBackgroundScroll
         size={450}
         className="!h-[100vh] rounded-sm"
       >

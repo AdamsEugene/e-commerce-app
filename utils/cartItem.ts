@@ -19,7 +19,7 @@ const generateRandomItem = (): ItemsInCart => ({
   itemName: `Item ${generateRandomString()}`,
   color: `Color ${generateRandomString()}`,
   size: Math.floor(Math.random() * 10) + 1,
-  amount: Math.floor(Math.random() * 5) + 1,
+  amount: Math.floor(Math.random() * 100) + 1,
   image: imageByIndex(randomIntFromInterval()),
 });
 

@@ -1,9 +1,11 @@
-import { Button } from "@nextui-org/button";
-import StyledDropdown from "./Dropdown";
-import { IoCloseSharp } from "react-icons/io5";
-import { Divider } from "@nextui-org/react";
-import StyledImage from "./StyledImage";
 import { useState } from "react";
+import { Button } from "@nextui-org/button";
+import { Divider } from "@nextui-org/react";
+import { IoCloseSharp } from "react-icons/io5";
+import { FiMoreHorizontal } from "react-icons/fi";
+
+import StyledDropdown from "./Dropdown";
+import StyledImage from "./StyledImage";
 
 type Quantity = {
   key: string;
@@ -18,6 +20,12 @@ type ItemsInCart = {
   image: string;
   key: string;
 };
+
+const options = [
+  { key: "default", label: "Move to default" },
+  { key: "leasing", label: "Move to leasing" },
+  { key: "rent", label: "Move to rent" },
+];
 
 const generateQuantity = (count: number): Quantity[] => {
   const quantity: Quantity[] = [];
@@ -35,6 +43,11 @@ const CartItem: React.FC<{
 }> = ({ item, removeItem }) => {
   const [selectedQuantity, setSelectedQuantity] = useState("3");
   const [selectedSize, setSelectedSize] = useState(String(item.size));
+  const [selectedKeys, setSelectedKeys] = useState("");
+
+  const handleSelect = (key: any) => {
+    setSelectedKeys(key);
+  };
 
   const handleSelectQuantity = (key: any) => {
     setSelectedQuantity(key);
@@ -46,7 +59,7 @@ const CartItem: React.FC<{
 
   return (
     <>
-      <div className="flex mb-4 gap-2">
+      <div className="flex mb-4 gap-4">
         <StyledImage
           src={item.image}
           alt={item.itemName}
@@ -60,7 +73,7 @@ const CartItem: React.FC<{
           </p>
           <div className="flex gap-2 items-center">
             <p className="text-sm text-gray-500 w-12">Color: </p>
-            <p className="text-sm text-gray-300">Color: {item.color}</p>
+            <p className="text-sm text-gray-500">Color: {item.color}</p>
           </div>
           <div className="flex gap-2 items-center">
             <p className="text-sm text-gray-500 w-12">Size: </p>
@@ -89,11 +102,36 @@ const CartItem: React.FC<{
             />
           </div>
         </div>
-        <div className="flex flex-col justify-between">
-          <IoCloseSharp
-            className="text-1xl text-gray-500"
+        <div className="flex flex-col justify-between items-end">
+          <Button
+            isIconOnly
+            color="warning"
+            aria-label="Like"
+            radius="full"
+            variant="light"
+            size="sm"
             onClick={() => removeItem(item.key)}
+          >
+            <IoCloseSharp className="text-1xl text-gray-500" />
+          </Button>
+          <StyledDropdown
+            Trigger={
+              <Button
+                isIconOnly
+                color="default"
+                aria-label="Like"
+                radius="full"
+                variant="light"
+                size="sm"
+              >
+                <FiMoreHorizontal />
+              </Button>
+            }
+            dropdownItems={options}
+            handleSelect={handleSelect}
+            selectedKeys={selectedKeys}
           />
+
           <p className="text-base font-semibold ml-auto text-gray-500">
             ${item.amount}
           </p>
