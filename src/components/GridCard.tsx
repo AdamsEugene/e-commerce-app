@@ -28,34 +28,34 @@ export default function GridCard(props: PROPS) {
           key={i}
           className="flex flex-col justify-center items-center gap-8"
         > */}
-          <div className="flex flex-wrap justify-center gap-4">
-            {productList.map((item, index) => (
-              <Card
+      <div className="flex flex-wrap justify-center gap-4">
+        {productList.map((item, index) => (
+          <Card
+            shadow="sm"
+            as={Link}
+            href={`${siteConfig.pages.product}/${item.productId}`}
+            key={index}
+            isPressable
+          >
+            <CardBody className="overflow-visible p-0">
+              <StyledImage
                 shadow="sm"
-                as={Link}
-                href={`${siteConfig.pages.product}/${item.productId}`}
-                key={index}
-                isPressable
-              >
-                <CardBody className="overflow-visible p-0">
-                  <StyledImage
-                    shadow="sm"
-                    radius="lg"
-                    width={300}
-                    height={300}
-                    alt={item.title}
-                    className="object-cover product_image"
-                    src={item.img}
-                  />
-                </CardBody>
-                <CardFooter className="text-small justify-between">
-                  <b>{item.title}</b>
-                  <p className="text-default-500">{item.price}</p>
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
-          {/* {i % 2 !== 0 && i !== products.length - 1 && <Advertisement />}
+                radius="lg"
+                width={300}
+                height={300}
+                alt={item.title}
+                className="object-cover product_image"
+                src={item.img}
+              />
+            </CardBody>
+            <CardFooter className="text-small justify-between">
+              <b>{item.title}</b>
+              <p className="text-default-500">{item.price}</p>
+            </CardFooter>
+          </Card>
+        ))}
+      </div>
+      {/* {i % 2 !== 0 && i !== products.length - 1 && <Advertisement />}
         </div>
       ))} */}
     </div>

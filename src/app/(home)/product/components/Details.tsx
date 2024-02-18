@@ -12,6 +12,7 @@ import PlansComponent from "@/src/components/PlansComponent";
 import StyledButtonGroup from "@/src/components/button/StyledButtonGroup";
 import ShippingOption from "@/src/components/ShippingOption";
 import SideDrawer from "@/src/components/SideDrawer";
+import { useAppStore } from "@/src/providers/AppStoreProvider";
 
 const plan = {
   label: "Plans",
@@ -34,7 +35,8 @@ const plan = {
 export default function Details() {
   const [quantity, setQuantity] = useState(1);
   const [value, setValue] = useState(0);
-  const [isOpen, setIsOpen] = React.useState(false);
+
+  const toggleDrawer = useAppStore((state) => state.toggleDrawer);
 
   const params = useParams();
 
@@ -71,10 +73,6 @@ export default function Details() {
       onClick: (state?: boolean) => toggleDrawer(Boolean(state)),
     },
   ];
-
-  const toggleDrawer = (state: boolean) => {
-    setIsOpen(state);
-  };
 
   return (
     <div className="w-full mx-auto p-6 flex flex-col gap-4">
@@ -114,7 +112,7 @@ export default function Details() {
       </div>
       <Divider className="my-4" />
       <ShippingOption />
-      <SideDrawer isOpen={isOpen} toggleDrawer={toggleDrawer} />
+      <SideDrawer />
     </div>
   );
 }

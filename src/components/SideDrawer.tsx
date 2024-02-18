@@ -2,7 +2,6 @@
 
 import React, { PropsWithChildren, useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
 import {
   Card,
   CardHeader,
@@ -22,24 +21,23 @@ import StyledButton from "./StyledButton";
 import ConditionalRender from "./ConditionalRender";
 import cartItems, { ItemsInCart } from "@/src/utils/cartItem";
 import ItemsInCarts from "@/src/app/(home)/product/components/ItemsInCarts";
+import { useAppStore } from "../providers/AppStoreProvider";
 
-type PROPS = {
-  isOpen: boolean;
-  toggleDrawer: (state: boolean) => void;
-};
+type PROPS = {};
 
 const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
-  const { isOpen, toggleDrawer, children } = props;
   const [isMouseOver, setIsMouseOver] = useState(false);
   const [allItems, setAllItems] = useState<ItemsInCart[]>(cartItems);
 
-  const params = useParams();
+  const isDrawerOpen = useAppStore((state) => state.isDrawerOpen);
+  const toggleDrawer = useAppStore((state) => state.toggleDrawer);
+  const itemsInCart = useAppStore((state) => state.itemsInCart);
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     // Close the drawer with a delay when the mouse leaves the CardBody
-    if (!isMouseOver && isOpen) {
+    if (!isMouseOver && isDrawerOpen) {
       timerRef.current = setTimeout(() => {
         toggleDrawer(false);
       }, 2000);
@@ -50,12 +48,12 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
         clearTimeout(timerRef.current);
       }
     };
-  }, [isMouseOver, isOpen, toggleDrawer]);
+  }, [isMouseOver, isDrawerOpen, toggleDrawer]);
 
   return (
     <>
       <Drawer
-        open={isOpen}
+        open={isDrawerOpen}
         onClose={() => toggleDrawer(false)}
         direction="right"
         // lockBackgroundScroll
@@ -77,8 +75,8 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
               <div className="flex flex-col justify-center items-center w-full">
                 <Badge
                   color="secondary"
-                  content={allItems.length}
-                  isInvisible={allItems.length === 0}
+                  content={itemsInCart}
+                  isInvisible={!Boolean(itemsInCart)}
                   shape="circle"
                 >
                   <GiShoppingCart className="text-5xl text-gray-700 mb-2" />
