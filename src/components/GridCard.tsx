@@ -4,7 +4,7 @@ import React from "react";
 import { Card, CardBody, CardFooter } from "@nextui-org/react";
 
 import StyledImage from "./StyledImage";
-import productList, { PRODUCTS } from "@/src/utils/productList";
+import productList from "@/src/utils/productList";
 import { siteConfig } from "@/src/config/site";
 import Link from "next/link";
 import useResizeListener from "@/src/hooks/useResizeListener";
@@ -23,13 +23,13 @@ export default function GridCard(props: PROPS) {
       ref={ref}
       className="container flex flex-col justify-center items-center gap-4"
     >
-      {products.map((product, i) => (
+      {/* {products.map((product, i) => (
         <div
           key={i}
           className="flex flex-col justify-center items-center gap-8"
-        >
+        > */}
           <div className="flex flex-wrap justify-center gap-4">
-            {product.map((item, index) => (
+            {productList.map((item, index) => (
               <Card
                 shadow="sm"
                 as={Link}
@@ -55,9 +55,9 @@ export default function GridCard(props: PROPS) {
               </Card>
             ))}
           </div>
-          {i % 2 !== 0 && i !== products.length - 1 && <Advertisement />}
+          {/* {i % 2 !== 0 && i !== products.length - 1 && <Advertisement />}
         </div>
-      ))}
+      ))} */}
     </div>
   );
 }

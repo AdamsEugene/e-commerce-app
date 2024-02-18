@@ -25,6 +25,7 @@ const options = [
   { key: "default", label: "Move to default" },
   { key: "leasing", label: "Move to leasing" },
   { key: "rent", label: "Move to rent" },
+  { key: "buy_later", label: "Buy later" },
 ];
 
 const generateQuantity = (count: number): Quantity[] => {
