@@ -19,7 +19,6 @@ import StyledImage from "./StyledImage";
 import ConditionalRenderAB from "./ConditionalRenderAB";
 import StyledButton from "./StyledButton";
 import ConditionalRender from "./ConditionalRender";
-import cartItems, { ItemsInCart } from "@/src/utils/cartItem";
 import ItemsInCarts from "@/src/app/(home)/product/components/ItemsInCarts";
 import { useAppStore } from "../providers/AppStoreProvider";
 
@@ -27,17 +26,16 @@ type PROPS = {};
 
 const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
   const [isMouseOver, setIsMouseOver] = useState(false);
-  const [allItems, setAllItems] = useState<ItemsInCart[]>(cartItems);
 
   const isDrawerOpen = useAppStore((state) => state.isDrawerOpen);
   const toggleDrawer = useAppStore((state) => state.toggleDrawer);
   const itemsInCart = useAppStore((state) => state.itemsInCart);
+  const inCart = useAppStore((state) => state.inCart);
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    // Close the drawer with a delay when the mouse leaves the CardBody
-    if (!isMouseOver && isDrawerOpen) {
+    if (isMouseOver && isDrawerOpen) {
       timerRef.current = setTimeout(() => {
         toggleDrawer(false);
       }, 2000);
@@ -48,7 +46,12 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
         clearTimeout(timerRef.current);
       }
     };
-  }, [isMouseOver, isDrawerOpen, toggleDrawer]);
+  }, [isDrawerOpen, isMouseOver, toggleDrawer]);
+
+  const isDataInCart =
+    inCart["default"].length > 0 ||
+    inCart["lessing"].length > 0 ||
+    inCart["rent"].length > 0;
 
   return (
     <>
@@ -56,21 +59,24 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
         open={isDrawerOpen}
         onClose={() => toggleDrawer(false)}
         direction="right"
-        // lockBackgroundScroll
+        lockBackgroundScroll={!isDrawerOpen}
         size={450}
         className="!h-[100vh] rounded-sm"
       >
-        <Card className="h-[100vh]" radius="none">
-          <CardBody
-            className="side-drawer-content flex flex-col items-center p-4 !h-[100vh]"
-            onMouseEnter={() => {
-              setIsMouseOver(true);
-              if (timerRef.current) {
-                clearTimeout(timerRef.current);
-              }
-            }}
-            onMouseLeave={() => setIsMouseOver(false)}
-          >
+        <Card
+          className="h-[100vh]"
+          radius="none"
+          onMouseEnter={() => {
+            setIsMouseOver(false);
+            if (timerRef.current) {
+              clearTimeout(timerRef.current);
+            }
+          }}
+          onMouseLeave={() => {
+            setIsMouseOver(true);
+          }}
+        >
+          <CardBody className="side-drawer-content flex flex-col items-center p-4 !h-[100vh]">
             <CardHeader className="w-full flex justify-between items-center mb-4">
               <div className="flex flex-col justify-center items-center w-full">
                 <Badge
@@ -93,7 +99,7 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
             <Divider />
             <CardBody>
               <ConditionalRenderAB
-                condition={allItems.length > 0}
+                condition={isDataInCart}
                 ComponentA={
                   <div className="h-[calc(100vh-286px)]">
                     <ItemsInCarts />
@@ -120,7 +126,7 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
             </CardBody>
             <Divider />
             <ConditionalRender
-              condition={allItems.length > 0}
+              condition={isDataInCart}
               Component={
                 <CardFooter className="flex flex-col w-full gap-4 items-center bottom-0 z-10">
                   <div className="flex justify-between w-full">

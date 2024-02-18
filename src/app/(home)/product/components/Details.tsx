@@ -37,6 +37,7 @@ export default function Details() {
   const [value, setValue] = useState(0);
 
   const toggleDrawer = useAppStore((state) => state.toggleDrawer);
+  const addToCart = useAppStore((state) => state.addToCart);
 
   const params = useParams();
 
@@ -66,11 +67,14 @@ export default function Details() {
     { name: "+", onClick: () => setQuantity((p) => p + 1) },
   ];
 
-  const addToCart = [
+  const _addToCart = [
     { name: "$27.99" },
     {
       name: "ADD TO CART",
-      onClick: (state?: boolean) => toggleDrawer(Boolean(state)),
+      onClick: (state?: boolean) => {
+        addToCart("default", params.product_id as string);
+        toggleDrawer(Boolean(state));
+      },
     },
   ];
 
@@ -100,7 +104,7 @@ export default function Details() {
       <Divider className="my-4" />
       <div className="flex gap-6">
         <StyledButtonGroup data={quantityData} />
-        <StyledButtonGroup data={addToCart} color="secondary" />
+        <StyledButtonGroup data={_addToCart} color="secondary" />
         <StyledButton
           as={Link}
           href={`${params.product_id}/buy-now`}

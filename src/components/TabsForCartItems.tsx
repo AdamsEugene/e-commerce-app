@@ -1,18 +1,29 @@
 // "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Tabs, Tab } from "@nextui-org/react";
 import cartItems, { ItemsInCart } from "@/src/utils/cartItem";
 import CartItem from "./CartItem";
 import StyledImage from "./StyledImage";
 import ConditionalRenderAB from "./ConditionalRenderAB";
+import { useAppStore } from "../providers/AppStoreProvider";
+import { ProductState } from "../store/productSlice";
 
-const TabsForCartItems: React.FC<{}> = () => {
+const TabsForCartItems: React.FC = () => {
   const [allItems, setAllItems] = useState<ItemsInCart[]>(cartItems);
+  const inCart = useAppStore((state) => state.inCart);
 
   const removeItem = (id: string) => {
-    setAllItems((p) => p.filter((item) => item.key !== id));
+    setAllItems((prevItems) =>
+      prevItems.filter((item) => item.productId !== id)
+    );
   };
+
+  const getItemsByCartType = (cartType: keyof ProductState["inCart"]) =>
+    allItems.filter((item) => inCart[cartType].includes(item.productId));
+
+  const isCartEmpty = (cartType: keyof ProductState["inCart"]) =>
+    getItemsByCartType(cartType).length === 0;
 
   return (
     <div className="flex w-full flex-col gap-3">
@@ -23,57 +34,32 @@ const TabsForCartItems: React.FC<{}> = () => {
         fullWidth
         defaultSelectedKey={"default"}
       >
-        <Tab key="default" title="Default (8)">
-          <ConditionalRenderAB
-            ComponentA={
-              <>
-                {allItems.map((item) => (
-                  <CartItem
-                    key={item.key}
-                    item={item}
-                    removeItem={removeItem}
-                  />
-                ))}
-              </>
-            }
-            ComponentB={EmptyCart}
-            condition={allItems.length > 0}
-          />
-        </Tab>
-        <Tab key="leasing" title="Leasing (3)">
-          <ConditionalRenderAB
-            ComponentA={
-              <>
-                {allItems.map((item) => (
-                  <CartItem
-                    key={item.key}
-                    item={item}
-                    removeItem={removeItem}
-                  />
-                ))}
-              </>
-            }
-            ComponentB={EmptyCart}
-            condition={allItems.length > 0}
-          />
-        </Tab>
-        <Tab key="rent" title="Rent  (4)">
-          <ConditionalRenderAB
-            ComponentA={
-              <>
-                {allItems.map((item) => (
-                  <CartItem
-                    key={item.key}
-                    item={item}
-                    removeItem={removeItem}
-                  />
-                ))}
-              </>
-            }
-            ComponentB={EmptyCart}
-            condition={allItems.length > 0}
-          />
-        </Tab>
+        {Object.entries(inCart).map(([cartType, _]) => (
+          <Tab
+            key={cartType}
+            title={`${capitalize(cartType)} (${
+              inCart[cartType as keyof ProductState["inCart"]].length
+            })`}
+          >
+            <ConditionalRenderAB
+              ComponentA={
+                <>
+                  {getItemsByCartType(
+                    cartType as keyof ProductState["inCart"]
+                  ).map((item) => (
+                    <CartItem
+                      key={item.key}
+                      item={item}
+                      removeItem={removeItem}
+                    />
+                  ))}
+                </>
+              }
+              ComponentB={EmptyCart}
+              condition={!isCartEmpty(cartType as keyof ProductState["inCart"])}
+            />
+          </Tab>
+        ))}
       </Tabs>
     </div>
   );
@@ -96,3 +82,6 @@ const EmptyCart = (
     </div>
   </div>
 );
+
+// Helper function to capitalize the first letter
+const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);

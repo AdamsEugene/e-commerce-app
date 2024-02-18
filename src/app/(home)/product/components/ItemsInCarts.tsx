@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
-import cartItems, { ItemsInCart } from "@/src/utils/cartItem";
+import React from "react";
 import ConditionalRenderAB from "@/src/components/ConditionalRenderAB";
 import StyledImage from "@/src/components/StyledImage";
 import PurchaseType from "@/src/components/PurchaseType";
 import ConditionalRender from "@/src/components/ConditionalRender";
 import TabsForCartItems from "@/src/components/TabsForCartItems";
+import { useAppStore } from "@/src/providers/AppStoreProvider";
 
 type PROPS = {
   buyNow?: boolean;
@@ -31,12 +31,17 @@ const plan = {
 
 export default function ItemsInCarts(props: PROPS) {
   const { buyNow = false } = props;
-  const [allItems, setAllItems] = useState<ItemsInCart[]>(cartItems);
+  const inCart = useAppStore((state) => state.inCart);
+
+  const isDataInCart =
+    inCart["default"].length > 0 ||
+    inCart["lessing"].length > 0 ||
+    inCart["rent"].length > 0;
 
   return (
     <div className="w-full">
       <ConditionalRenderAB
-        condition={allItems.length > 0}
+        condition={isDataInCart}
         ComponentA={
           <>
             <TabsForCartItems />

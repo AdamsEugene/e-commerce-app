@@ -2,7 +2,6 @@ import { StateCreator } from "zustand";
 
 export type MicsState = {
   isDrawerOpen: boolean;
-  itemsInCart: number;
 };
 
 export type MicsActions = {
@@ -12,12 +11,11 @@ export type MicsActions = {
 export type MicsSlice = MicsState & MicsActions;
 
 export const initMicsStore = (): MicsState => {
-  return { isDrawerOpen: false, itemsInCart: 0 };
+  return { isDrawerOpen: false };
 };
 
 export const defaultMicsState: MicsState = {
   isDrawerOpen: false,
-  itemsInCart: 0,
 };
 
 // export const createMicsSlice: StateCreator<MicsSlice, [], [], MicsSlice> = (
