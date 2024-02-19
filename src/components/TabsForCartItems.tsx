@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 
 import React, { useMemo, useState } from "react";
 import { Tabs, Tab } from "@nextui-org/react";
@@ -7,22 +7,22 @@ import CartItem from "./CartItem";
 import StyledImage from "./StyledImage";
 import ConditionalRenderAB from "./ConditionalRenderAB";
 import { useAppStore } from "../providers/AppStoreProvider";
-import { ProductState } from "../store/productSlice";
+import { type InCart } from "../store/productSlice";
 
 const TabsForCartItems: React.FC = () => {
   const [allItems, setAllItems] = useState<ItemsInCart[]>(cartItems);
   const inCart = useAppStore((state) => state.inCart);
 
-  const removeItem = (id: string) => {
-    setAllItems((prevItems) =>
-      prevItems.filter((item) => item.productId !== id)
-    );
-  };
+  const getItemsByCartType = useMemo(
+    () => (cartType: InCart) => {
+      return allItems.filter((item) =>
+        inCart[cartType].includes(item.productId)
+      );
+    },
+    [allItems, inCart]
+  );
 
-  const getItemsByCartType = (cartType: keyof ProductState["inCart"]) =>
-    allItems.filter((item) => inCart[cartType].includes(item.productId));
-
-  const isCartEmpty = (cartType: keyof ProductState["inCart"]) =>
+  const isCartEmpty = (cartType: InCart) =>
     getItemsByCartType(cartType).length === 0;
 
   return (
@@ -34,32 +34,33 @@ const TabsForCartItems: React.FC = () => {
         fullWidth
         defaultSelectedKey={"default"}
       >
-        {Object.entries(inCart).map(([cartType, _]) => (
-          <Tab
-            key={cartType}
-            title={`${capitalize(cartType)} (${
-              inCart[cartType as keyof ProductState["inCart"]].length
-            })`}
-          >
-            <ConditionalRenderAB
-              ComponentA={
-                <>
-                  {getItemsByCartType(
-                    cartType as keyof ProductState["inCart"]
-                  ).map((item) => (
-                    <CartItem
-                      key={item.key}
-                      item={item}
-                      removeItem={removeItem}
-                    />
-                  ))}
-                </>
-              }
-              ComponentB={EmptyCart}
-              condition={!isCartEmpty(cartType as keyof ProductState["inCart"])}
-            />
-          </Tab>
-        ))}
+        {Object.entries(inCart).map(
+          ([cartType, _]) =>
+            cartType !== "later" && (
+              <Tab
+                key={cartType}
+                title={`${capitalize(cartType)} (${
+                  inCart[cartType as InCart].length
+                })`}
+              >
+                <ConditionalRenderAB
+                  ComponentA={
+                    <>
+                      {getItemsByCartType(cartType as InCart).map((item) => (
+                        <CartItem
+                          key={item.key}
+                          item={item}
+                          from={cartType as InCart}
+                        />
+                      ))}
+                    </>
+                  }
+                  ComponentB={EmptyCart}
+                  condition={!isCartEmpty(cartType as InCart)}
+                />
+              </Tab>
+            )
+        )}
       </Tabs>
     </div>
   );

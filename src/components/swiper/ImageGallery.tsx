@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
+import { useParams } from "next/navigation";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import StyledImage from "../StyledImage";
@@ -16,9 +17,15 @@ import "./swiper.css";
 // import required modules
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import imageByIndex from "@/src/utils/imageByIndex";
+import cartItems from "@/src/utils/cartItem";
 
 export default function ImageGallery() {
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
+
+  const params = useParams();
+  const productId = params.product_id as string;
+
+  const getCurrentItem = cartItems.find((item) => item.productId === productId);
 
   return (
     <>
@@ -30,10 +37,10 @@ export default function ImageGallery() {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper2"
       >
-        {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+        {[1, 2, 3, 4, 5].map((item) => (
           <SwiperSlide key={item}>
             <StyledImage
-              src={imageByIndex(item)}
+              src={getCurrentItem?.image}
               alt={String(item)}
               shadow="lg"
               width={300}
@@ -53,10 +60,10 @@ export default function ImageGallery() {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper"
       >
-        {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+        {[1, 2, 3, 4, 5].map((item) => (
           <SwiperSlide key={item}>
             <StyledImage
-              src={imageByIndex(item)}
+              src={getCurrentItem?.image}
               alt={String(item)}
               shadow="lg"
               width={100}

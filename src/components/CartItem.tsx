@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { Button } from "@nextui-org/button";
 import { Divider } from "@nextui-org/react";
@@ -6,48 +8,44 @@ import { FiMoreHorizontal } from "react-icons/fi";
 
 import StyledDropdown from "./Dropdown";
 import StyledImage from "./StyledImage";
+import { useAppStore } from "../providers/AppStoreProvider";
+import { type InCart } from "../store/productSlice";
+import { ItemsInCart } from "../utils/cartItem";
 
 type Quantity = {
   key: string;
   label: string;
 };
 
-type ItemsInCart = {
-  itemName: string;
-  color: string;
-  size: number;
-  amount: number; // New property
-  image: string;
-  key: string;
-};
-
 const options = [
   { key: "default", label: "Move to default" },
-  { key: "leasing", label: "Move to leasing" },
+  { key: "leasing", label: "Move to lease" },
   { key: "rent", label: "Move to rent" },
-  { key: "buy_later", label: "Buy later" },
+  { key: "later", label: "Buy later" },
 ];
 
 const generateQuantity = (count: number): Quantity[] => {
   const quantity: Quantity[] = [];
-
   for (let i = 1; i <= count; i++) {
     quantity.push({ key: i.toString(), label: i.toString() });
   }
-
   return quantity;
 };
 
-const CartItem: React.FC<{
-  item: ItemsInCart;
-  removeItem: (id: string) => void;
-}> = ({ item, removeItem }) => {
+const CartItem: React.FC<{ item: ItemsInCart; from: InCart }> = ({
+  item,
+  from,
+}) => {
   const [selectedQuantity, setSelectedQuantity] = useState("3");
   const [selectedSize, setSelectedSize] = useState(String(item.size));
   const [selectedKeys, setSelectedKeys] = useState("");
 
+  const moveTo = useAppStore((state) => state.moveTo);
+  const removeItemFromCart = useAppStore((state) => state.removeItemFromCart);
+
   const handleSelect = (key: any) => {
     setSelectedKeys(key);
+    moveTo(from, key.currentKey as InCart, item.productId);
   };
 
   const handleSelectQuantity = (key: any) => {
@@ -111,7 +109,7 @@ const CartItem: React.FC<{
             radius="full"
             variant="light"
             size="sm"
-            onClick={() => removeItem(item.key)}
+            onClick={() => removeItemFromCart(from, item.productId)}
           >
             <IoCloseSharp className="text-1xl text-gray-500" />
           </Button>

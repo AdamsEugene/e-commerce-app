@@ -7,14 +7,20 @@ import ItemsInCarts from "./ItemsInCarts";
 import DeliveryInfo from "./DeliveryInfo";
 import PaymentMethod from "./PaymentMethod";
 import OrderSummary from "./OrderSummary";
+import { useAppStore } from "@/src/providers/AppStoreProvider";
 
 export default function CheckingOut() {
+  const itemsInCart = useAppStore((state) => state.itemsInCart);
+
   return (
     <div className="main flex gap-5 w-full pt-4">
       <div className="w-full">
         <Card className="w-full">
           <CardBody className="flex flex-col gap-2">
-            <CardHeader>1. REVIEW YOUR ORDER (22 ITEMS)</CardHeader>
+            <CardHeader>
+              1. REVIEW YOUR ORDER ({itemsInCart} ITEM
+              {itemsInCart > 1 ? "S" : ""})
+            </CardHeader>
             <Divider className="mb-4" />
             <ItemsInCarts buyNow />
           </CardBody>

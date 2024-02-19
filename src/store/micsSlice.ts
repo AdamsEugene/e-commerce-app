@@ -15,7 +15,7 @@ export const initMicsStore = (): MicsState => {
 };
 
 export const defaultMicsState: MicsState = {
-  isDrawerOpen: false,
+  ...initMicsStore(),
 };
 
 // export const createMicsSlice: StateCreator<MicsSlice, [], [], MicsSlice> = (

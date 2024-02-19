@@ -13,6 +13,7 @@ import StyledButtonGroup from "@/src/components/button/StyledButtonGroup";
 import ShippingOption from "@/src/components/ShippingOption";
 import SideDrawer from "@/src/components/SideDrawer";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
+import cartItems, { ItemsInCart } from "@/src/utils/cartItem";
 
 const plan = {
   label: "Plans",
@@ -40,6 +41,7 @@ export default function Details() {
   const addToCart = useAppStore((state) => state.addToCart);
 
   const params = useParams();
+  const productId = params.product_id as string;
 
   const quantityData = [
     { name: "-", onClick: () => setQuantity((p) => (p > 1 ? p - 1 : 1)) },
@@ -78,11 +80,13 @@ export default function Details() {
     },
   ];
 
+  const getCurrentItem = cartItems.find((item) => item.productId === productId);
+
   return (
     <div className="w-full mx-auto p-6 flex flex-col gap-4">
       <div>
         <Ratings rating={2.5} numberOfReviews={8} />
-        <h1 className="text-4xl font-bold mt-4">Product Name</h1>
+        <h1 className="text-4xl font-bold mt-4">{getCurrentItem?.itemName}</h1>
       </div>
       <div className="pr-16 flex flex-col gap-4">
         <p className="mt-2">

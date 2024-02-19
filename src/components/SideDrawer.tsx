@@ -50,7 +50,7 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
 
   const isDataInCart =
     inCart["default"].length > 0 ||
-    inCart["lessing"].length > 0 ||
+    inCart["leasing"].length > 0 ||
     inCart["rent"].length > 0;
 
   return (

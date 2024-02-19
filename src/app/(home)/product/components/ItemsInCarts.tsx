@@ -35,9 +35,9 @@ export default function ItemsInCarts(props: PROPS) {
 
   const isDataInCart =
     inCart["default"].length > 0 ||
-    inCart["lessing"].length > 0 ||
+    inCart["leasing"].length > 0 ||
     inCart["rent"].length > 0;
-
+    
   return (
     <div className="w-full">
       <ConditionalRenderAB
