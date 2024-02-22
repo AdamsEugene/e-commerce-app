@@ -33,7 +33,7 @@ export default function GridCard(props: PROPS) {
           className="flex flex-col justify-center items-center gap-8"
         > */}
       <div className="flex flex-wrap justify-center gap-4">
-        {productList.map((item, index) => (
+        {productList.slice(0, numberOfItems).map((item, index) => (
           <Card
             shadow="sm"
             as={Link}

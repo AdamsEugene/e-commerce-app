@@ -33,12 +33,13 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
   const inCart = useAppStore((state) => state.inCart);
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const AUTO_CLOSE_DELAY = 2000;
 
   useEffect(() => {
-    if (isMouseOver && isDrawerOpen) {
+    if (!isMouseOver && isDrawerOpen) {
       timerRef.current = setTimeout(() => {
-        // toggleDrawer(false);
-      }, 2000);
+        toggleDrawer(false);
+      }, AUTO_CLOSE_DELAY);
     }
 
     return () => {
@@ -67,13 +68,13 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
           className="h-[100vh]"
           radius="none"
           onMouseEnter={() => {
-            setIsMouseOver(false);
+            setIsMouseOver(true);
             if (timerRef.current) {
               clearTimeout(timerRef.current);
             }
           }}
           onMouseLeave={() => {
-            setIsMouseOver(true);
+            setIsMouseOver(false);
           }}
         >
           <CardBody className="side-drawer-content flex flex-col items-center p-4 !h-[100vh]">
@@ -105,44 +106,13 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
                     <ItemsInCarts />
                   </div>
                 }
-                ComponentB={
-                  <>
-                    <div className="h-full w-full flex flex-col items-center justify-center">
-                      <div className="flex flex-col items-center justify-center gap-6">
-                        <StyledImage
-                          src="/assets/svgs/emptyCart.svg"
-                          alt=" Your shopping cart is empty"
-                          height={400}
-                          width={300}
-                        />
-                        <p className="text-lg font-semibold text-gray-600">
-                          Your shopping cart is empty
-                        </p>
-                      </div>
-                    </div>
-                  </>
-                }
+                ComponentB={<RenderEmptyCartContent />}
               />
             </CardBody>
             <Divider />
             <ConditionalRender
               condition={isDataInCart}
-              Component={
-                <CardFooter className="flex flex-col w-full gap-4 items-center bottom-0 z-10">
-                  <div className="flex justify-between w-full">
-                    <p className="text-sm text-gray-600">SUBTOTAL</p>
-                    <p className="text-lg font-semibold">$78.98</p>
-                  </div>
-                  <Divider />
-                  <StyledButton
-                    as={Link}
-                    href={`/checkout`}
-                    className="w-full"
-                    content="GO TO CHECKOUT"
-                    color="secondary"
-                  />
-                </CardFooter>
-              }
+              Component={<RenderCartFooter />}
             />
           </CardBody>
         </Card>
@@ -150,5 +120,38 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
     </>
   );
 };
+
+const RenderEmptyCartContent = () => (
+  <div className="h-full w-full flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center gap-6">
+      <StyledImage
+        src="/assets/svgs/emptyCart.svg"
+        alt=" Your shopping cart is empty"
+        height={400}
+        width={300}
+      />
+      <p className="text-lg font-semibold text-gray-600">
+        Your shopping cart is empty
+      </p>
+    </div>
+  </div>
+);
+
+const RenderCartFooter = () => (
+  <CardFooter className="flex flex-col w-full gap-4 items-center bottom-0 z-10">
+    <div className="flex justify-between w-full">
+      <p className="text-sm text-gray-600">SUBTOTAL</p>
+      <p className="text-lg font-semibold">$78.98</p>
+    </div>
+    <Divider />
+    <StyledButton
+      as={Link}
+      href={`/checkout`}
+      className="w-full"
+      content="GO TO CHECKOUT"
+      color="secondary"
+    />
+  </CardFooter>
+);
 
 export default SideDrawer;

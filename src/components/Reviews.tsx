@@ -1,13 +1,12 @@
 "use client";
 
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
-import { Avatar, Card, Divider, Pagination } from "@nextui-org/react";
+import { Avatar, Card, Divider, Pagination, Button } from "@nextui-org/react";
 import { FiSearch } from "react-icons/fi";
 import useKeyboardShortcut from "use-keyboard-shortcut";
 
 import StyledInput from "./StyledInput";
 import StyledDropdown from "./Dropdown";
-import { Button } from "@nextui-org/react";
 import reviewData from "@/src/utils/reviews";
 import Ratings from "./Ratings";
 import ConditionalRender from "./ConditionalRender";
@@ -22,9 +21,17 @@ type ReviewProps = {
   review: string;
 };
 
-const languages = [
+const reviewsFilter = [
   { key: "all", label: "All" },
-  { key: "french", label: "French" },
+  { key: "5stars", label: "5 Stars" },
+  { key: "4stars", label: "4 Stars" },
+  { key: "3stars", label: "3 Stars" },
+  { key: "2stars", label: "2 Stars" },
+  { key: "1star", label: "1 Star" },
+  { key: "recent", label: "Recent" },
+  { key: "oldest", label: "Oldest" },
+  { key: "positive", label: "Positive" },
+  { key: "negative", label: "Negative" },
 ];
 
 const ReviewList = () => {
@@ -56,6 +63,44 @@ const ReviewList = () => {
 
   const handleSelect = (key: any) => {
     setSelectedKeys(key);
+    const currentKey = key.currentKey;
+
+    // Create a copy of the original reviews data
+    let filteredData = [...reviewData];
+
+    // Apply filter based on selectedKeys
+    if (currentKey !== "all") {
+      if (currentKey === "recent") {
+        filteredData.sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+        );
+      } else if (currentKey === "oldest") {
+        filteredData.sort(
+          (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+        );
+      } else if (currentKey === "positive") {
+        filteredData = filteredData.filter((review) => review.rating >= 3);
+      } else if (currentKey === "negative") {
+        filteredData = filteredData.filter((review) => review.rating < 3);
+      } else {
+        const ratingFilter = parseInt(currentKey.charAt(0));
+        filteredData = filteredData.filter(
+          (review) => review.rating === ratingFilter
+        );
+      }
+    }
+
+    // Apply search term filter
+    if (deferredSearchTerm) {
+      filteredData = filteredData.filter((review) =>
+        review.reviewTitle
+          .toLowerCase()
+          .includes(deferredSearchTerm.toLowerCase())
+      );
+    }
+
+    setAllData(filteredData);
+    setCurrentPage(1); // Reset to the first page when changing filters
   };
 
   const handleSearchClick = () => {
@@ -127,7 +172,7 @@ const ReviewList = () => {
                 {selectedKeys}
               </Button>
             }
-            dropdownItems={languages}
+            dropdownItems={reviewsFilter}
             handleSelect={handleSelect}
             selectedKeys={selectedKeys}
           />
