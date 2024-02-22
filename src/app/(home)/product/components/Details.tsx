@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { Divider } from "@nextui-org/react";
 import StyledInput from "@/src/components/StyledInput";
 import StyledButton from "@/src/components/StyledButton";
@@ -39,7 +39,9 @@ export default function Details() {
 
   const toggleDrawer = useAppStore((state) => state.toggleDrawer);
   const addToCart = useAppStore((state) => state.addToCart);
+  const addToBuyNow = useAppStore((state) => state.addToBuyNow);
 
+  const router = useRouter();
   const params = useParams();
   const productId = params.product_id as string;
 
@@ -82,6 +84,11 @@ export default function Details() {
 
   const getCurrentItem = cartItems.find((item) => item.productId === productId);
 
+  const handleBuyNow = () => {
+    addToBuyNow("default", productId);
+    router.push(`${productId}/buy-now`, { scroll: true });
+  };
+
   return (
     <div className="w-full mx-auto p-6 flex flex-col gap-4">
       <div>
@@ -110,12 +117,11 @@ export default function Details() {
         <StyledButtonGroup data={quantityData} />
         <StyledButtonGroup data={_addToCart} color="secondary" />
         <StyledButton
-          as={Link}
-          href={`${params.product_id}/buy-now`}
           content="Buy Now"
           variant="ghost"
           color="secondary"
           radius="lg"
+          onClick={handleBuyNow}
         />
       </div>
       <Divider className="my-4" />

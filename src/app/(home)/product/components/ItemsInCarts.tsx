@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import { useParams, usePathname } from "next/navigation";
+
 import ConditionalRenderAB from "@/src/components/ConditionalRenderAB";
 import StyledImage from "@/src/components/StyledImage";
 import PurchaseType from "@/src/components/PurchaseType";
@@ -30,23 +32,32 @@ const plan = {
 };
 
 export default function ItemsInCarts(props: PROPS) {
-  const { buyNow = false } = props;
+  const { buyNow: now = false } = props;
   const inCart = useAppStore((state) => state.inCart);
+  const buyNow = useAppStore((state) => state.buyNow);
+  // const isDrawerOpen = useAppStore((state) => state.isDrawerOpen);
+
+  // const params = useParams();
+  // const productId = params.product_id;
+  const pathname = usePathname();
+  const containsBuyNow = /buy-now/i.test(pathname);
+
+  const productsInCart = containsBuyNow && now ? buyNow : inCart;
 
   const isDataInCart =
-    inCart["default"].length > 0 ||
-    inCart["leasing"].length > 0 ||
-    inCart["rent"].length > 0;
-    
+    productsInCart["default"].length > 0 ||
+    productsInCart["leasing"].length > 0 ||
+    productsInCart["rent"].length > 0;
+
   return (
     <div className="w-full">
       <ConditionalRenderAB
         condition={isDataInCart}
         ComponentA={
           <>
-            <TabsForCartItems />
+            <TabsForCartItems buyNow={now} />
             <ConditionalRender
-              condition={buyNow}
+              condition={now}
               Component={
                 <div className="flex flex-col gap-2">
                   <div className="flex justify-between">

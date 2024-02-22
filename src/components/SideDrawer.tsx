@@ -37,7 +37,7 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
   useEffect(() => {
     if (isMouseOver && isDrawerOpen) {
       timerRef.current = setTimeout(() => {
-        toggleDrawer(false);
+        // toggleDrawer(false);
       }, 2000);
     }
 

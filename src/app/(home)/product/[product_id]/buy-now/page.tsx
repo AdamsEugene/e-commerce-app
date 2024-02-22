@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function BuyNow() {
   return (
     <section className="w-full home">
-      <CheckingOut />
+      <CheckingOut buyNow />
     </section>
   );
 }

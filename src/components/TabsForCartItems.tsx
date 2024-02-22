@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
+import { useParams, usePathname } from "next/navigation";
 import { Tabs, Tab } from "@nextui-org/react";
 import cartItems, { ItemsInCart } from "@/src/utils/cartItem";
 import CartItem from "./CartItem";
@@ -9,17 +10,34 @@ import ConditionalRenderAB from "./ConditionalRenderAB";
 import { useAppStore } from "../providers/AppStoreProvider";
 import { type InCart } from "../store/productSlice";
 
-const TabsForCartItems: React.FC = () => {
+type PROPS = {
+  buyNow?: boolean;
+};
+
+const TabsForCartItems: React.FC<PROPS> = (props) => {
+  const { buyNow: now = false } = props;
+
   const [allItems, setAllItems] = useState<ItemsInCart[]>(cartItems);
   const inCart = useAppStore((state) => state.inCart);
+  const buyNow = useAppStore((state) => state.buyNow);
+  // const isDrawerOpen = useAppStore((state) => state.isDrawerOpen);
+
+  // console.log({ inCart, buyNow });
+
+  // const params = useParams();
+  // const productId = params.product_id;
+  const pathname = usePathname();
+  const containsBuyNow = /buy-now/i.test(pathname);
+
+  const productsInCart = containsBuyNow && now ? buyNow : inCart;
 
   const getItemsByCartType = useMemo(
     () => (cartType: InCart) => {
       return allItems.filter((item) =>
-        inCart[cartType].includes(item.productId)
+        productsInCart[cartType].includes(item.productId)
       );
     },
-    [allItems, inCart]
+    [allItems, productsInCart]
   );
 
   const isCartEmpty = (cartType: InCart) =>
@@ -40,7 +58,7 @@ const TabsForCartItems: React.FC = () => {
               <Tab
                 key={cartType}
                 title={`${capitalize(cartType)} (${
-                  inCart[cartType as InCart].length
+                  productsInCart[cartType as InCart].length
                 })`}
               >
                 <ConditionalRenderAB

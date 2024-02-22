@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { Button } from "@nextui-org/button";
 import { Divider } from "@nextui-org/react";
 import { IoCloseSharp } from "react-icons/io5";
@@ -40,12 +41,22 @@ const CartItem: React.FC<{ item: ItemsInCart; from: InCart }> = ({
   const [selectedSize, setSelectedSize] = useState(String(item.size));
   const [selectedKeys, setSelectedKeys] = useState("");
 
+  const pathname = usePathname();
+  const containsBuyNow = /buy-now/i.test(pathname);
+
+  const isDrawerOpen = useAppStore((state) => state.isDrawerOpen);
   const moveTo = useAppStore((state) => state.moveTo);
+  const moveToBuyNow = useAppStore((state) => state.moveToBuyNow);
   const removeItemFromCart = useAppStore((state) => state.removeItemFromCart);
+  const removeItemFromBuyNow = useAppStore(
+    (state) => state.removeItemFromBuyNow
+  );
 
   const handleSelect = (key: any) => {
     setSelectedKeys(key);
-    moveTo(from, key.currentKey as InCart, item.productId);
+    containsBuyNow && !isDrawerOpen
+      ? moveToBuyNow(from, key.currentKey as InCart, item.productId)
+      : moveTo(from, key.currentKey as InCart, item.productId);
   };
 
   const handleSelectQuantity = (key: any) => {
@@ -55,6 +66,8 @@ const CartItem: React.FC<{ item: ItemsInCart; from: InCart }> = ({
   const handleSelectSize = (key: any) => {
     setSelectedSize(key);
   };
+
+  // console.log(containsBuyNow && !isDrawerOpen);
 
   return (
     <>
@@ -109,7 +122,11 @@ const CartItem: React.FC<{ item: ItemsInCart; from: InCart }> = ({
             radius="full"
             variant="light"
             size="sm"
-            onClick={() => removeItemFromCart(from, item.productId)}
+            onClick={() =>
+              containsBuyNow && !isDrawerOpen
+                ? removeItemFromBuyNow(from, item.productId)
+                : removeItemFromCart(from, item.productId)
+            }
           >
             <IoCloseSharp className="text-1xl text-gray-500" />
           </Button>

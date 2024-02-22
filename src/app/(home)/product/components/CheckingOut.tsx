@@ -9,8 +9,13 @@ import PaymentMethod from "./PaymentMethod";
 import OrderSummary from "./OrderSummary";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
 
-export default function CheckingOut() {
+type PROPS = {
+  buyNow?: boolean;
+};
+
+export default function CheckingOut(props: PROPS) {
   const itemsInCart = useAppStore((state) => state.itemsInCart);
+  const totalItems = props.buyNow ? 1 : itemsInCart;
 
   return (
     <div className="main flex gap-5 w-full pt-4">
@@ -18,8 +23,8 @@ export default function CheckingOut() {
         <Card className="w-full">
           <CardBody className="flex flex-col gap-2">
             <CardHeader>
-              1. REVIEW YOUR ORDER ({itemsInCart} ITEM
-              {itemsInCart > 1 ? "S" : ""})
+              1. REVIEW YOUR ORDER ({totalItems} ITEM
+              {totalItems > 1 ? "S" : ""})
             </CardHeader>
             <Divider className="mb-4" />
             <ItemsInCarts buyNow />
