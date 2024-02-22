@@ -73,7 +73,7 @@ const TabsForCartItems: React.FC<PROPS> = (props) => {
                       ))}
                     </>
                   }
-                  ComponentB={EmptyCart}
+                  ComponentB={<EmptyCart type={cartType as InCart} />}
                   condition={!isCartEmpty(cartType as InCart)}
                 />
               </Tab>
@@ -86,7 +86,7 @@ const TabsForCartItems: React.FC<PROPS> = (props) => {
 
 export default TabsForCartItems;
 
-const EmptyCart = (
+const EmptyCart = ({ type }: { type?: InCart }) => (
   <div className="min-h-[500px] w-full flex flex-col items-center justify-center">
     <div className="flex flex-col items-center justify-center gap-6">
       <StyledImage
@@ -96,7 +96,7 @@ const EmptyCart = (
         width={300}
       />
       <p className="text-lg font-semibold text-gray-600">
-        Your shopping cart is empty
+        {getCartEmptyMessage(type)}
       </p>
     </div>
   </div>
@@ -104,3 +104,18 @@ const EmptyCart = (
 
 // Helper function to capitalize the first letter
 const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
+
+const getCartEmptyMessage = (cartType?: InCart): string => {
+  switch (cartType) {
+    case "default":
+      return "Your default cart is empty.";
+    case "leasing":
+      return "Your leasing cart is empty.";
+    case "rent":
+      return "Your rent cart is empty.";
+    case "later":
+      return "Your later cart is empty.";
+    default:
+      return "Your shopping cart is empty.";
+  }
+};
