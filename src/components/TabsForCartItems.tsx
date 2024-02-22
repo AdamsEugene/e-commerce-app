@@ -22,7 +22,7 @@ const TabsForCartItems: React.FC<PROPS> = (props) => {
   const buyNow = useAppStore((state) => state.buyNow);
   // const isDrawerOpen = useAppStore((state) => state.isDrawerOpen);
 
-  // console.log({ inCart, buyNow });
+  console.log({ inCart, buyNow });
 
   // const params = useParams();
   // const productId = params.product_id;

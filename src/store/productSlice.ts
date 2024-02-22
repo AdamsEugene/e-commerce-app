@@ -127,8 +127,8 @@ export const createProductSlice = (
             ].filter((itemId) => itemId !== id);
           }
         });
-        const uniqueIds = new Set([...state.buyNow[to], id]);
-        state.buyNow[to] = Array.from(uniqueIds);
+        const uniqueIds = [id];
+        state.buyNow[to] = uniqueIds;
         return state;
       }),
     moveToBuyNow: (from, to, id) =>
@@ -136,8 +136,8 @@ export const createProductSlice = (
         const updatedFromCart = state.buyNow[from].filter(
           (itemId) => itemId !== id
         );
-        const uniqueIds = new Set([...state.buyNow[to], id]);
-        const updatedToCart = Array.from(uniqueIds);
+        const uniqueIds = [id];
+        const updatedToCart = uniqueIds;
         return {
           ...state,
           buyNow: {
@@ -149,14 +149,11 @@ export const createProductSlice = (
       }),
     removeItemFromBuyNow: (cartType, id) =>
       set((state) => {
-        const updatedCart = state.buyNow[cartType].filter(
-          (itemId) => itemId !== id
-        );
         return {
           ...state,
           buyNow: {
             ...state.buyNow,
-            [cartType]: updatedCart,
+            [cartType]: [],
           },
         };
       }),

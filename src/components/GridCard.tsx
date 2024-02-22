@@ -8,6 +8,7 @@ import StyledImage from "./StyledImage";
 import productList from "@/src/utils/productList";
 import { siteConfig } from "@/src/config/site";
 import useResizeListener from "@/src/hooks/useResizeListener";
+import { useAppStore } from "../providers/AppStoreProvider";
 
 type PROPS = {
   numberOfItems?: number;
@@ -17,6 +18,9 @@ export default function GridCard(props: PROPS) {
   const { numberOfItems = productList.length } = props;
 
   const { ref, products } = useResizeListener(232.797, numberOfItems);
+  const addToSelectedProduct = useAppStore(
+    (state) => state.addToSelectedProduct
+  );
 
   return (
     <div
@@ -36,6 +40,7 @@ export default function GridCard(props: PROPS) {
             href={`${siteConfig.pages.product}/${item.productId}`}
             key={index}
             isPressable
+            onClick={() => addToSelectedProduct(item)}
           >
             <CardBody className="overflow-visible p-0">
               <StyledImage
