@@ -1,6 +1,6 @@
 import { Metadata } from "next/types";
 
-import "../../home.css";
+import "../../(home)/home.css";
 import GridCard from "@/src/components/GridCard";
 
 export const metadata: Metadata = {
