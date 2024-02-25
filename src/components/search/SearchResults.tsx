@@ -13,6 +13,10 @@ import { useDeferredValue } from "react";
 import ConditionalRenderAB from "../ConditionalRenderAB";
 import SearchList from "./SearchList";
 
+type PROPS = {
+  onOpenChange: () => void;
+};
+
 const checkboxData = [
   {
     label: "Top Searches",
@@ -38,7 +42,8 @@ const checkboxData = [
   },
 ];
 
-export default function SearchResults() {
+export default function SearchResults(props: PROPS) {
+  const { onOpenChange } = props;
   const [searchTerm, setSearchTerm] = useState("");
   const deferredValue = useDeferredValue(searchTerm);
 
@@ -73,11 +78,11 @@ export default function SearchResults() {
               ComponentB={
                 <>
                   <div className="w-full h-[133px]">
-                    <ProductGallery />
+                    <ProductGallery onOpenChange={onOpenChange} />
                   </div>
                   <Divider className="my-2" />
                   <div className="">
-                    <StyledCardGrid />
+                    <StyledCardGrid onOpenChange={onOpenChange} />
                   </div>
                 </>
               }

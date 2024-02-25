@@ -27,3 +27,12 @@
 .transition-transform-opacity {
   opacity: 1 !important;
 }
+
+.mySwiper_productGallery {
+  height: 146px;
+  z-index: 9999;
+}
+
+.mySwiper_productGallery .swiper-pagination .swiper-pagination-bullet {
+  background-color: #854CBF !important;
+}

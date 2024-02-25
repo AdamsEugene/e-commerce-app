@@ -218,7 +218,9 @@ export const Navbar = () => {
           className="search_result"
           scrollBehavior="inside"
         >
-          <ModalContent>{(onClose) => <SearchResults />}</ModalContent>
+          <ModalContent>
+            {(onClose) => <SearchResults onOpenChange={onOpenChange} />}
+          </ModalContent>
         </StyledModal>
       </NextUINavbar>
       <SideDrawer />

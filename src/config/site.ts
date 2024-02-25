@@ -57,5 +57,8 @@ export const siteConfig = {
   },
   pages: {
     product: "/product",
+    products: "/products",
+    buyNow: "buy-now",
+    checkout: "checkout",
   },
 };

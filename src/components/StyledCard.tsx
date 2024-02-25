@@ -1,34 +1,36 @@
 import React from "react";
-import { Card, CardBody, CardFooter } from "@nextui-org/react";
-import imageByIndex from "@/src/utils/imageByIndex";
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  CardProps,
+  Image,
+} from "@nextui-org/react";
 import StyledImage from "./StyledImage";
+import { PRODUCTS } from "../utils/productList";
 
-export default function StyledCard() {
-  const list = {
-    title: "Orange",
-    img: imageByIndex(6),
-    price: "$5.50",
-  };
-
+export default function StyledCard(
+  props: CardProps & PRODUCTS & { link: string }
+) {
   return (
-    <Card shadow="sm" isPressable onPress={() => console.log("item pressed")}>
-      <CardBody className="overflow-visible p-0 my_image">
-        <StyledImage
+    <Card shadow="sm" isPressable {...props} href={props.link}>
+      <CardBody className="overflow-visible p-0 !h-[90px]">
+        <Image
           shadow="sm"
+          as={StyledImage}
+          isZoomed
           radius="lg"
-          width={200}
+          width={300}
           height={200}
-          alt={list.title}
-          className="w-full object-cover h-[140px]"
-          src={list.img}
+          alt={props.title}
+          className="!w-[200px] object-cover !h-[90px]"
+          src={props.img}
         />
       </CardBody>
       <CardFooter className="text-small justify-between">
-        <b>{list.title}</b>
-        <p className="text-default-500">{list.price}</p>
+        <b className="max-w-[100px] truncate">{props.title}</b>
+        <p className="text-default-500">{props.price}</p>
       </CardFooter>
     </Card>
   );
 }
-
-//    <div className="gap-2 grid grid-cols-2 sm:grid-cols-4">

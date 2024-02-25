@@ -55,6 +55,7 @@ export default function GridCard(props: PROPS) {
                 alt={item.title}
                 className="object-cover product_image"
                 src={item.img}
+                isZoomed
               />
             </CardBody>
             <CardFooter className="text-small justify-between">
