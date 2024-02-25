@@ -14,6 +14,7 @@ import ShippingOption from "@/src/components/ShippingOption";
 import SideDrawer from "@/src/components/SideDrawer";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
 import cartItems from "@/src/utils/cartItem";
+import { siteConfig } from "@/src/config/site";
 
 const purchasePlan = {
   label: "Choose Your Payment Plan",
@@ -88,11 +89,6 @@ export default function Details() {
 
   const getCurrentItem = cartItems.find((item) => item.productId === productId);
 
-  const handleBuyNow = () => {
-    addToBuyNow(selectedPlan, productId);
-    router.push(`${productId}/buy-now`, { scroll: true });
-  };
-
   return (
     <div className="w-full mx-auto p-6 flex flex-col gap-4">
       <div>
@@ -121,11 +117,13 @@ export default function Details() {
         <StyledButtonGroup data={quantityData} />
         <StyledButtonGroup data={_addToCart} color="secondary" />
         <StyledButton
+          as={Link}
+          href={`${productId}/${siteConfig.pages.buyNow}`}
           content="Buy Now"
           variant="ghost"
           color="secondary"
           radius="lg"
-          onClick={handleBuyNow}
+          onClick={() => addToBuyNow(selectedPlan, productId)}
         />
       </div>
       <Divider className="my-4" />
