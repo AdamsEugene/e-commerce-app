@@ -1,13 +1,19 @@
 import React from "react";
 import { RadioGroup, Radio, cn } from "@nextui-org/react";
+import { useAppStore } from "../providers/AppStoreProvider";
+import { InCart } from "../store/productSlice";
 
 export const CustomRadio = (props: any) => {
   const { children, ...otherProps } = props;
+  const changePlan = useAppStore((state) => state.changePlan);
 
   return (
     <Radio
       {...otherProps}
       color="secondary"
+      onChange={({ target }) =>
+        changePlan(target.value as Exclude<InCart, "later">)
+      }
       classNames={{
         base: cn(
           "inline-flex m-0 bg-content1 hover:bg-content2 items-center justify-between",
@@ -29,8 +35,14 @@ type PROPS = {
 
 export default function PurchaseType(props: PROPS) {
   const { data, description, label } = props;
+  const selectedPlan = useAppStore((state) => state.selectedPlan);
+
   return (
-    <RadioGroup label={label} description={description} defaultValue={data[0].value}>
+    <RadioGroup
+      label={label}
+      description={description}
+      defaultValue={selectedPlan || data[0].value}
+    >
       {data.map((item) => (
         <CustomRadio key={item.label} {...item}>
           {item.label}

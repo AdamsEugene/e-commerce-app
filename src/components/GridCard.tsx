@@ -21,6 +21,7 @@ export default function GridCard(props: PROPS) {
   const addToSelectedProduct = useAppStore(
     (state) => state.addToSelectedProduct
   );
+  const changePlan = useAppStore((state) => state.changePlan);
 
   return (
     <div
@@ -40,7 +41,10 @@ export default function GridCard(props: PROPS) {
             href={`${siteConfig.pages.product}/${item.productId}`}
             key={index}
             isPressable
-            onClick={() => addToSelectedProduct(item)}
+            onClick={() => {
+              changePlan("default");
+              addToSelectedProduct(item);
+            }}
           >
             <CardBody className="overflow-visible p-0">
               <StyledImage

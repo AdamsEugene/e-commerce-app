@@ -13,26 +13,29 @@ import StyledButtonGroup from "@/src/components/button/StyledButtonGroup";
 import ShippingOption from "@/src/components/ShippingOption";
 import SideDrawer from "@/src/components/SideDrawer";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
-import cartItems, { ItemsInCart } from "@/src/utils/cartItem";
+import cartItems from "@/src/utils/cartItem";
 
-const plan = {
-  label: "Plans",
-  description: "Selected plan can be changed at any time.",
+const purchasePlan = {
+  label: "Choose Your Payment Plan",
+  description: "You can change your selected plan at any time.",
   data: [
-    { description: "Up to 20 items", value: "Free", label: "free" },
     {
-      description: "Unlimited items. $10 per month.",
-      value: "Pro",
-      label: "pro",
+      description: "Pay as you go for up to 20 items",
+      value: "default",
+      label: "Pay As You Go Plan (Default)",
     },
     {
-      description: "24/7 support. Contact us for pricing.",
-      value: "Enterprise",
-      label: "enterprise",
+      description: "Unlimited items at $10 per month",
+      value: "leasing",
+      label: "Leasing Plan",
+    },
+    {
+      description: "Includes 24/7 support. Contact us for pricing.",
+      value: "rent",
+      label: "Rent This Item Plan",
     },
   ],
 };
-
 export default function Details() {
   const [quantity, setQuantity] = useState(1);
   const [value, setValue] = useState(0);
@@ -40,6 +43,7 @@ export default function Details() {
   const toggleDrawer = useAppStore((state) => state.toggleDrawer);
   const addToCart = useAppStore((state) => state.addToCart);
   const addToBuyNow = useAppStore((state) => state.addToBuyNow);
+  const selectedPlan = useAppStore((state) => state.selectedPlan);
 
   const router = useRouter();
   const params = useParams();
@@ -76,7 +80,7 @@ export default function Details() {
     {
       name: "ADD TO CART",
       onClick: (state?: boolean) => {
-        addToCart("default", params.product_id as string);
+        addToCart(selectedPlan, params.product_id as string);
         toggleDrawer(Boolean(state));
       },
     },
@@ -85,7 +89,7 @@ export default function Details() {
   const getCurrentItem = cartItems.find((item) => item.productId === productId);
 
   const handleBuyNow = () => {
-    addToBuyNow("default", productId);
+    addToBuyNow(selectedPlan, productId);
     router.push(`${productId}/buy-now`, { scroll: true });
   };
 
@@ -110,7 +114,7 @@ export default function Details() {
         </p>
       </div>
       <Divider className="my-4" />
-      <PurchaseType {...plan} />
+      <PurchaseType {...purchasePlan} />
       <PlansComponent />
       <Divider className="my-4" />
       <div className="flex gap-6">

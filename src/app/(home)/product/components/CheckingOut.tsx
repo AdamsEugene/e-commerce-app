@@ -23,8 +23,8 @@ export default function CheckingOut(props: PROPS) {
   const router = useRouter();
 
   return (
-    <div className="flex flex-col">
-      <div>
+    <div className="main flex flex-col w-full items-center">
+      <div className="flex items-start w-full">
         <Button
           color="default"
           variant="light"
@@ -34,7 +34,7 @@ export default function CheckingOut(props: PROPS) {
           Back to {selectedProduct?.title || "details"}
         </Button>
       </div>
-      <div className="main flex gap-5 w-full pt-4">
+      <div className="main flex gap-5 w-full">
         <div className="w-full">
           <Card className="w-full">
             <CardBody className="flex flex-col gap-2">

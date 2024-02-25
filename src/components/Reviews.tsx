@@ -21,22 +21,26 @@ type ReviewProps = {
   review: string;
 };
 
-const reviewsFilter = [
-  { key: "all", label: "All" },
-  { key: "5stars", label: "5 Stars" },
-  { key: "4stars", label: "4 Stars" },
-  { key: "3stars", label: "3 Stars" },
-  { key: "2stars", label: "2 Stars" },
-  { key: "1star", label: "1 Star" },
-  { key: "recent", label: "Recent" },
-  { key: "oldest", label: "Oldest" },
-  { key: "positive", label: "Positive" },
-  { key: "negative", label: "Negative" },
-];
+type DropdownItem = {
+  key: string;
+  label: string;
+};
+
+const dropdownItems = [
+  { key: "A to Z", label: "Sort by A to Z" },
+  { key: "Z to A", label: "Sort by Z to A" },
+  { key: "ratings", label: "Sort by ratings" },
+  { key: "recent", label: "Sort by recent" },
+  { key: "oldest", label: "Sort by oldest" },
+  { key: "positive", label: "Sort by positive" },
+  { key: "negative", label: "Sort by negative" },
+] as const;
+
+type DropdownItemsType = (typeof dropdownItems)[number]["key"];
 
 const ReviewList = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedKeys, setSelectedKeys] = useState<string>("all");
+  const [selectedKeys, setSelectedKeys] = useState<string>("A to Z");
   const [enableSearch, setEnableSearch] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [allData, setAllData] = useState<ReviewProps[]>(reviewData);
@@ -63,31 +67,41 @@ const ReviewList = () => {
 
   const handleSelect = (key: any) => {
     setSelectedKeys(key);
-    const currentKey = key.currentKey;
+    const currentKey = key.currentKey as DropdownItemsType;
 
     // Create a copy of the original reviews data
     let filteredData = [...reviewData];
 
     // Apply filter based on selectedKeys
-    if (currentKey !== "all") {
-      if (currentKey === "recent") {
-        filteredData.sort(
-          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-        );
-      } else if (currentKey === "oldest") {
-        filteredData.sort(
-          (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-        );
-      } else if (currentKey === "positive") {
-        filteredData = filteredData.filter((review) => review.rating >= 3);
-      } else if (currentKey === "negative") {
-        filteredData = filteredData.filter((review) => review.rating < 3);
-      } else {
-        const ratingFilter = parseInt(currentKey.charAt(0));
-        filteredData = filteredData.filter(
-          (review) => review.rating === ratingFilter
-        );
-      }
+
+    switch (currentKey) {
+      case "A to Z":
+        filteredData.sort((a, b) => a.reviewTitle.localeCompare(b.reviewTitle));
+        break;
+
+      default:
+        break;
+    }
+
+    if (currentKey === "Z to A") {
+    }
+    if (currentKey === "recent") {
+      filteredData.sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+      );
+    } else if (currentKey === "oldest") {
+      filteredData.sort(
+        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+      );
+    } else if (currentKey === "positive") {
+      filteredData = filteredData.filter((review) => review.rating >= 3);
+    } else if (currentKey === "negative") {
+      filteredData = filteredData.filter((review) => review.rating < 3);
+    } else {
+      const ratingFilter = parseInt(currentKey.charAt(0));
+      filteredData = filteredData.filter(
+        (review) => review.rating === ratingFilter
+      );
     }
 
     // Apply search term filter
@@ -172,7 +186,7 @@ const ReviewList = () => {
                 {selectedKeys}
               </Button>
             }
-            dropdownItems={reviewsFilter}
+            dropdownItems={dropdownItems as any}
             handleSelect={handleSelect}
             selectedKeys={selectedKeys}
           />
@@ -184,14 +198,16 @@ const ReviewList = () => {
       ))}
       <ConditionalRender
         Component={
-          <Pagination
-            showControls
-            total={Math.ceil(allData.length / itemsPerPage)}
-            initialPage={1}
-            color="secondary"
-            page={currentPage}
-            onChange={setCurrentPage}
-          />
+          <div className="flex justify-end">
+            <Pagination
+              showControls
+              total={Math.ceil(allData.length / itemsPerPage)}
+              initialPage={1}
+              color="secondary"
+              page={currentPage}
+              onChange={setCurrentPage}
+            />
+          </div>
         }
         condition={allData.length > itemsPerPage}
       />

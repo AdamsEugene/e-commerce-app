@@ -20,6 +20,7 @@ const TabsForCartItems: React.FC<PROPS> = (props) => {
   const [allItems, setAllItems] = useState<ItemsInCart[]>(cartItems);
   const inCart = useAppStore((state) => state.inCart);
   const buyNow = useAppStore((state) => state.buyNow);
+  const selectedPlan = useAppStore((state) => state.selectedPlan);
   // const isDrawerOpen = useAppStore((state) => state.isDrawerOpen);
 
   // console.log({ inCart, buyNow });
@@ -50,7 +51,7 @@ const TabsForCartItems: React.FC<PROPS> = (props) => {
         color="secondary"
         variant="light"
         fullWidth
-        defaultSelectedKey={"default"}
+        defaultSelectedKey={selectedPlan}
       >
         {Object.entries(inCart).map(
           ([cartType, _]) =>

@@ -10,6 +10,8 @@ import {
 import { GiSandsOfTime } from "react-icons/gi";
 import { IoIosTimer } from "react-icons/io";
 import { IoMdTime } from "react-icons/io";
+import { useAppStore } from "../providers/AppStoreProvider";
+import ConditionalRender from "./ConditionalRender";
 
 interface PlanProps {
   backgroundColor: string;
@@ -20,17 +22,24 @@ interface PlanProps {
 const planDurations = ["Monthly", "Quarterly", "Yearly"];
 
 const PlansComponent: FC = () => {
+  const selectedPlan = useAppStore((state) => state.selectedPlan);
+
   return (
-    <div className="flex gap-4 w-full justify-center">
-      {planDurations.map((duration, index) => (
-        <Plan
-          key={index}
-          backgroundColor={getBackgroundColor(index)}
-          planDuration={duration}
-          icon={getIcon(index)}
-        />
-      ))}
-    </div>
+    <ConditionalRender
+      condition={selectedPlan !== "default"}
+      Component={
+        <div className="flex gap-4 w-full justify-center">
+          {planDurations.map((duration, index) => (
+            <Plan
+              key={index}
+              backgroundColor={getBackgroundColor(index)}
+              planDuration={duration}
+              icon={getIcon(index)}
+            />
+          ))}
+        </div>
+      }
+    />
   );
 };
 

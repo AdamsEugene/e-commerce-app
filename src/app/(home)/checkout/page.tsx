@@ -4,7 +4,7 @@ import "../home.css";
 import CheckingOut from "../product/components/CheckingOut";
 
 export const metadata: Metadata = {
-  title: "Products Name",
+  title: "Checkout",
 };
 
 export default function Checkout() {

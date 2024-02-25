@@ -38,7 +38,7 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
   useEffect(() => {
     if (!isMouseOver && isDrawerOpen) {
       timerRef.current = setTimeout(() => {
-        toggleDrawer(false);
+        // toggleDrawer(false);
       }, AUTO_CLOSE_DELAY);
     }
 
@@ -60,7 +60,7 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
         open={isDrawerOpen}
         onClose={() => toggleDrawer(false)}
         direction="right"
-        lockBackgroundScroll={!isDrawerOpen}
+        // lockBackgroundScroll={!isDrawerOpen}
         size={450}
         className="!h-[100vh] rounded-sm"
       >

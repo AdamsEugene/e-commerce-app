@@ -121,14 +121,9 @@ export const createProductSlice = (
     addToBuyNow: (to, id) =>
       set((state) => {
         Object.keys(state.buyNow).forEach((cartType) => {
-          if (cartType !== to) {
-            state.buyNow[cartType as InBuyNow] = state.buyNow[
-              cartType as InBuyNow
-            ].filter((itemId) => itemId !== id);
-          }
+          state.buyNow[cartType as InBuyNow] = [];
         });
-        const uniqueIds = [id];
-        state.buyNow[to] = uniqueIds;
+        state.buyNow[to] = [id];
         return state;
       }),
     moveToBuyNow: (from, to, id) =>
@@ -136,8 +131,7 @@ export const createProductSlice = (
         const updatedFromCart = state.buyNow[from].filter(
           (itemId) => itemId !== id
         );
-        const uniqueIds = [id];
-        const updatedToCart = uniqueIds;
+        const updatedToCart = [id];
         return {
           ...state,
           buyNow: {
