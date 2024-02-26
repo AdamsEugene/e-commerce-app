@@ -37,6 +37,7 @@ export async function generateMetadata(
     },
   };
 }
+
 export default function Products() {
   return (
     <section className="w-full home">
