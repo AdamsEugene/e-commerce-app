@@ -31,17 +31,18 @@ type PROPS = {
   label: string;
   description: string;
   data: { label: string; description: string; value: string }[];
+  notPlan?: boolean;
 };
 
 export default function PurchaseType(props: PROPS) {
-  const { data, description, label } = props;
+  const { data, description, label, notPlan } = props;
   const selectedPlan = useAppStore((state) => state.selectedPlan);
 
   return (
     <RadioGroup
       label={label}
       description={description}
-      defaultValue={selectedPlan || data[0].value}
+      defaultValue={notPlan ? data[0].value : selectedPlan || data[0].value}
     >
       {data.map((item) => (
         <CustomRadio key={item.label} {...item}>

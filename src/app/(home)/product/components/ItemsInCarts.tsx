@@ -64,7 +64,7 @@ export default function ItemsInCarts(props: PROPS) {
                     <p className="text-lg font-bold text-gray-500">SUBTOTAL</p>
                     <p className="text-lg font-bold text-gray-500">$1,399USD</p>
                   </div>
-                  <PurchaseType {...plan} />
+                  <PurchaseType {...plan} notPlan />
                 </div>
               }
             />
