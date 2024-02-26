@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { Button, Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
 import { IoArrowBackOutline } from "react-icons/io5";
 
@@ -10,6 +10,8 @@ import DeliveryInfo from "./DeliveryInfo";
 import PaymentMethod from "./PaymentMethod";
 import OrderSummary from "./OrderSummary";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
+import { useEffect } from "react";
+import productList from "@/src/utils/productList";
 
 type PROPS = {
   buyNow?: boolean;
@@ -18,9 +20,24 @@ type PROPS = {
 export default function CheckingOut(props: PROPS) {
   const itemsInCart = useAppStore((state) => state.itemsInCart);
   const selectedProduct = useAppStore((state) => state.selectedProduct);
+  const addToBuyNow = useAppStore((state) => state.addToBuyNow);
+  const addToSelectedProduct = useAppStore(
+    (state) => state.addToSelectedProduct
+  );
+
   const totalItems = props.buyNow ? 1 : itemsInCart;
 
   const router = useRouter();
+  const param = useParams();
+
+  useEffect(() => {
+    if (props.buyNow && !selectedProduct) {
+      addToBuyNow("default", param.product_id as string);
+      addToSelectedProduct(
+        productList.find((p) => p.productId === param.product_id)!
+      );
+    }
+  }, [addToBuyNow, addToSelectedProduct, param, props.buyNow, selectedProduct]);
 
   return (
     <div className="main flex flex-col w-full items-center">
