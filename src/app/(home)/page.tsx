@@ -1,20 +1,19 @@
-import { Link } from "@nextui-org/link";
-import { Snippet } from "@nextui-org/snippet";
-import { Code } from "@nextui-org/code";
-import { button as buttonStyles } from "@nextui-org/theme";
-import { siteConfig } from "@/src/config/site";
-import { title, subtitle } from "@/src/components/primitives";
-import { GithubIcon } from "@/src/components/icons";
+// import { Link } from "@nextui-org/link";
+// import { Snippet } from "@nextui-org/snippet";
+// import { Code } from "@nextui-org/code";
+// import { button as buttonStyles } from "@nextui-org/theme";
+// import { siteConfig } from "@/src/config/site";
+// import { title, subtitle } from "@/src/components/primitives";
 import HomeSwiper from "@/src/components/swiper/HomeSwiper";
 import GridCard from "@/src/components/GridCard";
 
 export default function Home() {
   return (
-    <section className="flex flex-col items-center justify-center gap-8 py-8 md:py-10">
-      <div className="h-[31.25rem] w-full max-w-[1780px]">
+    <section className="flex flex-col items-center justify-center gap-8 py-8 md:py-10 home">
+      <div className="h-[24rem] w-full max-w-[1780px]">
         <HomeSwiper />
       </div>
-      <div className="container">
+      <div className="container main">
         <GridCard />
       </div>
       {/* <div className="inline-block max-w-lg text-center justify-center">

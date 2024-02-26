@@ -17,7 +17,7 @@ import imageByIndex from "@/src/utils/imageByIndex";
 
 export default function HomeSwiper() {
   return (
-    <div className="flex h-[31.25rem]">
+    <div className="flex h-[24rem]">
       <Swiper
         spaceBetween={30}
         effect={"fade"}

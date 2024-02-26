@@ -33,6 +33,11 @@
   z-index: 9999;
 }
 
+.mySwiper_productGallery .swiper-pagination {
+  position: absolute !important;
+  bottom: 16px !important;
+}
+
 .mySwiper_productGallery .swiper-pagination .swiper-pagination-bullet {
   background-color: #854CBF !important;
 }

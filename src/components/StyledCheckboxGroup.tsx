@@ -20,7 +20,7 @@ export default function StyledCheckboxGroup(props: PROPS) {
         <CheckboxGroup
           key={data.label}
           label={data.label}
-          color="warning"
+          color="secondary"
           value={selected}
           onValueChange={setSelected}
         >

@@ -1,7 +1,8 @@
 "use client";
 
-import { ModalBody, ModalHeader, Divider } from "@nextui-org/react";
 import React from "react";
+import Link from "next/link";
+import { ModalBody, ModalHeader, Divider } from "@nextui-org/react";
 import { FiSearch } from "react-icons/fi";
 
 import StyledInput from "../StyledInput";
@@ -12,6 +13,7 @@ import { useState } from "react";
 import { useDeferredValue } from "react";
 import ConditionalRenderAB from "../ConditionalRenderAB";
 import SearchList from "./SearchList";
+import { siteConfig } from "@/src/config/site";
 
 type PROPS = {
   onOpenChange: () => void;
@@ -70,18 +72,29 @@ export default function SearchResults(props: PROPS) {
           <div className="w-[calc(100%-208px)] flex flex-col px-4 gap-4">
             <ConditionalRenderAB
               condition={!!deferredValue}
-              ComponentA={
-                <>
-                  <SearchList />
-                </>
-              }
+              ComponentA={<SearchList />}
               ComponentB={
                 <>
-                  <div className="w-full h-[133px]">
+                  <div className="w-full h-[163px]">
+                    <p className="text-lg font-semibold mb-2">
+                      Best Selling Products
+                    </p>
                     <ProductGallery onOpenChange={onOpenChange} />
                   </div>
-                  <Divider className="my-2" />
+                  <Divider className="my-1" />
                   <div className="">
+                    <div className="flex justify-between items-center">
+                      <p className="text-lg font-semibold mb-2">
+                        Best Selling Products
+                      </p>
+                      <Link
+                        className="text-secondary cursor-pointer"
+                        href={siteConfig.pages.products}
+                        onClick={onOpenChange}
+                      >
+                        View more
+                      </Link>
+                    </div>
                     <StyledCardGrid onOpenChange={onOpenChange} />
                   </div>
                 </>

@@ -1,4 +1,5 @@
-import { Metadata } from "next/types";
+import type { Metadata, ResolvingMetadata } from "next";
+import "../../home.css";
 
 import "../../home.css";
 import Details from "../components/Details";
@@ -7,11 +8,35 @@ import ImageGallery from "@/src/components/swiper/ImageGallery";
 import AddReview from "@/src/components/AddReview";
 import ReviewList from "@/src/components/Reviews";
 import StyledFAQ from "@/src/components/FAQ";
+import cartItems from "@/src/utils/cartItem";
 
-export const metadata: Metadata = {
-  title: "Products Name",
+type Props = {
+  params: { product_id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 };
 
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  // read route params
+  const productId = params.product_id;
+
+  // fetch data
+  const getCurrentItem = cartItems.find((item) => item.productId === productId);
+
+  // const product = await fetch(`https://.../${id}`).then((res) => res.json());
+
+  // optionally access and extend (rather than replace) parent metadata
+  const previousImages = (await parent).openGraph?.images || [];
+
+  return {
+    title: getCurrentItem?.itemName,
+    openGraph: {
+      images: ["/some-specific-page-image.jpg", ...previousImages],
+    },
+  };
+}
 export default function Products() {
   return (
     <section className="w-full home">

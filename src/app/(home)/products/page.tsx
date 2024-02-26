@@ -1,7 +1,7 @@
 import { Metadata } from "next/types";
 
 import "../../(home)/home.css";
-import GridCard from "@/src/components/GridCard";
+import StyledCardGrid from "@/src/components/swiper/StyledCardGrid";
 
 export const metadata: Metadata = {
   title: "Products categories",
@@ -12,9 +12,9 @@ export default function Products() {
     <section className="w-full home">
       <div className="main flex flex-col justify-center items-center">
         <div className="w-full">
-          <h3 className="text-3xl font-bold mb-4">Products categories</h3>
+          <h3 className="text-3xl font-bold my-2">Products categories</h3>
         </div>
-        <GridCard />
+        <StyledCardGrid />
       </div>
     </section>
   );

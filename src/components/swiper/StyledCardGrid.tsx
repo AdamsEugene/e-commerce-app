@@ -8,7 +8,7 @@ import { siteConfig } from "@/src/config/site";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
 
 type PROPS = {
-  onOpenChange: () => void;
+  onOpenChange?: () => void;
 };
 
 export default function StyledCardGrid(props: PROPS) {
@@ -62,7 +62,7 @@ export default function StyledCardGrid(props: PROPS) {
   ];
 
   return (
-    <div className="flex flex-wrap gap-3">
+    <div className={`flex flex-wrap gap-${onOpenChange ? 3 : 4}`}>
       {list.map((item) => (
         <Card
           isFooterBlurred
@@ -75,16 +75,18 @@ export default function StyledCardGrid(props: PROPS) {
           onClick={() => {
             changePlan("default");
             // addToSelectedProduct(item);
-            onOpenChange();
+            onOpenChange && onOpenChange();
           }}
         >
           <Image
             alt="Woman listing to music"
-            className="object-cover h-[200px] w-[175px]"
+            className={`object-cover ${
+              onOpenChange ? " h-[170px] w-[175px]" : " h-[250px] w-[223px]"
+            }`}
             as={StyledImage}
-            height={200}
+            height={250}
             src={item.img}
-            width={175}
+            width={223}
             isZoomed
           />
           <CardFooter className="justify-center before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
