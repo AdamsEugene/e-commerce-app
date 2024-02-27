@@ -1,6 +1,7 @@
 import type { Metadata, ResolvingMetadata } from "next";
 import "../../home.css";
 import GridCard from "@/src/components/GridCard";
+import BackButton from "@/src/components/button/BackButton";
 
 type Props = {
   params: { product_name: string };
@@ -36,6 +37,7 @@ export default function Products(props: Props) {
     <section className="w-full home">
       <div className="main flex flex-col justify-center items-center">
         <div className="w-full">
+          <BackButton />
           <h3 className="text-3xl font-bold my-2">{productName}</h3>
         </div>
         <GridCard />

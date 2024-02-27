@@ -12,6 +12,7 @@ import OrderSummary from "./OrderSummary";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
 import { useEffect } from "react";
 import productList from "@/src/utils/productList";
+import BackButton from "@/src/components/button/BackButton";
 
 type PROPS = {
   buyNow?: boolean;
@@ -41,16 +42,7 @@ export default function CheckingOut(props: PROPS) {
 
   return (
     <div className="main flex flex-col w-full items-center">
-      <div className="flex items-start w-full">
-        <Button
-          color="default"
-          variant="light"
-          startContent={<IoArrowBackOutline />}
-          onClick={() => router.back()}
-        >
-          Back to {selectedProduct?.title || "details"}
-        </Button>
-      </div>
+      <BackButton previousPage={selectedProduct?.title} />
       <div className="main flex gap-5 w-full">
         <div className="w-full">
           <Card className="w-full">

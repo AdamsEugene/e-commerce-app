@@ -2,6 +2,7 @@ import { Metadata } from "next/types";
 
 import "../../(home)/home.css";
 import StyledCardGrid from "@/src/components/swiper/StyledCardGrid";
+import BackButton from "@/src/components/button/BackButton";
 
 export const metadata: Metadata = {
   title: "Products categories",
@@ -12,6 +13,7 @@ export default function Products() {
     <section className="w-full home">
       <div className="main flex flex-col justify-center items-center">
         <div className="w-full">
+          <BackButton />
           <h3 className="text-3xl font-bold my-2">Products categories</h3>
         </div>
         <StyledCardGrid />
