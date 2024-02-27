@@ -19,7 +19,7 @@ export default function BackButton(props: PROPS) {
         startContent={<IoArrowBackOutline />}
         onClick={() => router.back()}
       >
-        Back to ${props.previousPage || "previews"}
+        Back to {props.previousPage || "previews"}
       </Button>
     </div>
   );
