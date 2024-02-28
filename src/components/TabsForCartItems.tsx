@@ -12,10 +12,11 @@ import { type InCart } from "../store/productSlice";
 
 type PROPS = {
   buyNow?: boolean;
+  drawer?: boolean;
 };
 
 const TabsForCartItems: React.FC<PROPS> = (props) => {
-  const { buyNow: now = false } = props;
+  const { buyNow: now = false, drawer } = props;
 
   const [allItems, setAllItems] = useState<ItemsInCart[]>(cartItems);
   const inCart = useAppStore((state) => state.inCart);
@@ -53,8 +54,31 @@ const TabsForCartItems: React.FC<PROPS> = (props) => {
         fullWidth
         defaultSelectedKey={selectedPlan}
       >
-        {Object.entries(inCart).map(
-          ([cartType, _]) =>
+        {Object.entries(inCart).map(([cartType, _]) =>
+          drawer ? (
+            <Tab
+              key={cartType}
+              title={`${capitalize(cartType)} (${
+                productsInCart[cartType as InCart].length
+              })`}
+            >
+              <ConditionalRenderAB
+                ComponentA={
+                  <>
+                    {getItemsByCartType(cartType as InCart).map((item) => (
+                      <CartItem
+                        key={item.key}
+                        item={item}
+                        from={cartType as InCart}
+                      />
+                    ))}
+                  </>
+                }
+                ComponentB={<EmptyCart type={cartType as InCart} />}
+                condition={!isCartEmpty(cartType as InCart)}
+              />
+            </Tab>
+          ) : (
             cartType !== "later" && (
               <Tab
                 key={cartType}
@@ -79,6 +103,7 @@ const TabsForCartItems: React.FC<PROPS> = (props) => {
                 />
               </Tab>
             )
+          )
         )}
       </Tabs>
     </div>

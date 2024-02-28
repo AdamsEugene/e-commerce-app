@@ -52,7 +52,8 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
   const isDataInCart =
     inCart["default"].length > 0 ||
     inCart["leasing"].length > 0 ||
-    inCart["rent"].length > 0;
+    inCart["rent"].length > 0 ||
+    inCart["later"].length > 0;
 
   return (
     <>
@@ -103,7 +104,7 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
                 condition={isDataInCart}
                 ComponentA={
                   <div className="h-[calc(100vh-286px)]">
-                    <ItemsInCarts />
+                    <ItemsInCarts drawer />
                   </div>
                 }
                 ComponentB={<RenderEmptyCartContent />}

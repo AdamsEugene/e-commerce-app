@@ -12,6 +12,7 @@ import { useAppStore } from "@/src/providers/AppStoreProvider";
 
 type PROPS = {
   buyNow?: boolean;
+  drawer?: boolean;
 };
 
 const plan = {
@@ -32,7 +33,7 @@ const plan = {
 };
 
 export default function ItemsInCarts(props: PROPS) {
-  const { buyNow: now = false } = props;
+  const { buyNow: now = false, drawer } = props;
   const inCart = useAppStore((state) => state.inCart);
   const buyNow = useAppStore((state) => state.buyNow);
   // const isDrawerOpen = useAppStore((state) => state.isDrawerOpen);
@@ -47,7 +48,8 @@ export default function ItemsInCarts(props: PROPS) {
   const isDataInCart =
     productsInCart["default"].length > 0 ||
     productsInCart["leasing"].length > 0 ||
-    productsInCart["rent"].length > 0;
+    productsInCart["rent"].length > 0 ||
+    (Boolean(drawer) && productsInCart["later"].length > 0);
 
   return (
     <div className="w-full">
@@ -55,7 +57,7 @@ export default function ItemsInCarts(props: PROPS) {
         condition={isDataInCart}
         ComponentA={
           <>
-            <TabsForCartItems buyNow={now} />
+            <TabsForCartItems buyNow={now} drawer={drawer} />
             <ConditionalRender
               condition={now}
               Component={
