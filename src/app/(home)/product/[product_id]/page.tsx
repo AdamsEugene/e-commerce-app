@@ -32,7 +32,7 @@ export async function generateMetadata(
   return {
     title: getCurrentItem?.itemName,
     openGraph: {
-      images: ["/some-specific-page-image.jpg", ...previousImages],
+      images: [getCurrentItem?.image as any, ...previousImages],
     },
   };
 }
