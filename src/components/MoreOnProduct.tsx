@@ -23,9 +23,9 @@ export default function MoreOnProduct({ onCopy }: PROPS) {
             onCopy();
           }, 500);
         }}
-        className="truncate"
+        className="w-[98%]"
       >
-        {currentUrl}
+        <p className="max-w-[280px] truncate">{currentUrl}</p>
       </Snippet>
     </ModalBody>
   );
