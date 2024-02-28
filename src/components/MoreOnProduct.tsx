@@ -23,6 +23,7 @@ export default function MoreOnProduct({ onCopy }: PROPS) {
             onCopy();
           }, 500);
         }}
+        className="truncate"
       >
         {currentUrl}
       </Snippet>
