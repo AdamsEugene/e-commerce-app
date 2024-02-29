@@ -10,7 +10,7 @@ import GridCard from "@/src/components/GridCard";
 export default function Home() {
   return (
     <section className="flex flex-col items-center justify-center gap-8 py-8 md:py-10 home">
-      <div className="h-[24rem] w-full max-w-[1780px]">
+      <div className="h-[34rem] w-full max-w-[1780px]">
         <HomeSwiper />
       </div>
       <div className="container main">
