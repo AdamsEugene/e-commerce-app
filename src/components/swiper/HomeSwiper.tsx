@@ -36,6 +36,7 @@ const SwiperCarousel: FC<SwiperCarouselProps> = ({
     autoplay={{
       delay,
       disableOnInteraction: false,
+      pauseOnMouseEnter: true,
     }}
     loop={true}
     modules={[EffectFade, Autoplay]}
