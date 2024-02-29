@@ -11,7 +11,11 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "./homeSwiper.css";
 import productList, { PRODUCTS } from "@/src/utils/productList";
-import { title, subtitle } from "@/src/components/primitives";
+import { title } from "@/src/components/primitives";
+import Link from "next/link";
+import { siteConfig } from "@/src/config/site";
+import { useParams } from "next/navigation";
+import { useAppStore } from "@/src/providers/AppStoreProvider";
 
 // Define the SwiperCarouselProps type
 type SwiperCarouselProps = {
@@ -29,76 +33,87 @@ const SwiperCarousel: FC<SwiperCarouselProps> = ({
   height,
   delay,
   half,
-}) => (
-  <Swiper
-    spaceBetween={30}
-    effect={"fade"}
-    autoplay={{
-      delay,
-      disableOnInteraction: false,
-      pauseOnMouseEnter: true,
-    }}
-    loop={true}
-    modules={[EffectFade, Autoplay]}
-    className="homeSwiper"
-  >
-    {images.map((image, index) => (
-      <SwiperSlide
-        key={index}
-        className={`relative h-[${half ? "17rem" : "34rem"}]`}
-      >
-        <div
-          className={`hero-container relative h-[${half ? "17rem" : "34rem"}]`}
+}) => {
+  const addToBuyNow = useAppStore((state) => state.addToBuyNow);
+  const addToCart = useAppStore((state) => state.addToCart);
+
+  return (
+    <Swiper
+      spaceBetween={30}
+      effect={"fade"}
+      autoplay={{
+        delay,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      }}
+      loop={true}
+      modules={[EffectFade, Autoplay]}
+      className="homeSwiper"
+    >
+      {images.map((image, index) => (
+        <SwiperSlide
+          key={index}
+          className={`relative h-[${half ? "17rem" : "34rem"}]`}
         >
-          <StyledImage
-            width={width}
-            height={height}
-            src={image.img}
-            className={`object-cover h-[${half ? "17rem" : "34rem"}]`}
-          />
-          <div className="z-20 absolute inset-0 bg-black opacity-50"></div>
-          <div className="w-[90%] z-30 absolute top-1/2 left-[50%] transform -translate-x-1/2 -translate-y-1/2 text-center">
-            <div className="w-[60%] text-left">
-              <h2 className={title({ size: half ? "sm" : "lg" })}>
-                {image.title}
-              </h2>
-              <p className={`line-clamp-4 mt-4`}>{image.description}</p>
-            </div>
-            <div className="w-full flex gap-4 mt-4">
-              <Button
-                // className="text-tiny text-white bg-black/20"
-                variant="solid"
-                color="default"
-                radius="full"
-                size={half ? "sm" : "lg"}
-              >
-                Buy Now
-              </Button>
-              <Button
-                // className="text-tiny text-white bg-black/20"
-                variant="solid"
-                color="secondary"
-                radius="full"
-                size={half ? "sm" : "lg"}
-              >
-                Add To Cart
-              </Button>
-              <Button
-                // className="text-tiny text-white bg-black/20"
-                variant="flat"
-                color="default"
-                radius="full"
-                size={half ? "sm" : "lg"}
-              >
-                See More
-              </Button>
+          <div
+            className={`hero-container relative h-[${
+              half ? "17rem" : "34rem"
+            }]`}
+          >
+            <StyledImage
+              width={width}
+              height={height}
+              src={image.img}
+              className={`object-cover h-[${half ? "17rem" : "34rem"}]`}
+            />
+            <div className="z-20 absolute inset-0 light:bg-gray-900 dark:bg-black opacity-60"></div>
+            <div className="w-[90%] z-30 absolute top-1/2 left-[50%] transform -translate-x-1/2 -translate-y-1/2 text-center">
+              <div className="w-[60%] text-left">
+                <h2 className={title({ size: half ? "sm" : "lg" })}>
+                  {image.title}
+                </h2>
+                <p className={`line-clamp-4 mt-4`}>{image.description}</p>
+              </div>
+              <div className="w-full flex gap-4 mt-4">
+                <Button
+                  as={Link}
+                  href={`${siteConfig.pages.product}/${image.productId}/${siteConfig.pages.buyNow}`}
+                  variant="solid"
+                  color="default"
+                  radius="full"
+                  size={half ? "sm" : "lg"}
+                  onClick={() => addToBuyNow("default", image.productId)}
+                >
+                  Buy Now
+                </Button>
+                <Button
+                  // className="text-tiny text-white bg-black/20"
+                  variant="solid"
+                  color="secondary"
+                  radius="full"
+                  size={half ? "sm" : "lg"}
+                  onClick={() => addToCart("default", image.productId)}
+                >
+                  Add To Cart
+                </Button>
+                <Button
+                  as={Link}
+                  href={`${siteConfig.pages.products}/${image.title}`}
+                  variant="flat"
+                  color="default"
+                  radius="full"
+                  size={half ? "sm" : "lg"}
+                >
+                  See More
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
-      </SwiperSlide>
-    ))}
-  </Swiper>
-);
+        </SwiperSlide>
+      ))}
+    </Swiper>
+  );
+};
 
 // HomeSwiper component
 const HomeSwiper: FC = () => {
