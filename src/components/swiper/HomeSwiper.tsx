@@ -14,7 +14,6 @@ import productList, { PRODUCTS } from "@/src/utils/productList";
 import { title } from "@/src/components/primitives";
 import Link from "next/link";
 import { siteConfig } from "@/src/config/site";
-import { useParams } from "next/navigation";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
 
 // Define the SwiperCarouselProps type
@@ -53,10 +52,10 @@ const SwiperCarousel: FC<SwiperCarouselProps> = ({
       {images.map((image, index) => (
         <SwiperSlide
           key={index}
-          className={`relative h-[${half ? "17rem" : "34rem"}]`}
+          className={`rounded-none relative h-[${half ? "17rem" : "34rem"}]`}
         >
           <div
-            className={`hero-container relative h-[${
+            className={`w-full hero-container relative h-[${
               half ? "17rem" : "34rem"
             }]`}
           >

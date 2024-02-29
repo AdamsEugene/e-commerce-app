@@ -25,3 +25,7 @@
   height: 100%;
   object-fit: cover;
 }
+
+.homeSwiper .swiper-wrapper .swiper-slide {
+  border-radius: 0 !important;
+}
