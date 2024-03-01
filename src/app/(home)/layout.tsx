@@ -3,6 +3,7 @@
 import { Navbar } from "@/src/components/navbar";
 
 import "./home.css";
+import MainFooter from "@/src/components/MainFooter";
 
 type PROPS = {
   children: Readonly<{
@@ -15,6 +16,7 @@ export default function RootLayout({ children }: PROPS["children"]) {
     <>
       <Navbar />
       <main className="w-full mx-auto">{children}</main>
+      <MainFooter />
     </>
   );
 }
