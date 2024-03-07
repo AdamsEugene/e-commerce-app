@@ -7,7 +7,10 @@ import {
   MdPerson,
   MdLocalPhone,
 } from "react-icons/md";
+import { AiOutlineHome, AiOutlineUser, AiOutlineMail } from "react-icons/ai";
+
 import { INPUT_PROPS } from "@/src/components/StyledInput";
+import StyledStepper from "@/src/components/StyledStepper";
 
 export const metadata: Metadata = {
   title: "Signup",
@@ -46,14 +49,27 @@ const formData: INPUT_PROPS[] = [
   },
 ];
 
-export default function Signup() {
-  return (
-    <AuthWrapper>
+const steps = [
+  {
+    label: "Step 1",
+    icon: <AiOutlineHome />,
+    visited: true,
+    component: (
       <Forms
         formData={formData}
         forWhat="Signup"
         message="Exciting opportunities await! Create your account and dive in."
       />
+    ),
+  },
+  { label: "Step 2", icon: <AiOutlineUser />, visited: false, component: "" },
+  { label: "Step 3", icon: <AiOutlineMail />, visited: false, component: "" },
+];
+
+export default function Signup() {
+  return (
+    <AuthWrapper>
+      <StyledStepper steps={steps} />
     </AuthWrapper>
   );
 }
