@@ -19,7 +19,7 @@ export default function AuthWrapper({ children }: PropsWithChildren) {
     };
 
     return (
-      <header className="flex justify-between items-center py-4 max-w-7xl w-full fixed top-4">
+      <header className="main flex justify-between items-center py-4 max-w-7xl w-full fixed top-4">
         <ThemeSwitch />
         <StyledDropdown
           Trigger={

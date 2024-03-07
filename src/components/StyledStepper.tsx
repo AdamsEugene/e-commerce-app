@@ -4,11 +4,13 @@ import { useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { AiOutlineHome, AiOutlineUser, AiOutlineMail } from "react-icons/ai";
 import { Button } from "@nextui-org/button";
+import BackButton from "./button/BackButton";
+import { useAppStore } from "../providers/AppStoreProvider";
 
 type PROPS = {
   steps: {
     label: string;
-    icon: JSX.Element;
+    icon?: JSX.Element;
     visited: boolean;
     component: React.ReactNode;
   }[];
@@ -19,6 +21,8 @@ const StyledStepper = ({ steps }: PROPS) => {
   const [visitedSteps, setVisitedSteps] = useState([0]);
   const [errorSteps, setErrorSteps] = useState<number[]>([]); // Keep track of steps with errors
   const controls = useAnimation();
+
+  const updateAccountType = useAppStore((state) => state.updateAccountType);
 
   //   const steps = [
   //     { label: "Step 1", icon: <AiOutlineHome />, visited: true, component: "" },
@@ -61,69 +65,69 @@ const StyledStepper = ({ steps }: PROPS) => {
   };
 
   return (
-    <div className="max-w-full w-full flex flex-row-reverse justify-center items-center mx-auto mt-0 p-4">
-      <div className="flex flex-col items-end space-y-8 w-56 h-64 justify-between -mr-56">
-        {steps.map((step, index) => (
-          <div
-            key={index}
-            className="flex flex-col items-center space-y-2 cursor-pointer w-full"
-          >
-            <div className="flex items-center">
-              <Button
-                isIconOnly
-                color={
-                  (visitedSteps.includes(index) || index <= activeStep) &&
-                  !errorSteps.includes(index)
-                    ? "secondary"
-                    : errorSteps.includes(index)
-                    ? "danger"
-                    : "default"
-                }
-                radius="full"
-                aria-label="Like"
-                onClick={() => handleStepChange(index)}
+    <div className="w-full home">
+      <div className="main flex flex-col w-full items-center">
+        <BackButton func={() => updateAccountType(undefined)} />
+        <div className="max-w-full w-full flex flex-row-reverse justify-center items-center mx-auto -mt-4 p-0">
+          <div className="flex flex-col items-end space-y-8 w-56 h-max justify-between -mr-56">
+            {steps.map((step, index) => (
+              <div
+                key={index}
+                className="flex flex-col items-end space-y-2 cursor-pointer w-full"
               >
-                {step.icon}
-              </Button>
-              {/* {index < steps.length - 1 && (
-                <div className={`flex-1 h-0.5 bg-primary mx-2`} />
-              )} */}
-            </div>
-            <span
-              className={`text-center text-xl ${
-                (visitedSteps.includes(index) || index <= activeStep) &&
-                !errorSteps.includes(index)
-                  ? "text-secondary"
-                  : errorSteps.includes(index)
-                  ? "text-danger"
-                  : "text-default"
-              }`}
-            >
-              {step.label}
-            </span>
+                <Button
+                  isIconOnly
+                  color={
+                    (visitedSteps.includes(index) || index <= activeStep) &&
+                    !errorSteps.includes(index)
+                      ? "secondary"
+                      : errorSteps.includes(index)
+                      ? "danger"
+                      : "default"
+                  }
+                  radius="full"
+                  aria-label="Like"
+                  onClick={() => handleStepChange(index)}
+                >
+                  {step.icon || index + 1}
+                </Button>
+                <span
+                  className={`text-center text-xl ${
+                    (visitedSteps.includes(index) || index <= activeStep) &&
+                    !errorSteps.includes(index)
+                      ? "text-secondary"
+                      : errorSteps.includes(index)
+                      ? "text-danger"
+                      : "text-default"
+                  }`}
+                >
+                  {step.label}
+                </span>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-      <motion.div
-        initial={{ opacity: 1 }}
-        animate={controls}
-        transition={{ type: "tween", duration: 0.3 }}
-        className="mt-4"
-      >
-        {steps.map((step, index) => (
           <motion.div
-            key={index}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 1 }}
+            animate={controls}
+            transition={{ type: "tween", duration: 0.3 }}
+            className="mt-4"
           >
-            <div className={activeStep === index ? "block" : "hidden"}>
-              {step.component}
-            </div>
+            {steps.map((step, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <div className={activeStep === index ? "block" : "hidden"}>
+                  {step.component}
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
-        ))}
-      </motion.div>
+        </div>
+      </div>
     </div>
   );
 };

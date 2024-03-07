@@ -35,8 +35,8 @@ export const createMicsSlice =
   ): StateCreator<MicsSlice, [], [], MicsSlice> =>
   (set) => ({
     ...initState,
-    toggleDrawer: (newState) => set({ isDrawerOpen: newState }),
-    addToSelectedProduct: (item) => set({ selectedProduct: item }),
+    toggleDrawer: (isDrawerOpen) => set({ isDrawerOpen }),
+    addToSelectedProduct: (selectedProduct) => set({ selectedProduct }),
     deleteFromSelectedProduct: () => set({ selectedProduct: undefined }),
-    changePlan: (plan) => set({ selectedPlan: plan }),
+    changePlan: (selectedPlan) => set({ selectedPlan }),
   });
