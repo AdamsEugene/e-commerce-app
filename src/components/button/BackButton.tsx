@@ -6,9 +6,11 @@ import { IoArrowBackOutline } from "react-icons/io5";
 
 type PROPS = {
   previousPage?: string;
+  func?: () => void;
 };
 
 export default function BackButton(props: PROPS) {
+  const { func, previousPage } = props;
   const router = useRouter();
 
   return (
@@ -18,9 +20,9 @@ export default function BackButton(props: PROPS) {
           color="default"
           variant="light"
           startContent={<IoArrowBackOutline />}
-          onClick={() => router.back()}
+          onClick={() => (func ? func() : router.back())}
         >
-          Back to {props.previousPage || "previews"}
+          Back to {previousPage || "previews"}
         </Button>
       </div>
     )

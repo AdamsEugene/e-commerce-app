@@ -9,6 +9,8 @@
   max-width: 1180px;
   width: 100%;
   gap: 1rem;
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
 .homeSwiper .swiper-wrapper {

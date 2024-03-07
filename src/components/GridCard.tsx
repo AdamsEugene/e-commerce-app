@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import React from "react";
 import Link from "next/link";
@@ -26,14 +26,9 @@ export default function GridCard(props: PROPS) {
   return (
     <div
       ref={ref}
-      className="container flex flex-col justify-center items-center gap-4"
+      className="container mx-auto flex flex-col justify-center items-center gap-4"
     >
-      {/* {products.map((product, i) => (
-        <div
-          key={i}
-          className="flex flex-col justify-center items-center gap-8"
-        > */}
-      <div className="flex flex-wrap justify-center gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {productList.slice(0, numberOfItems).map((item, index) => (
           <Card
             shadow="sm"
@@ -65,9 +60,6 @@ export default function GridCard(props: PROPS) {
           </Card>
         ))}
       </div>
-      {/* {i % 2 !== 0 && i !== products.length - 1 && <Advertisement />}
-        </div>
-      ))} */}
     </div>
   );
 }
