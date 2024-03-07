@@ -6,6 +6,7 @@ import { AiOutlineHome, AiOutlineUser, AiOutlineMail } from "react-icons/ai";
 import { Button } from "@nextui-org/button";
 import BackButton from "./button/BackButton";
 import { useAppStore } from "../providers/AppStoreProvider";
+import ConditionalRender from "./ConditionalRender";
 
 type PROPS = {
   steps: {
@@ -23,6 +24,7 @@ const StyledStepper = ({ steps }: PROPS) => {
   const controls = useAnimation();
 
   const updateAccountType = useAppStore((state) => state.updateAccountType);
+  const accountType = useAppStore((state) => state.accountType);
 
   //   const steps = [
   //     { label: "Step 1", icon: <AiOutlineHome />, visited: true, component: "" },
@@ -69,43 +71,48 @@ const StyledStepper = ({ steps }: PROPS) => {
       <div className="main flex flex-col w-full items-center">
         <BackButton func={() => updateAccountType(undefined)} />
         <div className="max-w-full w-full flex flex-row-reverse justify-center items-center mx-auto -mt-4 p-0">
-          <div className="flex flex-col items-end space-y-8 w-56 h-max justify-between -mr-56">
-            {steps.map((step, index) => (
-              <div
-                key={index}
-                className="flex flex-col items-end space-y-2 cursor-pointer w-full"
-              >
-                <Button
-                  isIconOnly
-                  color={
-                    (visitedSteps.includes(index) || index <= activeStep) &&
-                    !errorSteps.includes(index)
-                      ? "secondary"
-                      : errorSteps.includes(index)
-                      ? "danger"
-                      : "default"
-                  }
-                  radius="full"
-                  aria-label="Like"
-                  onClick={() => handleStepChange(index)}
-                >
-                  {step.icon || index + 1}
-                </Button>
-                <span
-                  className={`text-center text-xl ${
-                    (visitedSteps.includes(index) || index <= activeStep) &&
-                    !errorSteps.includes(index)
-                      ? "text-secondary"
-                      : errorSteps.includes(index)
-                      ? "text-danger"
-                      : "text-default"
-                  }`}
-                >
-                  {step.label}
-                </span>
+          <ConditionalRender
+            condition={accountType !== "default"}
+            Component={
+              <div className="flex flex-col items-end space-y-8 w-56 h-max justify-between -mr-56">
+                {steps.map((step, index) => (
+                  <div
+                    key={index}
+                    className="flex flex-col items-end space-y-2 cursor-pointer w-full"
+                  >
+                    <Button
+                      isIconOnly
+                      color={
+                        (visitedSteps.includes(index) || index <= activeStep) &&
+                        !errorSteps.includes(index)
+                          ? "secondary"
+                          : errorSteps.includes(index)
+                          ? "danger"
+                          : "default"
+                      }
+                      radius="full"
+                      aria-label="Like"
+                      onClick={() => handleStepChange(index)}
+                    >
+                      {step.icon || index + 1}
+                    </Button>
+                    <span
+                      className={`text-center text-xl ${
+                        (visitedSteps.includes(index) || index <= activeStep) &&
+                        !errorSteps.includes(index)
+                          ? "text-secondary"
+                          : errorSteps.includes(index)
+                          ? "text-danger"
+                          : "text-default"
+                      }`}
+                    >
+                      {step.label}
+                    </span>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            }
+          />
 
           <motion.div
             initial={{ opacity: 1 }}

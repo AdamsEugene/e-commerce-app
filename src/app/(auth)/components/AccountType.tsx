@@ -14,6 +14,12 @@ type AccountType = {
 
 const accountTypes: AccountType[] = [
   {
+    title: "Default",
+    description: "Default account type",
+    icon: <AiOutlineUser size={40} />,
+    type: "default",
+  },
+  {
     title: "Employee/Member",
     description: "Individuals working or associated with an organization",
     icon: <AiOutlineUser size={40} />,
@@ -43,7 +49,7 @@ const AccountType = () => {
         <p className="text-lg text-gray-600 mb-8">
           Select the account type that best fits your needs.
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4">
           {accountTypes.map((type, index) => (
             <Card key={index} isHoverable isPressable>
               <CardBody onClick={() => updateAccountType(type.type)}>

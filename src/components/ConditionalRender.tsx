@@ -13,20 +13,22 @@ const scaleVariants = {
 export default function ConditionalRender(props: PROPS) {
   const { Component, condition } = props;
 
-  return (
-    <AnimatePresence>
-      {condition && (
-        <motion.div
-          key="component"
-          initial="hidden"
-          animate="visible"
-          exit="hidden"
-          variants={scaleVariants}
-          className="w-full"
-        >
-          {Component}
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
+  // return (
+  //   <AnimatePresence>
+  //     {condition && (
+  //       <motion.div
+  //         key="component"
+  //         initial="hidden"
+  //         animate="visible"
+  //         exit="hidden"
+  //         variants={scaleVariants}
+  //         className="w-full"
+  //       >
+  //         {Component}
+  //       </motion.div>
+  //     )}
+  //   </AnimatePresence>
+  // );
+
+  return condition ? <>{Component}</> : null;
 }

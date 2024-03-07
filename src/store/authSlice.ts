@@ -1,7 +1,7 @@
 import { StateCreator } from "zustand";
 
 export type AuthState = {
-  accountType?: "employee" | "organization" | "association";
+  accountType?: "default" | "employee" | "organization" | "association";
 };
 
 export type AuthActions = {
