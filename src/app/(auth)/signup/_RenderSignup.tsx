@@ -56,7 +56,7 @@ const steps = [
     component: (
       <Forms
         formData={formData}
-        forWhat="Signup"
+        forWhat="Login"
         message="Exciting opportunities await! Create your account and dive in."
       />
     ),
@@ -74,9 +74,15 @@ const steps = [
     ),
   },
   {
-    label: "Step 3",
-    icon: <AiOutlineMail />,
-    visited: false,
+    component: (
+      <Forms
+        formData={formData}
+        forWhat="Login"
+        message="Exciting opportunities await! Create your account and dive in."
+      />
+    ),
+  },
+  {
     component: (
       <Forms
         formData={formData}
@@ -86,25 +92,10 @@ const steps = [
     ),
   },
   {
-    label: "Step 4",
-    // icon: <AiOutlineMail />,
-    visited: false,
     component: (
       <Forms
         formData={formData}
-        forWhat="Signup"
-        message="Exciting opportunities await! Create your account and dive in."
-      />
-    ),
-  },
-  {
-    label: "Step 5",
-    icon: <AiOutlineMail />,
-    visited: false,
-    component: (
-      <Forms
-        formData={formData}
-        forWhat="Signup"
+        forWhat="Login"
         message="Exciting opportunities await! Create your account and dive in."
       />
     ),

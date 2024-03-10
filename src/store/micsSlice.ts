@@ -4,6 +4,7 @@ import { InCart } from "./productSlice";
 
 export type MicsState = {
   isDrawerOpen: boolean;
+  activeStep: number;
   selectedProduct?: PRODUCTS;
   selectedPlan: Exclude<InCart, "later">;
 };
@@ -13,6 +14,7 @@ export type MicsActions = {
   addToSelectedProduct: (item: PRODUCTS) => void;
   deleteFromSelectedProduct: () => void;
   changePlan: (plan: Exclude<InCart, "later">) => void; // Change this line
+  updateActiveStep: (activeStep: number) => void;
 };
 
 export type MicsSlice = MicsState & MicsActions;
@@ -20,6 +22,7 @@ export type MicsSlice = MicsState & MicsActions;
 export const initMicsStore = (): MicsState => {
   return {
     isDrawerOpen: false,
+    activeStep: 0,
     selectedProduct: undefined,
     selectedPlan: "default",
   };
@@ -39,4 +42,5 @@ export const createMicsSlice =
     addToSelectedProduct: (selectedProduct) => set({ selectedProduct }),
     deleteFromSelectedProduct: () => set({ selectedProduct: undefined }),
     changePlan: (selectedPlan) => set({ selectedPlan }),
+    updateActiveStep: (activeStep) => set({ activeStep }),
   });
