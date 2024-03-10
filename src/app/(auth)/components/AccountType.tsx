@@ -2,8 +2,9 @@
 
 import { useAppStore } from "@/src/providers/AppStoreProvider";
 import { AuthState } from "@/src/store/authSlice";
-import { Card, CardBody } from "@nextui-org/react";
+import { Button, Card, CardBody } from "@nextui-org/react";
 import { AiOutlineUser, AiOutlineBuild, AiOutlineTeam } from "react-icons/ai";
+import { BsInfoCircle } from "react-icons/bs";
 
 type AccountType = {
   title: string;
@@ -14,8 +15,8 @@ type AccountType = {
 
 const accountTypes: AccountType[] = [
   {
-    title: "Default",
-    description: "Default account type",
+    title: "General",
+    description: "General account type",
     icon: <AiOutlineUser size={40} />,
     type: "default",
   },
@@ -53,6 +54,18 @@ const AccountType = () => {
           {accountTypes.map((type, index) => (
             <Card key={index} isHoverable isPressable>
               <CardBody onClick={() => updateAccountType(type.type)}>
+                <Button
+                  isIconOnly
+                  color={"default"}
+                  variant="light"
+                  radius="full"
+                  aria-label="Like"
+                  onClick={() => {}}
+                  className="absolute top-2 right-2"
+                >
+                  <BsInfoCircle size={20} />
+                </Button>
+
                 {type.icon}
                 <h3 className="text-lg font-semibold mt-2">{type.title}</h3>
                 <p className="text-gray-500">{type.description}</p>
