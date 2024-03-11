@@ -28,7 +28,7 @@ export default function Login() {
     <AuthWrapper>
       <Forms
         formData={formData}
-        forWhat="Login"
+        title="Login"
         message="Great to have you back! Log in and pick up where you left off."
       />
     </AuthWrapper>
