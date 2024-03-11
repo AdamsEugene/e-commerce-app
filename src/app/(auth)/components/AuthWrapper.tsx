@@ -9,6 +9,8 @@ import { useAppStore } from "@/src/providers/AppStoreProvider";
 import { useAnimation } from "framer-motion";
 import ConditionalRender from "@/src/components/ConditionalRender";
 import { employeeFormSteps } from "@/src/utils/employeeFormSteps";
+import { associationFormSteps } from "@/src/utils/associationFormSteps";
+import { organizationFormSteps } from "@/src/utils/organizationFormSteps";
 
 const languages = [
   { key: "english", label: "English" },
@@ -27,7 +29,7 @@ export default function AuthWrapper({ children }: PropsWithChildren) {
     };
 
     return (
-      <header className="main flex justify-between items-center py-4 max-w-7xl w-full fixed top-4">
+      <header className="main flex justify-between items-center py-4 max-w-7xl w-full fixed top-4 z-40">
         <div className="flex gap-4">
           <ThemeSwitch />
           <ConditionalRender
@@ -71,6 +73,7 @@ const StepsComponent = () => {
 
   const updateActiveStep = useAppStore((state) => state.updateActiveStep);
   const activeStep = useAppStore((state) => state.activeStep);
+  const accountType = useAppStore((state) => state.accountType);
 
   const isStepValid = (index: number): boolean => {
     // Implement your validation logic here
@@ -106,9 +109,16 @@ const StepsComponent = () => {
     }
   };
 
+  const stepsData =
+    accountType === "employee"
+      ? employeeFormSteps
+      : accountType === "association"
+      ? associationFormSteps
+      : organizationFormSteps;
+
   return (
-    <div className="w-full flex space-x-8 justify-between max-w-[60%]">
-      {employeeFormSteps.map((step, index) => (
+    <div className="w-full flex space-x-8 justify-between max-w-[70%]">
+      {stepsData.map((step, index) => (
         <div
           key={index}
           className="flex items-center space-x-2 cursor-pointer w-full"
@@ -139,6 +149,7 @@ const StepsComponent = () => {
                 ? "text-danger"
                 : "text-default"
             }`}
+            onClick={() => handleStepChange(index)}
           >
             {step.label}
           </span>
