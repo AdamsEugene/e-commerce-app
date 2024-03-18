@@ -14,7 +14,7 @@ export const userMetricsData = [
     label: "Total purchases",
     link: "/total_purchases",
     icon: IoStatsChart,
-    bgColor: "bg-green-200",
+    bgColor: "bg-green-100",
     iconColor: "text-green-500",
   },
   {
@@ -30,8 +30,8 @@ export const userMetricsData = [
     label: "Total orders",
     link: "/total_orders",
     icon: IoPeople,
-    bgColor: "bg-primary-100",
-    iconColor: "text-primary-500",
+    bgColor: "bg-teal-100",
+    iconColor: "text-teal-500",
   },
 ];
 
