@@ -1,6 +1,6 @@
 import React from "react";
 import { MdDashboard } from "react-icons/md";
-import { IoSettings, IoAnalyticsSharp, IoAddCircle } from "react-icons/io5";
+import { IoSettings, IoAnalyticsSharp, IoAddCircle, IoPeople, IoCart, IoStatsChart, IoCash } from "react-icons/io5";
 import { FiActivity } from "react-icons/fi";
 import { IconType } from "react-icons";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
@@ -11,6 +11,7 @@ export type DashboardLinks = {
     name: string;
     icon: React.ReactNode;
     id: "user" | "admin";
+    children?: DashboardLinks["linkData"];
   }[];
 };
 
@@ -20,6 +21,32 @@ export const _userDashboardLinks = [
     name: "Dashboard",
     icon: MdDashboard,
     id: "user" as const,
+    children: [
+      {
+        path: "/dashboard/total_spent",
+        name: "Total Spent",
+        icon: IoCash,
+        id: "user" as const,
+      },
+      {
+        path: "/dashboard/total_purchases",
+        name: "Total purchases",
+        icon: IoStatsChart,
+        id: "user" as const,
+      },
+      {
+        path: "/dashboard/items_in_cart",
+        name: "Items in cart",
+        icon: IoCart,
+        id: "user" as const,
+      },
+      {
+        path: "/dashboard/total_orders",
+        name: "Total orders",
+        icon: IoPeople,
+        id: "user" as const,
+      },
+    ],
   },
   {
     path: "/dashboard/activities",
