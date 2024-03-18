@@ -18,9 +18,9 @@ export default function StyledBreadcrumbs() {
 
   const returnIcon = (path: string) => {
     if (path === "dashboard") {
-      return dashboardLinks.find((link) => link.path === `/${path}`)?.icon;
+      return dashboardLinks.find((link) => link?.path === `/${path}`)?.icon;
     }
-    return dashboardLinks.find((link) => link.path.includes(path))?.icon;
+    return dashboardLinks.find((link) => link?.path.includes(path))?.icon;
   };
 
   const dashboardLinks = pathName.includes("/dashboard/admin")
@@ -28,15 +28,15 @@ export default function StyledBreadcrumbs() {
     : userDashboardLinks;
 
   const currentLinks = dashboardLinks.filter(
-    (link) => link.path === pathName
+    (link) => link?.path === pathName
   )[0];
 
   const formatPathName = {
     ...currentLinks,
-    path: currentLinks.path.split("/").filter(Boolean),
+    path: currentLinks?.path.split("/").filter(Boolean),
   };
 
-  const linksToDisplay = formatPathName.path.map((path) => ({
+  const linksToDisplay = formatPathName?.path.map((path) => ({
     path: capitalizeFirstLetter(path),
     icon: returnIcon(path),
   }));
@@ -45,11 +45,11 @@ export default function StyledBreadcrumbs() {
     <Breadcrumbs>
       {linksToDisplay.map((link, index) => (
         <BreadcrumbItem
-          href={`/${link.path.toLowerCase()}`}
+          href={`/${link?.path.toLowerCase()}`}
           key={index}
           startContent={link.icon}
         >
-          {link.path}
+          {link?.path}
         </BreadcrumbItem>
       ))}
     </Breadcrumbs>
