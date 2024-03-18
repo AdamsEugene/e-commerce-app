@@ -36,14 +36,14 @@ export default function StyledBreadcrumbs() {
     path: currentLinks?.path.split("/").filter(Boolean),
   };
 
-  const linksToDisplay = formatPathName?.path.map((path) => ({
+  const linksToDisplay = formatPathName?.path?.map((path) => ({
     path: capitalizeFirstLetter(path),
     icon: returnIcon(path),
   }));
 
   return (
     <Breadcrumbs>
-      {linksToDisplay.map((link, index) => (
+      {linksToDisplay?.map((link, index) => (
         <BreadcrumbItem
           href={`/${link?.path.toLowerCase()}`}
           key={index}
