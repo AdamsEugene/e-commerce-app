@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Card, Listbox, ListboxItem } from "@nextui-org/react";
+import { Card, CardBody, Listbox, ListboxItem } from "@nextui-org/react";
 import { IconWrapper } from "@/src/components/IconWrapper";
 import {
   DashboardLinks,
@@ -25,7 +25,9 @@ export default function Sidebar() {
       shadow="none"
       className="h-[calc(100vh-72px)] bg-transparent"
     >
-      <NavElements linkData={linksToRender} />
+      <CardBody>
+        <NavElements linkData={linksToRender} />
+      </CardBody>
     </Card>
   );
 }
