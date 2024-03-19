@@ -1,19 +1,29 @@
-import { MetricsData } from "@/src/utils/dashboardData";
+import React from "react";
+import { IoInformationCircle } from "react-icons/io5";
 import {
   Card,
   CardBody,
   Popover,
   PopoverTrigger,
   PopoverContent,
-  Button,
 } from "@nextui-org/react";
 import Link from "next/link";
 import { PropsWithChildren } from "react";
-import { IoInformationCircle } from "react-icons/io5";
+import { MetricsData } from "@/src/utils/dashboardData";
 
 export default function ProductMetrics(props: MetricsData) {
   const { amount, icon, label, link, bgColor, iconColor } = props;
   const Icon = icon;
+
+  const cardStyle = {
+    backgroundColor: bgColor,
+    transition: "background-color 0.3s",
+  };
+
+  const iconStyle = {
+    color: iconColor,
+    transition: "color 0.3s",
+  };
 
   return (
     <Card
@@ -24,9 +34,10 @@ export default function ProductMetrics(props: MetricsData) {
       <CardBody className="p-4">
         <div className="flex items-center gap-4">
           <div
-            className={`flex items-center justify-center w-14 h-14 rounded-lg group-hover:rounded-lg ${bgColor} ${iconColor}`}
+            className="flex items-center justify-center w-14 h-14 rounded-lg group-hover:rounded-lg"
+            style={cardStyle}
           >
-            <Icon className="text-3xl" />
+            <Icon className="text-3xl" style={iconStyle} />
           </div>
           <div className="flex flex-col flex-grow">
             <div className="flex items-center justify-between">

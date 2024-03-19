@@ -11,6 +11,8 @@ This is a template for creating applications using Next.js 13 (app directory) an
 - [TypeScript](https://www.typescriptlang.org/)
 - [Framer Motion](https://www.framer.com/motion/)
 - [next-themes](https://github.com/pacocoursey/next-themes)
+- [recharts](https://recharts.org/en-US/guide)
+- [swiperjs](https://swiperjs.com/demos#vertical)
 
 ## How to Use
 
@@ -26,13 +28,13 @@ npx create-next-app -e https://github.com/nextui-org/next-app-template
 ### Install dependencies
 
 ```bash
-npm install
+pnpm install
 ```
 
 ### Run the development server
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 ## License
