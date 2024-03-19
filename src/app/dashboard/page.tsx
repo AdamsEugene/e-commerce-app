@@ -1,6 +1,10 @@
 import { Metadata } from "next";
 import ProductMetrics from "./components/ProductMetrics";
 import { userMetricsData } from "@/src/utils/dashboardData";
+import StyledLineChart from "./components/charts/StyledLineChart";
+import GridItem from "./components/GridItem";
+import StyledTable from "./components/StyledTable";
+import PlacedSideBySide from "./components/PlacedSideBySide";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -14,6 +18,46 @@ export default function Dashboard() {
           <ProductMetrics {...metrics} key={index} />
         ))}
       </div>
+      <PlacedSideBySide
+        firstComponent={
+          <GridItem title="Simple Line Chart">
+            <StyledLineChart />
+          </GridItem>
+        }
+        secondComponent={
+          <GridItem title="Simple Table">
+            <StyledTable />
+          </GridItem>
+        }
+      />
+      <PlacedSideBySide
+        isEqualSize
+        reverse
+        firstComponent={
+          <GridItem title="Simple Line Chart">
+            <StyledLineChart />
+          </GridItem>
+        }
+        secondComponent={
+          <GridItem title="Simple Table">
+            <StyledTable />
+          </GridItem>
+        }
+      />
+      <PlacedSideBySide
+        reverse
+        firstComponent={
+          <GridItem title="Simple Line Chart">
+            <StyledLineChart />
+          </GridItem>
+        }
+        secondComponent={
+          <GridItem title="Simple Table">
+            <StyledTable />
+          </GridItem>
+        }
+      />
+      <div className="h-16"></div>
     </div>
   );
 }

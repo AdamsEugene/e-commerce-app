@@ -1,6 +1,5 @@
 import { Navbar } from "@/src/components/navbar";
 import Sidebar from "./components/Sidebar";
-import { userDashboardLinks } from "@/src/utils/dashboardLinks";
 import StyledBreadcrumbs from "./components/StyledBreadcrumbs";
 
 export default function RootLayout({
@@ -9,9 +8,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="relative flex flex-col">
+    <div className="relative flex flex-col min-h-screen">
       <Navbar />
-      <div className="flex gap-8">
+      <div className="flex gap-8 flex-grow">
         <div className="w-56">
           <Sidebar />
         </div>
@@ -21,7 +20,7 @@ export default function RootLayout({
             {children}
           </div>
         </div>
-        <div className="hidden md:hidden lg:block w-56"></div>
+        <div className="hidden lg:block w-56"></div>
       </div>
     </div>
   );
