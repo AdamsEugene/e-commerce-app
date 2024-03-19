@@ -24,9 +24,9 @@ export default function ProductMetrics(props: MetricsData) {
       <CardBody className="p-4">
         <div className="flex items-center gap-4">
           <div
-            className={`flex items-center justify-center w-14 h-14 rounded-lg group-hover:rounded-lg ${bgColor}`}
+            className={`flex items-center justify-center w-14 h-14 rounded-lg group-hover:rounded-lg ${bgColor} ${iconColor}`}
           >
-            <Icon className={`text-3xl ${iconColor}`} />
+            <Icon className="text-3xl" />
           </div>
           <div className="flex flex-col flex-grow">
             <div className="flex items-center justify-between">
