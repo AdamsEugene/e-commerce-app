@@ -14,9 +14,9 @@ export default function GridItem({
   return (
     <Card radius="sm" shadow="sm" className="h-full w-full">
       <CardHeader>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between w-full">
           <p>{title}</p>
-          <div>
+          <div className="flex items-center gap-3">
             {leftSideComponent?.map((component, index) => (
               <div key={index} className="flex items-center gap-3">
                 {component}
