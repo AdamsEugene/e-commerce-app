@@ -5,6 +5,8 @@ import StyledLineChart from "./components/charts/StyledLineChart";
 import GridItem from "./components/GridItem";
 import StyledTable from "./components/StyledTable";
 import PlacedSideBySide from "./components/PlacedSideBySide";
+import { Chip } from "@nextui-org/react";
+import { IoCheckmarkCircle } from "react-icons/io5";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -20,12 +22,52 @@ export default function Dashboard() {
       </div>
       <PlacedSideBySide
         firstComponent={
-          <GridItem title="Simple Line Chart">
+          <GridItem
+            title="Simple Line Chart"
+            leftSideComponent={[
+              <Chip
+                key={"check"}
+                startContent={<IoCheckmarkCircle />}
+                variant="faded"
+                color="warning"
+              >
+                Chip
+              </Chip>,
+              <Chip
+                key={"check"}
+                startContent={<IoCheckmarkCircle />}
+                variant="faded"
+                color="success"
+              >
+                Chip
+              </Chip>,
+            ]}
+          >
             <StyledLineChart />
           </GridItem>
         }
         secondComponent={
-          <GridItem title="Simple Table">
+          <GridItem
+            title="Simple Table"
+            leftSideComponent={[
+              <Chip
+                key={"check"}
+                startContent={<IoCheckmarkCircle />}
+                variant="faded"
+                color="warning"
+              >
+                Chip
+              </Chip>,
+              <Chip
+                key={"check"}
+                startContent={<IoCheckmarkCircle />}
+                variant="faded"
+                color="success"
+              >
+                Chip
+              </Chip>,
+            ]}
+          >
             <StyledTable />
           </GridItem>
         }
@@ -34,12 +76,52 @@ export default function Dashboard() {
         isEqualSize
         reverse
         firstComponent={
-          <GridItem title="Simple Line Chart">
+          <GridItem
+            title="Simple Line Chart"
+            leftSideComponent={[
+              <Chip
+                key={"check"}
+                startContent={<IoCheckmarkCircle />}
+                variant="faded"
+                color="warning"
+              >
+                Chip
+              </Chip>,
+              <Chip
+                key={"check"}
+                startContent={<IoCheckmarkCircle />}
+                variant="faded"
+                color="success"
+              >
+                Chip
+              </Chip>,
+            ]}
+          >
             <StyledLineChart />
           </GridItem>
         }
         secondComponent={
-          <GridItem title="Simple Table">
+          <GridItem
+            title="Simple Table"
+            leftSideComponent={[
+              <Chip
+                key={"check"}
+                startContent={<IoCheckmarkCircle />}
+                variant="faded"
+                color="warning"
+              >
+                Chip
+              </Chip>,
+              <Chip
+                key={"check"}
+                startContent={<IoCheckmarkCircle />}
+                variant="faded"
+                color="success"
+              >
+                Chip
+              </Chip>,
+            ]}
+          >
             <StyledTable />
           </GridItem>
         }
@@ -47,12 +129,52 @@ export default function Dashboard() {
       <PlacedSideBySide
         reverse
         firstComponent={
-          <GridItem title="Simple Line Chart">
+          <GridItem
+            title="Simple Line Chart"
+            leftSideComponent={[
+              <Chip
+                key={"check"}
+                startContent={<IoCheckmarkCircle />}
+                variant="faded"
+                color="warning"
+              >
+                Chip
+              </Chip>,
+              <Chip
+                key={"check"}
+                startContent={<IoCheckmarkCircle />}
+                variant="faded"
+                color="success"
+              >
+                Chip
+              </Chip>,
+            ]}
+          >
             <StyledLineChart />
           </GridItem>
         }
         secondComponent={
-          <GridItem title="Simple Table">
+          <GridItem
+            title="Simple Table"
+            leftSideComponent={[
+              <Chip
+                key={"check"}
+                startContent={<IoCheckmarkCircle />}
+                variant="faded"
+                color="warning"
+              >
+                Chip
+              </Chip>,
+              <Chip
+                key={"check"}
+                startContent={<IoCheckmarkCircle />}
+                variant="faded"
+                color="success"
+              >
+                Chip
+              </Chip>,
+            ]}
+          >
             <StyledTable />
           </GridItem>
         }
