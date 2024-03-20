@@ -33,8 +33,8 @@ export const userMetricsData = [
     label: "Items in cart",
     link: pages.itemsInCart,
     icon: IoCart,
-    bgColor: "rgba(255, 255, 0, 0.5)", // Transparent yellow
-    iconColor: "yellow",
+    bgColor: "#F7CCD8", // Transparent yellow
+    iconColor: "#F31260",
   },
   {
     value: "57",
