@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -26,13 +26,16 @@ export default function Sidebar() {
       className="h-[calc(100vh-72px)] bg-transparent sticky top-16 z-10"
     >
       <CardBody>
-        <NavElements linkData={linksToRender} />
+        <NavElements linkData={linksToRender} activePath={pathName} />
       </CardBody>
     </Card>
   );
 }
 
-const NavElements = ({ linkData }: DashboardLinks) => {
+const NavElements = ({
+  linkData,
+  activePath,
+}: DashboardLinks & { activePath: string }) => {
   const pathName = usePathname();
 
   return (
@@ -45,6 +48,9 @@ const NavElements = ({ linkData }: DashboardLinks) => {
     >
       {linkData.map((item) => {
         const Icon = item.icon;
+        const isActive = activePath.includes("/detail")
+          ? item.path === "/dashboard"
+          : pathName === item.path;
 
         return (
           <ListboxItem
@@ -52,11 +58,15 @@ const NavElements = ({ linkData }: DashboardLinks) => {
             as={Link}
             href={item.path}
             startContent={
-              <IconWrapper className="bg-secondary/10 text-secondary">
+              <IconWrapper
+                className={`bg-secondary/10 text-secondary ${
+                  isActive ? "bg-secondary-100" : ""
+                }`}
+              >
                 {Icon}
               </IconWrapper>
             }
-            className={`${pathName === item.path ? "bg-secondary-100" : ""}`}
+            className={`${isActive ? "bg-secondary-100" : ""}`}
           >
             {item.name}
           </ListboxItem>
