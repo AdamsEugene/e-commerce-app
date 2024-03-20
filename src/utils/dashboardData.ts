@@ -1,34 +1,45 @@
-import { IoCash, IoStatsChart, IoCart, IoPeople } from "react-icons/io5";
+import {
+  IoCash,
+  IoStatsChart,
+  IoPeople,
+  IoCart,
+  IoTimer,
+  IoBagHandle,
+  IoHeart,
+} from "react-icons/io5";
+import { siteConfig } from "../config/site";
+
+const { pages } = siteConfig;
 
 export const userMetricsData = [
   {
-    amount: "$35.87",
+    value: "$35.87",
     label: "Total money spent",
-    link: "/total_spent",
+    link: pages.totalSpending,
     icon: IoCash,
     bgColor: "#9454d480", // Transparent purple
     iconColor: "#9454d4",
   },
   {
-    amount: "142",
+    value: "142",
     label: "Total purchases",
-    link: "/total_purchases",
+    link: pages.totalPurchases,
     icon: IoStatsChart,
     bgColor: "rgba(0, 128, 0, 0.5)", // Transparent green
     iconColor: "green",
   },
   {
-    amount: "24",
+    value: "24",
     label: "Items in cart",
-    link: "/items_in_cart",
+    link: pages.itemsInCart,
     icon: IoCart,
     bgColor: "rgba(255, 255, 0, 0.5)", // Transparent yellow
     iconColor: "yellow",
   },
   {
-    amount: "57",
+    value: "57",
     label: "Total orders",
-    link: "/total_orders",
+    link: pages.totalOrders,
     icon: IoPeople,
     bgColor: "rgba(0, 128, 128, 0.5)", // Transparent teal
     iconColor: "teal",
@@ -36,6 +47,41 @@ export const userMetricsData = [
 ];
 
 export type MetricsData = (typeof userMetricsData)[0];
+
+export const activityMetricsData = [
+  {
+    value: "$35.87",
+    label: "Rentals",
+    link: "/dashboard/total_rental_spent",
+    icon: IoBagHandle,
+    bgColor: "rgba(255, 165, 0, 0.5)", // Transparent orange
+    iconColor: "#FFA500", // Orange
+  },
+  {
+    value: "142",
+    label: "Leasing",
+    link: "/dashboard/total_leasing_activities",
+    icon: IoTimer,
+    bgColor: "rgba(255, 69, 0, 0.5)", // Transparent red-orange
+    iconColor: "#FF4500", // Red-orange
+  },
+  {
+    value: "24",
+    label: "Purchases",
+    link: "/dashboard/total_items_purchased",
+    icon: IoCart,
+    bgColor: "rgba(0, 128, 0, 0.5)", // Transparent green
+    iconColor: "#008000", // Green
+  },
+  {
+    value: "57",
+    label: "Saved",
+    link: "/dashboard/total_items_saved_for_later",
+    icon: IoHeart,
+    bgColor: "rgba(0, 0, 255, 0.5)", // Transparent blue
+    iconColor: "#0000FF", // Blue
+  },
+];
 
 const columns = [
   { name: "NAME", uid: "name" },

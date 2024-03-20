@@ -12,7 +12,7 @@ import { PropsWithChildren } from "react";
 import { MetricsData } from "@/src/utils/dashboardData";
 
 export default function ProductMetrics(props: MetricsData) {
-  const { amount, icon, label, link, bgColor, iconColor } = props;
+  const { value, icon, label, link, bgColor, iconColor } = props;
   const Icon = icon;
 
   const cardStyle = {
@@ -41,7 +41,7 @@ export default function ProductMetrics(props: MetricsData) {
           </div>
           <div className="flex flex-col flex-grow">
             <div className="flex items-center justify-between">
-              <p className="text-3xl font-semibold">{amount}</p>
+              <p className="text-3xl font-semibold">{value}</p>
               <StyledPopover>
                 <IoInformationCircle className="text-gray-500 cursor-pointer" />
               </StyledPopover>
