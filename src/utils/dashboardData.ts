@@ -52,7 +52,7 @@ export const activityMetricsData = [
   {
     value: "$35.87",
     label: "Rentals",
-    link: "/dashboard/total_rental_spent",
+    link: pages.totalRental,
     icon: IoBagHandle,
     bgColor: "rgba(255, 165, 0, 0.5)", // Transparent orange
     iconColor: "#FFA500", // Orange
@@ -60,7 +60,7 @@ export const activityMetricsData = [
   {
     value: "142",
     label: "Leasing",
-    link: "/dashboard/total_leasing_activities",
+    link: pages.totalLeasing,
     icon: IoTimer,
     bgColor: "rgba(255, 69, 0, 0.5)", // Transparent red-orange
     iconColor: "#FF4500", // Red-orange
@@ -68,7 +68,7 @@ export const activityMetricsData = [
   {
     value: "24",
     label: "Purchases",
-    link: "/dashboard/total_items_purchased",
+    link: pages.ActivityTotalPurchases,
     icon: IoCart,
     bgColor: "rgba(0, 128, 0, 0.5)", // Transparent green
     iconColor: "#008000", // Green
@@ -76,7 +76,7 @@ export const activityMetricsData = [
   {
     value: "57",
     label: "Saved",
-    link: "/dashboard/total_items_saved_for_later",
+    link: pages.totalSave,
     icon: IoHeart,
     bgColor: "rgba(0, 0, 255, 0.5)", // Transparent blue
     iconColor: "#0000FF", // Blue

@@ -8,6 +8,9 @@ import {
   IoCart,
   IoStatsChart,
   IoCash,
+  IoTimer,
+  IoBagHandle,
+  IoHeart,
 } from "react-icons/io5";
 import { FiActivity } from "react-icons/fi";
 import { IconType } from "react-icons";
@@ -66,6 +69,32 @@ export const _userDashboardLinks = [
     name: "My Activities",
     icon: FiActivity,
     id: "user" as const,
+    children: [
+      {
+        name: "Total Rental",
+        path: pages.totalRental,
+        icon: IoBagHandle,
+        id: "user" as const,
+      },
+      {
+        name: "Total Leasing",
+        path: pages.totalLeasing,
+        icon: IoTimer,
+        id: "user" as const,
+      },
+      {
+        name: "Total Purchases",
+        path: pages.ActivityTotalPurchases,
+        icon: IoCart,
+        id: "user" as const,
+      },
+      {
+        name: "Save For Later",
+        path: pages.totalSave,
+        icon: IoHeart,
+        id: "user" as const,
+      },
+    ],
   },
   {
     path: pages.dashboardAnalytics,
