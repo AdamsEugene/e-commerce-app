@@ -55,7 +55,7 @@ export default function StyledBreadcrumbs() {
 
   if (isDetailedPage) {
     const [_mainPath, _detailPath] = pathName.split("/detail");
-    detailPath = _detailPath.split("/")[1];
+    detailPath = _detailPath?.split("/")?.[1];
     currentLinks = getCurrentLinks(_mainPath);
     if (currentLinks?.path) links = currentLinks.path + "/detail" + _detailPath;
     mainPath = _mainPath;
@@ -63,7 +63,7 @@ export default function StyledBreadcrumbs() {
 
   const formatPathName = {
     ...currentLinks,
-    path: (links || currentLinks?.path).split("/").filter(Boolean),
+    path: (links || currentLinks?.path)?.split("/")?.filter(Boolean),
   };
 
   const linksToDisplay = formatPathName?.path?.map((path) => ({
