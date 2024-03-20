@@ -69,6 +69,11 @@ export const siteConfig = {
     totalPurchases: "/dashboard/detail/total_purchases",
     itemsInCart: "/dashboard/detail/items_in_cart",
     totalOrders: "/dashboard/detail/total_orders",
+    totalRental: "/dashboard/activities/detail/total_rental_spent",
+    totalLeasing: "/dashboard/activities/detail/total_leasing_activities",
+    ActivityTotalPurchases:
+      "/dashboard/activities/detail/total_items_purchased",
+    totalSave: "/dashboard/activities/detail/total_items_saved_for_later",
     adminDashboardActivities: "/dashboard/admin/activities",
     adminDashboardAnalytics: "/dashboard/admin/analytics",
     adminDashboardSettings: "/dashboard/admin/settings",

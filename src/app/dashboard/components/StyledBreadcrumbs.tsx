@@ -75,7 +75,11 @@ export default function StyledBreadcrumbs() {
     <Breadcrumbs>
       {linksToDisplay?.map((link, index) => (
         <BreadcrumbItem
-          href={`/${link?.path.toLowerCase()}`}
+          href={`${
+            link?.path.toLowerCase() === "detail"
+              ? `${mainPath}/detail`
+              : link?.path.toLowerCase()
+          }`}
           key={index}
           startContent={link.icon}
         >

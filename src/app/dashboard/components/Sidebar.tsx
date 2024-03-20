@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -48,8 +48,8 @@ const NavElements = ({
     >
       {linkData.map((item) => {
         const Icon = item.icon;
-        const isActive = activePath.includes("/detail")
-          ? item.path === "/dashboard"
+        const isActive = activePath.split("/detail")[0]
+          ? item.path.split("/detail")[0] === pathName.split("/detail")[0]
           : pathName === item.path;
 
         return (
