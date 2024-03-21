@@ -87,7 +87,7 @@ export default function StyledTable() {
   }, []);
 
   return (
-    <Table isStriped removeWrapper aria-label="Example table with custom cells">
+    <Table isStriped removeWrapper fullWidth aria-label="Example table with custom cells">
       <TableHeader columns={columns}>
         {(column) => (
           <TableColumn

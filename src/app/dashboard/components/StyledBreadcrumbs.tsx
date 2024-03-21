@@ -43,9 +43,8 @@ export default function StyledBreadcrumbs() {
   const getRoutes = (path: string) =>
     pathName.includes(path) ? adminDashboardLinks : userDashboardLinks;
 
-  const dashboardLinks = pathName.includes("/dashboard/admin")
-    ? adminDashboardLinks
-    : userDashboardLinks;
+  const isAdmin = pathName.includes("/dashboard/admin");
+  const dashboardLinks = isAdmin ? adminDashboardLinks : userDashboardLinks;
 
   const getCurrentLinks = (path: string) =>
     dashboardLinks.filter((link) => link?.path === path)[0];
@@ -71,6 +70,13 @@ export default function StyledBreadcrumbs() {
     icon: returnIcon(path),
   }));
 
+  const basePaths = ["activities", "analytics", "settings"];
+
+  const constructPath = (path: string) =>
+    basePaths.includes(path)
+      ? `dashboard/${isAdmin ? "/admin/" : ""}${path}`
+      : path;
+
   return (
     <Breadcrumbs>
       {linksToDisplay?.map((link, index) => (
@@ -78,7 +84,7 @@ export default function StyledBreadcrumbs() {
           href={`${
             link?.path.toLowerCase() === "detail"
               ? `${mainPath}/detail`
-              : link?.path.toLowerCase()
+              : `/${constructPath(link?.path.toLowerCase())}`
           }`}
           key={index}
           startContent={link.icon}
