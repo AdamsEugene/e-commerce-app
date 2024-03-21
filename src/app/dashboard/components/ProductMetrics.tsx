@@ -46,7 +46,7 @@ export default function ProductMetrics(props: MetricsData) {
                 <IoInformationCircle className="text-gray-500 cursor-pointer" />
               </StyledPopover>
             </div>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-3">
               <p className="text-sm text-gray-500">{label}</p>
               <Link href={link}>
                 <p className="text-sm text-blue-400 hover:underline">details</p>
