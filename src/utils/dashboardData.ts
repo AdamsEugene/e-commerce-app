@@ -7,7 +7,20 @@ import {
   IoBagHandle,
   IoHeart,
 } from "react-icons/io5";
+import {
+  FaDollarSign,
+  FaShoppingCart,
+  FaUserFriends,
+  FaChartLine,
+  FaMoneyBillAlt,
+  FaClock,
+  FaUserCheck,
+  FaUserPlus,
+  FaChartBar,
+} from "react-icons/fa";
+
 import { siteConfig } from "../config/site";
+import { DashboardLink } from "./dashboardLinks";
 
 const { pages } = siteConfig;
 
@@ -33,8 +46,8 @@ export const userMetricsData = [
     label: "Items in cart",
     link: pages.itemsInCart,
     icon: IoCart,
-    bgColor: "#F7CCD8", // Transparent yellow
-    iconColor: "#F31260",
+    bgColor: "rgba(243, 18, 97, 0.5)", // Transparent yellow
+    iconColor: "#f31260",
   },
   {
     value: "57",
@@ -45,8 +58,6 @@ export const userMetricsData = [
     iconColor: "teal",
   },
 ];
-
-export type MetricsData = (typeof userMetricsData)[0];
 
 export const activityMetricsData = [
   {
@@ -82,6 +93,87 @@ export const activityMetricsData = [
     iconColor: "#0000FF", // Blue
   },
 ];
+
+const _adminDashboardMetrics = [
+  {
+    value: "$145.75",
+    label: "Total Sales",
+    link: pages.adminDashboardSales,
+    icon: FaDollarSign,
+    iconColor: "#EF4444", // Red
+  },
+  {
+    value: "32,457",
+    label: "Total Orders",
+    link: pages.adminDashboardOrders,
+    icon: FaShoppingCart,
+    iconColor: "#059669", // Green
+  },
+  {
+    value: "24,682",
+    label: "Total Customers",
+    link: pages.adminDashboardCustomers,
+    icon: FaUserFriends,
+    iconColor: "#3B82F6", // Blue
+  },
+  {
+    value: "4.8%",
+    label: "Conversion Rate",
+    link: pages.adminDashboardConversion,
+    icon: FaChartLine,
+    iconColor: "#065F46", // Teal
+  },
+  {
+    value: "$67.25",
+    label: "Average Order Value",
+    link: pages.adminDashboardAOV,
+    icon: FaMoneyBillAlt,
+    iconColor: "#F97316", // Orange
+  },
+  {
+    value: "28.6%",
+    label: "Cart Abandonment Rate",
+    link: pages.adminDashboardCartAbandonment,
+    icon: FaShoppingCart,
+    iconColor: "#8B5CF6", // Purple
+  },
+  {
+    value: "1,425",
+    label: "New Customers",
+    link: pages.adminDashboardNewCustomers,
+    icon: FaUserPlus,
+    iconColor: "#6366F1", // Indigo
+  },
+  {
+    value: "72,891",
+    label: "Total Visits",
+    link: pages.adminDashboardVisits,
+    icon: FaChartBar,
+    iconColor: "#4F46E5", // Violet
+  },
+  {
+    value: "3.2",
+    label: "Average Visit Duration",
+    link: pages.adminDashboardVisitDuration,
+    icon: FaClock,
+    iconColor: "#F59E0B", // Amber
+  },
+  {
+    value: "42.8%",
+    label: "Returning Visitor Rate",
+    link: pages.adminDashboardReturningVisitors,
+    icon: FaUserCheck,
+    iconColor: "#10B981", // Emerald
+  },
+];
+
+// Set bgColor to 50% transparent version of iconColor
+export const adminDashboardMetrics = _adminDashboardMetrics.map(
+  (metric: any) => ({
+    ...metric,
+    bgColor: `${metric.iconColor}80`,
+  })
+);
 
 const columns = [
   { name: "NAME", uid: "name" },
@@ -142,4 +234,23 @@ const users = [
   },
 ];
 
-export { columns, users };
+const generateDashboardLinks = (data: any[]): DashboardLink[] =>
+  data.map((metric) => ({
+    path: metric.link,
+    name: metric.label,
+    icon: metric.icon,
+    id: "admin",
+  }));
+
+const adminDashboardDetailLinks = generateDashboardLinks(adminDashboardMetrics);
+const userMetricsDashboardLinks = generateDashboardLinks(userMetricsData);
+const activityDashboardLinks = generateDashboardLinks(activityMetricsData);
+export {
+  columns,
+  users,
+  adminDashboardDetailLinks,
+  userMetricsDashboardLinks,
+  activityDashboardLinks,
+};
+
+export type MetricsData = (typeof userMetricsData)[0];

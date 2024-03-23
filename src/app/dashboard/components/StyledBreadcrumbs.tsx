@@ -16,10 +16,6 @@ const DetailIcon = <TbListDetails className="text-xl" />;
 export default function StyledBreadcrumbs() {
   const pathName = usePathname();
 
-  const formatPath = (path: string) => {
-    return path.includes("/admin/") ? path.replace("/admin/", "/") : path;
-  };
-
   const isDetailedPage = pathName.includes("/detail");
 
   let mainPath = "";
@@ -40,9 +36,6 @@ export default function StyledBreadcrumbs() {
     return dashboardLinks.find((link) => link?.path.includes(path))?.icon;
   };
 
-  const getRoutes = (path: string) =>
-    pathName.includes(path) ? adminDashboardLinks : userDashboardLinks;
-
   const isAdmin = pathName.includes("/dashboard/admin");
   const dashboardLinks = isAdmin ? adminDashboardLinks : userDashboardLinks;
 
@@ -60,22 +53,31 @@ export default function StyledBreadcrumbs() {
     mainPath = _mainPath;
   }
 
+  const getCorrectIconAndPath = (path: string) => {
+    if (isAdmin && path === "dashboard") {
+      return "dashboard/admin";
+    }
+    return path;
+  };
+
   const formatPathName = {
     ...currentLinks,
     path: (links || currentLinks?.path)?.split("/")?.filter(Boolean),
   };
 
-  const linksToDisplay = formatPathName?.path?.map((path) => ({
-    path: capitalizeFirstLetter(path),
-    icon: returnIcon(path),
-  }));
+  const linksToDisplay = formatPathName?.path
+    ?.filter((path) => path !== "admin")
+    .map((path) => ({
+      path: capitalizeFirstLetter(path),
+      icon: returnIcon(getCorrectIconAndPath(path)),
+    }));
 
   const basePaths = ["activities", "analytics", "settings"];
 
   const constructPath = (path: string) =>
     basePaths.includes(path)
       ? `dashboard/${isAdmin ? "/admin/" : ""}${path}`
-      : path;
+      : getCorrectIconAndPath(path);
 
   return (
     <Breadcrumbs>

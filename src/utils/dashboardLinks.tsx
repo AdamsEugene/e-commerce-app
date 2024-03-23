@@ -1,21 +1,15 @@
 import React from "react";
 import { MdDashboard } from "react-icons/md";
-import {
-  IoSettings,
-  IoAnalyticsSharp,
-  IoAddCircle,
-  IoPeople,
-  IoCart,
-  IoStatsChart,
-  IoCash,
-  IoTimer,
-  IoBagHandle,
-  IoHeart,
-} from "react-icons/io5";
+import { IoSettings, IoAnalyticsSharp, IoAddCircle } from "react-icons/io5";
 import { FiActivity } from "react-icons/fi";
 import { IconType } from "react-icons";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 import { siteConfig } from "../config/site";
+import {
+  activityDashboardLinks,
+  adminDashboardDetailLinks,
+  userMetricsDashboardLinks,
+} from "./dashboardData";
 
 const { pages } = siteConfig;
 
@@ -37,64 +31,14 @@ export const _userDashboardLinks = [
     name: "Dashboard",
     icon: MdDashboard,
     id: "user" as const,
-    children: [
-      {
-        path: pages.totalSpending,
-        name: "Total Spent",
-        icon: IoCash,
-        id: "user" as const,
-      },
-      {
-        path: pages.totalPurchases,
-        name: "Total purchases",
-        icon: IoStatsChart,
-        id: "user" as const,
-      },
-      {
-        path: pages.itemsInCart,
-        name: "Items in cart",
-        icon: IoCart,
-        id: "user" as const,
-      },
-      {
-        path: pages.totalOrders,
-        name: "Total orders",
-        icon: IoPeople,
-        id: "user" as const,
-      },
-    ],
+    children: userMetricsDashboardLinks,
   },
   {
     path: pages.dashboardActivities,
     name: "My Activities",
     icon: FiActivity,
     id: "user" as const,
-    children: [
-      {
-        name: "Total Rental",
-        path: pages.totalRental,
-        icon: IoBagHandle,
-        id: "user" as const,
-      },
-      {
-        name: "Total Leasing",
-        path: pages.totalLeasing,
-        icon: IoTimer,
-        id: "user" as const,
-      },
-      {
-        name: "Total Purchases",
-        path: pages.ActivityTotalPurchases,
-        icon: IoCart,
-        id: "user" as const,
-      },
-      {
-        name: "Save For Later",
-        path: pages.totalSave,
-        icon: IoHeart,
-        id: "user" as const,
-      },
-    ],
+    children: activityDashboardLinks,
   },
   {
     path: pages.dashboardAnalytics,
@@ -116,6 +60,7 @@ export const _adminDashboardLinks = [
     name: "Dashboard",
     icon: MdDashboard,
     id: "admin" as const,
+    children: adminDashboardDetailLinks,
   },
   {
     path: pages.adminDashboardActivities,
@@ -142,7 +87,7 @@ export const _adminDashboardLinks = [
     id: "admin" as const,
   },
   {
-    path: pages.dashboardSettings,
+    path: pages.adminDashboardSettings,
     name: "Settings",
     icon: IoSettings,
     id: "admin" as const,
