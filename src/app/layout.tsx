@@ -3,9 +3,9 @@ import { Metadata, Viewport } from "next";
 import { siteConfig } from "@/src/config/site";
 import { fontSans } from "@/src/config/fonts";
 import { Providers } from "../providers/providers";
-import { Navbar } from "@/src/components/navbar";
-import { Link } from "@nextui-org/link";
 import clsx from "clsx";
+
+import './(home)/home.css'
 
 const APP_NAME = siteConfig.name;
 const APP_DEFAULT_TITLE = siteConfig.name;

@@ -26,16 +26,23 @@ export default function Sidebar() {
       className="h-[calc(100vh-72px)] bg-transparent sticky top-16 z-10"
     >
       <CardBody>
-        <NavElements linkData={linksToRender} activePath={pathName} />
+        <NavElements linkData={linksToRender} />
       </CardBody>
     </Card>
   );
 }
 
-const NavElements = ({
-  linkData,
-  activePath,
-}: DashboardLinks & { activePath: string }) => {
+const getActiveLink = (path: string, pathName: string) => {
+  const isDetail = pathName.includes("/detail");
+  if (isDetail)
+    return path.split("/detail")[0] === pathName.split("/detail")[0];
+  if (pathName.split("/").filter(Boolean).length > 3) {
+    return pathName.split("/").slice(0, 4).join("/") === path;
+  }
+  return pathName === path;
+};
+
+const NavElements = ({ linkData }: DashboardLinks) => {
   const pathName = usePathname();
 
   return (
@@ -48,9 +55,7 @@ const NavElements = ({
     >
       {linkData.map((item) => {
         const Icon = item.icon;
-        const isActive = activePath.split("/detail")[0]
-          ? item.path.split("/detail")[0] === pathName.split("/detail")[0]
-          : pathName === item.path;
+        const isActive = getActiveLink(item.path, pathName);
 
         return (
           <ListboxItem

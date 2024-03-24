@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React from "react";
 import Link from "next/link";
@@ -12,10 +12,11 @@ import { useAppStore } from "../providers/AppStoreProvider";
 
 type PROPS = {
   numberOfItems?: number;
+  baseLink?: string;
 };
 
 export default function GridCard(props: PROPS) {
-  const { numberOfItems = productList.length } = props;
+  const { baseLink, numberOfItems = productList.length } = props;
 
   const { ref, products } = useResizeListener(232.797, numberOfItems);
   const addToSelectedProduct = useAppStore(
@@ -33,7 +34,9 @@ export default function GridCard(props: PROPS) {
           <Card
             shadow="sm"
             as={Link}
-            href={`${siteConfig.pages.product}/${item.productId}`}
+            href={`${baseLink ? baseLink : siteConfig.pages.product}/${
+              item.productId
+            }`}
             key={index}
             isPressable
             onClick={() => {
