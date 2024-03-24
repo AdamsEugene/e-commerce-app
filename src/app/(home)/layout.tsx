@@ -2,7 +2,6 @@
 
 import { Navbar } from "@/src/components/navbar";
 
-import "./home.css";
 import MainFooter from "@/src/components/MainFooter";
 
 type PROPS = {

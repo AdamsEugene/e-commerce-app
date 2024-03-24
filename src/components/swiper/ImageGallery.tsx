@@ -14,9 +14,7 @@ import "swiper/css/thumbs";
 
 import "./swiper.css";
 
-// import required modules
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
-import imageByIndex from "@/src/utils/imageByIndex";
 import cartItems from "@/src/utils/cartItem";
 
 export default function ImageGallery() {

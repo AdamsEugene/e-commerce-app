@@ -3,6 +3,8 @@ type Props = {
   secondComponent: React.ReactNode;
   isEqualSize?: boolean;
   reverse?: boolean;
+  width?: number;
+  oneThird?: boolean;
 };
 
 const PlacedSideBySide: React.FC<Props> = ({
@@ -10,6 +12,8 @@ const PlacedSideBySide: React.FC<Props> = ({
   secondComponent,
   isEqualSize = false,
   reverse = false,
+  width = 440,
+  oneThird = false,
 }: Props) => {
   const renderEqualSize = isEqualSize ? (
     <>
@@ -21,19 +25,37 @@ const PlacedSideBySide: React.FC<Props> = ({
   const renderUnequalSize = (
     <>
       <div className="flex-1">{firstComponent}</div>
-      <div className={reverse ? "w-[440px]" : "w-[440px]"}>
-        {secondComponent}
-      </div>
+      <div className={`w-[${width}]`}>{secondComponent}</div>
     </>
+  );
+
+  const renderOneThird = (
+    <div className={`grid grid-cols-3 gap-4 ${reverse ? "grid-cols-1-2" : ""}`}>
+      {reverse ? (
+        <>
+          <div className="col-span-2">{secondComponent}</div>
+          <div className="col-span-1">{firstComponent}</div>
+        </>
+      ) : (
+        <>
+          <div className="col-span-1">{firstComponent}</div>
+          <div className="col-span-2">{secondComponent}</div>
+        </>
+      )}
+    </div>
   );
 
   return (
     <div
-      className={`flex ${isEqualSize ? "grid grid-cols-2 gap-4" : "gap-4"} ${
-        reverse ? "flex-row-reverse" : ""
-      }`}
+      className={`flex w-full ${
+        isEqualSize ? "grid grid-cols-2 gap-4" : "gap-4"
+      } ${reverse ? "flex-row-reverse" : ""}`}
     >
-      {isEqualSize ? renderEqualSize : renderUnequalSize}
+      {isEqualSize
+        ? renderEqualSize
+        : oneThird
+        ? renderOneThird
+        : renderUnequalSize}
     </div>
   );
 };
