@@ -2,27 +2,25 @@
 
 import React, { useState } from "react";
 import { useParams } from "next/navigation";
-// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Button } from "@nextui-org/button";
+import { Button } from "@nextui-org/react";
 import {
   MdOutlineArrowBackIos,
   MdOutlineArrowForwardIos,
 } from "react-icons/md";
-import StyledImage from "../StyledImage";
 
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
-import "./swiper.css";
+import "../../../components/swiper/swiper.css";
 
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import cartItems from "@/src/utils/cartItem";
+import StyledImage from "@/src/components/StyledImage";
 
-export default function ImageGallery() {
+export default function ImageGalleryEditable() {
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
 
   const params = useParams();
@@ -41,7 +39,7 @@ export default function ImageGallery() {
         }}
         thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Navigation, Thumbs]}
-        className="mySwiper2"
+        className="w-full h-470 mb-4 relative"
       >
         {[1, 2, 3, 4, 5].map((item) => (
           <SwiperSlide key={item}>
@@ -51,7 +49,7 @@ export default function ImageGallery() {
               shadow="lg"
               width={300}
               height={300}
-              className="!h-[470px]"
+              className="!h-[400px]"
             />
           </SwiperSlide>
         ))}
@@ -82,7 +80,7 @@ export default function ImageGallery() {
         freeMode={true}
         watchSlidesProgress={true}
         modules={[FreeMode, Navigation, Thumbs]}
-        className="mySwiper"
+        className="w-full h-16 md:h-24 lg:h-32 xl:h-40 mx-auto box-border mySwiper-editable"
       >
         {[1, 2, 3, 4, 5].map((item) => (
           <SwiperSlide key={item}>
@@ -92,7 +90,7 @@ export default function ImageGallery() {
               shadow="lg"
               width={100}
               height={100}
-              className="!h-[80px]"
+              className="!h-16 cursor-pointer"
             />
           </SwiperSlide>
         ))}

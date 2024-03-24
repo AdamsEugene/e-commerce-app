@@ -32,7 +32,7 @@ const StyledAreaChart: React.FC = () => {
         </defs>
         <CartesianGrid strokeDasharray="3 5" vertical={false} strokeWidth={1} />
         <XAxis dataKey="name" />
-        <YAxis />
+        {/* <YAxis /> */}
         <Tooltip content={<CustomTooltip />} />
         <Area
           type="monotone"

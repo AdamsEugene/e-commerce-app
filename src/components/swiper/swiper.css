@@ -45,6 +45,17 @@
   opacity: 1;
 }
 
+.mySwiper-editable .swiper-slide {
+  width: 25%;
+  height: 100%;
+  opacity: 0.4;
+}
+
+.mySwiper-editable .swiper-slide-thumb-active {
+  opacity: 1;
+}
+
+
 .swiper-slide img {
   display: block;
   width: 100%;
