@@ -37,19 +37,19 @@ export default function StyledBreadcrumbs() {
     return dashboardLinks.find((link) => link?.path.includes(path))?.icon;
   };
 
-  const isAdmin = pathName.includes("/dashboard/admin");
+  const isAdmin = pathName.includes("/sellers-planet");
   const dashboardLinks = isAdmin ? adminDashboardLinks : userDashboardLinks;
 
   const getCurrentLinks = (path: string) =>
     dashboardLinks.filter((link) => link?.path === path)[0];
 
   const hasProductId =
-    pathName.includes("my_product") &&
-    pathName.split("/").filter(Boolean).length > 3;
-  const productId = pathName.split("/")[4];
+    pathName.includes("my-product") &&
+    pathName.split("/").filter(Boolean).length > 2;
+  const productId = pathName.split("/")[3];
 
   let currentLinks = getCurrentLinks(
-    hasProductId ? pathName.split("/").slice(0, 4).join("/") : pathName
+    hasProductId ? pathName.split("/").slice(0, 3).join("/") : pathName
   );
 
   let links = "";
@@ -62,12 +62,12 @@ export default function StyledBreadcrumbs() {
     mainPath = _mainPath;
   }
 
-  const getCorrectIconAndPath = (path: string) => {
-    if (isAdmin && path === "dashboard") {
-      return "dashboard/admin";
-    }
-    return path;
-  };
+  // const getCorrectIconAndPath = (path: string) => {
+  //   if (isAdmin && path === "dashboard") {
+  //     return "sellers-planet";
+  //   }
+  //   return path;
+  // };
 
   const formatPathName = {
     ...currentLinks,
@@ -81,25 +81,23 @@ export default function StyledBreadcrumbs() {
     ]?.filter(Boolean);
   }
 
-  const linksToDisplay = formatPathName?.path
-    ?.filter((path) => path !== "admin")
-    .map((path) => ({
-      path: capitalizeFirstLetter(path),
-      icon: returnIcon(getCorrectIconAndPath(path)),
-    }));
+  const linksToDisplay = formatPathName?.path?.map((path) => ({
+    path: capitalizeFirstLetter(path),
+    icon: returnIcon(path),
+  }));
 
   const basePaths = [
     "activities",
     "analytics",
     "settings",
-    "my_product",
-    "add_product",
+    "my-product",
+    "add-product",
   ];
 
   const constructPath = (path: string) =>
     basePaths.includes(path)
-      ? `dashboard/${isAdmin ? "admin/" : ""}${path}`
-      : getCorrectIconAndPath(path);
+      ? `${isAdmin ? "sellers-planet/" : "dashboard"}/${path}`
+      : path;
 
   return (
     <Breadcrumbs>

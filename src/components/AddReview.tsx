@@ -4,9 +4,8 @@ import React, { useState } from "react";
 import { Divider, Progress } from "@nextui-org/react";
 import StyledButton from "./StyledButton";
 import Ratings from "./Ratings";
-import StyledInput from "./StyledInput";
-import StyledTextarea from "./StyledTextarea";
 import ReviewForm from "./ReviewForm";
+import ConditionalRender from "./ConditionalRender";
 
 interface ReviewSectionProps {
   rating: number;
@@ -20,20 +19,20 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({
   reviewCount,
 }) => {
   return (
-    <div className="flex flex-col items-center mb-4">
+    <div className="flex items-center gap-3 mt-3">
       <Ratings rating={rating} noComment />
       <Progress
         color="warning"
         aria-label="Loading..."
         value={progressValue}
-        className="w-full mt-2"
+        className="w-[80%]"
       />
-      <p className="text-sm text-gray-500 mt-2">{reviewCount} reviews</p>
+      <p className="text-lg text-gray-500 w-48">{reviewCount} reviews</p>
     </div>
   );
 };
 
-export default function AddReview() {
+export default function AddReview({ addReview = true }) {
   const [isReviewVisible, setReviewVisible] = useState(false);
 
   const reviewSections: ReviewSectionProps[] = [
@@ -51,14 +50,14 @@ export default function AddReview() {
   return (
     <>
       <div className="flex justify-evenly lg:flex-row lg:w-full sm:flex-col sm:w-[90%]">
-        <div className="flex flex-col flex-1 justify-center items-center w-full">
+        <div className="flex flex-col justify-center items-center w-[25%]">
           <div className="flex flex-col gap-3 sm:mb-4 sm:items-center">
             <Ratings rating={4.5} />
             <p className="text-sm text-gray-500 mt-2">Based on 1441 reviews</p>
           </div>
         </div>
-        <Divider orientation="vertical" className="mx-4" />
-        <div className="flex flex-col flex-1 justify-center items-center w-full">
+        {/* <Divider orientation="vertical" className="mx-4" /> */}
+        <div className="flex flex-col justify-center items-center w-[50%]">
           <div className="w-full">
             {reviewSections.map((section, index) => (
               <ReviewSection
@@ -70,23 +69,33 @@ export default function AddReview() {
             ))}
           </div>
         </div>
-        <Divider orientation="vertical" className="mx-4" />
-        <div className="flex flex-col flex-1 justify-center items-center w-full">
-          {/* Button to toggle visibility of the review input section */}
-          <StyledButton
-            content="Write a Review"
-            className="w-60"
-            color="secondary"
-            onClick={() => setReviewVisible(!isReviewVisible)}
-          />
-        </div>
+        {/* <Divider orientation="vertical" className="mx-4" /> */}
+        <ConditionalRender
+          condition={addReview}
+          Component={
+            <div className="flex flex-col justify-center items-center w-[25%]">
+              <StyledButton
+                content="Write a Review"
+                className="w-60"
+                color="secondary"
+                onClick={() => setReviewVisible(!isReviewVisible)}
+              />
+            </div>
+          }
+        />
       </div>
-      <Divider />
-      <ReviewForm
-        isReviewVisible={isReviewVisible}
-        cancelReview={cancelReview}
+      <ConditionalRender
+        condition={addReview}
+        Component={
+          <>
+            <Divider />
+            <ReviewForm
+              isReviewVisible={isReviewVisible}
+              cancelReview={cancelReview}
+            />
+          </>
+        }
       />
-      {/* Review input section */}
     </>
   );
 }

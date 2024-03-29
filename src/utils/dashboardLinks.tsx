@@ -17,7 +17,7 @@ export type DashboardLink = {
   path: string;
   name: string;
   icon: IconType | any; // Ensure icon type is IconType
-  id: "user" | "admin";
+  id: "user" | "sellers-planet";
   children?: DashboardLink[];
 };
 
@@ -57,40 +57,40 @@ export const _userDashboardLinks = [
 export const _adminDashboardLinks = [
   {
     path: pages.adminDashboard,
-    name: "Dashboard",
+    name: "Sellers Planet",
     icon: MdDashboard,
-    id: "admin" as const,
+    id: "sellers-planet" as const,
     children: adminDashboardDetailLinks,
   },
   {
     path: pages.adminDashboardActivities,
     name: "My Activities",
     icon: FiActivity,
-    id: "admin" as const,
+    id: "sellers-planet" as const,
   },
   {
     path: pages.adminDashboardAnalytics,
     name: "Analytics",
     icon: IoAnalyticsSharp,
-    id: "admin" as const,
+    id: "sellers-planet" as const,
   },
   {
     path: pages.adminDashboardProduct,
     name: "My Product",
     icon: MdOutlineProductionQuantityLimits,
-    id: "admin" as const,
+    id: "sellers-planet" as const,
   },
   {
     path: pages.adminDashboardAdd,
     name: "Add Product",
     icon: IoAddCircle,
-    id: "admin" as const,
+    id: "sellers-planet" as const,
   },
   {
     path: pages.adminDashboardSettings,
     name: "Settings",
     icon: IoSettings,
-    id: "admin" as const,
+    id: "sellers-planet" as const,
   },
 ];
 

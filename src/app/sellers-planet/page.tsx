@@ -1,16 +1,16 @@
 import { Metadata } from "next";
 import { Chip } from "@nextui-org/react";
 import { IoCheckmarkCircle } from "react-icons/io5";
-import ProductMetrics from "../components/ProductMetrics";
+import ProductMetrics from "../dashboard/components/ProductMetrics";
 import { adminDashboardMetrics } from "@/src/utils/dashboardData";
-import PlacedSideBySide from "../components/PlacedSideBySide";
-import GridItem from "../components/GridItem";
-import StyledLineChart from "../components/charts/StyledLineChart";
-import StyledTable from "../components/StyledTable";
-import StyledAreaChart from "../components/charts/StyledAreaChart";
+import PlacedSideBySide from "../dashboard/components/PlacedSideBySide";
+import GridItem from "../dashboard/components/GridItem";
+import StyledLineChart from "../dashboard/components/charts/StyledLineChart";
+import StyledTable from "../dashboard/components/StyledTable";
+import StyledAreaChart from "../dashboard/components/charts/StyledAreaChart";
 
 export const metadata: Metadata = {
-  title: "Admin Dashboard",
+  title: "Sellers Planet",
 };
 
 export default function AdminDashboard() {

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 export default function MyProducts() {
   return (
     <div className="flex flex-col gap-4">
-      <GridCard baseLink="my_product" />
+      <GridCard baseLink="my-product" />
       <div className="h-16"></div>
     </div>
   );
