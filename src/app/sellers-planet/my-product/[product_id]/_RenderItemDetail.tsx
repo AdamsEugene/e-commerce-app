@@ -7,9 +7,9 @@ import { Button } from "@nextui-org/button";
 import { Divider } from "@nextui-org/react";
 import { FiMoreHorizontal } from "react-icons/fi";
 import BackButton from "@/src/components/button/BackButton";
-import GridItem from "../../../components/GridItem";
-import PlacedSideBySide from "../../../components/PlacedSideBySide";
-import ImageGalleryEditable from "../../../components/ImageGalleryEditable";
+import GridItem from "../../../dashboard/components/GridItem";
+import PlacedSideBySide from "../../../dashboard/components/PlacedSideBySide";
+import ImageGalleryEditable from "../../../dashboard/components/ImageGalleryEditable";
 import cartItems from "@/src/utils/cartItem";
 
 const options = [
@@ -34,7 +34,9 @@ export default function RenderItemDetail() {
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <BackButton />
-        <Button color="warning" variant="ghost">Edit</Button>
+        <Button color="warning" variant="ghost">
+          Edit
+        </Button>
       </div>
       <GridItem>
         <PlacedSideBySide

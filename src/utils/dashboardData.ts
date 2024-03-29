@@ -239,12 +239,13 @@ const generateDashboardLinks = (data: any[]): DashboardLink[] =>
     path: metric.link,
     name: metric.label,
     icon: metric.icon,
-    id: "admin",
+    id: "sellers-planet",
   }));
 
 const adminDashboardDetailLinks = generateDashboardLinks(adminDashboardMetrics);
 const userMetricsDashboardLinks = generateDashboardLinks(userMetricsData);
 const activityDashboardLinks = generateDashboardLinks(activityMetricsData);
+
 export {
   columns,
   users,
