@@ -1,13 +1,14 @@
 import { Metadata } from "next";
 import { Chip } from "@nextui-org/react";
 import { IoCheckmarkCircle } from "react-icons/io5";
-import ProductMetrics from "../dashboard/components/ProductMetrics";
+import ProductMetrics from "@/src/components/ProductMetrics";
 import { adminDashboardMetrics } from "@/src/utils/dashboardData";
-import PlacedSideBySide from "../dashboard/components/PlacedSideBySide";
-import GridItem from "../dashboard/components/GridItem";
-import StyledLineChart from "../dashboard/components/charts/StyledLineChart";
-import StyledTable from "../dashboard/components/StyledTable";
-import StyledAreaChart from "../dashboard/components/charts/StyledAreaChart";
+import PlacedSideBySide from "@/src/components/PlacedSideBySide";
+import GridItem from "@/src/components/GridItem";
+import StyledLineChart from "@/src/components/charts/StyledLineChart";
+import StyledTable from "@/src/components/StyledTable";
+import StyledAreaChart from "@/src/components/charts/StyledAreaChart";
+import { chartData, filterNameUVandPV } from "@/src/utils/generateDataForSelect";
 
 export const metadata: Metadata = {
   title: "Sellers Planet",
@@ -44,7 +45,7 @@ export default function AdminDashboard() {
               </Chip>,
             ]}
           >
-            <StyledLineChart />
+            <StyledLineChart data={filterNameUVandPV(chartData)} />
           </GridItem>
         }
         secondComponent={

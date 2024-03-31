@@ -1,6 +1,6 @@
-import GridItem from "@/src/app/dashboard/components/GridItem";
-import ProductMetrics from "@/src/app/dashboard/components/ProductMetrics";
-import StyledTable from "@/src/app/dashboard/components/StyledTable";
+import GridItem from "@/src/components/GridItem";
+import ProductMetrics from "@/src/components/ProductMetrics";
+import StyledTable from "@/src/components/StyledTable";
 import BackButton from "@/src/components/button/BackButton";
 import { activityMetricsData } from "@/src/utils/dashboardData";
 

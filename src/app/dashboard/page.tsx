@@ -1,12 +1,13 @@
 import { Metadata } from "next";
-import ProductMetrics from "./components/ProductMetrics";
+import ProductMetrics from "../../components/ProductMetrics";
 import { userMetricsData } from "@/src/utils/dashboardData";
-import StyledLineChart from "./components/charts/StyledLineChart";
-import GridItem from "./components/GridItem";
-import StyledTable from "./components/StyledTable";
-import PlacedSideBySide from "./components/PlacedSideBySide";
+import StyledLineChart from "../../components/charts/StyledLineChart";
+import GridItem from "../../components/GridItem";
+import StyledTable from "../../components/StyledTable";
+import PlacedSideBySide from "../../components/PlacedSideBySide";
 import { Chip } from "@nextui-org/react";
 import { IoCheckmarkCircle } from "react-icons/io5";
+import { chartData, filterNameAndUV, filterNameUVandPV } from "@/src/utils/generateDataForSelect";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -43,7 +44,7 @@ export default function Dashboard() {
               </Chip>,
             ]}
           >
-            <StyledLineChart />
+            <StyledLineChart data={filterNameUVandPV(chartData)} />
           </GridItem>
         }
         secondComponent={
@@ -97,7 +98,7 @@ export default function Dashboard() {
               </Chip>,
             ]}
           >
-            <StyledLineChart />
+            <StyledLineChart data={filterNameAndUV(chartData)} />
           </GridItem>
         }
         secondComponent={
@@ -150,7 +151,7 @@ export default function Dashboard() {
               </Chip>,
             ]}
           >
-            <StyledLineChart />
+            <StyledLineChart data={filterNameAndUV(chartData)} />
           </GridItem>
         }
         secondComponent={

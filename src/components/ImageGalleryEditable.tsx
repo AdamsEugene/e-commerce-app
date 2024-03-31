@@ -14,7 +14,7 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
-import "../../../components/swiper/swiper.css";
+import "../components/swiper/swiper.css";
 
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import cartItems from "@/src/utils/cartItem";

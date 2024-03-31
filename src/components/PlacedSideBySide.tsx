@@ -5,6 +5,7 @@ type Props = {
   reverse?: boolean;
   width?: number;
   oneThird?: boolean;
+  className?: string;
 };
 
 const PlacedSideBySide: React.FC<Props> = ({
@@ -14,6 +15,7 @@ const PlacedSideBySide: React.FC<Props> = ({
   reverse = false,
   width = 440,
   oneThird = false,
+  className = "",
 }: Props) => {
   const renderEqualSize = isEqualSize ? (
     <>
@@ -30,7 +32,11 @@ const PlacedSideBySide: React.FC<Props> = ({
   );
 
   const renderOneThird = (
-    <div className={`grid grid-cols-3 gap-4 ${reverse ? "grid-cols-1-2" : ""}`}>
+    <div
+      className={`grid grid-cols-3 gap-4 w-full ${
+        reverse ? "grid-cols-1-2" : ""
+      }`}
+    >
       {reverse ? (
         <>
           <div className="col-span-2">{secondComponent}</div>
@@ -49,7 +55,7 @@ const PlacedSideBySide: React.FC<Props> = ({
     <div
       className={`flex w-full ${
         isEqualSize ? "grid grid-cols-2 gap-4" : "gap-4"
-      } ${reverse ? "flex-row-reverse" : ""}`}
+      } ${reverse ? "flex-row-reverse" : ""} ${className}`}
     >
       {isEqualSize
         ? renderEqualSize
