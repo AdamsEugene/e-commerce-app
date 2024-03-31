@@ -49,16 +49,28 @@ export default function AddReview({ addReview = true }) {
 
   return (
     <>
-      <div className="flex justify-evenly lg:flex-row lg:w-full sm:flex-col sm:w-[90%]">
-        <div className="flex flex-col justify-center items-center w-[25%]">
+      <div
+        className={`flex justify-evenly lg:flex-row lg:w-full sm:flex-col sm:w-[90%] ${
+          !addReview ? "!flex-col" : ""
+        }`}
+      >
+        <div
+          className={`flex flex-col justify-center items-center ${
+            !addReview ? "" : "w-[25%]"
+          }`}
+        >
           <div className="flex flex-col gap-3 sm:mb-4 sm:items-center">
-            <Ratings rating={4.5} />
+            <Ratings rating={4.5} col={!addReview} />
             <p className="text-sm text-gray-500 mt-2">Based on 1441 reviews</p>
           </div>
         </div>
         {/* <Divider orientation="vertical" className="mx-4" /> */}
-        <div className="flex flex-col justify-center items-center w-[50%]">
-          <div className="w-full">
+        <div
+          className={`flex flex-col justify-center items-center w-[${
+            addReview ? "50%" : "100%"
+          }]`}
+        >
+          <div className={`${!addReview ? "w-full" : "w-[560px]"}`}>
             {reviewSections.map((section, index) => (
               <ReviewSection
                 key={index}

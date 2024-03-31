@@ -4,6 +4,7 @@ export default function ProductInfo() {
   return (
     <div className="flex flex-col gap-4">
       <RenderItemDetail />
+      <div className="h-16"></div>
     </div>
   );
 }

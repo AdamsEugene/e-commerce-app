@@ -1,7 +1,7 @@
 import { userMetricsData } from "@/src/utils/dashboardData";
-import ProductMetrics from "../../../dashboard/components/ProductMetrics";
-import GridItem from "../../../dashboard/components/GridItem";
-import StyledTable from "../../../dashboard/components/StyledTable";
+import ProductMetrics from "../../../../components/ProductMetrics";
+import GridItem from "../../../../components/GridItem";
+import StyledTable from "../../../../components/StyledTable";
 import BackButton from "@/src/components/button/BackButton";
 
 export default function ItemDetails({ params }: { params: string[] }) {

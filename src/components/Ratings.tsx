@@ -11,6 +11,7 @@ type PROPS = {
   noComment?: boolean;
   isPressable?: boolean;
   size?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+  col?: boolean;
 };
 
 export default function Ratings(props: PROPS) {
@@ -21,6 +22,7 @@ export default function Ratings(props: PROPS) {
     isPressable,
     size,
     initRating = 0,
+    col = false,
   } = props;
   const starRating = rating || initRating;
 
@@ -109,7 +111,7 @@ export default function Ratings(props: PROPS) {
   };
 
   return (
-    <div className="flex items-center">
+    <div className={`flex items-center ${col ? "flex-col gap-2" : "flex-row"}`}>
       <div className={`flex ${isPressable ? "cursor-pointer" : ""}`}>
         {generateStars()}
       </div>

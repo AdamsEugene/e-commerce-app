@@ -1,12 +1,12 @@
 import { Metadata } from "next";
 import { Chip } from "@nextui-org/react";
 import { IoCheckmarkCircle } from "react-icons/io5";
-import ProductMetrics from "../../components/ProductMetrics";
+import ProductMetrics from "../../../../components/ProductMetrics";
 import { userMetricsData } from "@/src/utils/dashboardData";
-import PlacedSideBySide from "../../components/PlacedSideBySide";
-import GridItem from "../../components/GridItem";
-import StyledLineChart from "../../components/charts/StyledLineChart";
-import StyledTable from "../../components/StyledTable";
+import PlacedSideBySide from "../../../../components/PlacedSideBySide";
+import GridItem from "../../../../components/GridItem";
+import StyledLineChart from "../../../../components/charts/StyledLineChart";
+import StyledTable from "../../../../components/StyledTable";
 
 export const metadata: Metadata = {
   title: "Analytics",
