@@ -18,11 +18,15 @@ import PriceCard from "@/src/components/PriceCard";
 import RenderSizeAndColor from "@/src/components/RenderSizeAndColor";
 import StyledLineChart from "@/src/components/_shared/charts/StyledLineChart";
 import {
+  benefitsDataLease,
+  benefitsDataPayAsYouGo,
+  benefitsDataRent,
   chartData,
   filterNameUVandPV,
 } from "@/src/utils/generateDataForSelect";
 import StyledTable from "@/src/components/_shared/StyledTable";
 import AddPriceInfo from "@/src/components/AddPriceInfo";
+import CreateShippingOption from "@/src/components/CreateShippingOption";
 
 const options = [
   { key: "share", label: "Share this product" },
@@ -310,7 +314,13 @@ export default function RenderItemDetail() {
             title="Pay as you go"
             leftSideComponent={[<Dot key={"dot"} active />]}
           >
-            <AddPriceInfo type="default" />
+            <AddPriceInfo
+              type="default"
+              data={benefitsDataPayAsYouGo}
+              amount="23.99"
+              duration="item"
+              currency="GHS"
+            />
           </GridItem>
         }
         secondComponent={
@@ -318,12 +328,24 @@ export default function RenderItemDetail() {
             title="Lease"
             leftSideComponent={[<Dot key={"dot"} active />]}
           >
-            <AddPriceInfo type="lease" />
+            <AddPriceInfo
+              type="lease"
+              data={benefitsDataLease}
+              amount="11.99"
+              duration="month"
+              currency="GHS"
+            />
           </GridItem>
         }
         thirdComponent={
           <GridItem title="Rent" leftSideComponent={[<Dot key={"dot"} />]}>
-            <AddPriceInfo type="rent" />
+            <AddPriceInfo
+              type="rent"
+              data={benefitsDataRent}
+              amount="12.99"
+              duration="month"
+              currency="GHS"
+            />
           </GridItem>
         }
       />
@@ -333,7 +355,7 @@ export default function RenderItemDetail() {
         className="min-h-[400px]"
         firstComponent={
           <GridItem
-            title="Shipping fee"
+            title="Current shipping fee"
             leftSideComponent={[
               <StyledDropdown
                 key={"change plane to see Shipping fee"}
@@ -387,7 +409,9 @@ export default function RenderItemDetail() {
                 Leasing
               </Chip>,
             ]}
-          ></GridItem>
+          >
+            <CreateShippingOption />
+          </GridItem>
         }
       />
       <PlacedSideBySide

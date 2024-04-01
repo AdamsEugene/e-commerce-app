@@ -1,3 +1,6 @@
+import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
+import { MdCancel } from "react-icons/md";
+
 const generateData = (
   number: number
 ): { key: string; value: string; label: string }[] => {
@@ -75,3 +78,141 @@ export function filterNameAndUV(
 ): { name: string; uv: number }[] {
   return data.map(({ name, uv }) => ({ name, uv }));
 }
+
+export const benefitsDataPayAsYouGo = [
+  {
+    icon: IoCheckmarkDoneCircleSharp,
+    benefit: "No long-term commitment required",
+  },
+  {
+    icon: IoCheckmarkDoneCircleSharp,
+    benefit: "Pay only for what you use",
+  },
+  {
+    icon: IoCheckmarkDoneCircleSharp,
+    benefit: "Flexibility to adjust usage as needed",
+  },
+  {
+    icon: IoCheckmarkDoneCircleSharp,
+    benefit: "No upfront fees or setup costs",
+  },
+  {
+    icon: IoCheckmarkDoneCircleSharp,
+    benefit: "24/7 customer support",
+  },
+  {
+    icon: IoCheckmarkDoneCircleSharp,
+    benefit: "Access to usage reports and analytics",
+  },
+  {
+    icon: IoCheckmarkDoneCircleSharp,
+    benefit: "Regular updates and feature enhancements",
+  },
+  {
+    icon: IoCheckmarkDoneCircleSharp,
+    benefit: "Secure and reliable payment processing",
+  },
+];
+
+export const benefitsDataLease = [
+  {
+    icon: IoCheckmarkDoneCircleSharp,
+    benefit: "Low initial investment",
+  },
+  {
+    icon: IoCheckmarkDoneCircleSharp,
+    benefit: "Spread costs over time",
+  },
+  {
+    icon: IoCheckmarkDoneCircleSharp,
+    benefit: "Option to purchase equipment at end of lease",
+  },
+  {
+    icon: IoCheckmarkDoneCircleSharp,
+    benefit: "Tax benefits and deductions",
+  },
+  {
+    icon: IoCheckmarkDoneCircleSharp,
+    benefit: "Flexibility to upgrade equipment",
+  },
+  {
+    icon: IoCheckmarkDoneCircleSharp,
+    benefit: "No depreciation worries",
+  },
+  {
+    icon: IoCheckmarkDoneCircleSharp,
+    benefit: "Maintenance and support included",
+  },
+  {
+    icon: IoCheckmarkDoneCircleSharp,
+    benefit: "Access to latest technology",
+  },
+];
+
+export const benefitsDataRent = [
+  {
+    icon: IoCheckmarkDoneCircleSharp,
+    benefit: "No long-term commitment required",
+  },
+  {
+    icon: IoCheckmarkDoneCircleSharp,
+    benefit: "Flexibility to scale up or down as needed",
+  },
+  {
+    icon: IoCheckmarkDoneCircleSharp,
+    benefit: "Maintenance and support included",
+  },
+  {
+    icon: IoCheckmarkDoneCircleSharp,
+    benefit: "Access to latest technology",
+  },
+  {
+    icon: IoCheckmarkDoneCircleSharp,
+    benefit: "Fixed monthly costs",
+  },
+  {
+    icon: IoCheckmarkDoneCircleSharp,
+    benefit: "No depreciation worries",
+  },
+  {
+    icon: IoCheckmarkDoneCircleSharp,
+    benefit: "No upfront capital investment",
+  },
+  {
+    icon: IoCheckmarkDoneCircleSharp,
+    benefit: "No equipment ownership",
+  },
+];
+
+export const freeOption = [
+  {
+    icon: IoCheckmarkDoneCircleSharp,
+    benefit: "3 - 6 month",
+  },
+  {
+    icon: MdCancel,
+    benefit: "No tracking",
+  },
+];
+
+export const regularOption = [
+  {
+    icon: IoCheckmarkDoneCircleSharp,
+    benefit: "1 - 6 weeks",
+  },
+  {
+    icon: MdCancel,
+    benefit: "No tracking",
+  },
+];
+
+export const expressOption = [
+  {
+    icon: IoCheckmarkDoneCircleSharp,
+    benefit: "4 - 6 business days",
+  },
+  {
+    icon: IoCheckmarkDoneCircleSharp,
+    benefit: "Tracking",
+  },
+];
