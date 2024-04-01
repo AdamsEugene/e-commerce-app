@@ -1,7 +1,7 @@
 import type { Metadata, ResolvingMetadata } from "next";
 import "../../home.css";
-import GridCard from "@/src/components/GridCard";
-import BackButton from "@/src/components/button/BackButton";
+import GridCard from "@/src/components/_shared/GridCard";
+import BackButton from "@/src/components/_shared/button/BackButton";
 
 type Props = {
   params: { product_name: string };

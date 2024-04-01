@@ -1,7 +1,7 @@
 import GridItem from "@/src/components/GridItem";
 import ProductMetrics from "@/src/components/ProductMetrics";
-import StyledTable from "@/src/components/StyledTable";
-import BackButton from "@/src/components/button/BackButton";
+import StyledTable from "@/src/components/_shared/StyledTable";
+import BackButton from "@/src/components/_shared/button/BackButton";
 import { activityMetricsData } from "@/src/utils/dashboardData";
 
 export default function ItemDetails({ params }: { params: string[] }) {

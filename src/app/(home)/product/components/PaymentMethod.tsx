@@ -11,8 +11,8 @@ import {
   useDisclosure,
   Skeleton,
 } from "@nextui-org/react";
-import StyledButton from "@/src/components/StyledButton";
-import StyledModal from "@/src/components/StyledModal";
+import StyledButton from "@/src/components/_shared/StyledButton";
+import StyledModal from "@/src/components/_shared/StyledModal";
 import TabWithIcon from "@/src/components/TabWithIcon";
 
 export default function PaymentMethod() {
@@ -55,40 +55,41 @@ type PROPS = {
 const OtherPlans = (props: PROPS) => {
   const { onClose } = props;
 
-const paymentMethods = [
-  {
-    name: "Stripe",
-    description: "Stripe | Financial Infrastructure for the Internet",
-    logoSrc: "https://logo.clearbit.com/stripe.com",
-    ready: true, // Add the ready state for Stripe
-  },
-  {
-    name: "PayPal",
-    description: "PayPal | Safer, Simpler, Smarter Ways to Pay Online",
-    logoSrc:
-      "https://www.paypalobjects.com/webstatic/mktg/logo/AM_SbyPP_mc_vs_dc_ae.jpg",
-    ready: true, // Add the ready state for PayPal
-  },
-  {
-    name: "Visa",
-    description: "Visa | Everywhere You Want To Be",
-    logoSrc: "https://www.vectorlogo.zone/logos/visa/visa-icon.svg",
-    ready: false, // Add the ready state for Visa
-  },
-  {
-    name: "Mastercard",
-    description: "Mastercard | Start Something Priceless",
-    logoSrc: "https://www.vectorlogo.zone/logos/mastercard/mastercard-icon.svg",
-    ready: false, // Add the ready state for Mastercard
-  },
-  {
-    name: "American Express",
-    description: "American Express | Don't Live Life Without It",
-    logoSrc:
-      "https://www.vectorlogo.zone/logos/americanexpress/americanexpress-icon.svg",
-    ready: false, // Add the ready state for American Express
-  },
-];
+  const paymentMethods = [
+    {
+      name: "Stripe",
+      description: "Stripe | Financial Infrastructure for the Internet",
+      logoSrc: "https://logo.clearbit.com/stripe.com",
+      ready: true, // Add the ready state for Stripe
+    },
+    {
+      name: "PayPal",
+      description: "PayPal | Safer, Simpler, Smarter Ways to Pay Online",
+      logoSrc:
+        "https://www.paypalobjects.com/webstatic/mktg/logo/AM_SbyPP_mc_vs_dc_ae.jpg",
+      ready: true, // Add the ready state for PayPal
+    },
+    {
+      name: "Visa",
+      description: "Visa | Everywhere You Want To Be",
+      logoSrc: "https://www.vectorlogo.zone/logos/visa/visa-icon.svg",
+      ready: false, // Add the ready state for Visa
+    },
+    {
+      name: "Mastercard",
+      description: "Mastercard | Start Something Priceless",
+      logoSrc:
+        "https://www.vectorlogo.zone/logos/mastercard/mastercard-icon.svg",
+      ready: false, // Add the ready state for Mastercard
+    },
+    {
+      name: "American Express",
+      description: "American Express | Don't Live Life Without It",
+      logoSrc:
+        "https://www.vectorlogo.zone/logos/americanexpress/americanexpress-icon.svg",
+      ready: false, // Add the ready state for American Express
+    },
+  ];
 
   return (
     <>
@@ -138,17 +139,17 @@ const CardItem = ({
 };
 
 const CardItemSkeleton = () => {
-   return (
-     <Card className="w-full space-y-5 p-4">
-       <div className="max-w-[300px] w-full flex items-center gap-3">
-         <div>
-           <Skeleton className="flex rounded-full w-12 h-12" />
-         </div>
-         <div className="w-full flex flex-col gap-2">
-           <Skeleton className="h-3 w-3/5 rounded-lg" />
-           <Skeleton className="h-3 w-4/5 rounded-lg" />
-         </div>
-       </div>
-     </Card>
-   );
-}
+  return (
+    <Card className="w-full space-y-5 p-4">
+      <div className="max-w-[300px] w-full flex items-center gap-3">
+        <div>
+          <Skeleton className="flex rounded-full w-12 h-12" />
+        </div>
+        <div className="w-full flex flex-col gap-2">
+          <Skeleton className="h-3 w-3/5 rounded-lg" />
+          <Skeleton className="h-3 w-4/5 rounded-lg" />
+        </div>
+      </div>
+    </Card>
+  );
+};

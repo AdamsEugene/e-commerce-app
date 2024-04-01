@@ -5,7 +5,7 @@ import {
   MdLocalPhone,
 } from "react-icons/md";
 
-import { INPUT_PROPS } from "../components/StyledInput";
+import { INPUT_PROPS } from "../components/_shared/StyledInput";
 
 export const generalFormData: INPUT_PROPS[] = [
   {

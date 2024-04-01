@@ -6,7 +6,7 @@ import {
   CardProps,
   Image,
 } from "@nextui-org/react";
-import StyledImage from "./StyledImage";
+import StyledImage from "./_shared/StyledImage";
 import { PRODUCTS } from "../utils/productList";
 
 export default function StyledCard(

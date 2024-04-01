@@ -1,13 +1,17 @@
 import { Metadata } from "next";
 import ProductMetrics from "../../components/ProductMetrics";
 import { userMetricsData } from "@/src/utils/dashboardData";
-import StyledLineChart from "../../components/charts/StyledLineChart";
+import StyledLineChart from "../../components/_shared/charts/StyledLineChart";
 import GridItem from "../../components/GridItem";
-import StyledTable from "../../components/StyledTable";
-import PlacedSideBySide from "../../components/PlacedSideBySide";
+import StyledTable from "../../components/_shared/StyledTable";
+import PlacedSideBySide from "../../components/_shared/PlacedSideBySide";
 import { Chip } from "@nextui-org/react";
 import { IoCheckmarkCircle } from "react-icons/io5";
-import { chartData, filterNameAndUV, filterNameUVandPV } from "@/src/utils/generateDataForSelect";
+import {
+  chartData,
+  filterNameAndUV,
+  filterNameUVandPV,
+} from "@/src/utils/generateDataForSelect";
 
 export const metadata: Metadata = {
   title: "Dashboard",

@@ -4,8 +4,8 @@
 // import { button as buttonStyles } from "@nextui-org/theme";
 // import { siteConfig } from "@/src/config/site";
 // import { title, subtitle } from "@/src/components/primitives";
-import HomeSwiper from "@/src/components/swiper/HomeSwiper";
-import GridCard from "@/src/components/GridCard";
+import HomeSwiper from "@/src/components/_shared/swiper/HomeSwiper";
+import GridCard from "@/src/components/_shared/GridCard";
 
 export default function Home() {
   return (

@@ -7,8 +7,8 @@ import { Divider } from "@nextui-org/react";
 import { IoCloseSharp } from "react-icons/io5";
 import { FiMoreHorizontal } from "react-icons/fi";
 
-import StyledDropdown from "./Dropdown";
-import StyledImage from "./StyledImage";
+import StyledDropdown from "./_shared/Dropdown";
+import StyledImage from "./_shared/StyledImage";
 import { useAppStore } from "../providers/AppStoreProvider";
 import { type InCart } from "../store/productSlice";
 import { ItemsInCart } from "../utils/cartItem";

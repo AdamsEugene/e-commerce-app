@@ -9,7 +9,7 @@ import { Checkbox } from "@nextui-org/react";
 import SelectWithIcon, {
   SELECT_ICON_PROPS,
 } from "@/src/components/SelectWithIcon";
-import StyledInput, { INPUT_PROPS } from "@/src/components/StyledInput";
+import StyledInput, { INPUT_PROPS } from "@/src/components/_shared/StyledInput";
 
 const formData: INPUT_PROPS[] = [
   {

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 export default function MainFooter() {
@@ -16,11 +17,13 @@ export default function MainFooter() {
         <div className="w-full h-full flex flex-wrap">
           {backgroundImages.map((imageUrl, index) => (
             <div key={index} className="h-full w-[25%]">
-              <div
-                className="bg-cover bg-center h-full w-full"
-                style={{
-                  backgroundImage: `url(${imageUrl})`,
-                }}
+              <Image
+                src={imageUrl}
+                alt={"bg image"}
+                width={100}
+                height={100}
+                className="w-full h-full"
+                objectFit="cover"
               />
             </div>
           ))}

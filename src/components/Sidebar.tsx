@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Card, CardBody, Listbox, ListboxItem } from "@nextui-org/react";
-import { IconWrapper } from "@/src/components/IconWrapper";
+import { IconWrapper } from "@/src/components/_shared/IconWrapper";
 import {
   DashboardLinks,
   _adminDashboardLinks,
@@ -36,8 +36,8 @@ const getActiveLink = (path: string, pathName: string) => {
   const isDetail = pathName.includes("/detail");
   if (isDetail)
     return path.split("/detail")[0] === pathName.split("/detail")[0];
-  if (pathName.split("/").filter(Boolean).length > 3) {
-    return pathName.split("/").slice(0, 4).join("/") === path;
+  if (pathName.split("/").filter(Boolean).length >= 3) {
+    return pathName.split("/").slice(0, 3).join("/") === path;
   }
   return pathName === path;
 };

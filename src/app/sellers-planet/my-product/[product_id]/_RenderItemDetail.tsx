@@ -7,18 +7,22 @@ import { FiMoreHorizontal } from "react-icons/fi";
 import { IoCheckmarkCircle } from "react-icons/io5";
 
 import Ratings from "@/src/components/Ratings";
-import StyledDropdown from "@/src/components/Dropdown";
-import BackButton from "@/src/components/button/BackButton";
+import StyledDropdown from "@/src/components/_shared/Dropdown";
+import BackButton from "@/src/components/_shared/button/BackButton";
 import GridItem from "@/src/components/GridItem";
-import PlacedSideBySide from "@/src/components/PlacedSideBySide";
+import PlacedSideBySide from "@/src/components/_shared/PlacedSideBySide";
 import ImageGalleryEditable from "@/src/components/ImageGalleryEditable";
 import cartItems from "@/src/utils/cartItem";
 import AddReview from "@/src/components/AddReview";
 import PriceCard from "@/src/components/PriceCard";
 import RenderSizeAndColor from "@/src/components/RenderSizeAndColor";
-import StyledLineChart from "@/src/components/charts/StyledLineChart";
-import { chartData, filterNameUVandPV } from "@/src/utils/generateDataForSelect";
-import StyledTable from "@/src/components/StyledTable";
+import StyledLineChart from "@/src/components/_shared/charts/StyledLineChart";
+import {
+  chartData,
+  filterNameUVandPV,
+} from "@/src/utils/generateDataForSelect";
+import StyledTable from "@/src/components/_shared/StyledTable";
+import AddPriceInfo from "@/src/components/AddPriceInfo";
 
 const options = [
   { key: "share", label: "Share this product" },
@@ -54,6 +58,7 @@ const sizes = [
 
 const quantity = [{ text: "21" }, { text: "+" }];
 const availability = [{ text: "Available" }, { text: "+" }];
+const productStatus = [{ text: "Not Approved" }, { text: "+" }];
 const supportedPlane = [
   { text: "Leasing" },
   { text: "Renting" },
@@ -147,8 +152,14 @@ export default function RenderItemDetail() {
                   <RenderSizeAndColor
                     data={availability}
                     variant="dot"
-                    title="Availability Status"
+                    title="Availability"
                     color="success"
+                  />
+                  <RenderSizeAndColor
+                    data={productStatus}
+                    variant="dot"
+                    title="Status"
+                    color="danger"
                   />
                 </div>
                 <div className="flex flex-row gap-3">
@@ -293,14 +304,39 @@ export default function RenderItemDetail() {
         }
       />
       <PlacedSideBySide
-        oneThird
         className="min-h-[400px]"
         firstComponent={
           <GridItem
-            title="Customers"
+            title="Pay as you go"
+            leftSideComponent={[<Dot key={"dot"} active />]}
+          >
+            <AddPriceInfo type="default" />
+          </GridItem>
+        }
+        secondComponent={
+          <GridItem
+            title="Lease"
+            leftSideComponent={[<Dot key={"dot"} active />]}
+          >
+            <AddPriceInfo type="lease" />
+          </GridItem>
+        }
+        thirdComponent={
+          <GridItem title="Rent" leftSideComponent={[<Dot key={"dot"} />]}>
+            <AddPriceInfo type="rent" />
+          </GridItem>
+        }
+      />
+      <PlacedSideBySide
+        oneThird
+        reverse
+        className="min-h-[400px]"
+        firstComponent={
+          <GridItem
+            title="Shipping fee"
             leftSideComponent={[
               <StyledDropdown
-                key={"change plane to see customers"}
+                key={"change plane to see Shipping fee"}
                 Trigger={
                   <Button
                     isIconOnly
@@ -319,12 +355,12 @@ export default function RenderItemDetail() {
               />,
             ]}
           >
-            <StyledTable />
+            <PriceCard value={"FREE"} />
           </GridItem>
         }
         secondComponent={
           <GridItem
-            title="Performance On The Market"
+            title="Shipping options"
             leftSideComponent={[
               <Chip
                 key={"check"}
@@ -351,14 +387,11 @@ export default function RenderItemDetail() {
                 Leasing
               </Chip>,
             ]}
-          >
-            <StyledLineChart data={filterNameUVandPV(chartData)} />
-          </GridItem>
+          ></GridItem>
         }
       />
       <PlacedSideBySide
         oneThird
-        reverse
         className="min-h-[400px]"
         firstComponent={
           <GridItem
@@ -424,3 +457,11 @@ export default function RenderItemDetail() {
     </div>
   );
 }
+
+const Dot = ({ active = false }) => (
+  <div
+    className={`h-4 w-4 rounded-full ${
+      active ? "bg-secondary-500" : "bg-default-500"
+    }`}
+  />
+);
