@@ -12,7 +12,7 @@ import "swiper/css/pagination";
 
 // import required modules
 import { FreeMode, Pagination } from "swiper/modules";
-import StyledCard from "../StyledCard";
+import StyledCard from "../../StyledCard";
 import Link from "next/link";
 import { siteConfig } from "@/src/config/site";
 import { useAppStore } from "@/src/providers/AppStoreProvider";

@@ -1,8 +1,8 @@
 import { Metadata } from "next/types";
 
 import "../../(home)/home.css";
-import StyledCardGrid from "@/src/components/swiper/StyledCardGrid";
-import BackButton from "@/src/components/button/BackButton";
+import StyledCardGrid from "@/src/components/_shared/swiper/StyledCardGrid";
+import BackButton from "@/src/components/_shared/button/BackButton";
 
 export const metadata: Metadata = {
   title: "Products categories",

@@ -8,7 +8,7 @@ import StyledImage from "./StyledImage";
 import productList from "@/src/utils/productList";
 import { siteConfig } from "@/src/config/site";
 import useResizeListener from "@/src/hooks/useResizeListener";
-import { useAppStore } from "../providers/AppStoreProvider";
+import { useAppStore } from "../../providers/AppStoreProvider";
 
 type PROPS = {
   numberOfItems?: number;

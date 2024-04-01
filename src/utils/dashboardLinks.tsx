@@ -7,6 +7,7 @@ import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 import { siteConfig } from "../config/site";
 import {
   activityDashboardLinks,
+  addProductsLinks,
   adminDashboardDetailLinks,
   userMetricsDashboardLinks,
 } from "./dashboardData";
@@ -85,6 +86,7 @@ export const _adminDashboardLinks = [
     name: "Add Product",
     icon: IoAddCircle,
     id: "sellers-planet" as const,
+    children: addProductsLinks,
   },
   {
     path: pages.adminDashboardSettings,

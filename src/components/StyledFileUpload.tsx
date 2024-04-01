@@ -9,7 +9,7 @@ import {
 } from "@nextui-org/react";
 import { IoCloseSharp } from "react-icons/io5";
 import { TbUpload } from "react-icons/tb";
-import StyledImage from "./StyledImage";
+import StyledImage from "./_shared/StyledImage";
 
 interface FileUploadProps extends InputProps {
   onFileUpload: (files: FileList) => void;

@@ -1,8 +1,8 @@
 import { userMetricsData } from "@/src/utils/dashboardData";
 import ProductMetrics from "../../../../components/ProductMetrics";
 import GridItem from "../../../../components/GridItem";
-import StyledTable from "../../../../components/StyledTable";
-import BackButton from "@/src/components/button/BackButton";
+import StyledTable from "../../../../components/_shared/StyledTable";
+import BackButton from "@/src/components/_shared/button/BackButton";
 
 export default function ItemDetails({ params }: { params: string[] }) {
   if (Object.keys(params).length === 0) {

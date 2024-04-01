@@ -11,19 +11,19 @@ import {
 } from "@nextui-org/react";
 import { FiMoreHorizontal } from "react-icons/fi";
 
-import StyledInput from "@/src/components/StyledInput";
-import StyledButton from "@/src/components/StyledButton";
+import StyledInput from "@/src/components/_shared/StyledInput";
+import StyledButton from "@/src/components/_shared/StyledButton";
 import Ratings from "@/src/components/Ratings";
 import PurchaseType from "@/src/components/PurchaseType";
 import PlansComponent from "@/src/components/PlansComponent";
-import StyledButtonGroup from "@/src/components/button/StyledButtonGroup";
+import StyledButtonGroup from "@/src/components/_shared/button/StyledButtonGroup";
 import ShippingOption from "@/src/components/ShippingOption";
 import SideDrawer from "@/src/components/SideDrawer";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
 import cartItems from "@/src/utils/cartItem";
 import { siteConfig } from "@/src/config/site";
-import StyledDropdown from "@/src/components/Dropdown";
-import StyledModal from "@/src/components/StyledModal";
+import StyledDropdown from "@/src/components/_shared/Dropdown";
+import StyledModal from "@/src/components/_shared/StyledModal";
 import MoreOnProduct from "@/src/components/MoreOnProduct";
 
 const purchasePlan = {

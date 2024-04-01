@@ -1,4 +1,4 @@
-import Loading from "@/src/components/Loading";
+import Loading from "@/src/components/_shared/Loading";
 // import StyledImage from "@/components/StyledImage";
 // import svgLoader from "@/config/svgLoader";
 

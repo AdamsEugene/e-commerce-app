@@ -15,10 +15,10 @@ import { GiShoppingCart } from "react-icons/gi";
 import { IoCloseSharp } from "react-icons/io5";
 
 import "react-modern-drawer/dist/index.css";
-import StyledImage from "./StyledImage";
-import ConditionalRenderAB from "./ConditionalRenderAB";
-import StyledButton from "./StyledButton";
-import ConditionalRender from "./ConditionalRender";
+import StyledImage from "./_shared/StyledImage";
+import ConditionalRenderAB from "./_shared/ConditionalRenderAB";
+import StyledButton from "./_shared/StyledButton";
+import ConditionalRender from "./_shared/ConditionalRender";
 import ItemsInCarts from "@/src/app/(home)/product/components/ItemsInCarts";
 import { useAppStore } from "../providers/AppStoreProvider";
 

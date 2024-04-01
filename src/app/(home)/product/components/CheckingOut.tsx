@@ -12,7 +12,7 @@ import OrderSummary from "./OrderSummary";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
 import { useEffect } from "react";
 import productList from "@/src/utils/productList";
-import BackButton from "@/src/components/button/BackButton";
+import BackButton from "@/src/components/_shared/button/BackButton";
 
 type PROPS = {
   buyNow?: boolean;

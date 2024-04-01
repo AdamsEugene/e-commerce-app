@@ -1,7 +1,7 @@
 import { Checkbox } from "@nextui-org/react";
 
-import StyledButton from "@/src/components/StyledButton";
-import StyledInput, { INPUT_PROPS } from "@/src/components/StyledInput";
+import StyledButton from "@/src/components/_shared/StyledButton";
+import StyledInput, { INPUT_PROPS } from "@/src/components/_shared/StyledInput";
 import { Card, CardBody } from "@nextui-org/react";
 
 type PROPS = {
@@ -25,9 +25,7 @@ export default function Forms(props: PROPS) {
               data.type === "checkbox" ? (
                 <div key={data.label as string} className="w-full">
                   <Checkbox defaultSelected color="secondary">
-                    <span className="text-sm text-[#606668]">
-                      {data.label}
-                    </span>
+                    <span className="text-sm text-[#606668]">{data.label}</span>
                   </Checkbox>
                 </div>
               ) : (

@@ -33,15 +33,15 @@ import {
   TwitterIcon,
   CartIcon,
   NotificationIcon,
-} from "@/src/components/icons";
+} from "@/src/components/_shared/icons";
 
-import { Logo } from "@/src/components/icons";
-import StyledInput from "./StyledInput";
+import { Logo } from "@/src/components/_shared/icons";
+import StyledInput from "./_shared/StyledInput";
 import { FiSearch } from "react-icons/fi";
 import { UserCard } from "./UserCard";
 import SignupOrLogin from "./SignupOrLogin";
-import StyledModal from "./StyledModal";
-import SearchResults from "./search/SearchResults";
+import StyledModal from "./_shared/StyledModal";
+import SearchResults from "./_shared/search/SearchResults";
 import { useAppStore } from "../providers/AppStoreProvider";
 import SideDrawer from "./SideDrawer";
 

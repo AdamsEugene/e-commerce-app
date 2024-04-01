@@ -13,12 +13,12 @@ import {
 import { MdErrorOutline } from "react-icons/md";
 import { motion, useMotionValue } from "framer-motion";
 
-import Loading from "@/src/components/Loading";
-import StyledButton from "@/src/components/StyledButton";
-import StyledModal from "@/src/components/StyledModal";
+import Loading from "@/src/components/_shared/Loading";
+import StyledButton from "@/src/components/_shared/StyledButton";
+import StyledModal from "@/src/components/_shared/StyledModal";
 import formatCurrency from "@/src/utils/formatCurrency";
 import generateOrderSummaryData from "@/src/utils/orderSummary";
-import CircularProgress from "@/src/components/CircularProgress";
+import CircularProgress from "@/src/components/_shared/CircularProgress";
 import TrackingDelivery from "./TrackingDelivery";
 
 type SUMMARY_DATA = {

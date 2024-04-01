@@ -1,21 +1,25 @@
 type Props = {
   firstComponent: React.ReactNode;
   secondComponent: React.ReactNode;
+  thirdComponent?: React.ReactNode;
   isEqualSize?: boolean;
   reverse?: boolean;
   width?: number;
   oneThird?: boolean;
   className?: string;
+  numberOfCols?: number;
 };
 
 const PlacedSideBySide: React.FC<Props> = ({
   firstComponent,
   secondComponent,
+  thirdComponent,
   isEqualSize = false,
   reverse = false,
   width = 440,
   oneThird = false,
   className = "",
+  numberOfCols = 3,
 }: Props) => {
   const renderEqualSize = isEqualSize ? (
     <>
@@ -51,7 +55,31 @@ const PlacedSideBySide: React.FC<Props> = ({
     </div>
   );
 
-  return (
+  const renderGridWithEqualCols = (
+    <div
+      className={`grid grid-cols-${numberOfCols} gap-4 w-full ${
+        reverse ? "flex-row-reverse" : ""
+      } ${className}`}
+    >
+      {reverse ? (
+        <>
+          {thirdComponent}
+          {secondComponent}
+          {firstComponent}
+        </>
+      ) : (
+        <>
+          {firstComponent}
+          {secondComponent}
+          {thirdComponent}
+        </>
+      )}
+    </div>
+  );
+
+  return thirdComponent ? (
+    renderGridWithEqualCols
+  ) : (
     <div
       className={`flex w-full ${
         isEqualSize ? "grid grid-cols-2 gap-4" : "gap-4"

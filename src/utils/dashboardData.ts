@@ -21,6 +21,19 @@ import {
 
 import { siteConfig } from "../config/site";
 import { DashboardLink } from "./dashboardLinks";
+import { IconType } from "react-icons";
+import { SiMicrosoftexcel } from "react-icons/si";
+import { FaFileCsv } from "react-icons/fa6";
+import { ImInsertTemplate } from "react-icons/im";
+import { GrTemplate } from "react-icons/gr";
+
+type Metric = {
+  value: string;
+  label: string;
+  link: string;
+  icon: IconType;
+  iconColor: string;
+};
 
 const { pages } = siteConfig;
 
@@ -167,13 +180,46 @@ const _adminDashboardMetrics = [
   },
 ];
 
+const _addProductsMetrics = [
+  {
+    value: "Import From Excel",
+    label: "Load excel data",
+    link: pages.excel,
+    icon: SiMicrosoftexcel,
+    iconColor: "#EF4444", // Red
+  },
+  {
+    value: "Import From CSV",
+    label: "Load from a csv file",
+    link: pages.csv,
+    icon: FaFileCsv,
+    iconColor: "#059669", // Green
+  },
+  {
+    value: "Create A Template",
+    label: "Create and reuse a template",
+    link: pages.createTemplate,
+    icon: ImInsertTemplate,
+    iconColor: "#3B82F6", // Blue
+  },
+  {
+    value: "Use Existing Template",
+    label: "Use already created template",
+    link: pages.useTemplate,
+    icon: GrTemplate,
+    iconColor: "#065F46", // Teal
+  },
+];
+
 // Set bgColor to 50% transparent version of iconColor
-export const adminDashboardMetrics = _adminDashboardMetrics.map(
-  (metric: any) => ({
+const addBgColor = (metrics: Metric[]) =>
+  metrics.map((metric: any) => ({
     ...metric,
     bgColor: `${metric.iconColor}80`,
-  })
-);
+  }));
+
+export const adminDashboardMetrics = addBgColor(_adminDashboardMetrics);
+export const addProductsMetrics = addBgColor(_addProductsMetrics);
 
 const columns = [
   { name: "NAME", uid: "name" },
@@ -245,6 +291,7 @@ const generateDashboardLinks = (data: any[]): DashboardLink[] =>
 const adminDashboardDetailLinks = generateDashboardLinks(adminDashboardMetrics);
 const userMetricsDashboardLinks = generateDashboardLinks(userMetricsData);
 const activityDashboardLinks = generateDashboardLinks(activityMetricsData);
+const addProductsLinks = generateDashboardLinks(addProductsMetrics);
 
 export {
   columns,
@@ -252,6 +299,7 @@ export {
   adminDashboardDetailLinks,
   userMetricsDashboardLinks,
   activityDashboardLinks,
+  addProductsLinks,
 };
 
 export type MetricsData = (typeof userMetricsData)[0];

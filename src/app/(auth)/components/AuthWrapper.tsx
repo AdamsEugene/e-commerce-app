@@ -2,12 +2,12 @@
 
 import { PropsWithChildren, useState } from "react";
 import { Button } from "@nextui-org/react";
-import StyledDropdown from "@/src/components/Dropdown";
+import StyledDropdown from "@/src/components/_shared/Dropdown";
 import { ThemeSwitch } from "@/src/components/theme-switch";
-import BackButton from "@/src/components/button/BackButton";
+import BackButton from "@/src/components/_shared/button/BackButton";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
 import { useAnimation } from "framer-motion";
-import ConditionalRender from "@/src/components/ConditionalRender";
+import ConditionalRender from "@/src/components/_shared/ConditionalRender";
 import { employeeFormSteps } from "@/src/utils/employeeFormSteps";
 import { associationFormSteps } from "@/src/utils/associationFormSteps";
 import { organizationFormSteps } from "@/src/utils/organizationFormSteps";

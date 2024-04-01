@@ -34,6 +34,11 @@ export default function StyledBreadcrumbs() {
     }
     if (path?.toLowerCase() === getProductName(productId)?.toLowerCase())
       return ProductIcon;
+    if (path.toLowerCase() === modeOfImport) {
+      return currentLinks.children?.find((child) =>
+        child.path.includes(modeOfImport)
+      )?.icon;
+    }
     return dashboardLinks.find((link) => link?.path.includes(path))?.icon;
   };
 
@@ -48,8 +53,15 @@ export default function StyledBreadcrumbs() {
     pathName.split("/").filter(Boolean).length > 2;
   const productId = pathName.split("/")[3];
 
+  const importMethod =
+    pathName.includes("add-product") &&
+    pathName.split("/").filter(Boolean).length > 2;
+  const modeOfImport = pathName.split("/")[3];
+
   let currentLinks = getCurrentLinks(
-    hasProductId ? pathName.split("/").slice(0, 3).join("/") : pathName
+    importMethod || hasProductId
+      ? pathName.split("/").slice(0, 3).join("/")
+      : pathName
   );
 
   let links = "";
@@ -79,6 +91,12 @@ export default function StyledBreadcrumbs() {
       ...formatPathName.path,
       getProductName(productId) || "",
     ]?.filter(Boolean);
+  }
+
+  if (importMethod) {
+    formatPathName.path = [...formatPathName.path, modeOfImport]?.filter(
+      Boolean
+    );
   }
 
   const linksToDisplay = formatPathName?.path?.map((path) => ({
