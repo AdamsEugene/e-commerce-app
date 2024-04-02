@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button } from "@nextui-org/button";
 import { addProductsMetrics } from "@/src/utils/dashboardData";
 import BackButton from "@/src/components/_shared/button/BackButton";
+import LoadExcel from "@/src/components/_shared/files/LoadExcel";
 
 export default function ItemDetails({ params }: { params: string[] }) {
   if (Object.keys(params).length === 0) {
@@ -18,6 +19,7 @@ export default function ItemDetails({ params }: { params: string[] }) {
     <div className="flex flex-col gap-4">
       <ButtonIcons />
       <div className="w-full gap-4">load</div>
+      <LoadExcel />
     </div>
   );
 }
