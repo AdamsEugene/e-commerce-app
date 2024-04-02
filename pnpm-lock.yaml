@@ -101,9 +101,6 @@ dependencies:
   recharts:
     specifier: ^2.12.3
     version: 2.12.3(react-dom@18.2.0)(react@18.2.0)
-  sheetjs:
-    specifier: ^2.0.0
-    version: 2.0.0
   swiper:
     specifier: ^11.0.6
     version: 11.0.6
@@ -7135,11 +7132,6 @@ packages:
     engines: {node: '>=8'}
     dev: false
 
-  /sheetjs@2.0.0:
-    resolution: {integrity: sha512-/zxauUZFsJaClP16zlYHWuD/K9VDOHsZlbunZFVUwz9tqBZeUNhSKw7ubC1s6LdiCJYG+7IFY8IEJ+9hLQwDmw==}
-    engines: {node: '>=0.8'}
-    dev: false
-
   /side-channel@1.0.4:
     resolution: {integrity: sha512-q5XPytqFEIKHkGdiMIrY10mvLRvnQh42/+GoBlFW3b2LXLE2xxJpZFdm94we0BaoV3RwJyGqg5wS7epxTv0Zvw==}
     dependencies:
@@ -8113,7 +8105,7 @@ packages:
     dev: false
 
   '@cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz':
-    resolution: {tarball: https://cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz}
+    resolution: {registry: https://registry.npmjs.org/, tarball: https://cdn.sheetjs.com/xlsx-0.20.1/xlsx-0.20.1.tgz}
     name: xlsx
     version: 0.20.1
     engines: {node: '>=0.8'}
