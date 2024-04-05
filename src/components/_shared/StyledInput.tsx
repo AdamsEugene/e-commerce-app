@@ -19,12 +19,12 @@ export default function StyledInput(props: INPUT_PROPS) {
           inputWrapper: "bg-default-100",
           input: "text-sm",
         }}
-        {...others}
         labelPlacement="outside"
         endContent={<Kbd keys={["command"]}>{keys || "K"}</Kbd>}
         startContent={
           <Icon className="text-lg text-default-400 pointer-events-none flex-shrink-0" />
         }
+        {...others}
       />
     );
   }
@@ -37,11 +37,11 @@ export default function StyledInput(props: INPUT_PROPS) {
             inputWrapper: "bg-default-100",
             input: "text-sm",
           }}
-          {...others}
           labelPlacement="outside"
           startContent={
             <Icon className="text-lg text-default-400 pointer-events-none flex-shrink-0" />
           }
+          {...others}
         />
       );
     else
@@ -51,11 +51,11 @@ export default function StyledInput(props: INPUT_PROPS) {
             inputWrapper: "bg-default-100",
             input: "text-sm",
           }}
-          {...others}
           labelPlacement="outside"
           endContent={
             <Icon className="text-lg text-default-400 pointer-events-none flex-shrink-0" />
           }
+          {...others}
         />
       );
   }
@@ -65,8 +65,8 @@ export default function StyledInput(props: INPUT_PROPS) {
         inputWrapper: "bg-default-100",
         input: "text-sm",
       }}
-      {...others}
       labelPlacement="outside"
+      {...others}
     />
   );
 }
