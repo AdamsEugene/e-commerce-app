@@ -95,4 +95,8 @@ export const siteConfig = {
     adminDashboardReturningVisitors:
       "/sellers-planet/detail/returning-visitors",
   },
+  stores: {
+    excelImport: "excelImportDataPoints",
+    excelData: "excelData",
+  },
 };
