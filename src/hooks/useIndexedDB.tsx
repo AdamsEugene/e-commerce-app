@@ -1,6 +1,7 @@
 // useIndexedDB.tsx
 import { useState, useEffect } from "react";
 import { set, get, del, keys } from "idb-keyval";
+import { simulateDelay } from "../utils/functions";
 
 function useIndexedDB<T>(key: string) {
   const [value, setValue] = useState<T | null>(null);
@@ -9,7 +10,7 @@ function useIndexedDB<T>(key: string) {
 
   useEffect(() => {
     // Load initial value from IndexedDB
-    async function loadValueFromDB(_key = key) {
+    async function loadValueFromDB(delay?: boolean, _key = key) {
       try {
         const storedValue = (await get<T>(key)) || null;
         setValue(storedValue);
@@ -17,11 +18,14 @@ function useIndexedDB<T>(key: string) {
         console.error("Error loading value from IndexedDB:", error);
         setError("Error loading value from IndexedDB");
       } finally {
-        setLoading(false);
+        if (delay) {
+          const elapsed = await simulateDelay(0.1);
+          elapsed && setLoading(false);
+        } else setLoading(false);
       }
     }
 
-    loadValueFromDB(key);
+    loadValueFromDB(true, key);
 
     // Cleanup function
     return () => {
@@ -31,11 +35,15 @@ function useIndexedDB<T>(key: string) {
 
   const setValueInDB = async (newValue: T, _key = key) => {
     try {
+      setLoading(true);
       await set(_key, newValue);
       setValue(newValue);
     } catch (error) {
       console.error("Error setting value in IndexedDB:", error);
       setError("Error setting value in IndexedDB");
+    } finally {
+      const elapsed = await simulateDelay(0.5);
+      elapsed && setLoading(false);
     }
   };
 

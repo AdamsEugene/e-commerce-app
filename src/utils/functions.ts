@@ -7,3 +7,11 @@ export const capitalizeFirstLetter = (str: string) => {
 export const getProductName = (productId: string) => {
   return productList.find((product) => product.productId === productId)?.title;
 };
+
+export const simulateDelay = (seconds: number): Promise<boolean> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(true);
+    }, seconds * 1000);
+  });
+};

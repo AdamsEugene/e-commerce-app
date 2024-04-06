@@ -97,5 +97,6 @@ export const siteConfig = {
   },
   stores: {
     excelImport: "excelImportDataPoints",
+    excelData: "excelData",
   },
 };

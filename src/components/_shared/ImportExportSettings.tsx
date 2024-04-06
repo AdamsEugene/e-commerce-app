@@ -18,6 +18,7 @@ import useIndexedDB from "@/src/hooks/useIndexedDB";
 import Loading from "./Loading";
 import ConditionalRender from "./ConditionalRender";
 import useLoadExcelData from "@/src/hooks/useLoadExcelData";
+import ConditionalRenderAB from "./ConditionalRenderAB";
 
 const {
   stores: { excelImport },
@@ -142,19 +143,29 @@ export default function ImportProductSettings({
               Match the corresponding fields in your Excel sheet with the
               product data points below.
             </p>
-            <div className="grid grid-cols-4 gap-4 w-full mt-2">
-              {selected.map((data) => (
-                <StyledInput
-                  key={data.name}
-                  size="sm"
-                  fullWidth
-                  name={data.name}
-                  defaultValue={data.newName || data.name}
-                  onChange={(e) => handleInputChange(e.target)}
-                  isRequired={requiredFields.includes(data)}
-                />
-              ))}
-            </div>
+            <ConditionalRenderAB
+              condition={!loading}
+              ComponentA={
+                <div className="grid grid-cols-4 gap-4 w-full mt-2">
+                  {selected.map((data) => (
+                    <StyledInput
+                      key={data.name}
+                      size="sm"
+                      fullWidth
+                      name={data.name}
+                      defaultValue={data.newName || data.name}
+                      onChange={(e) => handleInputChange(e.target)}
+                      // isRequired={requiredFields.includes(data)}
+                    />
+                  ))}
+                </div>
+              }
+              ComponentB={
+                <div className="min-h-[100px] flex justify-center items-center w-full mt-2">
+                  <Loading color="secondary" size="lg" className="mr-4" />
+                </div>
+              }
+            />
           </div>
         </div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -z-10">
@@ -165,15 +176,11 @@ export default function ImportProductSettings({
         <Button color="danger" variant="light" onPress={onClose}>
           Cancel
         </Button>
-        <Button
-          // isLoading
-          color="primary"
-          onClick={saveFieldsLocal}
-        >
+        <Button isLoading={loading} color="primary" onClick={saveFieldsLocal}>
           Save this changes for later
         </Button>
         <Button
-          // isLoading
+          isLoading={isLoading}
           color="secondary"
           // onPress={onClose}
           onClick={importExcel}

@@ -1,11 +1,44 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { read, utils } from "xlsx";
+import { siteConfig } from "../config/site";
+import useIndexedDB from "./useIndexedDB";
+const {
+  stores: { excelData },
+} = siteConfig;
 
 interface MyDataInterface {
-  [key: string]: string | number;
+  name: string;
+  description: string;
+  price: string;
+  stock: number;
+  active: boolean;
+  categories: string;
+  images: string[];
+  brand: string;
+  sku: string;
+  lowStockThreshold: string;
+  variants: string;
+  slug: string;
+  metaDescription: string;
+  weight: number;
+  dimensions: string;
+  size: number;
+  colors: string[];
+  [key: string]: string | number | boolean | string[];
 }
+
+const requiredKeys = [
+  "name",
+  "description",
+  "price",
+  "stock",
+  "categories",
+  "brand",
+  "sku",
+  "active",
+];
 
 function useLoadExcelData(filePath: string): {
   data: MyDataInterface[];
@@ -18,11 +51,21 @@ function useLoadExcelData(filePath: string): {
   const [error, setError] = useState<Error | null>(null);
   const [_startLoading, setStartLoading] = useState(false);
 
-  const transformData = useCallback((arr: any[], points?: string[]) => {
-    console.log(points, arr);
+  const { loading, setValueInDB } = useIndexedDB<string>(excelData);
 
-    const keys = arr[0];
-    return arr.slice(1).map((obj) => {
+  const index = useRef(0);
+
+  const transformData = useCallback((arr: any[], points = requiredKeys) => {
+    const firstMatchingObj = arr.find((obj, indx) => {
+      index.current = indx;
+      return (
+        Object.values(obj).filter((value: any) => points.includes(value))
+          .length >= 4
+      );
+    });
+
+    const keys = firstMatchingObj;
+    return arr.slice(index.current + 1).map((obj) => {
       const newObj: any = {};
       for (const key in obj) {
         if (key !== "__EMPTY" && keys.hasOwnProperty(key)) {
@@ -41,16 +84,15 @@ function useLoadExcelData(filePath: string): {
         const f = await fetch(filePath);
         const ab = await f.arrayBuffer();
         const wb = read(ab);
-        
+
         const ws = wb.Sheets[wb.SheetNames[0]];
         const parsedData = utils.sheet_to_json<MyDataInterface>(ws, {
           defval: undefined,
           blankrows: false,
           skipHidden: true,
-          raw: false,
+          // raw: false,
+          // header: points,
         });
-        console.log(parsedData);
-
         const filteredData = parsedData.filter((row: MyDataInterface) =>
           Object.keys(row).some((key) => key !== "__EMPTY")
         );
@@ -67,13 +109,14 @@ function useLoadExcelData(filePath: string): {
     [filePath, transformData]
   );
 
-  // useEffect(() => {
-  //   _startLoading && loadData();
-  // }, [filePath, loadData, _startLoading]);
+  useEffect(() => {
+    data && setValueInDB(JSON.stringify({ data }));
+  }, [data, setValueInDB]);
 
   const startLoading = (points?: string[]) => {
     setStartLoading(true);
     loadData(points);
+    console.log(data);
   };
 
   return { data, isLoading, error, startLoading };
