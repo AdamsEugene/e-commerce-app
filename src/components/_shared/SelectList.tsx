@@ -69,12 +69,17 @@ const SelectList = (props: PROPS) => {
               )
             )}
             ComponentB={
-              <StyledImage
-                src="/assets/svgs/voidState.svg"
-                alt=" Your shopping cart is empty"
-                height={400}
-                width={350}
-              />
+              <div className="flex flex-col items-center justify-center gap-6">
+                <StyledImage
+                  src="/assets/svgs/voidState.svg"
+                  alt="Nothing here"
+                  height={400}
+                  width={350}
+                />
+                <p className="text-lg font-semibold text-gray-600">
+                  Nothing here
+                </p>
+              </div>
             }
           />
         </div>

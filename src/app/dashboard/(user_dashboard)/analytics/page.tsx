@@ -11,6 +11,7 @@ import {
   chartData,
   filterNameUVandPV,
 } from "@/src/utils/generateDataForSelect";
+import ConditionalRenderAB from "@/src/components/_shared/ConditionalRenderAB";
 
 export const metadata: Metadata = {
   title: "Analytics",
@@ -72,7 +73,11 @@ export default function Analytics() {
               </Chip>,
             ]}
           >
-            <StyledTable />
+            <ConditionalRenderAB
+              condition={false}
+              ComponentA={<StyledTable columns={[]} data={[]} />}
+              ComponentB={<div>no data</div>}
+            />
           </GridItem>
         }
       />
@@ -126,7 +131,11 @@ export default function Analytics() {
               </Chip>,
             ]}
           >
-            <StyledTable />
+            <ConditionalRenderAB
+              condition={false}
+              ComponentA={<StyledTable columns={[]} data={[]} />}
+              ComponentB={<div>no data</div>}
+            />
           </GridItem>
         }
       />
@@ -179,7 +188,11 @@ export default function Analytics() {
               </Chip>,
             ]}
           >
-            <StyledTable />
+            <ConditionalRenderAB
+              condition={false}
+              ComponentA={<StyledTable columns={[]} data={[]} />}
+              ComponentB={<div>no data</div>}
+            />
           </GridItem>
         }
       />
