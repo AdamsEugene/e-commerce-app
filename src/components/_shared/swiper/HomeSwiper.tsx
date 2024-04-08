@@ -60,14 +60,14 @@ const SwiperCarousel: FC<SwiperCarouselProps> = ({
             <StyledImage
               width={width}
               height={height}
-              src={product.img}
+              src={product.image}
               className={`object-cover h-[${half ? "17rem" : "34rem"}]`}
             />
             <div className="z-20 absolute inset-0 bg-black opacity-60"></div>
             <div className="w-[90%] z-30 absolute top-1/2 left-[50%] transform -translate-x-1/2 -translate-y-1/2 text-center">
               <div className="w-[60%] text-left">
                 <h2 className={title({ size: half ? "sm" : "lg" })}>
-                  <span className="text-white">{product.title}</span>
+                  <span className="text-white">{product.name}</span>
                 </h2>
                 <p className={`line-clamp-4 mt-4 text-white`}>
                   {product.description}
@@ -96,7 +96,7 @@ const SwiperCarousel: FC<SwiperCarouselProps> = ({
                 </Button>
                 <Button
                   as={Link}
-                  href={`${siteConfig.pages.products}/${product.title}`}
+                  href={`${siteConfig.pages.products}/${product.name}`}
                   variant="flat"
                   color="default"
                   radius="full"

@@ -12,12 +12,7 @@ const ItemDetails: React.FC<ItemDetailsParams> = ({ params }) => {
   const renderContent = () => {
     switch (params.slug[0]) {
       case "load-excel":
-        return (
-          <>
-            Load Excel
-            <LoadExcel />
-          </>
-        );
+        return <LoadExcel />;
       case "load-csv":
         return <>Load CSV</>;
       case "create-template":

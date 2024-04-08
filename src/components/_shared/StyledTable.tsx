@@ -13,32 +13,52 @@ import {
   Tooltip,
   ChipProps,
   getKeyValue,
+  TableProps,
 } from "@nextui-org/react";
-import { columns, users } from "@/src/utils/dashboardData";
+import { users } from "@/src/utils/dashboardData";
 import { FaEdit, FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { IoImage } from "react-icons/io5";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   active: "success",
-  paused: "danger",
-  vacation: "warning",
+  notActive: "danger",
+  pending: "warning",
 };
 
 type User = (typeof users)[0];
 
-export default function StyledTable() {
-  const renderCell = React.useCallback((user: User, columnKey: React.Key) => {
-    const cellValue = user[columnKey as keyof User];
+type Column = {
+  name: string;
+  uid: string;
+};
+
+type PROPS<T> = {
+  data: T[];
+  columns: Column[];
+};
+
+export default function StyledTable<T>(props: PROPS<T> & TableProps) {
+  const { columns, data, ...others } = props;
+
+  const renderCell = React.useCallback((item: T, columnKey: React.Key) => {
+    const cellValue = item[columnKey as keyof T] as string | number;
 
     switch (columnKey) {
       case "name":
         return (
           <User
-            avatarProps={{ radius: "lg", src: user.avatar }}
-            description={user.email}
+            avatarProps={{
+              radius: "lg",
+              src: (item as any)?.image,
+              showFallback: true,
+              // name: (item as any)?.name,
+              fallback: <IoImage className="text-xl" />,
+            }}
+            // description={(item as any)?.description}
             name={cellValue}
           >
-            {user.email}
+            {(item as any)?.name}
           </User>
         );
       case "role":
@@ -46,7 +66,7 @@ export default function StyledTable() {
           <div className="flex flex-col">
             <p className="text-bold text-sm capitalize">{cellValue}</p>
             <p className="text-bold text-sm capitalize text-default-400">
-              {user.team}
+              {(item as any)?.team}
             </p>
           </div>
         );
@@ -54,11 +74,14 @@ export default function StyledTable() {
         return (
           <Chip
             className="capitalize"
-            color={statusColorMap[user.status]}
+            color={
+              statusColorMap[(item as any)?.status ? "active" : "notActive"] ||
+              "warning"
+            }
             size="sm"
             variant="flat"
           >
-            {cellValue}
+            {cellValue ? "Active" : "Inactive"}
           </Chip>
         );
       case "actions":
@@ -69,11 +92,11 @@ export default function StyledTable() {
                 <FaEye />
               </span>
             </Tooltip>
-            {/* <Tooltip content="Edit user">
+            <Tooltip content="Edit user">
               <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                 <FaEdit />
               </span>
-            </Tooltip> */}
+            </Tooltip>
             <Tooltip color="danger" content="Delete user">
               <span className="text-lg text-danger cursor-pointer active:opacity-50">
                 <MdDelete />
@@ -87,7 +110,13 @@ export default function StyledTable() {
   }, []);
 
   return (
-    <Table isStriped removeWrapper fullWidth aria-label="Example table with custom cells">
+    <Table
+      isStriped
+      removeWrapper
+      fullWidth
+      aria-label="Example table with custom cells"
+      {...others}
+    >
       <TableHeader columns={columns}>
         {(column) => (
           <TableColumn
@@ -98,9 +127,9 @@ export default function StyledTable() {
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody items={users}>
+      <TableBody emptyContent={"No rows to display."} items={data}>
         {(item) => (
-          <TableRow key={item.id}>
+          <TableRow key={(item as any)?.id}>
             {(columnKey) => (
               <TableCell>{renderCell(item, columnKey)}</TableCell>
             )}
