@@ -12,6 +12,7 @@ import {
   chartData,
   filterNameUVandPV,
 } from "@/src/utils/generateDataForSelect";
+import ConditionalRenderAB from "@/src/components/_shared/ConditionalRenderAB";
 
 export const metadata: Metadata = {
   title: "Sellers Planet",
@@ -54,6 +55,7 @@ export default function AdminDashboard() {
         secondComponent={
           <GridItem
             title="Simple Table"
+            className="min-h-[400px]"
             leftSideComponent={[
               <Chip
                 key={"check"}
@@ -97,7 +99,11 @@ export default function AdminDashboard() {
               </Chip>,
             ]}
           >
-            <StyledTable />
+            <ConditionalRenderAB
+              condition={false}
+              ComponentA={<StyledTable columns={[]} data={[]} />}
+              ComponentB={<div>no data</div>}
+            />
           </GridItem>
         }
         secondComponent={
@@ -147,11 +153,16 @@ export default function AdminDashboard() {
               </Chip>,
             ]}
           >
-            <StyledTable />
+            <ConditionalRenderAB
+              condition={false}
+              ComponentA={<StyledTable columns={[]} data={[]} />}
+              ComponentB={<div>no data</div>}
+            />
           </GridItem>
         }
         secondComponent={
           <GridItem
+            className="min-h-[400px]"
             title="Simple Table"
             leftSideComponent={[
               <Chip

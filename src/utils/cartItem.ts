@@ -8,15 +8,15 @@ export type ItemsInCart = {
   amount: number;
   image: string;
   productId: string;
-  title: string;
-  price: string;
+  name: string;
+  price: string | number;
 };
 
 export type PRODUCTS = {
   productId: string;
-  title: string;
-  img: any;
-  price: string;
+  name: string;
+  image: any;
+  price: string | number;
 };
 
 const _productList: PRODUCTS[] = productList;
@@ -28,13 +28,13 @@ const generateRandomString = () => Math.random().toString(36).substring(7);
 
 const generateRandomItem = (product: PRODUCTS): ItemsInCart => ({
   key: `key ${generateRandomString()}`,
-  itemName: product.title,
+  itemName: product.name,
   color: `Color ${generateRandomString()}`,
   size: Math.floor(Math.random() * 10) + 1,
   amount: Math.floor(Math.random() * 100) + 1,
-  image: product.img,
+  image: product.image,
   productId: product.productId,
-  title: product.title,
+  name: product.name,
   price: product.price,
 });
 

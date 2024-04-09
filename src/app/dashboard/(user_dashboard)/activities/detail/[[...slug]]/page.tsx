@@ -1,5 +1,6 @@
 import GridItem from "@/src/components/GridItem";
 import ProductMetrics from "@/src/components/ProductMetrics";
+import ConditionalRenderAB from "@/src/components/_shared/ConditionalRenderAB";
 import StyledTable from "@/src/components/_shared/StyledTable";
 import BackButton from "@/src/components/_shared/button/BackButton";
 import { activityMetricsData } from "@/src/utils/dashboardData";
@@ -22,7 +23,11 @@ export default function ItemDetails({ params }: { params: string[] }) {
       <BackButton />
       <div className="w-full gap-4">
         <GridItem title={"name"}>
-          <StyledTable />
+          <ConditionalRenderAB
+            condition={false}
+            ComponentA={<StyledTable columns={[]} data={[]} />}
+            ComponentB={<div>no data</div>}
+          />
         </GridItem>
       </div>
     </div>

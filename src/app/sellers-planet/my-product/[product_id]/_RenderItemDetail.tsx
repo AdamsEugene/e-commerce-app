@@ -27,6 +27,7 @@ import {
 import StyledTable from "@/src/components/_shared/StyledTable";
 import AddPriceInfo from "@/src/components/AddPriceInfo";
 import CreateShippingOption from "@/src/components/CreateShippingOption";
+import ConditionalRenderAB from "@/src/components/_shared/ConditionalRenderAB";
 
 const options = [
   { key: "share", label: "Share this product" },
@@ -441,7 +442,11 @@ export default function RenderItemDetail() {
               />,
             ]}
           >
-            <StyledTable />
+            <ConditionalRenderAB
+              condition={false}
+              ComponentA={<StyledTable columns={[]} data={[]} />}
+              ComponentB={<div>no data</div>}
+            />
           </GridItem>
         }
         secondComponent={

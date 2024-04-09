@@ -20,43 +20,43 @@ export default function StyledCardGrid(props: PROPS) {
 
   const list = [
     {
-      title: "Orange",
-      img: imageByIndex(0),
+      name: "Orange",
+      image: imageByIndex(0),
       price: "$5.50",
     },
     {
-      title: "Tangerine",
-      img: imageByIndex(2),
+      name: "Tangerine",
+      image: imageByIndex(2),
       price: "$3.00",
     },
     {
-      title: "Raspberry",
-      img: imageByIndex(3),
+      name: "Raspberry",
+      image: imageByIndex(3),
       price: "$10.00",
     },
     {
-      title: "Lemon",
-      img: imageByIndex(4),
+      name: "Lemon",
+      image: imageByIndex(4),
       price: "$5.30",
     },
     {
-      title: "Avocado",
-      img: imageByIndex(5),
+      name: "Avocado",
+      image: imageByIndex(5),
       price: "$15.70",
     },
     {
-      title: "Lemon 2",
-      img: imageByIndex(6),
+      name: "Lemon 2",
+      image: imageByIndex(6),
       price: "$8.00",
     },
     {
-      title: "Banana",
-      img: imageByIndex(7),
+      name: "Banana",
+      image: imageByIndex(7),
       price: "$7.50",
     },
     {
-      title: "Watermelon",
-      img: imageByIndex(8),
+      name: "Watermelon",
+      image: imageByIndex(8),
       price: "$12.20",
     },
   ];
@@ -69,8 +69,8 @@ export default function StyledCardGrid(props: PROPS) {
           isPressable
           radius="lg"
           as={Link}
-          href={`${siteConfig.pages.products}/${item.title}`}
-          key={item.title}
+          href={`${siteConfig.pages.products}/${item.name}`}
+          key={item.name}
           className="border-none"
           onClick={() => {
             changePlan("default");
@@ -85,12 +85,12 @@ export default function StyledCardGrid(props: PROPS) {
             }`}
             as={StyledImage}
             height={250}
-            src={item.img}
+            src={item.image}
             width={223}
             isZoomed
           />
           <CardFooter className="justify-center before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
-            <p className="text-tiny text-white/80">{item.title}</p>
+            <p className="text-tiny text-white/80">{item.name}</p>
             {/* <Button
               className="text-tiny text-white bg-black/20"
               variant="flat"

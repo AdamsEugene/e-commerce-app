@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useCallback, useRef } from "react";
 import { read, utils } from "xlsx";
 import { siteConfig } from "../config/site";
 import useIndexedDB from "./useIndexedDB";
+
 const {
   stores: { excelData },
 } = siteConfig;
@@ -49,9 +50,8 @@ function useLoadExcelData(filePath: string): {
   const [data, setData] = useState<MyDataInterface[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
-  const [_startLoading, setStartLoading] = useState(false);
 
-  const { loading, setValueInDB } = useIndexedDB<string>(excelData);
+  const { setValueInDB } = useIndexedDB<string>(excelData);
 
   const index = useRef(0);
 
@@ -78,9 +78,13 @@ function useLoadExcelData(filePath: string): {
 
   const loadData = useCallback(
     async (points?: string[]) => {
-      console.log("loading...");
       try {
+        if (!filePath) {
+          throw new Error("Please provide path to the excel file");
+        }
+        setData([]);
         setIsLoading(true);
+        setError(null);
         const f = await fetch(filePath);
         const ab = await f.arrayBuffer();
         const wb = read(ab);
@@ -102,21 +106,14 @@ function useLoadExcelData(filePath: string): {
         console.error("Error fetching or parsing Excel data:", err);
         setError(err);
       } finally {
-        setStartLoading(false);
         setIsLoading(false);
       }
     },
     [filePath, transformData]
   );
 
-  useEffect(() => {
-    data && setValueInDB(JSON.stringify({ data }));
-  }, [data, setValueInDB]);
-
   const startLoading = (points?: string[]) => {
-    setStartLoading(true);
     loadData(points);
-    console.log(data);
   };
 
   return { data, isLoading, error, startLoading };

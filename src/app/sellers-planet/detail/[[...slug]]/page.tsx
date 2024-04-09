@@ -3,6 +3,7 @@ import ProductMetrics from "../../../../components/ProductMetrics";
 import GridItem from "../../../../components/GridItem";
 import StyledTable from "../../../../components/_shared/StyledTable";
 import BackButton from "@/src/components/_shared/button/BackButton";
+import ConditionalRenderAB from "@/src/components/_shared/ConditionalRenderAB";
 
 export default function ItemDetails({ params }: { params: string[] }) {
   if (Object.keys(params).length === 0) {
@@ -20,9 +21,13 @@ export default function ItemDetails({ params }: { params: string[] }) {
   return (
     <div className="flex flex-col gap-4">
       <BackButton />
-      <div className="w-full gap-4">
+      <div className="w-full gap-4 min-h-[400px]">
         <GridItem title={"name"}>
-          <StyledTable />
+          <ConditionalRenderAB
+            condition={false}
+            ComponentA={<StyledTable columns={[]} data={[]} />}
+            ComponentB={<div>no data</div>}
+          />
         </GridItem>
       </div>
     </div>

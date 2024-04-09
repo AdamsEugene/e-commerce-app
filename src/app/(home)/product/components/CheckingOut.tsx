@@ -42,7 +42,7 @@ export default function CheckingOut(props: PROPS) {
 
   return (
     <div className="main flex flex-col w-full items-center">
-      <BackButton previousPage={selectedProduct?.title} />
+      <BackButton previousPage={selectedProduct?.name} />
       <div className="main flex gap-5 w-full">
         <div className="w-full">
           <Card className="w-full">

@@ -1,27 +1,40 @@
 "use client";
 
 import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import {
   ModalBody,
   ModalHeader,
   ModalFooter,
   CheckboxGroup,
   Checkbox,
   Button,
+  ModalContent,
+  useDisclosure,
+  Divider,
 } from "@nextui-org/react";
 import { SiMicrosoftexcel } from "react-icons/si";
 
 import StyledInput from "./StyledInput";
 import { capitalizeFirstLetter } from "@/src/utils/functions";
-import { useEffect, useMemo, useState } from "react";
 import { siteConfig } from "@/src/config/site";
 import useIndexedDB from "@/src/hooks/useIndexedDB";
 import Loading from "./Loading";
 import ConditionalRender from "./ConditionalRender";
 import useLoadExcelData from "@/src/hooks/useLoadExcelData";
 import ConditionalRenderAB from "./ConditionalRenderAB";
+import { useAppStore } from "@/src/providers/AppStoreProvider";
+import StyledModal from "./StyledModal";
+import SelectList from "./SelectList";
 
 const {
-  stores: { excelImport },
+  stores: { excelImport, defaultColumns, allExcelData, allFields },
 } = siteConfig;
 
 type ProductField = {
@@ -29,6 +42,8 @@ type ProductField = {
   required: boolean;
   newName: string;
 };
+
+type StoreField = { name: string; description: string };
 
 const productKeys = [
   { name: "name", required: true, newName: "" },
@@ -55,10 +70,16 @@ export default function ImportProductSettings({
 }: {
   onClose: () => void;
 }) {
-  const { loading, setValueInDB, value } = useIndexedDB<string>(excelImport);
-  const { data, isLoading, error, startLoading } = useLoadExcelData(
+  const [isExistingData, setIsExistingData] = useState(false);
+  const [path, setPath] = useState(
     "https://docs.google.com/spreadsheets/d/1C2vzA6FNrX91yfSmy_atUmHZ0VEIh0-4bycEYMLFyTk/edit#gid=458146508"
   );
+  const updateExcelStateChange = useAppStore(
+    (state) => state.updateExcelStateChange
+  );
+
+  const { loading, setValueInDB, value } = useIndexedDB<string>(excelImport);
+  const { isLoading, error, startLoading, data } = useLoadExcelData(path);
   const requiredFields = useMemo(
     () =>
       value
@@ -66,12 +87,29 @@ export default function ImportProductSettings({
         : productKeys.filter((key) => key.required),
     [value]
   );
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const [selected, setSelected] = useState(requiredFields);
+  const [forExcel, setForExcel] = useState(false);
+
+  const handleOpenModal = useCallback(
+    (existing: boolean) => {
+      setIsExistingData(existing);
+      onOpen();
+    },
+    [onOpen]
+  );
 
   useEffect(() => {
     setSelected(requiredFields);
   }, [requiredFields]);
+
+  useEffect(() => {
+    if (data.length) {
+      setForExcel(true);
+      handleOpenModal(false);
+    }
+  }, [data, handleOpenModal]);
 
   const handleCheckboxChange = (values: string[]) => {
     setSelected(productKeys.filter((field) => values.includes(field.name)));
@@ -87,23 +125,65 @@ export default function ImportProductSettings({
     );
   };
 
-  const saveFieldsLocal = () => {
-    const fieldsToSave = selected.filter((field) =>
-      selected.map((f) => f.name).includes(field.name)
-    );
-    setValueInDB(JSON.stringify({ fields: fieldsToSave }));
+  const saveFieldsLocal = (
+    name: StoreField,
+    onClose: () => void,
+    oldData: string | null,
+    forExcelData?: boolean
+  ) => {
+    console.log({ forExcelData });
+
+    if (forExcelData) {
+      let allOldFields = [];
+      if (oldData) {
+        if (
+          JSON.parse(oldData).fields.find(
+            (f: StoreField) => f.name === name.name
+          )
+        ) {
+          console.log("name taken");
+        }
+        allOldFields = [name, ...JSON.parse(oldData).fields];
+      } else allOldFields = [name];
+
+      setValueInDB(JSON.stringify({ data }), name.name);
+      setValueInDB(JSON.stringify({ fields: allOldFields }), allExcelData);
+      updateExcelStateChange(true);
+    } else {
+      const fieldsToSave = selected.filter((field) =>
+        selected.map((f) => f.name).includes(field.name)
+      );
+      let allOldFields = [];
+      if (oldData) allOldFields = [name, ...JSON.parse(oldData).fields];
+      else allOldFields = [name];
+
+      setValueInDB(JSON.stringify({ fields: allOldFields }), allFields);
+      setValueInDB(JSON.stringify({ fields: fieldsToSave }));
+      setValueInDB(
+        JSON.stringify({
+          fields: [
+            "name",
+            "price",
+            "stock",
+            "active",
+            "categories",
+            "sku",
+            "brand",
+          ],
+        }),
+        defaultColumns
+      );
+    }
+    onClose();
+    setForExcel(false);
   };
 
-  const importExcel = () => {
+  const importExcel = async () => {
     const newProductFields = selected.map((field) =>
       field.newName !== "" ? field.newName : field.name
     );
     startLoading(newProductFields);
-    console.log(newProductFields);
-    // onClose()
   };
-
-  // console.log(data);
 
   return (
     <>
@@ -117,7 +197,15 @@ export default function ImportProductSettings({
         </div>
       </ModalHeader>
       <ModalBody>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-6">
+          <StyledInput
+            label="Path to Excel File (or Google Sheet Link)"
+            placeholder="https://docs.google.com/spreadsheets/d/1C2vzA6FNrX91yfSmy_atUmHZ0VEIh0-4bycEYMLFyTk/edit#gid=458146508"
+            isRequired
+            variant="faded"
+            value={path}
+            onValueChange={(value) => setPath(value)}
+          />
           <h2 className="text-xl font-bold ">Select Import Columns</h2>
           <div className="grid grid-cols-5 gap-4">
             {productKeys.map((data) => (
@@ -176,8 +264,19 @@ export default function ImportProductSettings({
         <Button color="danger" variant="light" onPress={onClose}>
           Cancel
         </Button>
-        <Button isLoading={loading} color="primary" onClick={saveFieldsLocal}>
-          Save this changes for later
+        <Button
+          isLoading={loading}
+          color="primary"
+          onClick={() => handleOpenModal(false)}
+        >
+          Save for later
+        </Button>
+        <Button
+          color="secondary"
+          variant="ghost"
+          onClick={() => handleOpenModal(true)}
+        >
+          Load data points
         </Button>
         <Button
           isLoading={isLoading}
@@ -188,6 +287,118 @@ export default function ImportProductSettings({
           Import Data
         </Button>
       </ModalFooter>
+      <StyledModal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        placement="top"
+        backdrop="blur"
+        size={"sm"}
+        className="search_result"
+        scrollBehavior="inside"
+      >
+        <ModalContent>
+          {(onClose) => (
+            <ConditionalRenderAB
+              condition={isExistingData}
+              ComponentA={
+                <SelectList
+                  title="Select what to use"
+                  onClose={onClose}
+                  instantLoad
+                  dbPath={allFields}
+                />
+              }
+              ComponentB={
+                <SaveColumnsKey
+                  onClose={onClose}
+                  saveFieldsLocal={saveFieldsLocal}
+                  forExcel={forExcel}
+                  setForExcel={setForExcel}
+                />
+              }
+            />
+          )}
+        </ModalContent>
+      </StyledModal>
     </>
   );
 }
+
+const SaveColumnsKey = ({
+  onClose,
+  saveFieldsLocal,
+  forExcel,
+  setForExcel,
+}: {
+  onClose: () => void;
+  forExcel: boolean;
+  setForExcel: Dispatch<SetStateAction<boolean>>;
+  saveFieldsLocal: (
+    name: { name: string; description: string },
+    onClose: () => void,
+    oldData: string | null,
+    forExcelData?: boolean
+  ) => void;
+}) => {
+  const { value } = useIndexedDB<string>(forExcel ? allExcelData : allFields);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+
+  const closeModal = () => {
+    onClose();
+    setForExcel(false);
+  };
+
+  return (
+    <>
+      <ModalHeader className="flex flex-col gap-1">
+        Save for later use
+      </ModalHeader>
+      <Divider />
+      <ModalBody>
+        <div className="flex flex-col w-full py-4 gap-4">
+          <StyledInput
+            placeholder="my first options"
+            label="Enter a name"
+            isRequired
+            value={name}
+            onValueChange={setName}
+          />
+          <StyledInput
+            placeholder="this is what i will always use"
+            label="Enter a description"
+            isRequired
+            value={description}
+            onValueChange={setDescription}
+          />
+        </div>
+      </ModalBody>
+      <Divider />
+      <ModalFooter className="w-full">
+        <div className="flex items-center justify-between w-full">
+          <ConditionalRenderAB
+            condition={forExcel}
+            ComponentA={
+              <Checkbox color="secondary">Don&apos;t ask again</Checkbox>
+            }
+            ComponentB={<div></div>}
+          />
+          <div className="flex items-center gap-3">
+            <Button color="danger" variant="light" onPress={closeModal}>
+              Close
+            </Button>
+            <Button
+              color="secondary"
+              isDisabled={!(name && description)}
+              onPress={() =>
+                saveFieldsLocal({ name, description }, onClose, value, forExcel)
+              }
+            >
+              Save
+            </Button>
+          </div>
+        </div>
+      </ModalFooter>
+    </>
+  );
+};

@@ -5,7 +5,7 @@ export const capitalizeFirstLetter = (str: string) => {
 };
 
 export const getProductName = (productId: string) => {
-  return productList.find((product) => product.productId === productId)?.title;
+  return productList.find((product) => product.productId === productId)?.name;
 };
 
 export const simulateDelay = (seconds: number): Promise<boolean> => {

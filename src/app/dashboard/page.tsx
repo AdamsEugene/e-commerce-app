@@ -12,6 +12,7 @@ import {
   filterNameAndUV,
   filterNameUVandPV,
 } from "@/src/utils/generateDataForSelect";
+import ConditionalRenderAB from "@/src/components/_shared/ConditionalRenderAB";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -54,6 +55,7 @@ export default function Dashboard() {
         secondComponent={
           <GridItem
             title="Simple Table"
+            className="min-h-[400px]"
             leftSideComponent={[
               <Chip
                 key={"check"}
@@ -73,7 +75,11 @@ export default function Dashboard() {
               </Chip>,
             ]}
           >
-            <StyledTable />
+            <ConditionalRenderAB
+              condition={false}
+              ComponentA={<StyledTable columns={[]} data={[]} />}
+              ComponentB={<div>no data</div>}
+            />
           </GridItem>
         }
       />
@@ -108,6 +114,7 @@ export default function Dashboard() {
         secondComponent={
           <GridItem
             title="Simple Table"
+            className="min-h-[400px]"
             leftSideComponent={[
               <Chip
                 key={"check"}
@@ -127,7 +134,11 @@ export default function Dashboard() {
               </Chip>,
             ]}
           >
-            <StyledTable />
+            <ConditionalRenderAB
+              condition={false}
+              ComponentA={<StyledTable columns={[]} data={[]} />}
+              ComponentB={<div>no data</div>}
+            />
           </GridItem>
         }
       />
@@ -161,6 +172,7 @@ export default function Dashboard() {
         secondComponent={
           <GridItem
             title="Simple Table"
+            className="min-h-[400px]"
             leftSideComponent={[
               <Chip
                 key={"check"}
@@ -180,7 +192,11 @@ export default function Dashboard() {
               </Chip>,
             ]}
           >
-            <StyledTable />
+            <ConditionalRenderAB
+              condition={false}
+              ComponentA={<StyledTable columns={[]} data={[]} />}
+              ComponentB={<div>no data</div>}
+            />
           </GridItem>
         }
       />

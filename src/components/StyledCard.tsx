@@ -22,9 +22,9 @@ export default function StyledCard(
           radius="lg"
           width={300}
           height={200}
-          alt={props.title}
+          alt={props.name}
           className="!w-[200px] object-cover !h-[90px]"
-          src={props.img}
+          src={props.image}
         />
       </CardBody>
       <CardFooter className="text-small justify-between">
