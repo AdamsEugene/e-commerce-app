@@ -15,7 +15,6 @@ import { IoImage } from "react-icons/io5";
 import { siteConfig } from "@/src/config/site";
 import useIndexedDB from "@/src/hooks/useIndexedDB";
 import ConditionalRenderAB from "./ConditionalRenderAB";
-import { VoidState } from "./icons";
 import StyledImage from "./StyledImage";
 
 const {
@@ -27,6 +26,7 @@ type PROPS = {
   title: string;
   instantLoad?: boolean;
   dbPath?: string;
+  getData?: (n: any) => void;
   data?: {
     name: string;
     description: string;
@@ -36,7 +36,7 @@ type PROPS = {
 };
 
 const SelectList = (props: PROPS) => {
-  const { onClose, title, instantLoad, data, dbPath } = props;
+  const { onClose, title, instantLoad, data, dbPath, getData } = props;
 
   const { value } = useIndexedDB<string>(dbPath || excelData, instantLoad);
 
@@ -58,12 +58,12 @@ const SelectList = (props: PROPS) => {
       <ModalHeader className="flex flex-col gap-1">{title}</ModalHeader>
       <Divider />
       <ModalBody>
-        <div className="py-4">
+        <div className="py-0">
           <ConditionalRenderAB
             condition={((fieldData || data)?.length || 0) > 0}
             ComponentA={(fieldData || data)?.map((method, index) =>
               method.ready ? (
-                <CardItem key={index} {...method} />
+                <CardItem key={index} data={method} getData={getData} />
               ) : (
                 <CardItemSkeleton key={index} />
               )
@@ -73,8 +73,8 @@ const SelectList = (props: PROPS) => {
                 <StyledImage
                   src="/assets/svgs/voidState.svg"
                   alt="Nothing here"
-                  height={400}
-                  width={350}
+                  height={340}
+                  width={340}
                 />
                 <p className="text-lg font-semibold text-gray-600">
                   Nothing here
@@ -97,17 +97,23 @@ const SelectList = (props: PROPS) => {
   );
 };
 
-const CardItem = ({
-  name,
-  description,
-  logoSrc,
-}: {
-  name: string;
-  description: string;
-  logoSrc: string;
-}) => {
+type CarDType = {
+  data: {
+    name: string;
+    description: string;
+    logoSrc: string;
+  };
+  getData?: (n: any) => void;
+};
+
+const CardItem = ({ data, getData }: CarDType) => {
+  const { description, logoSrc, name } = data;
   return (
-    <Card className="!w-full" isPressable>
+    <Card
+      className="!w-full my-4"
+      isPressable
+      onPress={() => getData && getData(name)}
+    >
       <CardBody className="flex flex-row gap-4">
         <ConditionalRenderAB
           condition={!!logoSrc}

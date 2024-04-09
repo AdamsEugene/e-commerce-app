@@ -17,7 +17,7 @@ import StyledTable from "../StyledTable";
 import SelectList from "../SelectList";
 
 const {
-  stores: { excelData, excelImport, defaultColumns },
+  stores: { excelData, excelImport, defaultColumns, allExcelData },
 } = siteConfig;
 
 const _defaultColumns = [
@@ -33,7 +33,11 @@ const _defaultColumns = [
 
 function LoadExcel() {
   const [isExistingData, setIsExistingData] = useState(false);
-  const { startLoading, value } = useIndexedDB<string>(excelData, false);
+  const [existingKey, setExistingKey] = useState("");
+  const { startLoading, value, getValueByKey } = useIndexedDB<string>(
+    excelData,
+    false
+  );
   const { startLoading: loadColumns, value: _columns } =
     useIndexedDB<string>(excelImport);
 
@@ -69,12 +73,21 @@ function LoadExcel() {
   }, [onOpen]);
 
   useEffect(() => {
+    existingKey && getValueByKey(existingKey);
+    setExistingKey("");
     if (hasExcelChanged) {
       startLoading();
       loadColumns();
       updateExcelStateChange(false);
     }
-  }, [hasExcelChanged, loadColumns, startLoading, updateExcelStateChange]);
+  }, [
+    existingKey,
+    getValueByKey,
+    hasExcelChanged,
+    loadColumns,
+    startLoading,
+    updateExcelStateChange,
+  ]);
 
   useEffect(() => {
     importedData.current = formatData(initialImportData.data);
@@ -157,7 +170,12 @@ function LoadExcel() {
             <ConditionalRenderAB
               condition={isExistingData}
               ComponentA={
-                <SelectList onClose={onClose} title="Select what to import" />
+                <SelectList
+                  onClose={onClose}
+                  title="Select what to import"
+                  dbPath={allExcelData}
+                  getData={(data) => setExistingKey(data)}
+                />
               }
               ComponentB={<ImportExportSettings onClose={onClose} />}
             />
