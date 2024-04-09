@@ -150,7 +150,9 @@ function LoadExcel() {
       </div>
       <ConditionalRenderAB
         condition={displayMode === "grid"}
-        ComponentA={<GridCard baseLink="my-product" />}
+        ComponentA={
+          <GridCard baseLink="my-product" data={importedData.current || []} />
+        }
         ComponentB={
           <StyledTable
             columns={columns}
