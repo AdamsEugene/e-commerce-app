@@ -71,6 +71,8 @@ export default function ImportProductSettings({
   onClose: () => void;
 }) {
   const [isExistingData, setIsExistingData] = useState(false);
+  const [existingKey, setExistingKey] = useState("");
+
   const [path, setPath] = useState(
     "https://docs.google.com/spreadsheets/d/1C2vzA6FNrX91yfSmy_atUmHZ0VEIh0-4bycEYMLFyTk/edit#gid=458146508"
   );
@@ -78,7 +80,8 @@ export default function ImportProductSettings({
     (state) => state.updateExcelStateChange
   );
 
-  const { loading, setValueInDB, value } = useIndexedDB<string>(excelImport);
+  const { loading, setValueInDB, value, getValueByKey } =
+    useIndexedDB<string>(excelImport);
   const { isLoading, error, startLoading, data } = useLoadExcelData(path);
   const requiredFields = useMemo(
     () =>
@@ -99,6 +102,11 @@ export default function ImportProductSettings({
     },
     [onOpen]
   );
+
+  useEffect(() => {
+    existingKey && getValueByKey(existingKey);
+    setExistingKey("");
+  }, [existingKey, getValueByKey]);
 
   useEffect(() => {
     setSelected(requiredFields);
@@ -158,7 +166,7 @@ export default function ImportProductSettings({
       else allOldFields = [name];
 
       setValueInDB(JSON.stringify({ fields: allOldFields }), allFields);
-      setValueInDB(JSON.stringify({ fields: fieldsToSave }));
+      setValueInDB(JSON.stringify({ fields: fieldsToSave }), name.name);
       setValueInDB(
         JSON.stringify({
           fields: [
@@ -306,6 +314,7 @@ export default function ImportProductSettings({
                   onClose={onClose}
                   instantLoad
                   dbPath={allFields}
+                  getData={(_data) => setExistingKey(_data)}
                 />
               }
               ComponentB={

@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { Dispatch, SetStateAction, useMemo, useState } from "react";
 import {
   Button,
   Card,
@@ -37,6 +37,7 @@ type PROPS = {
 
 const SelectList = (props: PROPS) => {
   const { onClose, title, instantLoad, data, dbPath, getData } = props;
+  const [selectedKey, setSelectedKey] = useState("");
 
   const { value } = useIndexedDB<string>(dbPath || excelData, instantLoad);
 
@@ -53,6 +54,11 @@ const SelectList = (props: PROPS) => {
     [value]
   );
 
+  const sendDataToParent = () => {
+    getData && getData(selectedKey);
+    onClose();
+  };
+
   return (
     <>
       <ModalHeader className="flex flex-col gap-1">{title}</ModalHeader>
@@ -63,7 +69,12 @@ const SelectList = (props: PROPS) => {
             condition={((fieldData || data)?.length || 0) > 0}
             ComponentA={(fieldData || data)?.map((method, index) =>
               method.ready ? (
-                <CardItem key={index} data={method} getData={getData} />
+                <CardItem
+                  key={index}
+                  data={method}
+                  selectedKey={selectedKey}
+                  setSelectedKey={setSelectedKey}
+                />
               ) : (
                 <CardItemSkeleton key={index} />
               )
@@ -89,7 +100,7 @@ const SelectList = (props: PROPS) => {
         <Button color="danger" variant="light" onPress={onClose}>
           Close
         </Button>
-        <Button color="secondary" onPress={onClose}>
+        <Button color="secondary" onPress={sendDataToParent}>
           Select
         </Button>
       </ModalFooter>
@@ -103,16 +114,18 @@ type CarDType = {
     description: string;
     logoSrc: string;
   };
-  getData?: (n: any) => void;
+  selectedKey: string;
+  setSelectedKey: Dispatch<SetStateAction<string>>;
 };
 
-const CardItem = ({ data, getData }: CarDType) => {
+const CardItem = ({ data, setSelectedKey, selectedKey }: CarDType) => {
   const { description, logoSrc, name } = data;
+
   return (
     <Card
-      className="!w-full my-4"
+      className="!w-full my-4 relative"
       isPressable
-      onPress={() => getData && getData(name)}
+      onPress={() => setSelectedKey(name)}
     >
       <CardBody className="flex flex-row gap-4">
         <ConditionalRenderAB
@@ -136,6 +149,13 @@ const CardItem = ({ data, getData }: CarDType) => {
           <p className="text-md">{name}</p>
           <p className="text-small text-default-500">{description}</p>
         </div>
+        <ConditionalRenderAB
+          condition={selectedKey === name}
+          ComponentA={
+            <div className="h-4 w-4 rounded-full bg-secondary absolute top-2 right-2"></div>
+          }
+          ComponentB
+        />
       </CardBody>
     </Card>
   );

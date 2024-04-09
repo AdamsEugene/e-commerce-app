@@ -73,10 +73,13 @@ function LoadExcel() {
   }, [onOpen]);
 
   useEffect(() => {
-    existingKey && getValueByKey(existingKey);
-    setExistingKey("");
+    if (existingKey) {
+      getValueByKey(existingKey);
+      updateExcelStateChange(true);
+    }
     if (hasExcelChanged) {
-      startLoading();
+      startLoading(existingKey);
+      setExistingKey("");
       loadColumns();
       updateExcelStateChange(false);
     }
