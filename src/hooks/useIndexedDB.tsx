@@ -73,8 +73,6 @@ function useIndexedDB<T>(key: string, instantLoad = true) {
   };
 
   const getValueByKey = async (_key: string) => {
-    console.log({ _key });
-
     try {
       const storedValue = (await get<T>(_key)) || null;
       setValue(storedValue);

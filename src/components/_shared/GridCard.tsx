@@ -9,6 +9,7 @@ import productList, { PRODUCTS } from "@/src/utils/productList";
 import { siteConfig } from "@/src/config/site";
 import useResizeListener from "@/src/hooks/useResizeListener";
 import { useAppStore } from "../../providers/AppStoreProvider";
+import imageByIndex from "@/src/utils/imageByIndex";
 
 type PROPS = {
   numberOfItems?: number;
@@ -55,7 +56,7 @@ export default function GridCard(props: PROPS) {
                 height={300}
                 alt={item.name}
                 className="object-cover product_image"
-                src={item.image}
+                src={item.image || imageByIndex(index)}
                 isZoomed
               />
             </CardBody>
