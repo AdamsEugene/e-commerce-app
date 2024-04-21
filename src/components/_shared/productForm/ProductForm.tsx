@@ -1,9 +1,11 @@
 "use client";
 
+import { Button } from "@nextui-org/button";
 import StyledFileUpload from "../../StyledFileUpload";
 import StyledInput from "../StyledInput";
 import StyledSelect from "../StyledSelect";
 import StyledTextarea from "../StyledTextarea";
+import { Checkbox } from "@nextui-org/react";
 
 export default function ProductForm() {
   return (
@@ -22,20 +24,24 @@ export default function ProductForm() {
           <StyledInput placeholder="Enter stock" label="Stock" />
         </div>
         <StyledFileUpload />
-        <StyledSelect
-          label="Select categories"
-          data={animals}
-          placeholder="Select category"
-        >
-          <>nothing</>
-        </StyledSelect>
-        <StyledInput placeholder="Enter brand" label="Brand" />
-        <StyledInput placeholder="Enter SKU" label="SKU" />
-        <StyledInput
-          placeholder="Enter low stock threshold"
-          label="Low Stock Threshold"
-        />
-        <StyledInput placeholder="Enter slug" label="Slug" />
+        <div className="flex items-center gap-4">
+          <StyledSelect
+            label="Select categories"
+            data={animals}
+            placeholder="Select category"
+          >
+            <>nothing</>
+          </StyledSelect>
+          <StyledInput placeholder="Enter brand" label="Brand" />
+        </div>
+        <div className="flex items-center gap-4">
+          <StyledInput placeholder="Enter SKU" label="SKU" />
+          <StyledInput
+            placeholder="Enter low stock threshold"
+            label="Low Stock Threshold"
+          />
+          <StyledInput placeholder="Enter slug" label="Slug" />
+        </div>
         <StyledTextarea
           placeholder="Enter meta description"
           label="Meta Description"
@@ -57,14 +63,28 @@ export default function ProductForm() {
             <>nothing</>
           </StyledSelect>
         </div>
-        <StyledInput
-          placeholder="Additional Input 1"
-          label="Additional Input 1"
-        />
-        <StyledInput
-          placeholder="Additional Input 2"
-          label="Additional Input 2"
-        />
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center gap-4">
+            <h3 className="text-xl font-bold">Dimensions</h3>
+            <StyledInput placeholder="Length" label="Length" />
+            <StyledInput placeholder="Width" label="Width" />
+            <StyledInput placeholder="Height" label="Height" />
+          </div>
+        </div>
+        <div className="flex items-center gap-4 my-4">
+          <h3 className="text-xl font-bold min-w-[112px]">Variant</h3>
+          <Button fullWidth>Add Different Variant</Button>
+        </div>
+        <div className="flex items-center gap-4 justify-end">
+          <Checkbox color="secondary" defaultSelected>
+            Add more products
+          </Checkbox>
+          <Button color="danger">Cancel</Button>
+          <Button color="secondary" variant="flat">
+            Save
+          </Button>
+          <Button color="secondary">Save</Button>
+        </div>
       </form>
     </div>
   );
