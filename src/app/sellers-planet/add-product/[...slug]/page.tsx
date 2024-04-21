@@ -28,6 +28,7 @@ const ItemDetails: React.FC<ItemDetailsParams> = ({ params }) => {
     <div className="flex flex-col gap-4">
       <ButtonIcons />
       {renderContent()}
+      <div className="h-16"></div>
     </div>
   );
 };
