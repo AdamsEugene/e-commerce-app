@@ -195,20 +195,20 @@ const _addProductsMetrics = [
     icon: FaFileCsv,
     iconColor: "#059669", // Green
   },
-  {
-    value: "Create A Template",
-    label: "Create and reuse a template",
-    link: pages.createTemplate,
-    icon: ImInsertTemplate,
-    iconColor: "#3B82F6", // Blue
-  },
-  {
-    value: "Use Existing Template",
-    label: "Use already created template",
-    link: pages.useTemplate,
-    icon: GrTemplate,
-    iconColor: "#065F46", // Teal
-  },
+  // {
+  //   value: "Create A Template",
+  //   label: "Create and reuse a template",
+  //   link: pages.createTemplate,
+  //   icon: ImInsertTemplate,
+  //   iconColor: "#3B82F6", // Blue
+  // },
+  // {
+  //   value: "Use Existing Template",
+  //   label: "Use already created template",
+  //   link: pages.useTemplate,
+  //   icon: GrTemplate,
+  //   iconColor: "#065F46", // Teal
+  // },
 ];
 
 // Set bgColor to 50% transparent version of iconColor

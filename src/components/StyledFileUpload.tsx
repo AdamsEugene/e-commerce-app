@@ -13,9 +13,14 @@ import StyledImage from "./_shared/StyledImage";
 
 interface FileUploadProps extends InputProps {
   onFileUpload: (files: FileList) => void;
+  label?: string;
 }
 
-const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload, ...props }) => {
+const FileUpload: React.FC<FileUploadProps> = ({
+  onFileUpload,
+  label,
+  ...props
+}) => {
   const [isDragging, setIsDragging] = useState(false);
   const [uploadProgress, setUploadProgress] = useState<number | null>(null);
   const [filePreviews, setFilePreviews] = useState<string[]>([]);
@@ -116,7 +121,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload, ...props }) => {
             className="cursor-pointer text-gray-500 w-full h-full flex flex-col items-center justify-center"
           >
             {/* Content inside label */}
-            <p className="">Drag & drop your files here</p>
+            <p className="">Drag & drop your {label || "files"} here</p>
             <TbUpload className="text-6xl my-2" />
             <span className="">Browse for files</span>
           </label>
@@ -156,8 +161,14 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFileUpload, ...props }) => {
   );
 };
 
+type PROPS = {
+  label?: string;
+};
+
 // Usage
-const StyledFileUpload: React.FC = () => {
+const StyledFileUpload: React.FC<PROPS> = (props) => {
+  const { label } = props;
+
   const handleFileUpload = (files: FileList) => {
     // Handle the uploaded files here
     console.log("Uploaded files:", files);
@@ -165,7 +176,7 @@ const StyledFileUpload: React.FC = () => {
 
   return (
     <div className="w-full">
-      <FileUpload onFileUpload={handleFileUpload} />
+      <FileUpload onFileUpload={handleFileUpload} label={label} />
     </div>
   );
 };

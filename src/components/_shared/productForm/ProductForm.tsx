@@ -1,36 +1,61 @@
 "use client";
 
 import { Button } from "@nextui-org/button";
+import { Avatar, AvatarGroup, Checkbox } from "@nextui-org/react";
+
 import StyledFileUpload from "../../StyledFileUpload";
 import StyledInput from "../StyledInput";
 import StyledSelect from "../StyledSelect";
 import StyledTextarea from "../StyledTextarea";
-import { Checkbox } from "@nextui-org/react";
+
+const images = [
+  "https://i.pravatar.cc/150?u=a042581f4e29026024d",
+  "https://i.pravatar.cc/150?u=a04258a2462d826712d",
+  "https://i.pravatar.cc/150?u=a042581f4e29026704d",
+  "https://i.pravatar.cc/150?u=a04258114e29026302d",
+  "https://i.pravatar.cc/150?u=a04258114e29026702d",
+  "https://i.pravatar.cc/150?u=a04258114e29026708c",
+];
 
 export default function ProductForm() {
   return (
-    <div>
+    <div className="flex flex-col gap-4">
+      <div className="flex items-center gap-4 justify-between">
+        <Avatar src={images[0]} size="lg" radius="lg" />
+        <AvatarGroup isBordered>
+          {images.map((img) => (
+            <Avatar key={img} src={img} size="lg" radius="lg" />
+          ))}
+        </AvatarGroup>
+      </div>
       <form className="flex flex-col gap-4">
-        <StyledInput placeholder="Enter product name" label="Product name" />
+        <StyledInput
+          placeholder="Enter product name"
+          label="Product Name"
+          isRequired
+        />
         <StyledTextarea
           placeholder="Enter product description"
-          label="Product description"
+          label="Product Description"
+          isRequired
         />
         <div className="flex items-center gap-4">
           <StyledInput
             placeholder="Enter product price"
-            label="Product price"
+            label="Product Price"
+            isRequired
           />
-          <StyledInput placeholder="Enter stock" label="Stock" />
+          <StyledInput placeholder="Enter stock" label="Stock" isRequired />
         </div>
-        <StyledFileUpload />
+        <StyledFileUpload label="Product Image or Video" />
         <div className="flex items-center gap-4">
           <StyledSelect
-            label="Select categories"
+            label="Select category"
             data={animals}
-            placeholder="Select category"
+            placeholder="Select Category"
+            isRequired
           >
-            <>nothing</>
+            <></>
           </StyledSelect>
           <StyledInput placeholder="Enter brand" label="Brand" />
         </div>
@@ -51,16 +76,16 @@ export default function ProductForm() {
           <StyledSelect
             label="Select size"
             data={sizes}
-            placeholder="Select size"
+            placeholder="Select Size"
           >
-            <>nothing</>
+            <></>
           </StyledSelect>
           <StyledSelect
             label="Select color"
             data={colors}
-            placeholder="Select color"
+            placeholder="Select Color"
           >
-            <>nothing</>
+            <></>
           </StyledSelect>
         </div>
         <div className="flex flex-col gap-4">
@@ -71,19 +96,18 @@ export default function ProductForm() {
             <StyledInput placeholder="Height" label="Height" />
           </div>
         </div>
-        <div className="flex items-center gap-4 my-4">
-          <h3 className="text-xl font-bold min-w-[112px]">Variant</h3>
-          <Button fullWidth>Add Different Variant</Button>
-        </div>
         <div className="flex items-center gap-4 justify-end">
           <Checkbox color="secondary" defaultSelected>
             Add more products
           </Checkbox>
-          <Button color="danger">Cancel</Button>
+          <Button color="warning">Cancel</Button>
           <Button color="secondary" variant="flat">
-            Save
+            Add Different Variant
           </Button>
-          <Button color="secondary">Save</Button>
+          <Button color="primary" variant="flat">
+            Save as Draft
+          </Button>
+          <Button color="secondary">Publish</Button>
         </div>
       </form>
     </div>
@@ -91,64 +115,20 @@ export default function ProductForm() {
 }
 
 const colors = [
-  {
-    label: "Red",
-    value: "red",
-    description: "",
-  },
-  {
-    label: "White",
-    value: "white",
-    description: "",
-  },
-  {
-    label: "Green",
-    value: "green",
-    description: "",
-  },
+  { label: "Red", value: "red" },
+  { label: "White", value: "white" },
+  { label: "Green", value: "green" },
 ];
 
 const sizes = [
-  {
-    label: "XXS",
-    value: "xxs",
-    description: "",
-  },
-  {
-    label: "XS",
-    value: "xs",
-    description: "",
-  },
-  {
-    label: "S",
-    value: "s",
-    description: "",
-  },
-  {
-    label: "M",
-    value: "m",
-    description: "",
-  },
-  {
-    label: "L",
-    value: "l",
-    description: "",
-  },
-  {
-    label: "XL",
-    value: "xl",
-    description: "",
-  },
-  {
-    label: "XXL",
-    value: "xxl",
-    description: "",
-  },
-  {
-    label: "XXXL",
-    value: "xxxl",
-    description: "",
-  },
+  { label: "XXS", value: "xxs" },
+  { label: "XS", value: "xs" },
+  { label: "S", value: "s" },
+  { label: "M", value: "m" },
+  { label: "L", value: "l" },
+  { label: "XL", value: "xl" },
+  { label: "XXL", value: "xxl" },
+  { label: "XXXL", value: "xxxl" },
 ];
 
 const animals = [
