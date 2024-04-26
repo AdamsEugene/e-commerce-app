@@ -1,8 +1,8 @@
 "use client";
 
-import { Button } from "@nextui-org/button";
-import { Avatar, AvatarGroup, Checkbox } from "@nextui-org/react";
-
+import React, { useState } from "react";
+import { Button, Checkbox } from "@nextui-org/react";
+import { Avatar, AvatarGroup } from "@nextui-org/react";
 import StyledFileUpload from "../../StyledFileUpload";
 import StyledInput from "../StyledInput";
 import StyledSelect from "../StyledSelect";
@@ -17,7 +17,20 @@ const images = [
   "https://i.pravatar.cc/150?u=a04258114e29026708c",
 ];
 
-export default function ProductForm() {
+const ProductForm: React.FC<{}> = () => {
+  const [subscriptionAllowed, setSubscriptionAllowed] = useState(false);
+  const [returnPolicy, setReturnPolicy] = useState("");
+
+  const handleSubscriptionChange = (checked: boolean) => {
+    setSubscriptionAllowed(checked);
+  };
+
+  const handleReturnPolicyChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setReturnPolicy(event.target.value);
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-4 justify-between">
@@ -88,31 +101,79 @@ export default function ProductForm() {
             <></>
           </StyledSelect>
         </div>
-        <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-4">
-            <h3 className="text-xl font-bold">Dimensions</h3>
-            <StyledInput placeholder="Length" label="Length" />
-            <StyledInput placeholder="Width" label="Width" />
-            <StyledInput placeholder="Height" label="Height" />
-          </div>
-        </div>
-        <div className="flex items-center gap-4 justify-end">
-          <Checkbox color="secondary" defaultSelected>
-            Add more products
+        <StyledTextarea
+          placeholder="Enter return policy..."
+          label="Return Policy"
+        />
+
+        {/* Subscription */}
+        <div className="flex items-center gap-4">
+          <Checkbox
+            color="secondary"
+            checked={subscriptionAllowed}
+            onValueChange={handleSubscriptionChange}
+          >
+            Allow Subscription
           </Checkbox>
-          <Button color="warning">Cancel</Button>
-          <Button color="secondary" variant="flat">
-            Add Different Variant
-          </Button>
-          <Button color="primary" variant="flat">
-            Save as Draft
-          </Button>
-          <Button color="secondary">Publish</Button>
         </div>
+
+        {subscriptionAllowed && (
+          <div className="flex flex-col gap-4">
+            <h3 className="text-lg font-semibold">Subscription Details</h3>
+            <StyledInput
+              placeholder="Enter subscription price"
+              label="Subscription Price"
+            />
+            <StyledSelect
+              label="Select payment method"
+              data={paymentMethods}
+              placeholder="Select Payment Method"
+            >
+              <></>
+            </StyledSelect>
+            <StyledSelect
+              label="Select delivery frequency"
+              data={deliveryFrequencies}
+              placeholder="Select Delivery Frequency"
+            >
+              <></>
+            </StyledSelect>
+          </div>
+        )}
       </form>
+
+      {/* Buttons */}
+      <div className="flex items-center gap-4 justify-end">
+        <Checkbox color="secondary" defaultSelected>
+          Add more products
+        </Checkbox>
+        <Button color="warning">Cancel</Button>
+        <Button color="secondary" variant="flat">
+          Add Different Variant
+        </Button>
+        <Button color="primary" variant="flat">
+          Save as Draft
+        </Button>
+        <Button color="secondary">Publish</Button>
+      </div>
     </div>
   );
-}
+};
+
+export default ProductForm;
+
+const paymentMethods = [
+  { label: "Credit Card", value: "credit_card" },
+  { label: "PayPal", value: "paypal" },
+  { label: "Bank Transfer", value: "bank_transfer" },
+];
+
+const deliveryFrequencies = [
+  { label: "Every week", value: "weekly" },
+  { label: "Every two weeks", value: "biweekly" },
+  { label: "Every month", value: "monthly" },
+  { label: "Custom date", value: "custom" },
+];
 
 const colors = [
   { label: "Red", value: "red" },
