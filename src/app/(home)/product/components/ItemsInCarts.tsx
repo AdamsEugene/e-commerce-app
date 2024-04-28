@@ -3,10 +3,10 @@
 import React from "react";
 import { useParams, usePathname } from "next/navigation";
 
-import ConditionalRenderAB from "@/src/components/_shared/ConditionalRenderAB";
+import ConditionalRenderAB from "@/src/components/_shared/Conditional/ConditionalRenderAB";
 import StyledImage from "@/src/components/_shared/StyledImage";
 import PurchaseType from "@/src/components/PurchaseType";
-import ConditionalRender from "@/src/components/_shared/ConditionalRender";
+import ConditionalRender from "@/src/components/_shared/Conditional/ConditionalRender";
 import TabsForCartItems from "@/src/components/TabsForCartItems";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
 

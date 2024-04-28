@@ -6,7 +6,7 @@ import Forms from "../components/Forms";
 import StyledStepper from "@/src/components/StyledStepper";
 import AccountType from "../components/AccountType";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
-import ConditionalRenderAB from "@/src/components/_shared/ConditionalRenderAB";
+import ConditionalRenderAB from "@/src/components/_shared/Conditional/ConditionalRenderAB";
 import { generalFormData } from "@/src/utils/generalFormData";
 import { employeeStepsData } from "@/src/utils/employeeFormSteps";
 

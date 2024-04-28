@@ -7,7 +7,7 @@ import { ThemeSwitch } from "@/src/components/theme-switch";
 import BackButton from "@/src/components/_shared/button/BackButton";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
 import { useAnimation } from "framer-motion";
-import ConditionalRender from "@/src/components/_shared/ConditionalRender";
+import ConditionalRender from "@/src/components/_shared/Conditional/ConditionalRender";
 import { employeeFormSteps } from "@/src/utils/employeeFormSteps";
 import { associationFormSteps } from "@/src/utils/associationFormSteps";
 import { organizationFormSteps } from "@/src/utils/organizationFormSteps";

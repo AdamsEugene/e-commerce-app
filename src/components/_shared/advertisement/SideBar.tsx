@@ -10,7 +10,7 @@ export default function SideBar() {
     <Card
       radius="none"
       shadow="none"
-      className="h-[calc(100vh-144px)] bg-transparent sticky top-16 z-10"
+      className="h-[calc(100vh-72px)] bg-transparent sticky top-16 z-10"
     >
       <CardBody>
         <NavElements linkData={adsNavLinks} isSub />

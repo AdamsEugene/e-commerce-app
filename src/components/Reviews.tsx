@@ -9,7 +9,7 @@ import StyledInput from "./_shared/StyledInput";
 import StyledDropdown from "./_shared/Dropdown";
 import reviewData from "@/src/utils/reviews";
 import Ratings from "./Ratings";
-import ConditionalRender from "./_shared/ConditionalRender";
+import ConditionalRender from "./_shared/Conditional/ConditionalRender";
 
 type ReviewProps = {
   rating: number;

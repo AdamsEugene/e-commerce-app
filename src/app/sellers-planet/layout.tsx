@@ -1,6 +1,7 @@
+import ShowSecondNav from "@/src/components/_shared/Conditional/ShowSecondNav";
+import StyledBreadcrumbs from "@/src/components/_shared/StyledBreadcrumbs";
 import { Navbar } from "@/src/components/navbar";
-import Sidebar from "../../components/sideBar/Sidebar";
-import StyledBreadcrumbs from "../../components/_shared/StyledBreadcrumbs";
+import Sidebar from "@/src/components/sideBar/Sidebar";
 
 export default function RootLayout({
   children,
@@ -20,7 +21,7 @@ export default function RootLayout({
             {children}
           </div>
         </div>
-        <div className="hidden lg:block w-56"></div>
+        <ShowSecondNav />
       </div>
     </div>
   );

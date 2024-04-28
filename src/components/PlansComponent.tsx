@@ -11,7 +11,7 @@ import { GiSandsOfTime } from "react-icons/gi";
 import { IoIosTimer } from "react-icons/io";
 import { IoMdTime } from "react-icons/io";
 import { useAppStore } from "../providers/AppStoreProvider";
-import ConditionalRender from "./_shared/ConditionalRender";
+import ConditionalRender from "./_shared/Conditional/ConditionalRender";
 
 interface PlanProps {
   backgroundColor: string;

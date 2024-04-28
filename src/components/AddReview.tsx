@@ -5,7 +5,7 @@ import { Divider, Progress } from "@nextui-org/react";
 import StyledButton from "./_shared/StyledButton";
 import Ratings from "./Ratings";
 import ReviewForm from "./ReviewForm";
-import ConditionalRender from "./_shared/ConditionalRender";
+import ConditionalRender from "./_shared/Conditional/ConditionalRender";
 
 interface ReviewSectionProps {
   rating: number;

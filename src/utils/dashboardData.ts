@@ -27,6 +27,7 @@ import { FaFileCsv } from "react-icons/fa6";
 import { RiAdvertisementFill } from "react-icons/ri";
 import { MdCampaign } from "react-icons/md";
 import { SiSimpleanalytics } from "react-icons/si";
+import { GrMoney } from "react-icons/gr";
 
 type Metric = {
   value: string;
@@ -216,7 +217,7 @@ const _settingStuff = [
   {
     value: "Ads",
     label: "Advertisements",
-    link: pages.adsCampaigns,
+    link: pages.ads,
     icon: RiAdvertisementFill,
     iconColor: "#4486ef", // Red
   },
@@ -250,6 +251,30 @@ const _settingStuff = [
   },
 ];
 
+const _campaignMetrics = [
+  {
+    value: "Create a New Ad",
+    label: "Create Ad",
+    link: pages.ads,
+    icon: RiAdvertisementFill,
+    iconColor: "#FF5733", // Orange
+  },
+  {
+    value: "Manage Ad Budget",
+    label: "Ad Budget Management",
+    link: pages.adsBudget,
+    icon: GrMoney,
+    iconColor: "#5E35B1", // Purple
+  },
+  {
+    value: "View Performance Reports",
+    label: "Performance Analytics",
+    link: pages.adsReporting,
+    icon: SiSimpleanalytics,
+    iconColor: "#009688", // Teal
+  },
+];
+
 // Set bgColor to 50% transparent version of iconColor
 const addBgColor = (metrics: Metric[]) =>
   metrics.map((metric: any) => ({
@@ -260,6 +285,7 @@ const addBgColor = (metrics: Metric[]) =>
 export const adminDashboardMetrics = addBgColor(_adminDashboardMetrics);
 export const addProductsMetrics = addBgColor(_addProductsMetrics);
 export const settingStuff = addBgColor(_settingStuff);
+export const campaignMetrics = addBgColor(_campaignMetrics);
 
 const columns = [
   { name: "NAME", uid: "name" },

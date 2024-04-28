@@ -14,7 +14,7 @@ import { IoImage } from "react-icons/io5";
 
 import { siteConfig } from "@/src/config/site";
 import useIndexedDB from "@/src/hooks/useIndexedDB";
-import ConditionalRenderAB from "./ConditionalRenderAB";
+import ConditionalRenderAB from "./Conditional/ConditionalRenderAB";
 import StyledImage from "./StyledImage";
 
 const {
