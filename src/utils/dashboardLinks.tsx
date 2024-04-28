@@ -2,13 +2,20 @@ import React from "react";
 import { MdDashboard } from "react-icons/md";
 import { IoSettings, IoAnalyticsSharp, IoAddCircle } from "react-icons/io5";
 import { FiActivity } from "react-icons/fi";
+import { RiAdvertisementFill } from "react-icons/ri";
+import { MdCampaign } from "react-icons/md";
 import { IconType } from "react-icons";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
+import { SiSimpleanalytics } from "react-icons/si";
+import { GrMoney } from "react-icons/gr";
+import { GrAnnounce } from "react-icons/gr";
+
 import { siteConfig } from "../config/site";
 import {
   activityDashboardLinks,
   addProductsLinks,
   adminDashboardDetailLinks,
+  adsLinks,
   userMetricsDashboardLinks,
 } from "./dashboardData";
 
@@ -93,6 +100,40 @@ export const _adminDashboardLinks = [
     name: "Settings",
     icon: IoSettings,
     id: "sellers-planet" as const,
+    children: adsLinks,
+  },
+];
+
+export const _settingStuff = [
+  {
+    name: "Campaigns",
+    path: pages.adsCampaigns,
+    icon: MdCampaign,
+    id: "sellers-planet" as const,
+  },
+  {
+    name: "Ads Group",
+    path: pages.adsGroup,
+    icon: RiAdvertisementFill,
+    id: "sellers-planet" as const,
+  },
+  {
+    name: "Ads",
+    path: pages.ads,
+    icon: GrAnnounce,
+    id: "sellers-planet" as const,
+  },
+  {
+    name: "Budget",
+    path: pages.adsBudget,
+    icon: GrMoney,
+    id: "sellers-planet" as const,
+  },
+  {
+    name: "Reporting and Analytics",
+    path: pages.adsReporting,
+    icon: SiSimpleanalytics,
+    id: "sellers-planet" as const,
   },
 ];
 
@@ -114,3 +155,4 @@ const addIconClassName = (links: DashboardLink[]): DashboardLink[] => {
 
 export const userDashboardLinks = addIconClassName(_userDashboardLinks);
 export const adminDashboardLinks = addIconClassName(_adminDashboardLinks);
+export const adsNavLinks = addIconClassName(_settingStuff);

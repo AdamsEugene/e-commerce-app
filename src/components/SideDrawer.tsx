@@ -16,9 +16,9 @@ import { IoCloseSharp } from "react-icons/io5";
 
 import "react-modern-drawer/dist/index.css";
 import StyledImage from "./_shared/StyledImage";
-import ConditionalRenderAB from "./_shared/ConditionalRenderAB";
+import ConditionalRenderAB from "./_shared/Conditional/ConditionalRenderAB";
 import StyledButton from "./_shared/StyledButton";
-import ConditionalRender from "./_shared/ConditionalRender";
+import ConditionalRender from "./_shared/Conditional/ConditionalRender";
 import ItemsInCarts from "@/src/app/(home)/product/components/ItemsInCarts";
 import { useAppStore } from "../providers/AppStoreProvider";
 

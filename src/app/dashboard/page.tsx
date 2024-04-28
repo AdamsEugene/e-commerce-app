@@ -12,7 +12,7 @@ import {
   filterNameAndUV,
   filterNameUVandPV,
 } from "@/src/utils/generateDataForSelect";
-import ConditionalRenderAB from "@/src/components/_shared/ConditionalRenderAB";
+import ConditionalRenderAB from "@/src/components/_shared/Conditional/ConditionalRenderAB";
 
 export const metadata: Metadata = {
   title: "Dashboard",

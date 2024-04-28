@@ -11,7 +11,7 @@ import ProductGallery from "../swiper/ProductGallery";
 import StyledCardGrid from "../swiper/StyledCardGrid";
 import { useState } from "react";
 import { useDeferredValue } from "react";
-import ConditionalRenderAB from "../ConditionalRenderAB";
+import ConditionalRenderAB from "../Conditional/ConditionalRenderAB";
 import SearchList from "./SearchList";
 import { siteConfig } from "@/src/config/site";
 

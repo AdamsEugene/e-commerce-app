@@ -53,13 +53,18 @@ export default function StyledBreadcrumbs() {
     pathName.split("/").filter(Boolean).length > 2;
   const productId = pathName.split("/")[3];
 
+  const isAds =
+    pathName.includes("settings") &&
+    pathName.split("/").filter(Boolean).length > 2;
+  const ads = pathName.split("/")[3];
+
   const importMethod =
     pathName.includes("add-product") &&
     pathName.split("/").filter(Boolean).length > 2;
   const modeOfImport = pathName.split("/")[3];
 
   let currentLinks = getCurrentLinks(
-    importMethod || hasProductId
+    importMethod || hasProductId || isAds
       ? pathName.split("/").slice(0, 3).join("/")
       : pathName
   );
@@ -97,6 +102,10 @@ export default function StyledBreadcrumbs() {
     formatPathName.path = [...formatPathName.path, modeOfImport]?.filter(
       Boolean
     );
+  }
+
+  if (isAds) {
+    formatPathName.path = [...formatPathName.path, ads]?.filter(Boolean);
   }
 
   const linksToDisplay = formatPathName?.path?.map((path) => ({

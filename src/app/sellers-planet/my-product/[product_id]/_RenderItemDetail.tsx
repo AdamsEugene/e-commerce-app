@@ -27,7 +27,7 @@ import {
 import StyledTable from "@/src/components/_shared/StyledTable";
 import AddPriceInfo from "@/src/components/AddPriceInfo";
 import CreateShippingOption from "@/src/components/CreateShippingOption";
-import ConditionalRenderAB from "@/src/components/_shared/ConditionalRenderAB";
+import ConditionalRenderAB from "@/src/components/_shared/Conditional/ConditionalRenderAB";
 
 const options = [
   { key: "share", label: "Share this product" },

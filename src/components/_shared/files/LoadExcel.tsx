@@ -12,7 +12,7 @@ import StyledInput from "../StyledInput";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
 import useIndexedDB from "@/src/hooks/useIndexedDB";
 import { siteConfig } from "@/src/config/site";
-import ConditionalRenderAB from "../ConditionalRenderAB";
+import ConditionalRenderAB from "../Conditional/ConditionalRenderAB";
 import StyledTable from "../StyledTable";
 import SelectList from "../SelectList";
 

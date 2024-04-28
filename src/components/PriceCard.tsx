@@ -1,5 +1,5 @@
 import React from "react";
-import ConditionalRender from "./_shared/ConditionalRender";
+import ConditionalRender from "./_shared/Conditional/ConditionalRender";
 
 type PROPS = {
   value: number | string;

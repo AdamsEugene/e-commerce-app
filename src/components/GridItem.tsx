@@ -1,4 +1,4 @@
-import ConditionalRender from "@/src/components/_shared/ConditionalRender";
+import ConditionalRender from "@/src/components/_shared/Conditional/ConditionalRender";
 import { Card, CardBody, CardHeader, CardProps } from "@nextui-org/react";
 import React, { PropsWithChildren } from "react";
 
