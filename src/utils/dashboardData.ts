@@ -24,8 +24,9 @@ import { DashboardLink } from "./dashboardLinks";
 import { IconType } from "react-icons";
 import { SiMicrosoftexcel } from "react-icons/si";
 import { FaFileCsv } from "react-icons/fa6";
-import { ImInsertTemplate } from "react-icons/im";
-import { GrTemplate } from "react-icons/gr";
+import { RiAdvertisementFill } from "react-icons/ri";
+import { MdCampaign } from "react-icons/md";
+import { SiSimpleanalytics } from "react-icons/si";
 
 type Metric = {
   value: string;
@@ -211,6 +212,44 @@ const _addProductsMetrics = [
   // },
 ];
 
+const _settingStuff = [
+  {
+    value: "Ads",
+    label: "Advertisements",
+    link: pages.adsCampaigns,
+    icon: RiAdvertisementFill,
+    iconColor: "#4486ef", // Red
+  },
+  {
+    value: "ads group",
+    label: "Ads Group",
+    link: pages.ads,
+    icon: RiAdvertisementFill,
+    iconColor: "#4486ef", // Red
+  },
+  {
+    value: "ads",
+    label: "Ads",
+    link: pages.ads,
+    icon: RiAdvertisementFill,
+    iconColor: "#4486ef", // Red
+  },
+  {
+    value: "budget",
+    label: "Budget",
+    link: pages.ads,
+    icon: RiAdvertisementFill,
+    iconColor: "#4486ef", // Red
+  },
+  {
+    value: "r and a",
+    label: "Reporting and Analytics",
+    link: pages.ads,
+    icon: SiSimpleanalytics,
+    iconColor: "#4486ef", // Red
+  },
+];
+
 // Set bgColor to 50% transparent version of iconColor
 const addBgColor = (metrics: Metric[]) =>
   metrics.map((metric: any) => ({
@@ -220,6 +259,7 @@ const addBgColor = (metrics: Metric[]) =>
 
 export const adminDashboardMetrics = addBgColor(_adminDashboardMetrics);
 export const addProductsMetrics = addBgColor(_addProductsMetrics);
+export const settingStuff = addBgColor(_settingStuff);
 
 const columns = [
   { name: "NAME", uid: "name" },
@@ -292,6 +332,7 @@ const adminDashboardDetailLinks = generateDashboardLinks(adminDashboardMetrics);
 const userMetricsDashboardLinks = generateDashboardLinks(userMetricsData);
 const activityDashboardLinks = generateDashboardLinks(activityMetricsData);
 const addProductsLinks = generateDashboardLinks(addProductsMetrics);
+const adsLinks = generateDashboardLinks(settingStuff);
 
 export {
   columns,
@@ -300,6 +341,7 @@ export {
   userMetricsDashboardLinks,
   activityDashboardLinks,
   addProductsLinks,
+  adsLinks,
 };
 
 export type MetricsData = (typeof userMetricsData)[0];
