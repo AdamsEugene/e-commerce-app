@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@nextui-org/button";
 import { campaignMetrics } from "@/src/utils/dashboardData";
+import Campaign from "@/src/components/_shared/advertisement/Campaign";
 
 export const metadata: Metadata = {
   title: "Campaigns",
@@ -36,6 +37,11 @@ export default function Campaigns() {
             );
           })}
         </div>
+      </div>
+      <div className="grid grid-cols-3 gap-4">
+        <Campaign />
+        <Campaign />
+        <Campaign />
       </div>
       <div className="h-16"></div>
     </div>
