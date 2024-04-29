@@ -20,6 +20,7 @@ import {
 } from "react-icons/fa";
 
 import RadarChart from "../charts/RadarChart";
+import ImpressionsBreakdownChart from "../charts/ImpressionsBreakdownChart";
 
 const dataCategory = [
   { key: "Electronics", value: 120 },
@@ -43,6 +44,20 @@ const dataAgeRange = [
   { key: "55+", value: 70 },
 ];
 
+const dailyData = [
+  { day: "Monday", impressions: 1000 },
+  { day: "Tuesday", impressions: 1500 },
+  { day: "Wednesday", impressions: 2000 },
+  // Add more data for each day
+];
+
+const hourlyData = [
+  { hour: "00:00", impressions: 100 },
+  { hour: "01:00", impressions: 150 },
+  { hour: "02:00", impressions: 200 },
+  // Add more data for each hour
+];
+
 const totalBudget = 1000; // Example total budget
 
 export default function Campaign() {
@@ -53,12 +68,25 @@ export default function Campaign() {
 
   const [activeChart, setActiveChart] = useState(0);
   const [spentBudget, setSpentBudget] = useState(800);
+  const [showHourlyImpressions, setShowHourlyImpressions] = useState(false);
+  const [showDailyImpressions, setShowDailyImpressions] = useState(true);
+
   const handleNextChart = () => {
     setActiveChart((prev) => (prev < 2 ? prev + 1 : 0));
   };
 
   const handlePrevChart = () => {
     setActiveChart((prev) => (prev > 0 ? prev - 1 : 2));
+  };
+
+  const toggleHourlyImpressions = () => {
+    setShowHourlyImpressions(true);
+    setShowDailyImpressions(false);
+  };
+
+  const toggleDailyImpressions = () => {
+    setShowHourlyImpressions(false);
+    setShowDailyImpressions(true);
   };
 
   // Calculate remaining budget
@@ -211,6 +239,50 @@ export default function Campaign() {
                   <p>Spent: ${spentBudget}</p>
                   <p>Remaining: ${remainingBudget}</p>
                 </div>
+              </div>
+            </div>
+            <Divider className="my-4" />
+            <div>
+              <p className="text-lg font-semibold mb-2">
+                Impressions: <span>1,254 (75% of Target)</span>
+              </p>
+              <div>
+                <Button
+                  onClick={toggleDailyImpressions}
+                  className={`bg-primary text-white rounded-full p-2 ${
+                    showDailyImpressions ? "opacity-100" : "opacity-50"
+                  }`}
+                >
+                  Daily Impressions
+                </Button>
+                <Button
+                  onClick={toggleHourlyImpressions}
+                  className={`bg-primary text-white rounded-full p-2 ${
+                    showHourlyImpressions ? "opacity-100" : "opacity-50"
+                  }`}
+                >
+                  Hourly Impressions
+                </Button>
+                {showDailyImpressions && (
+                  <>
+                    <h2>Daily Impressions Breakdown</h2>
+                    <ImpressionsBreakdownChart
+                      data={dailyData}
+                      xAxisDataKey="day"
+                      lineDataKeys={["impressions"]}
+                    />
+                  </>
+                )}
+                {showHourlyImpressions && (
+                  <>
+                    <h2>Hourly Impressions Breakdown</h2>
+                    <ImpressionsBreakdownChart
+                      data={hourlyData}
+                      xAxisDataKey="hour"
+                      lineDataKeys={["impressions"]}
+                    />
+                  </>
+                )}
               </div>
             </div>
           </div>
