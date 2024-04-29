@@ -9,7 +9,9 @@ import {
   PolarAngleAxis,
   PolarRadiusAxis,
   ResponsiveContainer,
+  Tooltip,
 } from "recharts";
+import CustomTooltip from "./CustomTooltip";
 
 type PROPS = {
   name?: string;
@@ -29,6 +31,8 @@ const getDomain = (data: PROPS["data"]) => {
 };
 
 const RadarCharts = (props: PROPS) => {
+  const color = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+
   return (
     <div>
       <ResponsiveContainer width="100%" height={300}>
@@ -36,11 +40,12 @@ const RadarCharts = (props: PROPS) => {
           <PolarGrid />
           <PolarAngleAxis dataKey="key" />
           <PolarRadiusAxis angle={30} domain={getDomain(props.data)} />
+          <Tooltip content={<CustomTooltip />} />
           <Radar
             name={props.name}
             dataKey="value"
-            stroke={props.fill}
-            fill={props.fill}
+            stroke={color} // Random color
+            fill={color}
             fillOpacity={0.6}
           />
           <Legend />
