@@ -34,7 +34,6 @@ const RadarCharts = (props: PROPS) => {
   const color = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 
   return (
-    <div>
       <ResponsiveContainer width="100%" height={300}>
         <RadarChart cx="50%" cy="50%" outerRadius="80%" data={props.data}>
           <PolarGrid />
@@ -51,39 +50,7 @@ const RadarCharts = (props: PROPS) => {
           <Legend />
         </RadarChart>
       </ResponsiveContainer>
-      {/* 
-      <ResponsiveContainer width="100%" height={300}>
-        <RadarChart cx="50%" cy="50%" outerRadius="80%" data={dataLocation}>
-          <PolarGrid />
-          <PolarAngleAxis dataKey="key" />
-          <PolarRadiusAxis angle={30} domain={[0, 150]} />
-          <Radar
-            name="Location"
-            dataKey="value"
-            stroke="#82ca9d"
-            fill="#82ca9d"
-            fillOpacity={0.6}
-          />
-          <Legend />
-        </RadarChart>
-      </ResponsiveContainer>
-
-      <ResponsiveContainer width="100%" height={300}>
-        <RadarChart cx="50%" cy="50%" outerRadius="80%" data={dataAgeRange}>
-          <PolarGrid />
-          <PolarAngleAxis dataKey="key" />
-          <PolarRadiusAxis angle={30} domain={[0, 150]} />
-          <Radar
-            name="Age Range"
-            dataKey="value"
-            stroke="#ffc658"
-            fill="#ffc658"
-            fillOpacity={0.6}
-          />
-          <Legend />
-        </RadarChart>
-      </ResponsiveContainer> */}
-    </div>
+     
   );
 };
 

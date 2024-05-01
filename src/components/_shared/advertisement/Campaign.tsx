@@ -11,7 +11,7 @@ import {
 } from "@nextui-org/react";
 import { motion } from "framer-motion";
 import { MdModeEdit } from "react-icons/md";
-import { IoBagHandle } from "react-icons/io5";
+import { IoBagHandle, IoHourglass, IoToday } from "react-icons/io5";
 import {
   FaMapMarkerAlt,
   FaPeopleArrows,
@@ -21,6 +21,9 @@ import {
 
 import RadarChart from "../charts/RadarChart";
 import ImpressionsBreakdownChart from "../charts/ImpressionsBreakdownChart";
+import StyledBarChart from "../charts/StyledBarCharts";
+import StyledTab from "../tabs/StyledTab";
+import StyledLineChart from "../charts/StyledLineChart";
 
 const dataCategory = [
   { key: "Electronics", value: 120 },
@@ -45,16 +48,16 @@ const dataAgeRange = [
 ];
 
 const dailyData = [
-  { day: "Monday", impressions: 1000 },
-  { day: "Tuesday", impressions: 1500 },
-  { day: "Wednesday", impressions: 2000 },
+  { name: "Monday", uv: 1000 },
+  { name: "Tuesday", uv: 1500 },
+  { name: "Wednesday", uv: 2000 },
   // Add more data for each day
 ];
 
 const hourlyData = [
-  { hour: "00:00", impressions: 100 },
-  { hour: "01:00", impressions: 150 },
-  { hour: "02:00", impressions: 200 },
+  { name: "00:00", pv: 100 },
+  { name: "01:00", pv: 150 },
+  { name: "02:00", pv: 200 },
   // Add more data for each hour
 ];
 
@@ -122,9 +125,9 @@ export default function Campaign() {
           <p className="text-lg font-semibold">Campaign Title</p>
           <div className="flex items-center gap-3">
             <div
-              className={`h-4 w-4 rounded-full glowing-d`}
+              className={`h-4 w-4 rounded-full glowing-a`}
               style={{
-                background: "gray",
+                background: "#00FF00",
               }}
             />
             <Button
@@ -159,52 +162,7 @@ export default function Campaign() {
               </div>
             </div>
           </div>
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={variants}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="w-full rounded-lg overflow-hidden">
-              {activeChart === 0 && (
-                <RadarChart
-                  data={dataCategory}
-                  name="category"
-                  fill="#8884d8"
-                />
-              )}
-              {activeChart === 1 && (
-                <RadarChart
-                  data={dataLocation}
-                  name="location"
-                  fill="#82ca9d"
-                />
-              )}
-              {activeChart === 2 && (
-                <RadarChart
-                  data={dataAgeRange}
-                  name="Age range"
-                  fill="#ffc658"
-                />
-              )}
-            </div>
-          </motion.div>
-          <div className="flex items-center justify-between">
-            <Button
-              isIconOnly
-              onClick={handlePrevChart}
-              className="bg-primary text-white rounded-full p-2"
-            >
-              <FaAngleLeft className="text-lg" />
-            </Button>
-            <Button
-              isIconOnly
-              onClick={handleNextChart}
-              className="bg-primary text-white rounded-full p-2"
-            >
-              <FaAngleRight className="text-lg" />
-            </Button>
-          </div>
+          <StyledTab data={audience} />
           <Divider className="my-4" />
           <div>
             <div className="flex items-center justify-between">
@@ -247,43 +205,24 @@ export default function Campaign() {
                 Impressions: <span>1,254 (75% of Target)</span>
               </p>
               <div>
-                <Button
-                  onClick={toggleDailyImpressions}
-                  className={`bg-primary text-white rounded-full p-2 ${
-                    showDailyImpressions ? "opacity-100" : "opacity-50"
-                  }`}
-                >
-                  Daily Impressions
-                </Button>
-                <Button
-                  onClick={toggleHourlyImpressions}
-                  className={`bg-primary text-white rounded-full p-2 ${
-                    showHourlyImpressions ? "opacity-100" : "opacity-50"
-                  }`}
-                >
-                  Hourly Impressions
-                </Button>
-                {showDailyImpressions && (
-                  <>
-                    <h2>Daily Impressions Breakdown</h2>
-                    <ImpressionsBreakdownChart
-                      data={dailyData}
-                      xAxisDataKey="day"
-                      lineDataKeys={["impressions"]}
-                    />
-                  </>
-                )}
-                {showHourlyImpressions && (
-                  <>
-                    <h2>Hourly Impressions Breakdown</h2>
-                    <ImpressionsBreakdownChart
-                      data={hourlyData}
-                      xAxisDataKey="hour"
-                      lineDataKeys={["impressions"]}
-                    />
-                  </>
-                )}
+                <StyledTab data={impression} />
               </div>
+            </div>
+            <Divider className="my-4" />
+            <div>
+              <p className="text-lg font-semibold mb-2">
+                Clicks: <span>52 (CTR: 4.1%)</span>
+              </p>
+              <div className="">
+                <StyledBarChart />
+              </div>
+            </div>
+            <Divider className="my-4" />
+            <div>
+              <p className="text-lg font-semibold mb-2">
+                Spend: <span>$25.40 ($100 Budget)</span>
+              </p>
+              <StyledTab data={tabs} />
             </div>
           </div>
         </div>
@@ -297,3 +236,84 @@ const getStatusColor = (remaining: number, total: number) => {
   if (remaining / total > 0.25) return "#FFFF00"; // Yellow
   return "#FF0000"; // Red
 };
+
+const _hourlyData = [
+  { name: "00:00", pv: 100 },
+  { name: "01:00", pv: 120 },
+  { name: "02:00", pv: 130 },
+  { name: "03:00", pv: 150 },
+];
+
+const _dailyData = [
+  { name: "2024-04-01", uv: 1000 },
+  { name: "2024-04-02", uv: 1200 },
+  { name: "2024-04-03", uv: 1100 },
+  { name: "2024-04-04", uv: 1050 },
+];
+
+const tabs = [
+  {
+    id: "hourly",
+    label: "Hourly Breakdown",
+    icon: <IoHourglass />,
+    content: (
+      <div className="h-[160px]">
+        <StyledLineChart data={_hourlyData} />
+      </div>
+    ),
+  },
+  {
+    id: "daily",
+    label: "Daily Breakdown",
+    icon: <IoToday />,
+    content: (
+      <div className="h-[160px]">
+        <StyledLineChart data={_dailyData} />
+      </div>
+    ),
+  },
+];
+
+const impression = [
+  {
+    id: "hourly",
+    label: "Hourly Breakdown",
+    icon: <IoHourglass />,
+    content: (
+      <div className="h-[160px]">
+        <StyledLineChart data={hourlyData} />
+      </div>
+    ),
+  },
+  {
+    id: "daily",
+    label: "Daily Breakdown",
+    icon: <IoToday />,
+    content: (
+      <div className="h-[160px]">
+        <StyledLineChart data={dailyData} />
+      </div>
+    ),
+  },
+];
+
+const audience = [
+  {
+    id: "category",
+    label: "Category",
+    icon: <IoBagHandle />,
+    content: <RadarChart data={dataCategory} name="category" fill="#8884d8" />,
+  },
+  {
+    id: "location",
+    label: "Location",
+    icon: <FaMapMarkerAlt />,
+    content: <RadarChart data={dataLocation} name="location" fill="#82ca9d" />,
+  },
+  {
+    id: "range",
+    label: "Age range",
+    icon: <FaPeopleArrows />,
+    content: <RadarChart data={dataAgeRange} name="Age range" fill="#ffc658" />,
+  },
+];
