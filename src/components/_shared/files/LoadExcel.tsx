@@ -3,18 +3,16 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import StyledModal from "../StyledModal";
 import { Button, ModalContent, useDisclosure } from "@nextui-org/react";
-import { FiSearch } from "react-icons/fi";
-import { IoGridSharp, IoListSharp } from "react-icons/io5";
 
 import ImportExportSettings from "../ImportExportSettings";
 import GridCard from "@/src/components/_shared/GridCard";
-import StyledInput from "../StyledInput";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
 import useIndexedDB from "@/src/hooks/useIndexedDB";
 import { siteConfig } from "@/src/config/site";
 import ConditionalRenderAB from "../Conditional/ConditionalRenderAB";
 import StyledTable from "../StyledTable";
 import SelectList from "../SelectList";
+import SearchWithButtons from "../search/SearchWithButtons";
 
 const {
   stores: { excelData, excelImport, defaultColumns, allExcelData },
@@ -47,7 +45,6 @@ function LoadExcel() {
   );
   const hasExcelChanged = useAppStore((state) => state.hasExcelChanged);
   const displayMode = useAppStore((state) => state.displayMode);
-  const toggleDisplayMode = useAppStore((state) => state.toggleDisplayMode);
 
   const initialImportData = useMemo<{ data: any[] }>(
     () => JSON.parse(value || "{}"),
@@ -112,41 +109,26 @@ function LoadExcel() {
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between w-full my-4">
         <h1 className="text-3xl font-bold">Imported Data</h1>
-        <div className="flex gap-3 items-center">
-          <Button
-            onClick={() => handleOpenModal(false)}
-            variant="flat"
-            color="secondary"
-          >
-            Import
-          </Button>
-          <Button
-            onClick={() => handleOpenModal(true)}
-            variant="flat"
-            color="primary"
-          >
-            Use Existing Data
-          </Button>
-          <Button
-            onClick={() => toggleDisplayMode(displayMode)}
-            variant="flat"
-            // color="warning"
-            isIconOnly
-          >
-            <ConditionalRenderAB
-              condition={displayMode === "grid"}
-              ComponentA={<IoListSharp className="text-xl" />}
-              ComponentB={<IoGridSharp className="text-xl" />}
-            />
-          </Button>
-          <StyledInput
-            iconStart
-            both
-            keys="L"
-            Icon={FiSearch}
-            className="lg:w-[400px] md:w-[340px] sm:w-[200px]"
-          />
-        </div>
+        <SearchWithButtons
+          buttons={[
+            <Button
+              key={"Import"}
+              onClick={() => handleOpenModal(false)}
+              variant="flat"
+              color="secondary"
+            >
+              Import
+            </Button>,
+            <Button
+              key={"Use Existing Data"}
+              onClick={() => handleOpenModal(true)}
+              variant="flat"
+              color="primary"
+            >
+              Use Existing Data
+            </Button>,
+          ]}
+        />
       </div>
       <ConditionalRenderAB
         condition={displayMode === "grid"}
