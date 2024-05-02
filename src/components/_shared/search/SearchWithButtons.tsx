@@ -6,11 +6,12 @@ import ConditionalRenderAB from "../Conditional/ConditionalRenderAB";
 import { IoGridSharp, IoListSharp } from "react-icons/io5";
 import StyledInput from "../StyledInput";
 import { FiSearch } from "react-icons/fi";
+import { FaFilter } from "react-icons/fa";
 
 export default function SearchWithButtons({
   buttons,
 }: {
-  buttons: JSX.Element[];
+  buttons?: JSX.Element[];
 }) {
   const displayMode = useAppStore((state) => state.displayMode);
   const toggleDisplayMode = useAppStore((state) => state.toggleDisplayMode);
@@ -29,6 +30,15 @@ export default function SearchWithButtons({
           ComponentA={<IoListSharp className="text-xl" />}
           ComponentB={<IoGridSharp className="text-xl" />}
         />
+      </Button>
+       <Button
+        key="filter"
+        // onClick={() => {}}
+        variant="flat"
+        // color="warning"
+        isIconOnly
+      >
+        <FaFilter className="text-base" />
       </Button>
       <StyledInput
         iconStart

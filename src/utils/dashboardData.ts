@@ -266,13 +266,13 @@ const _campaignMetrics = [
     icon: GrMoney,
     iconColor: "#5E35B1", // Purple
   },
-  {
-    value: "View Performance Reports",
-    label: "Performance Analytics",
-    link: pages.adsReporting,
-    icon: SiSimpleanalytics,
-    iconColor: "#009688", // Teal
-  },
+  // {
+  //   value: "View Performance Reports",
+  //   label: "Performance Analytics",
+  //   link: pages.adsReporting,
+  //   icon: SiSimpleanalytics,
+  //   iconColor: "#009688", // Teal
+  // },
 ];
 
 // Set bgColor to 50% transparent version of iconColor
