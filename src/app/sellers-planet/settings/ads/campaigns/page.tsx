@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Button } from "@nextui-org/button";
 import { campaignMetrics } from "@/src/utils/dashboardData";
 import Campaign from "@/src/components/_shared/advertisement/Campaign";
+import SearchWithButtons from "@/src/components/_shared/search/SearchWithButtons";
 
 export const metadata: Metadata = {
   title: "Campaigns",
@@ -21,8 +22,8 @@ export default function Campaigns() {
       <h1 className="text-3xl font-bold">{getRandomTitle()}</h1>
       <div className="flex items-center justify-between">
         <div></div>
-        <div className="flex gap-4 items-center">
-          {campaignMetrics.map((item) => {
+        <SearchWithButtons
+          buttons={campaignMetrics.map((item) => {
             const Icon = item.icon;
             return (
               <Button
@@ -31,12 +32,13 @@ export default function Campaigns() {
                 href={item.link}
                 style={{ background: item.bgColor }}
                 startContent={<Icon />}
+                variant="flat"
               >
                 {item.value}
               </Button>
             );
           })}
-        </div>
+        />
       </div>
       <div className="grid grid-cols-3 gap-4">
         <Campaign />
