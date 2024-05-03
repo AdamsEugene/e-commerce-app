@@ -6,6 +6,7 @@ import { campaignMetrics } from "@/src/utils/dashboardData";
 import Campaign from "@/src/components/_shared/advertisement/Campaign";
 import SearchWithButtons from "@/src/components/_shared/search/SearchWithButtons";
 import BackButton from "@/src/components/_shared/button/BackButton";
+import AllCampaigns from "@/src/components/_shared/advertisement/AllCampaigns";
 
 export const metadata: Metadata = {
   title: "Campaigns",
@@ -44,11 +45,12 @@ export default function Campaigns() {
         <h1 className="text-3xl font-bold">{getRandomTitle()}</h1>
         <SearchWithButtons />
       </div>
-      <div className="grid grid-cols-3 gap-4">
+      <AllCampaigns />
+      {/* <div className="grid grid-cols-3 gap-4">
         <Campaign />
         <Campaign />
         <Campaign />
-      </div>
+      </div> */}
       <div className="h-16"></div>
     </div>
   );

@@ -9,7 +9,7 @@ type PROPS = {
   data: {
     id: string;
     label: string;
-    icon: React.JSX.Element;
+    icon?: React.JSX.Element;
     content: React.JSX.Element;
   }[];
 };
