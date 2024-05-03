@@ -14,16 +14,36 @@ import {
   ChipProps,
   getKeyValue,
   TableProps,
+  Pagination,
 } from "@nextui-org/react";
 import { users } from "@/src/utils/dashboardData";
 import { FaEdit, FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { IoImage } from "react-icons/io5";
+import ConditionalRender from "./Conditional/ConditionalRender";
+
+const inCludesEndingSoon = (label: string) =>
+  label.includes("ending soon") ? "ending soon" : label;
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   active: "success",
   notActive: "danger",
+  ended: "danger",
+  paused: "primary",
   pending: "warning",
+  draft: "secondary",
+  "ending soon": "warning",
+};
+
+const getColor = (index: number) => {
+  const map: Record<number, ChipProps["color"]> = {
+    0: "secondary",
+    1: "primary",
+    2: "success",
+    3: "warning",
+  };
+
+  return map[index] || "default";
 };
 
 type User = (typeof users)[0];
@@ -40,6 +60,18 @@ type PROPS<T> = {
 
 export default function StyledTable<T>(props: PROPS<T> & TableProps) {
   const { columns, data, ...others } = props;
+
+  const [page, setPage] = React.useState(1);
+  const rowsPerPage = 12;
+
+  const pages = Math.ceil(data.length / rowsPerPage);
+
+  const items = React.useMemo(() => {
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+
+    return data.slice(start, end);
+  }, [page, data]);
 
   const renderCell = React.useCallback((item: T, columnKey: React.Key) => {
     const cellValue = item[columnKey as keyof T] as string | number;
@@ -75,15 +107,28 @@ export default function StyledTable<T>(props: PROPS<T> & TableProps) {
           <Chip
             className="capitalize"
             color={
-              statusColorMap[(item as any)?.status ? "active" : "notActive"] ||
-              "warning"
+              statusColorMap[
+                inCludesEndingSoon((item as any)?.status?.toLowerCase())
+              ]
             }
             size="sm"
             variant="flat"
           >
-            {cellValue ? "Active" : "Inactive"}
+            {cellValue}
           </Chip>
         );
+      case "targetAudience":
+        return (cellValue as any).map((item: string, index: number) => (
+          <Chip
+            key={item}
+            className="capitalize"
+            size="sm"
+            variant="flat"
+            color={getColor(index)}
+          >
+            {item}
+          </Chip>
+        ));
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
@@ -115,6 +160,25 @@ export default function StyledTable<T>(props: PROPS<T> & TableProps) {
       removeWrapper
       fullWidth
       aria-label="Example table with custom cells"
+      bottomContent={
+        <div className="flex w-full justify-between items-center">
+          <div></div>
+          <ConditionalRender
+            condition={data.length >= rowsPerPage}
+            Component={
+              <Pagination
+                isCompact
+                showControls
+                // showShadow
+                color="secondary"
+                page={page}
+                total={pages}
+                onChange={(page) => setPage(page)}
+              />
+            }
+          />
+        </div>
+      }
       {...others}
     >
       <TableHeader columns={columns}>
@@ -127,7 +191,7 @@ export default function StyledTable<T>(props: PROPS<T> & TableProps) {
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody emptyContent={"No rows to display."} items={data}>
+      <TableBody emptyContent={"No rows to display."} items={items}>
         {(item) => (
           <TableRow key={(item as any)?.id}>
             {(columnKey) => (

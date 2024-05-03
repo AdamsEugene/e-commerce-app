@@ -65,6 +65,18 @@
   }
 }
 
+@keyframes glowing-paused {
+  0% {
+    box-shadow: 0 0 10px #ffa500, 0 0 20px #ffa500, 0 0 30px #ffa500;
+  }
+  50% {
+    box-shadow: 0 0 20px #ffa500, 0 0 30px #ffa500, 0 0 40px #ffa500;
+  }
+  100% {
+    box-shadow: 0 0 10px #ffa500, 0 0 20px #ffa500, 0 0 30px #ffa500;
+  }
+}
+
 @keyframes radiating {
   0% {
     transform: scale(0.8);
@@ -91,4 +103,8 @@
 
 .glowing-d {
   animation: glowing-gray 1.5s infinite, radiating 1.5s infinite;
+}
+
+.glowing-e {
+  animation: glowing-paused 1.5s infinite, radiating 1.5s infinite;
 }
