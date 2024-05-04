@@ -6,8 +6,8 @@ import { FaCcMastercard, FaPaypal, FaMobile } from "react-icons/fa";
 import { FaPhone } from "react-icons/fa6";
 import { GoCrossReference } from "react-icons/go";
 
-import StyledInput, { INPUT_PROPS } from "./_shared/StyledInput";
-import StyledButton from "./_shared/StyledButton";
+import StyledInput, { INPUT_PROPS } from "./_shared/Styled/StyledInput";
+import StyledButton from "./_shared/Styled/StyledButton";
 import SelectWithIcon, { SELECT_ICON_PROPS } from "./SelectWithIcon";
 import svgLoader from "@/src/config/svgLoader";
 

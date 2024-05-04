@@ -4,7 +4,7 @@ import { useAppStore } from "@/src/providers/AppStoreProvider";
 import { Button } from "@nextui-org/button";
 import ConditionalRenderAB from "../Conditional/ConditionalRenderAB";
 import { IoGridSharp, IoListSharp } from "react-icons/io5";
-import StyledInput from "../StyledInput";
+import StyledInput from "../Styled/StyledInput";
 import { FiSearch } from "react-icons/fi";
 import { FaFilter } from "react-icons/fa";
 
@@ -31,7 +31,7 @@ export default function SearchWithButtons({
           ComponentB={<IoGridSharp className="text-xl" />}
         />
       </Button>
-       <Button
+      <Button
         key="filter"
         // onClick={() => {}}
         variant="flat"

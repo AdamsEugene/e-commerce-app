@@ -1,6 +1,6 @@
 import { Navbar } from "@/src/components/navbar";
-import Sidebar from "../../components/sideBar/Sidebar";
-import StyledBreadcrumbs from "../../components/_shared/StyledBreadcrumbs";
+import Sidebar from "../../components/_shared/sideBar/Sidebar";
+import StyledBreadcrumbs from "../../components/_shared/Styled/StyledBreadcrumbs";
 
 export default function RootLayout({
   children,

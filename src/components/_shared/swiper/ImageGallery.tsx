@@ -9,7 +9,7 @@ import {
   MdOutlineArrowBackIos,
   MdOutlineArrowForwardIos,
 } from "react-icons/md";
-import StyledImage from "../StyledImage";
+import StyledImage from "../Styled/StyledImage";
 
 // Import Swiper styles
 import "swiper/css";

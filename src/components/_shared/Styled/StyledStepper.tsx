@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useAnimation, AnimatePresence } from "framer-motion";
-import { useAppStore } from "../providers/AppStoreProvider";
+import { useAppStore } from "../../../providers/AppStoreProvider";
 import { useEffect } from "react";
 
 type PROPS = {

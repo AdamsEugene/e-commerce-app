@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Listbox, ListboxItem } from "@nextui-org/react";
-import { IconWrapper } from "../_shared/IconWrapper";
+import { IconWrapper } from "../IconWrapper";
 import { type DashboardLinks } from "@/src/utils/dashboardLinks";
 
 const NavElements = ({

@@ -1,6 +1,6 @@
 import { userMetricsData } from "@/src/utils/dashboardData";
 import ProductMetrics from "../../../../components/ProductMetrics";
-import StyledTable from "../../../../components/_shared/StyledTable";
+import StyledTable from "../../../../components/_shared/Styled/StyledTable";
 import GridItem from "../../../../components/GridItem";
 import BackButton from "@/src/components/_shared/button/BackButton";
 import ConditionalRenderAB from "@/src/components/_shared/Conditional/ConditionalRenderAB";

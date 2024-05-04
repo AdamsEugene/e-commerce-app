@@ -5,7 +5,7 @@ import { useParams, usePathname } from "next/navigation";
 import { Tabs, Tab } from "@nextui-org/react";
 import cartItems, { ItemsInCart } from "@/src/utils/cartItem";
 import CartItem from "./CartItem";
-import StyledImage from "./_shared/StyledImage";
+import StyledImage from "./_shared/Styled/StyledImage";
 import ConditionalRenderAB from "./_shared/Conditional/ConditionalRenderAB";
 import { useAppStore } from "../providers/AppStoreProvider";
 import { type InCart } from "../store/productSlice";

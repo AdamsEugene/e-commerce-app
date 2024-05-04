@@ -14,6 +14,7 @@ import {
   CardFooter,
   CardHeader,
   Divider,
+  Pagination,
 } from "@nextui-org/react";
 import React from "react";
 import { FaMapMarkerAlt, FaPeopleArrows } from "react-icons/fa";
@@ -28,6 +29,7 @@ import {
 import { RxActivityLog } from "react-icons/rx";
 import { FaEdit, FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import ConditionalRender from "../Conditional/ConditionalRender";
 
 type PROPS = {
   campaigns: Campaign[];
@@ -37,11 +39,42 @@ type PROPS = {
 export default function CampaignGrid(props: PROPS) {
   const { campaigns, onOpen } = props;
 
+  const [page, setPage] = React.useState(1);
+  const rowsPerPage = 6;
+
+  const pages = Math.ceil(campaigns.length / rowsPerPage);
+
+  const items = React.useMemo(() => {
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+
+    return campaigns.slice(start, end);
+  }, [page, campaigns]);
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
-      {campaigns.map((campaign) => (
-        <CampaignGridItem key={campaign.id} data={campaign} onOpen={onOpen} />
-      ))}
+    <div className="flex flex-col gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
+        {items.map((campaign) => (
+          <CampaignGridItem key={campaign.id} data={campaign} onOpen={onOpen} />
+        ))}
+      </div>
+      <div className="flex w-full justify-between items-center">
+        <div></div>
+        <ConditionalRender
+          condition={campaigns.length >= rowsPerPage}
+          Component={
+            <Pagination
+              isCompact
+              showControls
+              // showShadow
+              color="secondary"
+              page={page}
+              total={pages}
+              onChange={(page) => setPage(page)}
+            />
+          }
+        />
+      </div>
     </div>
   );
 }
@@ -69,79 +102,72 @@ function CampaignGridItem({
                 ),
               }}
             />
-           
           </div>
         </div>
       </CardHeader>
       <CardBody>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 justify-between h-full">
           <div>
             <p className="text-lg font-semibold mb-2">Target Audience</p>
             <div className="flex flex-col gap-2">
+              {data.targetAudience.map((target) => (
+                <div key={target} className="flex items-center gap-3">
+                  <IoBagHandle className="text-xl text-primary-500" />
+                  <p className="text-sm">{target}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-col gap-3">
+            <Divider />
+            <div className="flex items-center justify-between w-full">
               <div className="flex items-center gap-3">
-                <IoBagHandle className="text-xl text-primary-500" />
+                <GiMoneyStack className="text-xl text-green-500" />
                 <p className="text-sm">
-                  Targeting users interested in [category]
+                  Total budget: <span>${data.budget}</span>
                 </p>
               </div>
               <div className="flex items-center gap-3">
-                <FaMapMarkerAlt className="text-xl text-primary-500" />
-                <p className="text-sm">Targeting users in [location]</p>
+                <GiReceiveMoney className="text-xl text-green-500" />
+                <p className="text-sm">
+                  Remaining: <span>${data.budget - data.spend}</span>
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center justify-between w-full">
+              <div className="flex items-center gap-3">
+                <RxActivityLog className="text-xl text-primary-500" />
+                <p className="text-sm">
+                  Total Impressions: <span>{data.impressions}</span>
+                </p>
               </div>
               <div className="flex items-center gap-3">
-                <FaPeopleArrows className="text-xl text-primary-500" />
-                <p className="text-sm">Targeting users in [Age range]</p>
+                <GiClick className="text-xl text-secondary-500" />
+                <p className="text-sm">
+                  Total Clicks: <span>{data.clicks}</span>
+                </p>
               </div>
             </div>
-          </div>
-          <Divider />
-          <div className="flex items-center justify-between w-full">
-            <div className="flex items-center gap-3">
-              <GiMoneyStack className="text-xl text-green-500" />
-              <p className="text-sm">
-                Total budget: <span>${data.budget}</span>
-              </p>
-            </div>
-            <div className="flex items-center gap-3">
-              <GiReceiveMoney className="text-xl text-green-500" />
-              <p className="text-sm">
-                Remaining: <span>${data.budget - data.spend}</span>
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center justify-between w-full">
-            <div className="flex items-center gap-3">
-              <RxActivityLog className="text-xl text-primary-500" />
-              <p className="text-sm">
-                Total Impressions: <span>{data.impressions}</span>
-              </p>
-            </div>
-            <div className="flex items-center gap-3">
-              <GiClick className="text-xl text-secondary-500" />
-              <p className="text-sm">
-                Total Clicks: <span>{data.clicks}</span>
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center justify-between w-full">
-            <div className="flex items-center gap-3">
-              <GiPayMoney className="text-xl text-danger-500" />
-              <p className="text-sm">
-                Total Spend: <span>${data.spend}</span>
-              </p>
-            </div>
-            <div
-              className={`h-2 w-2 rounded-full glowing-${budgetStatusRadiate(
-                data.budget - data.spend,
-                data.budget
-              )}`}
-              style={{
-                background: getStatusColor(
+            <div className="flex items-center justify-between w-full">
+              <div className="flex items-center gap-3">
+                <GiPayMoney className="text-xl text-danger-500" />
+                <p className="text-sm">
+                  Total Spend: <span>${data.spend}</span>
+                </p>
+              </div>
+              <div
+                className={`h-2 w-2 rounded-full glowing-${budgetStatusRadiate(
                   data.budget - data.spend,
                   data.budget
-                ),
-              }}
-            />
+                )}`}
+                style={{
+                  background: getStatusColor(
+                    data.budget - data.spend,
+                    data.budget
+                  ),
+                }}
+              />
+            </div>
           </div>
         </div>
       </CardBody>

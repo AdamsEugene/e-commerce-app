@@ -11,8 +11,8 @@ import {
   useDisclosure,
   Skeleton,
 } from "@nextui-org/react";
-import StyledButton from "@/src/components/_shared/StyledButton";
-import StyledModal from "@/src/components/_shared/StyledModal";
+import StyledButton from "@/src/components/_shared/Styled/StyledButton";
+import StyledModal from "@/src/components/_shared/Styled/StyledModal";
 import TabWithIcon from "@/src/components/TabWithIcon";
 import SelectList from "@/src/components/_shared/SelectList";
 
@@ -51,7 +51,6 @@ const paymentMethods = [
   },
 ];
 
-
 export default function PaymentMethod() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -76,7 +75,11 @@ export default function PaymentMethod() {
         <ModalContent>
           {(onClose) => (
             <ModalBody>
-              <SelectList onClose={onClose} title="Select Payment Method" data={paymentMethods} />
+              <SelectList
+                onClose={onClose}
+                title="Select Payment Method"
+                data={paymentMethods}
+              />
             </ModalBody>
           )}
         </ModalContent>

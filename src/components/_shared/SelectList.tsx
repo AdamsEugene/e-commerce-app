@@ -15,7 +15,7 @@ import { IoImage } from "react-icons/io5";
 import { siteConfig } from "@/src/config/site";
 import useIndexedDB from "@/src/hooks/useIndexedDB";
 import ConditionalRenderAB from "./Conditional/ConditionalRenderAB";
-import StyledImage from "./StyledImage";
+import StyledImage from "./Styled/StyledImage";
 
 const {
   stores: { excelData },

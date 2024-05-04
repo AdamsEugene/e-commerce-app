@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, ButtonGroup, ButtonGroupProps } from "@nextui-org/react";
-import StyledPopover from "../StyledPopover";
+import StyledPopover from "../Styled/StyledPopover";
 
 type PROPS = {
   data: {

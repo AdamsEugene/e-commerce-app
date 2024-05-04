@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectFade, Autoplay } from "swiper/modules";
 import { Button } from "@nextui-org/button";
-import StyledImage from "../StyledImage";
+import StyledImage from "../Styled/StyledImage";
 import productList, { PRODUCTS } from "@/src/utils/productList";
 import { title } from "@/src/components/primitives";
 import { siteConfig } from "@/src/config/site";

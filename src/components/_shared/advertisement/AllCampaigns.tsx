@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useRef } from "react";
-import StyledTable from "../StyledTable";
+import React, { useEffect, useRef } from "react";
+import StyledTable from "../Styled/StyledTable";
 import {
   type Campaign,
   campaigns,
@@ -12,13 +12,22 @@ import { useAppStore } from "@/src/providers/AppStoreProvider";
 import ConditionalRenderAB from "../Conditional/ConditionalRenderAB";
 import CampaignGrid from "./CampaignGrid";
 import { ModalContent, useDisclosure } from "@nextui-org/react";
-import StyledModal from "../StyledModal";
+import StyledModal from "../Styled/StyledModal";
 
 export default function AllCampaigns() {
   const displayMode = useAppStore((state) => state.displayMode);
+  const openModal = useAppStore((state) => state.openModal);
+  const modalFor = useAppStore((state) => state.modalFor);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const Component = useRef("");
+
+  useEffect(() => {
+    if (modalFor === "create_campaign") {
+      Component.current = "create";
+      onOpen();
+    }
+  }, [modalFor, onOpen]);
 
   function handleCampaignClick(
     kind: "edit" | "view" | "delete",
@@ -68,6 +77,7 @@ export default function AllCampaigns() {
         size="5xl"
         className="campaign_modal"
         scrollBehavior="inside"
+        onClose={() => openModal(undefined)}
       >
         <ModalContent>
           {(onClose) => <div>{Component.current}</div>}

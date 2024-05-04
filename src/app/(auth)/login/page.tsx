@@ -2,7 +2,7 @@ import { Metadata } from "next/types";
 import AuthWrapper from "../components/AuthWrapper";
 import Forms from "../components/Forms";
 import { MdMail, MdOutlineSecurity } from "react-icons/md";
-import { INPUT_PROPS } from "@/src/components/_shared/StyledInput";
+import { INPUT_PROPS } from "@/src/components/_shared/Styled/StyledInput";
 
 export const metadata: Metadata = {
   title: "Login",

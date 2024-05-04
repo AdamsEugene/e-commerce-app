@@ -18,7 +18,7 @@ import "./_shared/swiper/swiper.css";
 
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import cartItems from "@/src/utils/cartItem";
-import StyledImage from "@/src/components/_shared/StyledImage";
+import StyledImage from "@/src/components/_shared/Styled/StyledImage";
 
 export default function ImageGalleryEditable() {
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);

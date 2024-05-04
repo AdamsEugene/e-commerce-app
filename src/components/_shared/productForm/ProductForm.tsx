@@ -3,10 +3,10 @@
 import React, { useState } from "react";
 import { Button, Checkbox } from "@nextui-org/react";
 import { Avatar, AvatarGroup } from "@nextui-org/react";
-import StyledFileUpload from "../../StyledFileUpload";
-import StyledInput from "../StyledInput";
-import StyledSelect from "../StyledSelect";
-import StyledTextarea from "../StyledTextarea";
+import StyledFileUpload from "../Styled/StyledFileUpload";
+import StyledInput from "../Styled/StyledInput";
+import StyledSelect from "../Styled/StyledSelect";
+import StyledTextarea from "../Styled/StyledTextarea";
 
 const images = [
   "https://i.pravatar.cc/150?u=a042581f4e29026024d",
