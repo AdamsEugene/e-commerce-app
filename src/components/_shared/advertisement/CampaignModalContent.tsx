@@ -21,6 +21,6 @@ export default function CampaignModalContent<T>(props: PROPS<T>) {
     case "create_campaign":
       return <CreateCampaign onClose={onClose} />;
     default:
-      break;
+      return <CreateCampaign onClose={onClose} />;
   }
 }
