@@ -1,8 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import StyledTable from "../StyledTable";
-import { campaigns, campaignsColumns } from "@/src/utils/campaignData";
+import {
+  type Campaign,
+  campaigns,
+  campaignsColumns,
+} from "@/src/utils/campaignData";
 import { transformColumns } from "@/src/utils/functions";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
 import ConditionalRenderAB from "../Conditional/ConditionalRenderAB";
@@ -13,6 +17,28 @@ import StyledModal from "../StyledModal";
 export default function AllCampaigns() {
   const displayMode = useAppStore((state) => state.displayMode);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const Component = useRef("");
+
+  function handleCampaignClick(
+    kind: "edit" | "view" | "delete",
+    item: Campaign
+  ) {
+    console.log(kind, item);
+
+    switch (kind) {
+      case "view":
+        Component.current = "view";
+        onOpen();
+        break;
+      case "edit":
+        Component.current = "edit";
+        onOpen();
+        break;
+      default:
+        break;
+    }
+  }
 
   return (
     <div>
@@ -26,10 +52,13 @@ export default function AllCampaigns() {
             aria-label="Campaigns collection table"
             columns={transformColumns(campaignsColumns)}
             data={campaigns}
-            onRowAction={(key) => console.log(key)}
+            onRowAction={(key) => {}}
+            actionClick={handleCampaignClick}
           />
         }
-        ComponentB={<CampaignGrid campaigns={campaigns} onOpen={onOpen} />}
+        ComponentB={
+          <CampaignGrid campaigns={campaigns} onOpen={handleCampaignClick} />
+        }
       />
       <StyledModal
         isOpen={isOpen}
@@ -40,7 +69,9 @@ export default function AllCampaigns() {
         className="campaign_modal"
         scrollBehavior="inside"
       >
-        <ModalContent>{(onClose) => <div>okay</div>}</ModalContent>
+        <ModalContent>
+          {(onClose) => <div>{Component.current}</div>}
+        </ModalContent>
       </StyledModal>
     </div>
   );

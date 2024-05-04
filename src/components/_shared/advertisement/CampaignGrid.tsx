@@ -1,10 +1,20 @@
 import { type Campaign } from "@/src/utils/campaignData";
 import {
+  budgetStatusRadiate,
   campaignStatusColor,
+  getStatusColor,
   includesEndingSoon,
   radiateStatus,
 } from "@/src/utils/functions";
-import { Button, Card, CardBody, CardHeader } from "@nextui-org/react";
+import {
+  Button,
+  ButtonGroup,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Divider,
+} from "@nextui-org/react";
 import React from "react";
 import { FaMapMarkerAlt, FaPeopleArrows } from "react-icons/fa";
 import { IoBagHandle } from "react-icons/io5";
@@ -16,10 +26,12 @@ import {
   GiMoneyStack,
 } from "react-icons/gi";
 import { RxActivityLog } from "react-icons/rx";
+import { FaEdit, FaEye } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 
 type PROPS = {
   campaigns: Campaign[];
-  onOpen: () => void;
+  onOpen: (kind: "edit" | "view" | "delete", item: Campaign) => void;
 };
 
 export default function CampaignGrid(props: PROPS) {
@@ -39,10 +51,10 @@ function CampaignGridItem({
   onOpen,
 }: {
   data: Campaign;
-  onOpen: () => void;
+  onOpen: (kind: "edit" | "view" | "delete", item: Campaign) => void;
 }) {
   return (
-    <Card isPressable onPress={onOpen}>
+    <Card>
       <CardHeader>
         <div className="flex items-center justify-between w-full">
           <p>{data.campaignName}</p>
@@ -90,52 +102,82 @@ function CampaignGridItem({
               </div>
             </div>
           </div>
-          <div className="flex items-baseline gap-6">
-            <p className="text-lg font-semibold mb-2">Budget</p>
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center gap-3">
-                <GiMoneyStack className="text-xl text-green-500" />
-                <p className="text-sm">
-                  Total budget: <span>$1000</span>
-                </p>
-              </div>
-              <div className="flex items-center gap-3">
-                <GiReceiveMoney className="text-xl text-green-500" />
-                <p className="text-sm">
-                  Remaining: <span>$100</span>
-                </p>
-              </div>
+          <Divider />
+          <div className="flex items-center justify-between w-full">
+            <div className="flex items-center gap-3">
+              <GiMoneyStack className="text-xl text-green-500" />
+              <p className="text-sm">
+                Total budget: <span>${data.budget}</span>
+              </p>
+            </div>
+            <div className="flex items-center gap-3">
+              <GiReceiveMoney className="text-xl text-green-500" />
+              <p className="text-sm">
+                Remaining: <span>${data.budget - data.spend}</span>
+              </p>
             </div>
           </div>
-          <div className="flex items-baseline gap-6">
-            <p className="text-lg font-semibold mb-2">Impressions</p>
+          <div className="flex items-center justify-between w-full">
             <div className="flex items-center gap-3">
               <RxActivityLog className="text-xl text-primary-500" />
               <p className="text-sm">
-                Total Impressions: <span>5000</span>
+                Total Impressions: <span>{data.impressions}</span>
               </p>
             </div>
-          </div>
-          <div className="flex items-baseline gap-6">
-            <p className="text-lg font-semibold mb-2">Clicks</p>
             <div className="flex items-center gap-3">
               <GiClick className="text-xl text-secondary-500" />
               <p className="text-sm">
-                Total Clicks: <span>1000</span>
+                Total Clicks: <span>{data.clicks}</span>
               </p>
             </div>
           </div>
-          <div className="flex items-baseline gap-6">
-            <p className="text-lg font-semibold mb-2">Spend</p>
+          <div className="flex items-center justify-between w-full">
             <div className="flex items-center gap-3">
               <GiPayMoney className="text-xl text-danger-500" />
               <p className="text-sm">
-                Total Spend: <span>$9000</span>
+                Total Spend: <span>${data.spend}</span>
               </p>
             </div>
+            <div
+              className={`h-2 w-2 rounded-full glowing-${budgetStatusRadiate(
+                data.budget - data.spend,
+                data.budget
+              )}`}
+              style={{
+                background: getStatusColor(
+                  data.budget - data.spend,
+                  data.budget
+                ),
+              }}
+            />
           </div>
         </div>
       </CardBody>
+      <CardFooter>
+        <ButtonGroup fullWidth variant="flat">
+          <Button
+            color="secondary"
+            startContent={<FaEye className="text-lg" />}
+            onClick={() => onOpen("view", data)}
+          >
+            View
+          </Button>
+          <Button
+            color="warning"
+            startContent={<FaEdit className="text-lg" />}
+            onClick={() => onOpen("edit", data)}
+          >
+            Edit
+          </Button>
+          <Button
+            color="danger"
+            startContent={<MdDelete className="text-lg" />}
+            onClick={() => onOpen("delete", data)}
+          >
+            Delete
+          </Button>
+        </ButtonGroup>
+      </CardFooter>
     </Card>
   );
 }

@@ -253,6 +253,13 @@ const _settingStuff = [
 
 const _campaignMetrics = [
   {
+    value: "Create a New Campaign",
+    label: "Create Campaign",
+    link: '',
+    icon: MdCampaign,
+    iconColor: "#009688", // Orange
+  },
+  {
     value: "Create a New Ad",
     label: "Create Ad",
     link: pages.ads,
