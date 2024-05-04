@@ -69,15 +69,7 @@ function CampaignGridItem({
                 ),
               }}
             />
-            <Button
-              isIconOnly
-              color="secondary"
-              variant="light"
-              aria-label="Edit campaign"
-              size="sm"
-            >
-              <MdModeEdit className="text-base" />
-            </Button>
+           
           </div>
         </div>
       </CardHeader>
