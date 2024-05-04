@@ -7,6 +7,7 @@ import Campaign from "@/src/components/_shared/advertisement/Campaign";
 import SearchWithButtons from "@/src/components/_shared/search/SearchWithButtons";
 import BackButton from "@/src/components/_shared/button/BackButton";
 import AllCampaigns from "@/src/components/_shared/advertisement/AllCampaigns";
+import ConditionalRenderAB from "@/src/components/_shared/Conditional/ConditionalRenderAB";
 
 export const metadata: Metadata = {
   title: "Campaigns",
@@ -28,15 +29,32 @@ export default function Campaigns() {
           {campaignMetrics.map((item) => {
             const Icon = item.icon;
             return (
-              <Button
+              <ConditionalRenderAB
                 key={item.value}
-                as={Link}
-                href={item.link}
-                style={{ background: item.bgColor }}
-                startContent={<Icon />}
-              >
-                {item.value}
-              </Button>
+                condition={!!item.link}
+                ComponentA={
+                  <Button
+                    key={item.value}
+                    as={Link}
+                    href={item.link}
+                    style={{ background: item.bgColor }}
+                    startContent={<Icon />}
+                  >
+                    {item.value}
+                  </Button>
+                }
+                ComponentB={
+                  <Button
+                    key={item.value}
+                    // as={Link}
+                    // href={item.link}
+                    style={{ background: item.bgColor }}
+                    startContent={<Icon />}
+                  >
+                    {item.value}
+                  </Button>
+                }
+              />
             );
           })}
         </div>
