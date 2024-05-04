@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import StyledModal from "../StyledModal";
+import StyledModal from "../Styled/StyledModal";
 import { Button, ModalContent, useDisclosure } from "@nextui-org/react";
 
 import ImportExportSettings from "../ImportExportSettings";
@@ -10,7 +10,7 @@ import { useAppStore } from "@/src/providers/AppStoreProvider";
 import useIndexedDB from "@/src/hooks/useIndexedDB";
 import { siteConfig } from "@/src/config/site";
 import ConditionalRenderAB from "../Conditional/ConditionalRenderAB";
-import StyledTable from "../StyledTable";
+import StyledTable from "../Styled/StyledTable";
 import SelectList from "../SelectList";
 import SearchWithButtons from "../search/SearchWithButtons";
 

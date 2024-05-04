@@ -5,8 +5,8 @@ import Link from "next/link";
 import { ModalBody, ModalHeader, Divider } from "@nextui-org/react";
 import { FiSearch } from "react-icons/fi";
 
-import StyledInput from "../StyledInput";
-import StyledCheckboxGroup from "../../StyledCheckboxGroup";
+import StyledInput from "../Styled/StyledInput";
+import StyledCheckboxGroup from "../Styled/StyledCheckboxGroup";
 import ProductGallery from "../swiper/ProductGallery";
 import StyledCardGrid from "../swiper/StyledCardGrid";
 import { useState } from "react";

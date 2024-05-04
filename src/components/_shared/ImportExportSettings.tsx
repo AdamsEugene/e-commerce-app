@@ -21,7 +21,7 @@ import {
 } from "@nextui-org/react";
 import { SiMicrosoftexcel } from "react-icons/si";
 
-import StyledInput from "./StyledInput";
+import StyledInput from "./Styled/StyledInput";
 import { capitalizeFirstLetter } from "@/src/utils/functions";
 import { siteConfig } from "@/src/config/site";
 import useIndexedDB from "@/src/hooks/useIndexedDB";
@@ -30,7 +30,7 @@ import ConditionalRender from "./Conditional/ConditionalRender";
 import useLoadExcelData from "@/src/hooks/useLoadExcelData";
 import ConditionalRenderAB from "./Conditional/ConditionalRenderAB";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
-import StyledModal from "./StyledModal";
+import StyledModal from "./Styled/StyledModal";
 import SelectList from "./SelectList";
 
 const {

@@ -6,7 +6,7 @@ import { userMetricsData } from "@/src/utils/dashboardData";
 import PlacedSideBySide from "@/src/components/_shared/PlacedSideBySide";
 import GridItem from "@/src/components/GridItem";
 import StyledLineChart from "@/src/components/_shared/charts/StyledLineChart";
-import StyledTable from "@/src/components/_shared/StyledTable";
+import StyledTable from "@/src/components/_shared/Styled/StyledTable";
 import {
   chartData,
   filterNameUVandPV,

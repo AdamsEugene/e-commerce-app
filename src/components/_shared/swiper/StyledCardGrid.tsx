@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Button, Card, CardBody, CardFooter, Image } from "@nextui-org/react";
-import StyledImage from "../StyledImage";
+import StyledImage from "../Styled/StyledImage";
 import imageByIndex from "@/src/utils/imageByIndex";
 import { siteConfig } from "@/src/config/site";
 import { useAppStore } from "@/src/providers/AppStoreProvider";

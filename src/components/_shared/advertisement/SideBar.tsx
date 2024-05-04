@@ -2,7 +2,7 @@
 
 import { Card, CardBody } from "@nextui-org/react";
 import React from "react";
-import NavElements from "../../sideBar/NavElements";
+import NavElements from "../sideBar/NavElements";
 import { adsNavLinks } from "@/src/utils/dashboardLinks";
 
 export default function SideBar() {

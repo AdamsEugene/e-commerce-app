@@ -3,7 +3,7 @@
 import { AiOutlineHome, AiOutlineUser, AiOutlineMail } from "react-icons/ai";
 import Forms from "../components/Forms";
 
-import StyledStepper from "@/src/components/StyledStepper";
+import StyledStepper from "@/src/components/_shared/Styled/StyledStepper";
 import AccountType from "../components/AccountType";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
 import ConditionalRenderAB from "@/src/components/_shared/Conditional/ConditionalRenderAB";

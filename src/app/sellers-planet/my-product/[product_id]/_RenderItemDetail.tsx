@@ -24,7 +24,7 @@ import {
   chartData,
   filterNameUVandPV,
 } from "@/src/utils/generateDataForSelect";
-import StyledTable from "@/src/components/_shared/StyledTable";
+import StyledTable from "@/src/components/_shared/Styled/StyledTable";
 import AddPriceInfo from "@/src/components/AddPriceInfo";
 import CreateShippingOption from "@/src/components/CreateShippingOption";
 import ConditionalRenderAB from "@/src/components/_shared/Conditional/ConditionalRenderAB";

@@ -1,7 +1,9 @@
 import { Checkbox } from "@nextui-org/react";
 
-import StyledButton from "@/src/components/_shared/StyledButton";
-import StyledInput, { INPUT_PROPS } from "@/src/components/_shared/StyledInput";
+import StyledButton from "@/src/components/_shared/Styled/StyledButton";
+import StyledInput, {
+  INPUT_PROPS,
+} from "@/src/components/_shared/Styled/StyledInput";
 import { Card, CardBody } from "@nextui-org/react";
 
 type PROPS = {

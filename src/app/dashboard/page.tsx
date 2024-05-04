@@ -3,7 +3,7 @@ import ProductMetrics from "../../components/ProductMetrics";
 import { userMetricsData } from "@/src/utils/dashboardData";
 import StyledLineChart from "../../components/_shared/charts/StyledLineChart";
 import GridItem from "../../components/GridItem";
-import StyledTable from "../../components/_shared/StyledTable";
+import StyledTable from "../../components/_shared/Styled/StyledTable";
 import PlacedSideBySide from "../../components/_shared/PlacedSideBySide";
 import { Chip } from "@nextui-org/react";
 import { IoCheckmarkCircle } from "react-icons/io5";

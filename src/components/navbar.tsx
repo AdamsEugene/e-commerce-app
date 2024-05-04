@@ -36,11 +36,11 @@ import {
 } from "@/src/components/_shared/icons";
 
 import { Logo } from "@/src/components/_shared/icons";
-import StyledInput from "./_shared/StyledInput";
+import StyledInput from "./_shared/Styled/StyledInput";
 import { FiSearch } from "react-icons/fi";
 import { UserCard } from "./UserCard";
 import SignupOrLogin from "./SignupOrLogin";
-import StyledModal from "./_shared/StyledModal";
+import StyledModal from "./_shared/Styled/StyledModal";
 import SearchResults from "./_shared/search/SearchResults";
 import { useAppStore } from "../providers/AppStoreProvider";
 import SideDrawer from "./SideDrawer";

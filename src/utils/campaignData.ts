@@ -133,3 +133,34 @@ export const campaigns: Campaign[] = [
     spend: 210.4,
   },
 ];
+
+export const campaignGoals = [
+  {
+    label: "Increase Sales",
+    value: "drive_sales",
+    description: "Focus on getting more users to purchase your products.",
+  },
+  {
+    label: "Boost Product Discovery",
+    value: "increase_product_discovery",
+    description:
+      "Increase visibility of specific products or categories to drive sales.",
+  },
+  {
+    label: "Promote New Arrivals",
+    value: "promote_new_arrivals",
+    description: "Generate awareness and sales for recently added products.",
+  },
+  {
+    label: "Clear Inventory",
+    value: "clear_inventory",
+    description: "Increase sales of specific products to reduce stock levels.",
+  },
+  {
+    label: "Increase Cart Abandonment Recovery",
+    value: "increase_cart_recovery",
+    description:
+      "Win back users who abandoned their carts and encourage them to complete their purchases.",
+  },
+  // Add more campaign goals as needed
+];
