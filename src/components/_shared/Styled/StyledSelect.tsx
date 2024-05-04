@@ -5,6 +5,7 @@ import {
   SelectProps,
   Chip,
   SelectedItems,
+  Tooltip,
 } from "@nextui-org/react";
 
 type PROPS = {
@@ -29,9 +30,14 @@ export default function StyledSelect(props: SelectProps & PROPS) {
         return (
           <div className="flex flex-wrap gap-2">
             {items.map((item) => (
-              <Chip key={item.key} color="secondary">
-                {item.data?.label}
-              </Chip>
+              <Tooltip
+                key={item.key}
+                color="foreground"
+                showArrow={true}
+                content={item.data?.description}
+              >
+                <Chip color="secondary">{item.data?.label}</Chip>
+              </Tooltip>
             ))}
           </div>
         );

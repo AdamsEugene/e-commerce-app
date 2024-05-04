@@ -13,6 +13,10 @@ import ConditionalRenderAB from "../Conditional/ConditionalRenderAB";
 import CampaignGrid from "./CampaignGrid";
 import { ModalContent, useDisclosure } from "@nextui-org/react";
 import StyledModal from "../Styled/StyledModal";
+import CampaignModalContent from "./CampaignModalContent";
+import { MicsState } from "@/src/store/micsSlice";
+
+type Kind = "edit" | "view" | "delete";
 
 export default function AllCampaigns() {
   const displayMode = useAppStore((state) => state.displayMode);
@@ -20,19 +24,16 @@ export default function AllCampaigns() {
   const modalFor = useAppStore((state) => state.modalFor);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-  const Component = useRef("");
+  const Component = useRef<Kind | MicsState["modalFor"]>(undefined);
 
   useEffect(() => {
     if (modalFor === "create_campaign") {
-      Component.current = "create";
+      Component.current = "create_campaign";
       onOpen();
     }
   }, [modalFor, onOpen]);
 
-  function handleCampaignClick(
-    kind: "edit" | "view" | "delete",
-    item: Campaign
-  ) {
+  function handleCampaignClick(kind: Kind, item: Campaign) {
     console.log(kind, item);
 
     switch (kind) {
@@ -80,7 +81,9 @@ export default function AllCampaigns() {
         onClose={() => openModal(undefined)}
       >
         <ModalContent>
-          {(onClose) => <div>{Component.current}</div>}
+          {(onClose) => (
+            <CampaignModalContent kind={Component.current} onClose={onClose} />
+          )}
         </ModalContent>
       </StyledModal>
     </div>
