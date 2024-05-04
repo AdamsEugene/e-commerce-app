@@ -55,3 +55,18 @@ export const radiateStatus = (status: keyof typeof mapObj) => {
   };
   return mapObj[status] || "d";
 };
+
+export const getStatusColor = (remaining: number, total: number) => {
+  if (remaining / total > 0.5) return "#00FF00";
+  if (remaining / total > 0.25) return "#FFFF00";
+  return "#FF0000";
+};
+
+export const budgetStatus = (remaining: number, total: number) => {
+  if (remaining / total > 0.5) return "active";
+  if (remaining / total > 0.25) return "ending soon";
+  return "ended";
+};
+
+export const budgetStatusRadiate = (remaining: number, total: number) =>
+  radiateStatus(budgetStatus(remaining, total));
