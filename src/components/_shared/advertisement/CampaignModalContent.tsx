@@ -2,6 +2,8 @@ import { MicsState } from "@/src/store/micsSlice";
 import React from "react";
 import ViewCampaign from "./ViewCampaign";
 import CreateCampaign from "./CreateCampaign";
+import CreateGoal from "./CreateGoal";
+import CreateAudience from "./CreateAudience";
 
 type Kind = "edit" | "view" | "delete";
 type Create = "new goal" | "new audience" | "new ad" | "new budget";
@@ -24,11 +26,11 @@ export default function CampaignModalContent<T>(props: PROPS<T>) {
     case "new ad":
       return <div>ad</div>;
     case "new audience":
-      return <div>audience</div>;
+      return <CreateAudience onClose={onClose} />;
     case "new budget":
       return <div>budget</div>;
     case "new goal":
-      return <div>goal</div>;
+      return <CreateGoal onClose={onClose} />;
     default:
       return <CreateCampaign onClose={onClose} />;
   }

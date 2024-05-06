@@ -58,14 +58,16 @@ export default function CreateCampaign(props: PROPS) {
             >
               <></>
             </StyledSelect>
-            <Button
-              color="primary"
-              variant="flat"
-              startContent={<IoAdd className="text-3xl" />}
-              onClick={() => onAddButtonClick("new goal")}
-            >
-              Add New Goal
-            </Button>
+            <div>
+              <Button
+                color="primary"
+                variant="flat"
+                startContent={<IoAdd className="text-xl" />}
+                onClick={() => onAddButtonClick("new goal")}
+              >
+                New Goal
+              </Button>
+            </div>
           </div>
           <div className="flex items-end gap-4">
             <StyledSelect
@@ -75,14 +77,16 @@ export default function CreateCampaign(props: PROPS) {
             >
               <></>
             </StyledSelect>
-            <Button
-              color="primary"
-              variant="flat"
-              startContent={<IoAdd className="text-3xl" />}
-              onClick={() => onAddButtonClick("new audience")}
-            >
-              Add New Audience
-            </Button>
+            <div>
+              <Button
+                color="primary"
+                variant="flat"
+                startContent={<IoAdd className="text-xl" />}
+                onClick={() => onAddButtonClick("new audience")}
+              >
+                Advance
+              </Button>
+            </div>
           </div>
           <div className="flex items-end gap-4">
             <StyledSelect
@@ -93,14 +97,16 @@ export default function CreateCampaign(props: PROPS) {
             >
               <></>
             </StyledSelect>
-            <Button
-              color="primary"
-              variant="flat"
-              startContent={<IoAdd className="text-3xl" />}
-              onClick={() => onAddButtonClick("new ad")}
-            >
-              Create New Ad
-            </Button>
+            <div>
+              <Button
+                color="primary"
+                variant="flat"
+                startContent={<IoAdd className="text-xl" />}
+                onClick={() => onAddButtonClick("new ad")}
+              >
+                New Ad
+              </Button>
+            </div>
           </div>
           <div className="flex items-end gap-4">
             <StyledSelect
@@ -112,14 +118,16 @@ export default function CreateCampaign(props: PROPS) {
             >
               <></>
             </StyledSelect>
-            <Button
-              color="primary"
-              variant="flat"
-              startContent={<IoAdd className="text-3xl" />}
-              onClick={() => onAddButtonClick("new budget")}
-            >
-              Create New Budget
-            </Button>
+            <div>
+              <Button
+                color="primary"
+                variant="flat"
+                startContent={<IoAdd className="text-xl" />}
+                onClick={() => onAddButtonClick("new budget")}
+              >
+                New Budget
+              </Button>
+            </div>
           </div>
         </div>
       </ModalBody>
