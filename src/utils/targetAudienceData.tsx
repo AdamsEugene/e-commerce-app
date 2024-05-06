@@ -19,92 +19,97 @@ import {
 } from "react-icons/fa";
 
 const targetAudiences = {
+  all: {
+    label: "All Users",
+    icon: <FaUserFriends style={{ color: "blue" }} />,
+    description: "Target all users.",
+  },
   age: {
     label: "Age",
-    icon: <FaUserFriends />,
+    icon: <FaUserFriends style={{ color: "green" }} />,
     description: "Target audience based on age group.",
   },
   location: {
     label: "Location",
-    icon: <FaGlobe />,
+    icon: <FaGlobe style={{ color: "yellow" }} />,
     description: "Target audience based on geographic location.",
   },
   income: {
     label: "Income Level",
-    icon: <FaDollarSign />,
+    icon: <FaDollarSign style={{ color: "red" }} />,
     description: "Target audience based on income level.",
   },
   lifestyle: {
     label: "Lifestyle",
-    icon: <FaHeart />,
+    icon: <FaHeart style={{ color: "purple" }} />,
     description: "Target audience based on lifestyle preferences.",
   },
   purchaseBehavior: {
     label: "Purchase Behavior",
-    icon: <FaShoppingCart />,
+    icon: <FaShoppingCart style={{ color: "indigo" }} />,
     description: "Target audience based on purchase behavior.",
   },
   gender: {
     label: "Gender",
-    icon: <FaUsers />,
+    icon: <FaUsers style={{ color: "pink" }} />,
     description: "Target audience based on gender identity.",
   },
   geography: {
     label: "Geography",
-    icon: <FaMapMarkerAlt />,
+    icon: <FaMapMarkerAlt style={{ color: "teal" }} />,
     description: "Target audience based on geographical regions.",
   },
   occupation: {
     label: "Occupation",
-    icon: <FaBriefcase />,
+    icon: <FaBriefcase style={{ color: "orange" }} />,
     description: "Target audience based on occupation or profession.",
   },
   interests: {
     label: "Interests",
-    icon: <FaBook />,
+    icon: <FaBook style={{ color: "gray" }} />,
     description: "Target audience based on their interests and hobbies.",
   },
   device: {
     label: "Device Usage",
-    icon: <FaMobileAlt />,
+    icon: <FaMobileAlt style={{ color: "cyan" }} />,
     description:
       "Target audience based on device usage (e.g., mobile, desktop).",
   },
   platform: {
     label: "Platform",
-    icon: <FaDesktop />,
+    icon: <FaDesktop style={{ color: "yellow" }} />,
     description:
       "Target audience based on the platform they use (e.g., iOS, Android).",
   },
   cameraUsage: {
     label: "Camera Usage",
-    icon: <FaCamera />,
+    icon: <FaCamera style={{ color: "blue" }} />,
     description:
       "Target audience based on their usage of cameras (e.g., photography enthusiasts).",
   },
   foodPreferences: {
     label: "Food Preferences",
-    icon: <FaUtensils />,
+    icon: <FaUtensils style={{ color: "green" }} />,
     description: "Target audience based on their food preferences.",
   },
   musicTaste: {
     label: "Music Taste",
-    icon: <FaMusic />,
+    icon: <FaMusic style={{ color: "red" }} />,
     description: "Target audience based on their music preferences.",
   },
   movieGenres: {
     label: "Movie Genres",
-    icon: <FaFilm />,
+    icon: <FaFilm style={{ color: "purple" }} />,
     description: "Target audience based on their preferred movie genres.",
   },
   gamingPreferences: {
     label: "Gaming Preferences",
-    icon: <FaGamepad />,
+    icon: <FaGamepad style={{ color: "indigo" }} />,
     description: "Target audience based on their gaming preferences.",
   },
   travelInterests: {
     label: "Travel Interests",
-    icon: <FaPlane />,
+    icon: <FaPlane style={{ color: "pink" }} />,
     description:
       "Target audience based on their interests in travel and exploration.",
   },
@@ -114,6 +119,13 @@ const targetAudiences = {
 type TargetAudience = {
   label: string;
   value: string;
+  description?: string;
+};
+
+type TargetAudienceIcon = {
+  label: string;
+  value: string;
+  icon: JSX.Element;
   description?: string;
 };
 
@@ -127,7 +139,24 @@ function convertToTargetAudienceData(
   }));
 }
 
+function convertToTargetAudience(
+  obj: Record<
+    string,
+    { label: string; icon: JSX.Element; description?: string }
+  >
+): TargetAudienceIcon[] {
+  return Object.entries(obj).map(([key, value]) => ({
+    label: value.label,
+    value: key,
+    icon: value.icon,
+    description: value.description || "",
+  }));
+}
+
 const targetAudienceData: TargetAudience[] =
   convertToTargetAudienceData(targetAudiences);
 
-export { targetAudiences, targetAudienceData };
+const audienceData: TargetAudienceIcon[] =
+  convertToTargetAudience(targetAudiences);
+
+export { audienceData, targetAudienceData };

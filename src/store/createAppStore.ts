@@ -1,5 +1,4 @@
 import { createStore } from "zustand/vanilla";
-import { immer } from "zustand/middleware/immer";
 
 import {
   MicsSlice,

@@ -24,6 +24,7 @@ export default function StyledSelect(props: SelectProps & PROPS) {
       selectionMode="multiple"
       placeholder="Select a user"
       labelPlacement="outside"
+      variant="flat"
       {...other}
       items={data}
       renderValue={(items: SelectedItems<PROPS["data"][0]>) => {
