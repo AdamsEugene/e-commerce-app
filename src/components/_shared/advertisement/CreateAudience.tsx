@@ -1,6 +1,9 @@
 "use client";
 
-import { audienceData } from "@/src/utils/targetAudienceData";
+import {
+  type TargetAudienceIcon,
+  audienceData,
+} from "@/src/utils/targetAudienceData";
 import {
   Button,
   Card,
@@ -9,11 +12,17 @@ import {
   ModalBody,
   ModalFooter,
   ModalHeader,
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
 } from "@nextui-org/react";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { FaCheck } from "react-icons/fa";
 import ConditionalRender from "../Conditional/ConditionalRender";
-import { useState } from "react";
+import { Fragment, useMemo, useState } from "react";
+import StyledInput from "../Styled/StyledInput";
+import StyledAutocomplete from "../Styled/StyledAutocomplete";
 
 type PROPS<T> = {
   onClose: () => void;
@@ -22,6 +31,29 @@ type PROPS<T> = {
 export default function CreateAudience<T>(props: PROPS<T>) {
   const { onClose } = props;
   const [selectedAudience, setSelectedAudience] = useState(audienceData[0]);
+  const [selection, setSelection] = useState<TargetAudienceIcon[]>([
+    audienceData[0],
+  ]);
+
+  const handleAddToSelection = (label: TargetAudienceIcon) => {
+    if (!selection) {
+      setSelection([label]);
+    } else {
+      if (selection.includes(label)) {
+        const updatedSelection = selection.filter((item) => item !== label);
+        setSelection(updatedSelection);
+      } else {
+        if (selection.length < 3) {
+          setSelection([...selection, label]);
+        }
+      }
+    }
+  };
+
+  const handleSelect = (audience: TargetAudienceIcon) => {
+    handleAddToSelection(audience);
+    setSelectedAudience(audience);
+  };
 
   return (
     <>
@@ -42,7 +74,7 @@ export default function CreateAudience<T>(props: PROPS<T>) {
                 <Card
                   key={audience.label}
                   isPressable
-                  onPress={() => setSelectedAudience(audience)}
+                  onPress={() => handleSelect(audience)}
                 >
                   <CardHeader>
                     <div className="flex items-center justify-between w-full">
@@ -51,7 +83,7 @@ export default function CreateAudience<T>(props: PROPS<T>) {
                         <p>{audience.label}</p>
                       </div>
                       <ConditionalRender
-                        condition
+                        condition={!!selection?.includes(audience)}
                         Component={<FaCheck className="text-success-500" />}
                       />
                     </div>
@@ -66,15 +98,41 @@ export default function CreateAudience<T>(props: PROPS<T>) {
           <div className="grid grid-rows-1 md:grid-rows-2 lg:grid-rows-2 xl:grid-rows-2 gap-4">
             <div className="flex flex-col gap-2">
               <p>Advance settings</p>
-              <div className="bg-secondary-50 rounded-sm w-full h-full"></div>
+              <div className="bg-secondary-50 rounded-sm w-full flex items-center gap-4 flex-wrap p-4 h-30">
+                {selection?.map((select, index) => (
+                  <Fragment key={select.value}>
+                    <Card
+                      isPressable
+                      onPress={() => setSelectedAudience(select)}
+                    >
+                      <div className="w-[100px] h-20 flex items-center justify-center text-center p-1">
+                        <p>{select.label}</p>
+                      </div>
+                    </Card>
+                    {selection.length > 0 && index < selection.length - 1 && (
+                      <Aggregator />
+                    )}
+                  </Fragment>
+                ))}
+              </div>
+              <div className="flex items-center gap-3">
+                {selectedAudience.icon}
+                <p>{selectedAudience.label}</p>
+              </div>
+              <div>
+                <StyledAutocomplete items={animals} />
+              </div>
             </div>
-            <div>
-              <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-3">
-                  {selectedAudience.icon}
-                  <p>{selectedAudience.label}</p>
+            <div className="h-full">
+              <div className="flex flex-col gap-2 h-full justify-between">
+                <div className="flex flex-col gap-3">
+                  <p>output</p>
+                  <div className="">e</div>
                 </div>
-                <div className=""></div>
+                <div className="flex flex-col gap-3">
+                  <StyledInput placeholder="Performance booster" />
+                  <StyledInput placeholder="Add a description" />
+                </div>
               </div>
             </div>
           </div>
@@ -91,3 +149,69 @@ export default function CreateAudience<T>(props: PROPS<T>) {
     </>
   );
 }
+
+function Aggregator() {
+  const [selectedKeys, setSelectedKeys] = useState(new Set(["or"]));
+
+  const selectedValue = useMemo(
+    () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
+    [selectedKeys]
+  );
+
+  return (
+    <Dropdown>
+      <DropdownTrigger>
+        <Button
+          color="danger"
+          variant="solid"
+          className="uppercase"
+          radius="full"
+          isIconOnly
+        >
+          {selectedValue}
+        </Button>
+      </DropdownTrigger>
+      <DropdownMenu
+        aria-label="Single selection example"
+        variant="flat"
+        disallowEmptySelection
+        selectionMode="single"
+        selectedKeys={selectedKeys}
+        onSelectionChange={setSelectedKeys as any}
+      >
+        <DropdownItem key="or">OR</DropdownItem>
+        <DropdownItem key="and">AND</DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
+  );
+}
+
+const animals = [
+  {
+    label: "Cat",
+    value: "cat",
+    description: "The second most popular pet in the world",
+  },
+  {
+    label: "Dog",
+    value: "dog",
+    description: "The most popular pet in the world",
+  },
+  {
+    label: "Elephant",
+    value: "elephant",
+    description: "The largest land animal",
+  },
+  { label: "Lion", value: "lion", description: "The king of the jungle" },
+  { label: "Tiger", value: "tiger", description: "The largest cat species" },
+  {
+    label: "Giraffe",
+    value: "giraffe",
+    description: "The tallest land animal",
+  },
+  {
+    label: "Dolphin",
+    value: "dolphin",
+    description: "A widely distributed and diverse group of aquatic mammals",
+  },
+];

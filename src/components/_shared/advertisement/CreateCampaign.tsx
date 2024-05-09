@@ -21,6 +21,18 @@ type PROPS = {
   onClose: () => void;
 };
 
+type Size =
+  | "sm"
+  | "md"
+  | "lg"
+  | "xl"
+  | "2xl"
+  | "full"
+  | "xs"
+  | "3xl"
+  | "4xl"
+  | "5xl";
+
 type Kind = "new goal" | "new audience" | "new ad" | "new budget" | undefined;
 
 export default function CreateCampaign(props: PROPS) {
@@ -28,9 +40,11 @@ export default function CreateCampaign(props: PROPS) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const kind = useRef<Kind>();
+  const size = useRef<Size | undefined>();
 
   const onAddButtonClick = (_kind: Kind) => {
     kind.current = _kind;
+    if (_kind === "new audience") size.current = "5xl";
     onOpen();
   };
 
@@ -145,7 +159,7 @@ export default function CreateCampaign(props: PROPS) {
         onOpenChange={onOpenChange}
         placement="top"
         backdrop="blur"
-        size="5xl"
+        size={size.current || "5xl"}
         className="campaign_modal"
         scrollBehavior="inside"
       >

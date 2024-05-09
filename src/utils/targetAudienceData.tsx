@@ -8,14 +8,6 @@ import {
   FaMapMarkerAlt,
   FaBriefcase,
   FaBook,
-  FaMobileAlt,
-  FaDesktop,
-  FaCamera,
-  FaUtensils,
-  FaMusic,
-  FaFilm,
-  FaGamepad,
-  FaPlane,
 } from "react-icons/fa";
 
 const targetAudiences = {
@@ -25,93 +17,54 @@ const targetAudiences = {
     description: "Target all users.",
   },
   age: {
-    label: "Age",
+    label: "Age Ranges",
     icon: <FaUserFriends style={{ color: "green" }} />,
     description: "Target audience based on age group.",
-  },
-  location: {
-    label: "Location",
-    icon: <FaGlobe style={{ color: "yellow" }} />,
-    description: "Target audience based on geographic location.",
-  },
-  income: {
-    label: "Income Level",
-    icon: <FaDollarSign style={{ color: "red" }} />,
-    description: "Target audience based on income level.",
-  },
-  lifestyle: {
-    label: "Lifestyle",
-    icon: <FaHeart style={{ color: "purple" }} />,
-    description: "Target audience based on lifestyle preferences.",
-  },
-  purchaseBehavior: {
-    label: "Purchase Behavior",
-    icon: <FaShoppingCart style={{ color: "indigo" }} />,
-    description: "Target audience based on purchase behavior.",
   },
   gender: {
     label: "Gender",
     icon: <FaUsers style={{ color: "pink" }} />,
     description: "Target audience based on gender identity.",
   },
+  income: {
+    label: "Income Level",
+    icon: <FaDollarSign style={{ color: "red" }} />,
+    description: "Target audience based on income level.",
+  },
+  location: {
+    label: "Location",
+    icon: <FaGlobe style={{ color: "yellow" }} />,
+    description: "Target audience based on geographic location.",
+  },
   geography: {
     label: "Geography",
     icon: <FaMapMarkerAlt style={{ color: "teal" }} />,
     description: "Target audience based on geographical regions.",
   },
-  occupation: {
-    label: "Occupation",
-    icon: <FaBriefcase style={{ color: "orange" }} />,
-    description: "Target audience based on occupation or profession.",
+  lifestyle: {
+    label: "Lifestyle",
+    icon: <FaHeart style={{ color: "purple" }} />,
+    description: "Target audience based on lifestyle preferences.",
   },
   interests: {
     label: "Interests",
     icon: <FaBook style={{ color: "gray" }} />,
     description: "Target audience based on their interests and hobbies.",
   },
-  device: {
-    label: "Device Usage",
-    icon: <FaMobileAlt style={{ color: "cyan" }} />,
-    description:
-      "Target audience based on device usage (e.g., mobile, desktop).",
+  purchaseBehavior: {
+    label: "Purchase Behavior",
+    icon: <FaShoppingCart style={{ color: "indigo" }} />,
+    description: "Target audience based on purchase behavior.",
   },
-  platform: {
-    label: "Platform",
-    icon: <FaDesktop style={{ color: "yellow" }} />,
-    description:
-      "Target audience based on the platform they use (e.g., iOS, Android).",
+  occupation: {
+    label: "Occupation",
+    icon: <FaBriefcase style={{ color: "orange" }} />,
+    description: "Target audience based on occupation or profession.",
   },
-  cameraUsage: {
-    label: "Camera Usage",
-    icon: <FaCamera style={{ color: "blue" }} />,
-    description:
-      "Target audience based on their usage of cameras (e.g., photography enthusiasts).",
-  },
-  foodPreferences: {
-    label: "Food Preferences",
-    icon: <FaUtensils style={{ color: "green" }} />,
-    description: "Target audience based on their food preferences.",
-  },
-  musicTaste: {
-    label: "Music Taste",
-    icon: <FaMusic style={{ color: "red" }} />,
-    description: "Target audience based on their music preferences.",
-  },
-  movieGenres: {
-    label: "Movie Genres",
-    icon: <FaFilm style={{ color: "purple" }} />,
-    description: "Target audience based on their preferred movie genres.",
-  },
-  gamingPreferences: {
-    label: "Gaming Preferences",
-    icon: <FaGamepad style={{ color: "indigo" }} />,
-    description: "Target audience based on their gaming preferences.",
-  },
-  travelInterests: {
-    label: "Travel Interests",
-    icon: <FaPlane style={{ color: "pink" }} />,
-    description:
-      "Target audience based on their interests in travel and exploration.",
+  productCategory: {
+    label: "Product Category",
+    icon: <FaShoppingCart style={{ color: "blue" }} />,
+    description: "Target audience based on product category preferences.",
   },
   // Add more target audiences as needed
 };
@@ -122,7 +75,7 @@ type TargetAudience = {
   description?: string;
 };
 
-type TargetAudienceIcon = {
+export type TargetAudienceIcon = {
   label: string;
   value: string;
   icon: JSX.Element;

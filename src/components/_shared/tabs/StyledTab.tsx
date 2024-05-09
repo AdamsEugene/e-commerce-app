@@ -1,8 +1,6 @@
 import React from "react";
-import { Tabs, Tab, Card, CardBody, CardHeader } from "@nextui-org/react";
-import { IoHourglass, IoToday } from "react-icons/io5";
+import { Tabs, Tab, Card, CardBody, TabsProps } from "@nextui-org/react";
 
-import StyledLineChart from "../charts/StyledLineChart";
 import ConditionalRender from "../Conditional/ConditionalRender";
 
 type PROPS = {
@@ -14,10 +12,15 @@ type PROPS = {
   }[];
 };
 
-export default function StyledTab({ data }: PROPS) {
+export default function StyledTab({ data, color }: PROPS & TabsProps) {
   return (
     <div className="flex w-full flex-col">
-      <Tabs aria-label="Dynamic tabs" items={data} fullWidth color="primary"  >
+      <Tabs
+        aria-label="Dynamic tabs"
+        items={data}
+        fullWidth
+        color={color || "primary"}
+      >
         {(item) => (
           <Tab
             key={item.id}
