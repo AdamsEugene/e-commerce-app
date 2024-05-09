@@ -7,8 +7,7 @@ import { MdCampaign } from "react-icons/md";
 import { IconType } from "react-icons";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 import { SiSimpleanalytics } from "react-icons/si";
-import { GrMoney } from "react-icons/gr";
-import { GrAnnounce } from "react-icons/gr";
+import { GrAnnounce, GrMoney } from "react-icons/gr";
 
 import { siteConfig } from "../config/site";
 import {

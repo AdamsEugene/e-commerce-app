@@ -5,6 +5,7 @@ import CreateCampaign from "./CreateCampaign";
 import CreateGoal from "./CreateGoal";
 import CreateAudience from "./CreateAudience";
 import CreateAds from "./CreateAds";
+import CreateBudget from "./CreateBudget";
 
 type Kind = "edit" | "view" | "delete";
 type Create = "new goal" | "new audience" | "new ad" | "new budget";
@@ -29,7 +30,7 @@ export default function CampaignModalContent<T>(props: PROPS<T>) {
     case "new audience":
       return <CreateAudience onClose={onClose} />;
     case "new budget":
-      return <div>budget</div>;
+      return <CreateBudget onClose={onClose} />;
     case "new goal":
       return <CreateGoal onClose={onClose} />;
     default:

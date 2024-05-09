@@ -6,10 +6,8 @@ import {
   ModalBody,
   ModalFooter,
   ModalHeader,
-  Switch,
   SwitchProps,
   VisuallyHidden,
-  cn,
   useSwitch,
 } from "@nextui-org/react";
 import { GrAnnounce } from "react-icons/gr";
