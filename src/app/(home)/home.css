@@ -80,3 +80,11 @@
 .swiper-pagination-bullets.swiper-pagination-horizontal {
   bottom: -4px !important;
 }
+
+.product_image_big {
+  object-fit: cover;
+}
+
+.product_image_big_wrapper .rounded-large {
+  max-width: 100% !important;
+}
