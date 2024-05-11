@@ -1,11 +1,4 @@
-import { type Campaign } from "@/src/utils/campaignData";
-import {
-  budgetStatusRadiate,
-  campaignStatusColor,
-  getStatusColor,
-  includesEndingSoon,
-  radiateStatus,
-} from "@/src/utils/functions";
+import { useMemo, useState } from "react";
 import {
   Button,
   ButtonGroup,
@@ -16,10 +9,7 @@ import {
   Divider,
   Pagination,
 } from "@nextui-org/react";
-import React from "react";
-import { FaMapMarkerAlt, FaPeopleArrows } from "react-icons/fa";
 import { IoBagHandle } from "react-icons/io5";
-import { MdModeEdit } from "react-icons/md";
 import {
   GiClick,
   GiPayMoney,
@@ -30,21 +20,29 @@ import { RxActivityLog } from "react-icons/rx";
 import { FaEdit, FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import ConditionalRender from "../Conditional/ConditionalRender";
+import { type CampaignType } from "@/src/utils/campaignData";
+import {
+  budgetStatusRadiate,
+  campaignStatusColor,
+  getStatusColor,
+  includesEndingSoon,
+  radiateStatus,
+} from "@/src/utils/functions";
 
 type PROPS = {
-  campaigns: Campaign[];
-  onOpen: (kind: "edit" | "view" | "delete", item: Campaign) => void;
+  campaigns: CampaignType[];
+  onOpen: (kind: "edit" | "view" | "delete", item: CampaignType) => void;
 };
 
 export default function CampaignGrid(props: PROPS) {
   const { campaigns, onOpen } = props;
 
-  const [page, setPage] = React.useState(1);
+  const [page, setPage] = useState(1);
   const rowsPerPage = 6;
 
   const pages = Math.ceil(campaigns.length / rowsPerPage);
 
-  const items = React.useMemo(() => {
+  const items = useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
 
@@ -83,8 +81,8 @@ function CampaignGridItem({
   data,
   onOpen,
 }: {
-  data: Campaign;
-  onOpen: (kind: "edit" | "view" | "delete", item: Campaign) => void;
+  data: CampaignType;
+  onOpen: (kind: "edit" | "view" | "delete", item: CampaignType) => void;
 }) {
   return (
     <Card>

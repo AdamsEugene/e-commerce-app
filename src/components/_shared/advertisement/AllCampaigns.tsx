@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import StyledTable from "../Styled/StyledTable";
 import {
-  type Campaign,
+  type CampaignType,
   campaigns,
   campaignsColumns,
 } from "@/src/utils/campaignData";
@@ -17,6 +17,17 @@ import CampaignModalContent from "./CampaignModalContent";
 import { MicsState } from "@/src/store/micsSlice";
 
 type Kind = "edit" | "view" | "delete";
+type Size =
+  | "sm"
+  | "md"
+  | "lg"
+  | "xl"
+  | "2xl"
+  | "full"
+  | "xs"
+  | "3xl"
+  | "4xl"
+  | "5xl";
 
 export default function AllCampaigns() {
   const displayMode = useAppStore((state) => state.displayMode);
@@ -25,6 +36,8 @@ export default function AllCampaigns() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const Component = useRef<Kind | MicsState["modalFor"]>(undefined);
+  const item = useRef<CampaignType | undefined>(undefined);
+  const size = useRef<Size | undefined>();
 
   useEffect(() => {
     if (modalFor === "create_campaign") {
@@ -33,21 +46,12 @@ export default function AllCampaigns() {
     }
   }, [modalFor, onOpen]);
 
-  function handleCampaignClick(kind: Kind, item: Campaign) {
-    console.log(kind, item);
-
-    switch (kind) {
-      case "view":
-        Component.current = "view";
-        onOpen();
-        break;
-      case "edit":
-        Component.current = "edit";
-        onOpen();
-        break;
-      default:
-        break;
-    }
+  function handleCampaignClick(kind: Kind, _item: CampaignType) {
+    item.current = _item;
+    Component.current = kind;
+     if (kind === "delete") size.current = "lg";
+     else size.current = undefined;
+    onOpen();
   }
 
   return (
@@ -75,14 +79,18 @@ export default function AllCampaigns() {
         onOpenChange={onOpenChange}
         placement="top"
         backdrop="blur"
-        size="5xl"
+        size={size.current || "5xl"}
         className="campaign_modal"
         scrollBehavior="inside"
         onClose={() => openModal(undefined)}
       >
         <ModalContent>
           {(onClose) => (
-            <CampaignModalContent kind={Component.current} onClose={onClose} />
+            <CampaignModalContent
+              kind={Component.current}
+              onClose={onClose}
+              item={item.current}
+            />
           )}
         </ModalContent>
       </StyledModal>

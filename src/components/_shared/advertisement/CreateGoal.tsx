@@ -4,13 +4,12 @@ import { TbTargetArrow } from "react-icons/tb";
 import StyledInput from "../Styled/StyledInput";
 import StyledTextarea from "../Styled/StyledTextarea";
 
-type Kind = "edit" | "view";
 
-type PROPS<T> = {
+type PROPS = {
   onClose: () => void;
 };
 
-export default function CreateGoal<T>(props: PROPS<T>) {
+export default function CreateGoal(props: PROPS) {
   const { onClose } = props;
 
   return (
