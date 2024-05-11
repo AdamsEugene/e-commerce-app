@@ -6,18 +6,21 @@ import CreateGoal from "./CreateGoal";
 import CreateAudience from "./CreateAudience";
 import CreateAds from "./CreateAds";
 import CreateBudget from "./CreateBudget";
+import { CampaignType } from "@/src/utils/campaignData";
+import ConfirmDelete from "../ConfirmDelete";
 
 type Kind = "edit" | "view" | "delete";
 type Create = "new goal" | "new audience" | "new ad" | "new budget";
 
-type PROPS<T> = {
+type PROPS = {
   onClose: () => void;
   kind: Kind | Create | MicsState["modalFor"];
-  item?: T;
+  item?: CampaignType;
 };
 
-export default function CampaignModalContent<T>(props: PROPS<T>) {
+export default function CampaignModalContent(props: PROPS) {
   const { kind, onClose, item } = props;
+  // console.log(item);
 
   switch (kind) {
     case "view":
@@ -34,6 +37,6 @@ export default function CampaignModalContent<T>(props: PROPS<T>) {
     case "new goal":
       return <CreateGoal onClose={onClose} />;
     default:
-      return <CreateCampaign onClose={onClose} />;
+      return <ConfirmDelete onClose={onClose} name={item?.campaignName} />;
   }
 }

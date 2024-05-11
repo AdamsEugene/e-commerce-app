@@ -20,7 +20,6 @@ import { FaEdit, FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { IoImage } from "react-icons/io5";
 import ConditionalRender from "../Conditional/ConditionalRender";
-import { type Campaign } from "@/src/utils/campaignData";
 
 const inCludesEndingSoon = (label: string) =>
   label.includes("ending soon") ? "ending soon" : label;

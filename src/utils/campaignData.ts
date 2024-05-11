@@ -1,4 +1,4 @@
-export interface Campaign {
+export interface CampaignType {
   id: number;
   campaignName: string;
   targetAudience: string[];
@@ -21,7 +21,7 @@ export const campaignsColumns = [
   { name: "actions", uid: "actions" },
 ];
 
-export const campaigns: Campaign[] = [
+export const campaigns: CampaignType[] = [
   {
     id: 1,
     campaignName: "Summer Sale - Apparel",
