@@ -24,7 +24,6 @@ import ConditionalRenderAB from "../Conditional/ConditionalRenderAB";
 import { MicsState } from "@/src/store/micsSlice";
 import ContentEditable from "../Styled/ContentEditable";
 import { CampaignType } from "@/src/utils/campaignData";
-import Campaign from "./Campaign";
 import PlacedSideBySide from "@/src/components/_shared/PlacedSideBySide";
 import {
   budgetStatusRadiate,
@@ -292,7 +291,6 @@ export default function ViewCampaign(props: PROPS) {
             }
           />
         </div>
-        <Campaign />
       </ModalBody>
       <ModalFooter>
         <div className="flex items-center gap-4">
