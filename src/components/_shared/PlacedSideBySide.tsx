@@ -77,7 +77,7 @@ const PlacedSideBySide: React.FC<Props> = ({
     </div>
   );
 
-  return thirdComponent ? (
+  return thirdComponent && !oneThird ? (
     renderGridWithEqualCols
   ) : (
     <div

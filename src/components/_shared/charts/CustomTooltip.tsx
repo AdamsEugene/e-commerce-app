@@ -13,9 +13,11 @@ const CustomTooltip: React.FC<any> = ({ active, payload, label }) => {
           >
             <div
               className={`h-3 w-3 rounded-full`}
-              style={{ backgroundColor: entry.color }}
+              style={{ backgroundColor: entry.color || "white" }}
             ></div>
-            <p className="text-sm font-semibold">{`${label} : ${entry.value}`}</p>
+            <p className="text-sm font-semibold">{`${label || entry.name} : ${
+              entry.value
+            }`}</p>
           </div>
         ))}
       </div>
