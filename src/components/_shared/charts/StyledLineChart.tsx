@@ -16,10 +16,11 @@ type PROPS = {
   data: {
     [key: string]: any;
   }[];
+  color?: string;
 };
 
 const StyledLineChart = (props: PROPS) => {
-  const { data } = props;
+  const { data, color } = props;
 
   return (
     <ResponsiveContainer width="100%" height="100%">
@@ -28,9 +29,24 @@ const StyledLineChart = (props: PROPS) => {
         <XAxis dataKey="name" tickLine={false} />
         {/* <YAxis /> */}
         <Tooltip content={<CustomTooltip />} />
-        <Line type="monotone" dataKey="pv" stroke="#9454D4" strokeWidth={4} />
-        <Line type="monotone" dataKey="uv" stroke="#FFA500" strokeWidth={4} />
-        <Line type="monotone" dataKey="amt" stroke="#ff00bb" strokeWidth={4} />
+        <Line
+          type="monotone"
+          dataKey="pv"
+          stroke={color || "#9454D4"}
+          strokeWidth={4}
+        />
+        <Line
+          type="monotone"
+          dataKey="uv"
+          stroke={color || "#FFA500"}
+          strokeWidth={4}
+        />
+        <Line
+          type="monotone"
+          dataKey="amt"
+          stroke={color || "#ff00bb"}
+          strokeWidth={4}
+        />
       </LineChart>
     </ResponsiveContainer>
   );
