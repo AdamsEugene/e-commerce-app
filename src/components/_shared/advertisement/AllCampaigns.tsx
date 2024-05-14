@@ -49,8 +49,8 @@ export default function AllCampaigns() {
   function handleCampaignClick(kind: Kind, _item: CampaignType) {
     item.current = _item;
     Component.current = kind;
-     if (kind === "delete") size.current = "lg";
-     else size.current = undefined;
+    if (kind === "delete") size.current = "lg";
+    else size.current = undefined;
     onOpen();
   }
 

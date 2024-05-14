@@ -19,7 +19,7 @@ import {
   ListboxItem,
 } from "@nextui-org/react";
 import { FaEdit, FaEye } from "react-icons/fa";
-import { IoBagHandle, IoOpen } from "react-icons/io5";
+import { IoBagHandle, IoOpen, IoAdd } from "react-icons/io5";
 import ConditionalRenderAB from "../Conditional/ConditionalRenderAB";
 import { MicsState } from "@/src/store/micsSlice";
 import ContentEditable from "../Styled/ContentEditable";
@@ -37,6 +37,8 @@ import StyledPieChart from "../charts/StyledPieChart";
 import StyledLineChart from "../charts/StyledLineChart";
 import StyledBarChart from "../charts/StyledBarCharts";
 import { IconWrapper } from "../IconWrapper";
+import StyledImage from "../Styled/StyledImage";
+import imageByIndex from "@/src/utils/imageByIndex";
 
 type Kind = "edit" | "view" | "delete";
 
@@ -69,18 +71,17 @@ export default function ViewCampaign(props: PROPS) {
   return (
     <>
       <ModalHeader>
-        <div className="flex items-center justify-between w-full">
-          <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between gap-3 w-full">
+          <div className="flex items-center gap-3 w-[calc(100%-50px)]">
             <ConditionalRenderAB
               condition={kind === "view"}
               ComponentA={<FaEye className="text-2xl" />}
               ComponentB={<FaEdit className="text-2xl" />}
             />
             <ContentEditable
+              className="w-full focus:outline focus:outline-secondary-500 hover:outline hover:outline-1 hover:outline-secondary-500"
               disabled={kind === "view"}
-              html={`<p className="text-lg font-bold">
-            ${item?.campaignName}
-          </p>`}
+              html={`<p className="text-lg font-bold w-full">${item?.campaignName}</p>`}
             />
           </div>
           <Tooltip showArrow={true} content={item?.status}>
@@ -97,7 +98,7 @@ export default function ViewCampaign(props: PROPS) {
           </Tooltip>
         </div>
       </ModalHeader>
-      <ModalBody className="bg-default-100">
+      <ModalBody>
         <div className="flex flex-col gap-4">
           <PlacedSideBySide
             isEqualSize
@@ -139,9 +140,14 @@ export default function ViewCampaign(props: PROPS) {
                       href="/home"
                       endContent={<IoOpen />}
                       startContent={
-                        <IconWrapper className="bg-success/10 text-success">
-                          <IoOpen className="text-lg " />
-                        </IconWrapper>
+                        <div className="!h-[40px]">
+                          <StyledImage
+                            className="!h-[40px]"
+                            src={imageByIndex(13)}
+                            height={40}
+                            width={40}
+                          />
+                        </div>
                       }
                     >
                       Home
@@ -151,9 +157,14 @@ export default function ViewCampaign(props: PROPS) {
                       href="/about"
                       endContent={<IoOpen />}
                       startContent={
-                        <IconWrapper className="bg-success/10 text-success">
-                          <IoOpen className="text-lg " />
-                        </IconWrapper>
+                        <div className="!h-[40px]">
+                          <StyledImage
+                            className="!h-[40px]"
+                            src={imageByIndex(8)}
+                            height={40}
+                            width={40}
+                          />
+                        </div>
                       }
                     >
                       About
