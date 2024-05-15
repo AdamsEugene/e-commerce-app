@@ -10,7 +10,7 @@ import { CampaignType } from "@/src/utils/campaignData";
 import ConfirmDelete from "../ConfirmDelete";
 
 type Kind = "edit" | "view" | "delete";
-type Create = "new goal" | "new audience" | "new ad" | "new budget";
+type Create = "new goal" | "new audience" | "new budget";
 
 type PROPS = {
   onClose: () => void;
@@ -28,7 +28,7 @@ export default function CampaignModalContent(props: PROPS) {
       return <ViewCampaign kind={kind} onClose={onClose} item={item} />;
     case "create_campaign":
       return <CreateCampaign onClose={onClose} />;
-    case "new ad":
+    case "create_ad":
       return <CreateAds onClose={onClose} />;
     case "new audience":
       return <CreateAudience onClose={onClose} />;

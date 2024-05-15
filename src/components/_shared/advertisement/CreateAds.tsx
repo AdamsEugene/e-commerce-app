@@ -19,6 +19,7 @@ import StyledTextarea from "../Styled/StyledTextarea";
 import StyledTab from "../tabs/StyledTab";
 import AdsPreviewBanner from "./AdsPreviewBanner";
 import AdsPreviewCard from "./AdsPreviewCard";
+import ColorPicker from "../ColorPicker";
 
 type PROPS = {
   onClose: () => void;

@@ -40,10 +40,9 @@ export default function AllCampaigns() {
   const size = useRef<Size | undefined>();
 
   useEffect(() => {
-    if (modalFor === "create_campaign") {
-      Component.current = "create_campaign";
-      onOpen();
-    }
+    if (modalFor === "create_campaign") Component.current = "create_campaign";
+    if (modalFor === "create_ad") Component.current = "create_ad";
+    if (modalFor === "create_campaign" || modalFor === "create_ad") onOpen();
   }, [modalFor, onOpen]);
 
   function handleCampaignClick(kind: Kind, _item: CampaignType) {

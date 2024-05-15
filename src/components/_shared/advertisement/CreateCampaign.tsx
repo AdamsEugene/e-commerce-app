@@ -33,7 +33,12 @@ type Size =
   | "4xl"
   | "5xl";
 
-type Kind = "new goal" | "new audience" | "new ad" | "new budget" | undefined;
+type Kind =
+  | "new goal"
+  | "new audience"
+  | "create_ad"
+  | "new budget"
+  | undefined;
 
 export default function CreateCampaign(props: PROPS) {
   const { onClose } = props;
@@ -116,7 +121,7 @@ export default function CreateCampaign(props: PROPS) {
                 color="primary"
                 variant="flat"
                 startContent={<IoAdd className="text-xl" />}
-                onClick={() => onAddButtonClick("new ad")}
+                onClick={() => onAddButtonClick("create_ad")}
               >
                 New Ad
               </Button>

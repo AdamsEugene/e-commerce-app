@@ -1,7 +1,10 @@
 import imageByIndex from "@/src/utils/imageByIndex";
-import { Button, Card, CardBody, Image } from "@nextui-org/react";
-// import Image from "next/image";
+import { Button, Card, CardBody, Image, Tooltip } from "@nextui-org/react";
+import { IoPencil } from "react-icons/io5";
 import StyledImage from "../Styled/StyledImage";
+import { IconWrapper } from "../IconWrapper";
+
+const editText = 'Edit background, Headline, Description and CTA color'
 
 export default function AdsPreviewBanner() {
   return (
@@ -20,7 +23,14 @@ export default function AdsPreviewBanner() {
             />
           </div>
           <div className="flex flex-col w-[50%] h-full absolute top-0 right-0 clip-path-wrapper-right-con items-end text-end p-2 justify-between z-10 bg-white">
-            <Button size="sm">Shop Now</Button>
+            <div className="flex items-center w-full gap-3 justify-end">
+              <Tooltip showArrow={true} content={editText}>
+                <IconWrapper className="bg-primary/10 text-primary cursor-pointer hover:bg-primary/30 transition duration-300 ease-in-out">
+                  <IoPencil />
+                </IconWrapper>
+              </Tooltip>
+              <Button size="sm">Shop Now</Button>
+            </div>
             <h1 className="font-bold">justify-end</h1>
             <p className="text-xs max-w-[90%]">
               Lorem ipsum dolor, sit amet consectetur adipisicing elit
@@ -46,7 +56,14 @@ export default function AdsPreviewBanner() {
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit
               </p>
               <h1 className="font-bold">justify-end</h1>
-              <Button size="sm">Shop Now</Button>
+              <div className="flex items-center w-full gap-3">
+                <Button size="sm">Shop Now</Button>
+                <Tooltip showArrow={true} content={editText}>
+                  <IconWrapper className="bg-primary/10 text-primary cursor-pointer hover:bg-primary/30 transition duration-300 ease-in-out">
+                    <IoPencil />
+                  </IconWrapper>
+                </Tooltip>
+              </div>
             </div>
           </div>
         </CardBody>
@@ -72,9 +89,16 @@ export default function AdsPreviewBanner() {
             </p>
             <div className="flex items-center justify-between w-full">
               <div></div>
-              <Button className="!pointer-events-auto" size="sm">
-                Shop Now
-              </Button>
+              <div className="flex items-center w-full gap-3 justify-end">
+                <Tooltip showArrow={true} content={editText}>
+                  <IconWrapper className="bg-primary/10 text-primary cursor-pointer hover:bg-primary/30 transition duration-300 ease-in-out pointer-events-auto">
+                    <IoPencil />
+                  </IconWrapper>
+                </Tooltip>
+                <Button size="sm" className="pointer-events-auto">
+                  Shop Now
+                </Button>
+              </div>
             </div>
           </div>
         </CardBody>
