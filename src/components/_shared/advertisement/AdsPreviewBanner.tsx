@@ -101,7 +101,7 @@ export default function AdsPreviewBanner(props: PROPS) {
           </div>
         </CardBody>
       </Card>
-      <Card>
+      <Card className="w-full h-28 relative flex">
         <CardBody className="product_image_big_wrapper overflow-visible p-0">
           <div className="w-full h-28 relative flex justify-between ads-banner">
             <div></div>
