@@ -1,9 +1,9 @@
 import { userMetricsData } from "@/src/utils/dashboardData";
-import ProductMetrics from "../../../../components/ProductMetrics";
+import ProductMetrics from "../../../../components/others/ProductMetrics";
 import StyledTable from "../../../../components/_shared/Styled/StyledTable";
-import GridItem from "../../../../components/GridItem";
 import BackButton from "@/src/components/_shared/button/BackButton";
 import ConditionalRenderAB from "@/src/components/_shared/Conditional/ConditionalRenderAB";
+import GridItem from "@/src/components/others/GridItem";
 
 export default function ItemDetails({ params }: { params: string[] }) {
   if (Object.keys(params).length === 0) {

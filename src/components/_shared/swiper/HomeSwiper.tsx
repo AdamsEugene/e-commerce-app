@@ -7,7 +7,7 @@ import { EffectFade, Autoplay } from "swiper/modules";
 import { Button } from "@nextui-org/button";
 import StyledImage from "../Styled/StyledImage";
 import productList, { PRODUCTS } from "@/src/utils/productList";
-import { title } from "@/src/components/primitives";
+import { title } from "@/src/components/others/primitives";
 import { siteConfig } from "@/src/config/site";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
 import "swiper/css";

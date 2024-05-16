@@ -255,30 +255,47 @@ const _campaignMetrics = [
   {
     value: "Create a New Campaign",
     label: "Create Campaign",
-    link: '',
+    link: "",
     icon: MdCampaign,
     iconColor: "#009688", // Orange
   },
+  // {
+  //   value: "Create a New Ad",
+  //   label: "Create Ad",
+  //   link: pages.ads,
+  //   icon: RiAdvertisementFill,
+  //   iconColor: "#FF5733", // Orange
+  // },
+  // {
+  //   value: "Manage Ad Budget",
+  //   label: "Ad Budget Management",
+  //   link: pages.adsBudget,
+  //   icon: GrMoney,
+  //   iconColor: "#5E35B1", // Purple
+  // },
+];
+
+const _adsMetrics = [
   {
     value: "Create a New Ad",
     label: "Create Ad",
-    link: pages.ads,
+    link: "",
     icon: RiAdvertisementFill,
     iconColor: "#FF5733", // Orange
   },
-  {
-    value: "Manage Ad Budget",
-    label: "Ad Budget Management",
-    link: pages.adsBudget,
-    icon: GrMoney,
-    iconColor: "#5E35B1", // Purple
-  },
   // {
-  //   value: "View Performance Reports",
-  //   label: "Performance Analytics",
-  //   link: pages.adsReporting,
-  //   icon: SiSimpleanalytics,
-  //   iconColor: "#009688", // Teal
+  //   value: "Ads Campaign",
+  //   label: "Create Campaign",
+  //   link: pages.adsCampaigns,
+  //   icon: MdCampaign,
+  //   iconColor: "#009688", // Orange
+  // },
+  // {
+  //   value: "Manage Ad Budget",
+  //   label: "Ad Budget Management",
+  //   link: pages.adsBudget,
+  //   icon: GrMoney,
+  //   iconColor: "#5E35B1", // Purple
   // },
 ];
 
@@ -293,6 +310,7 @@ export const adminDashboardMetrics = addBgColor(_adminDashboardMetrics);
 export const addProductsMetrics = addBgColor(_addProductsMetrics);
 export const settingStuff = addBgColor(_settingStuff);
 export const campaignMetrics = addBgColor(_campaignMetrics);
+export const adsMetrics = addBgColor(_adsMetrics);
 
 const columns = [
   { name: "NAME", uid: "name" },
@@ -378,4 +396,3 @@ export {
 };
 
 export type MetricsData = (typeof userMetricsData)[0];
-

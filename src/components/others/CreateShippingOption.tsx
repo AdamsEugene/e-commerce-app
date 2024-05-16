@@ -3,7 +3,7 @@ import {
   expressOption,
   freeOption,
   regularOption,
-} from "../utils/generateDataForSelect";
+} from "../../utils/generateDataForSelect";
 
 type Option = {
   icon?: React.ElementType;

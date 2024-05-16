@@ -1,13 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useRef } from "react";
+import { useTheme } from "next-themes";
 import {
   Button,
   ModalBody,
+  ModalContent,
   ModalFooter,
   ModalHeader,
   SwitchProps,
   VisuallyHidden,
+  useDisclosure,
   useSwitch,
 } from "@nextui-org/react";
 import { GrAnnounce } from "react-icons/gr";
@@ -19,27 +22,47 @@ import StyledTextarea from "../Styled/StyledTextarea";
 import StyledTab from "../tabs/StyledTab";
 import AdsPreviewBanner from "./AdsPreviewBanner";
 import AdsPreviewCard from "./AdsPreviewCard";
+import StyledModal from "../Styled/StyledModal";
+import CampaignModalContent from "./CampaignModalContent";
+import { Size } from "../types/@styles";
 
 type PROPS = {
   onClose: () => void;
 };
 
-const adsData = [
-  {
-    id: "banner",
-    label: "Banner",
-    icon: <FaImage />,
-    content: <AdsPreviewBanner />,
-  },
-  {
-    id: "card",
-    label: "Card",
-    icon: <FaClipboard />,
-    content: <AdsPreviewCard />,
-  },
-];
+type Kind = "color_picker";
 
 export default function CreateAds({ onClose }: PROPS) {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const { theme } = useTheme();
+
+  const Component = useRef<Kind | undefined>(undefined);
+  const size = useRef<Size | undefined>();
+  const colorKey = useRef<string>();
+
+  const handleEditClick = (_colorKey: string) => {
+    size.current = "xs";
+    Component.current = "color_picker";
+    colorKey.current = `${theme}_${_colorKey}`;
+    onOpen();
+  };
+
+  const adsData = [
+    {
+      id: "banner",
+      label: "Banner",
+      icon: <FaImage />,
+      content: <AdsPreviewBanner handleEditClick={handleEditClick} />,
+    },
+    {
+      id: "card",
+      label: "Card",
+      icon: <FaClipboard />,
+      content: <AdsPreviewCard />,
+    },
+  ];
+
   return (
     <>
       <ModalHeader>
@@ -81,6 +104,26 @@ export default function CreateAds({ onClose }: PROPS) {
           <Button color="secondary">Review & Submit</Button>
         </div>
       </ModalFooter>
+      <StyledModal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        placement="top"
+        backdrop="blur"
+        size={size.current || "5xl"}
+        className="campaign_modal"
+        scrollBehavior="inside"
+        // onClose={() => openModal(undefined)}
+      >
+        <ModalContent>
+          {(onClose) => (
+            <CampaignModalContent
+              kind={Component.current}
+              onClose={onClose}
+              colorKey={colorKey.current}
+            />
+          )}
+        </ModalContent>
+      </StyledModal>
     </>
   );
 }

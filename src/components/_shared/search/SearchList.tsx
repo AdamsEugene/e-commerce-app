@@ -1,7 +1,7 @@
 import React from "react";
 import { Avatar, Listbox, ListboxItem } from "@nextui-org/react";
-import { IconWrapper } from "../IconWrapper";
-import { ItemCounter } from "../ItemCounter";
+import { IconWrapper } from "../others/IconWrapper";
+import { ItemCounter } from "../others/ItemCounter";
 import imageByIndex from "@/src/utils/imageByIndex";
 
 export default function SearchList() {

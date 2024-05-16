@@ -1,7 +1,7 @@
 import React from "react";
 import { RadioGroup, Radio, cn } from "@nextui-org/react";
-import { useAppStore } from "../providers/AppStoreProvider";
-import { InCart } from "../store/productSlice";
+import { useAppStore } from "../../providers/AppStoreProvider";
+import { InCart } from "../../store/productSlice";
 
 export const CustomRadio = (props: any) => {
   const { children, ...otherProps } = props;

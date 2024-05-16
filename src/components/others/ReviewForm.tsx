@@ -2,10 +2,10 @@
 
 import React, { useEffect, useRef } from "react";
 import Ratings from "./Ratings";
-import StyledInput from "./_shared/Styled/StyledInput";
-import StyledTextarea from "./_shared/Styled/StyledTextarea";
-import StyledButton from "./_shared/Styled/StyledButton";
-import StyledFileUpload from "./_shared/Styled/StyledFileUpload";
+import StyledInput from "../_shared/Styled/StyledInput";
+import StyledTextarea from "../_shared/Styled/StyledTextarea";
+import StyledButton from "../_shared/Styled/StyledButton";
+import StyledFileUpload from "../_shared/Styled/StyledFileUpload";
 import { Divider } from "@nextui-org/react";
 
 type PROPS = {

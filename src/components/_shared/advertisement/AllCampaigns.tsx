@@ -15,19 +15,9 @@ import { ModalContent, useDisclosure } from "@nextui-org/react";
 import StyledModal from "../Styled/StyledModal";
 import CampaignModalContent from "./CampaignModalContent";
 import { MicsState } from "@/src/store/micsSlice";
+import { Size } from "../types/@styles";
 
 type Kind = "edit" | "view" | "delete";
-type Size =
-  | "sm"
-  | "md"
-  | "lg"
-  | "xl"
-  | "2xl"
-  | "full"
-  | "xs"
-  | "3xl"
-  | "4xl"
-  | "5xl";
 
 export default function AllCampaigns() {
   const displayMode = useAppStore((state) => state.displayMode);
@@ -40,17 +30,16 @@ export default function AllCampaigns() {
   const size = useRef<Size | undefined>();
 
   useEffect(() => {
-    if (modalFor === "create_campaign") {
-      Component.current = "create_campaign";
-      onOpen();
-    }
+    if (modalFor === "create_campaign") Component.current = "create_campaign";
+    if (modalFor === "create_ad") Component.current = "create_ad";
+    if (modalFor === "create_campaign" || modalFor === "create_ad") onOpen();
   }, [modalFor, onOpen]);
 
   function handleCampaignClick(kind: Kind, _item: CampaignType) {
     item.current = _item;
     Component.current = kind;
-     if (kind === "delete") size.current = "lg";
-     else size.current = undefined;
+    if (kind === "delete") size.current = "lg";
+    else size.current = undefined;
     onOpen();
   }
 

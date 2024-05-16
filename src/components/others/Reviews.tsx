@@ -5,11 +5,11 @@ import { Avatar, Card, Divider, Pagination, Button } from "@nextui-org/react";
 import { FiSearch } from "react-icons/fi";
 import useKeyboardShortcut from "use-keyboard-shortcut";
 
-import StyledInput from "./_shared/Styled/StyledInput";
-import StyledDropdown from "./_shared/Dropdown";
+import StyledInput from "../_shared/Styled/StyledInput";
+import StyledDropdown from "../_shared/others/Dropdown";
 import reviewData from "@/src/utils/reviews";
 import Ratings from "./Ratings";
-import ConditionalRender from "./_shared/Conditional/ConditionalRender";
+import ConditionalRender from "../_shared/Conditional/ConditionalRender";
 
 type ReviewProps = {
   rating: number;

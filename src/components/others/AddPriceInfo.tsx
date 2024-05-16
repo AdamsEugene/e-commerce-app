@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
 import { IconType } from "react-icons";
 
 type PROPS = {

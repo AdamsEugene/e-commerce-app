@@ -1,9 +1,9 @@
-import ConditionalRender from "@/src/components/_shared/Conditional/ConditionalRender";
-import { Card, CardBody, CardHeader, CardProps } from "@nextui-org/react";
 import React, { PropsWithChildren } from "react";
+import { Card, CardBody, CardHeader, CardProps } from "@nextui-org/react";
+import ConditionalRender from "@/src/components/_shared/Conditional/ConditionalRender";
 
 type PROPS = {
-  title?: string;
+  title?: string | React.ReactNode
   leftSideComponent?: React.ReactNode[];
 };
 

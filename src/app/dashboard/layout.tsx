@@ -1,4 +1,4 @@
-import { Navbar } from "@/src/components/navbar";
+import { Navbar } from "@/src/components/others/navbar";
 import Sidebar from "../../components/_shared/sideBar/Sidebar";
 import StyledBreadcrumbs from "../../components/_shared/Styled/StyledBreadcrumbs";
 

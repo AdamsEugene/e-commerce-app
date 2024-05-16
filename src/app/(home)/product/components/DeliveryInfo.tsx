@@ -8,7 +8,7 @@ import { FaAddressCard, FaCity } from "react-icons/fa";
 import { Checkbox } from "@nextui-org/react";
 import SelectWithIcon, {
   SELECT_ICON_PROPS,
-} from "@/src/components/SelectWithIcon";
+} from "@/src/components/others/SelectWithIcon";
 import StyledInput, {
   INPUT_PROPS,
 } from "@/src/components/_shared/Styled/StyledInput";

@@ -4,14 +4,16 @@ import { cn } from "@nextui-org/react";
 type PROPS = {
   children: React.ReactNode;
   className?: string;
+  onClick?: (n: any) => void;
 };
 
-export const IconWrapper = ({ children, className }: PROPS) => (
+export const IconWrapper = ({ children, className, ...others }: PROPS) => (
   <div
     className={cn(
       className,
       "flex items-center rounded-small justify-center w-7 h-7"
     )}
+    {...others}
   >
     {children}
   </div>

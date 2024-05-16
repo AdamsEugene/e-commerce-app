@@ -1,6 +1,6 @@
 import type { Metadata, ResolvingMetadata } from "next";
 import "../../home.css";
-import GridCard from "@/src/components/_shared/GridCard";
+import GridCard from "@/src/components/_shared/others/GridCard";
 import BackButton from "@/src/components/_shared/button/BackButton";
 
 type Props = {

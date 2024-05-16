@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import ProductMetrics from "@/src/components/ProductMetrics";
+import ProductMetrics from "@/src/components/others/ProductMetrics";
 import { activityMetricsData } from "@/src/utils/dashboardData";
 
 export const metadata: Metadata = {

@@ -1,6 +1,4 @@
 import { Metadata } from "next";
-import { campaignMetrics } from "@/src/utils/dashboardData";
-import Campaign from "@/src/components/_shared/advertisement/Campaign";
 import SearchWithButtons from "@/src/components/_shared/search/SearchWithButtons";
 import BackButton from "@/src/components/_shared/button/BackButton";
 import AllCampaigns from "@/src/components/_shared/advertisement/AllCampaigns";
@@ -24,7 +22,6 @@ export default function Campaigns() {
       <div className="flex items-center justify-between">
         <BackButton />
         <div className="flex gap-4 items-center">
-         
           <ButtonLinkOrNot />
         </div>
       </div>
@@ -33,11 +30,6 @@ export default function Campaigns() {
         <SearchWithButtons />
       </div>
       <AllCampaigns  />
-      {/* <div className="grid grid-cols-3 gap-4">
-        <Campaign />
-        <Campaign />
-        <Campaign />
-      </div> */}
       <div className="h-16"></div>
     </div>
   );

@@ -1,9 +1,9 @@
-import GridItem from "@/src/components/GridItem";
-import ProductMetrics from "@/src/components/ProductMetrics";
+import ProductMetrics from "@/src/components/others/ProductMetrics";
 import ConditionalRenderAB from "@/src/components/_shared/Conditional/ConditionalRenderAB";
 import StyledTable from "@/src/components/_shared/Styled/StyledTable";
 import BackButton from "@/src/components/_shared/button/BackButton";
 import { activityMetricsData } from "@/src/utils/dashboardData";
+import GridItem from "@/src/components/others/GridItem";
 
 export default function ItemDetails({ params }: { params: string[] }) {
   if (Object.keys(params).length === 0) {

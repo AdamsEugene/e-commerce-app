@@ -3,11 +3,12 @@ import _ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 
 type PROPS = {
   html: string;
-  disabled?:boolean
+  disabled?: boolean;
+  className?: string;
 };
 
 const ContentEditable = (props: PROPS) => {
-  const { html, disabled } = props;
+  const { html, disabled, className } = props;
   const [_html, setHtml] = useState(html);
 
   const handleChange = (evt: ContentEditableEvent) => {
@@ -19,6 +20,7 @@ const ContentEditable = (props: PROPS) => {
       html={_html}
       disabled={disabled}
       onChange={handleChange}
+      className={className}
     />
   );
 };

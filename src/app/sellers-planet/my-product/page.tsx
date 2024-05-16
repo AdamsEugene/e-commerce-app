@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import GridCard from "@/src/components/_shared/GridCard";
+import GridCard from "@/src/components/_shared/others/GridCard";
 
 export const metadata: Metadata = {
   title: "My Products",

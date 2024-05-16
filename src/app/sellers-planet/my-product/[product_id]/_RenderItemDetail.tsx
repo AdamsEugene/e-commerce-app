@@ -6,16 +6,15 @@ import { Divider, Chip } from "@nextui-org/react";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { IoCheckmarkCircle } from "react-icons/io5";
 
-import Ratings from "@/src/components/Ratings";
-import StyledDropdown from "@/src/components/_shared/Dropdown";
+import Ratings from "@/src/components/others/Ratings";
+import StyledDropdown from "@/src/components/_shared/others/Dropdown";
 import BackButton from "@/src/components/_shared/button/BackButton";
-import GridItem from "@/src/components/GridItem";
-import PlacedSideBySide from "@/src/components/_shared/PlacedSideBySide";
-import ImageGalleryEditable from "@/src/components/ImageGalleryEditable";
+import PlacedSideBySide from "@/src/components/_shared/others/PlacedSideBySide";
+import ImageGalleryEditable from "@/src/components/others/ImageGalleryEditable";
 import cartItems from "@/src/utils/cartItem";
-import AddReview from "@/src/components/AddReview";
-import PriceCard from "@/src/components/PriceCard";
-import RenderSizeAndColor from "@/src/components/RenderSizeAndColor";
+import AddReview from "@/src/components/others/AddReview";
+import PriceCard from "@/src/components/others/PriceCard";
+import RenderSizeAndColor from "@/src/components/others/RenderSizeAndColor";
 import StyledLineChart from "@/src/components/_shared/charts/StyledLineChart";
 import {
   benefitsDataLease,
@@ -25,9 +24,10 @@ import {
   filterNameUVandPV,
 } from "@/src/utils/generateDataForSelect";
 import StyledTable from "@/src/components/_shared/Styled/StyledTable";
-import AddPriceInfo from "@/src/components/AddPriceInfo";
-import CreateShippingOption from "@/src/components/CreateShippingOption";
+import AddPriceInfo from "@/src/components/others/AddPriceInfo";
+import CreateShippingOption from "@/src/components/others/CreateShippingOption";
 import ConditionalRenderAB from "@/src/components/_shared/Conditional/ConditionalRenderAB";
+import GridItem from "@/src/components/others/GridItem";
 
 const options = [
   { key: "share", label: "Share this product" },
