@@ -6,6 +6,7 @@ import { Providers } from "../providers/providers";
 import clsx from "clsx";
 
 import './(home)/home.css'
+import "react-image-crop/dist/ReactCrop.css";
 
 const APP_NAME = siteConfig.name;
 const APP_DEFAULT_TITLE = siteConfig.name;

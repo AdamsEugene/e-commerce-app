@@ -10,7 +10,7 @@ import { CampaignType } from "@/src/utils/campaignData";
 import ConfirmDelete from "../others/ConfirmDelete";
 import ColorPickerModal from "./ColorPickerModal";
 
-type Kind = "edit" | "view" | "delete" | "color_picker";
+type Kind = "edit" | "view" | "delete" | "color_picker" | 'crop_image';
 type Create = "new goal" | "new audience" | "new budget";
 
 type PROPS = {
