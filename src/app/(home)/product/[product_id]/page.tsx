@@ -1,10 +1,10 @@
 import type { Metadata, ResolvingMetadata } from "next";
 import Details from "../components/Details";
-import GridCard from "@/src/components/_shared/GridCard";
+import GridCard from "@/src/components/_shared/others/GridCard";
 import ImageGallery from "@/src/components/_shared/swiper/ImageGallery";
-import AddReview from "@/src/components/AddReview";
-import ReviewList from "@/src/components/Reviews";
-import StyledFAQ from "@/src/components/FAQ";
+import AddReview from "@/src/components/others/AddReview";
+import ReviewList from "@/src/components/others/Reviews";
+import StyledFAQ from "@/src/components/others/FAQ";
 import cartItems from "@/src/utils/cartItem";
 import "../../home.css";
 import BackButton from "@/src/components/_shared/button/BackButton";

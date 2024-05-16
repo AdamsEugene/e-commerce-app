@@ -5,7 +5,7 @@
 // import { siteConfig } from "@/src/config/site";
 // import { title, subtitle } from "@/src/components/primitives";
 import HomeSwiper from "@/src/components/_shared/swiper/HomeSwiper";
-import GridCard from "@/src/components/_shared/GridCard";
+import GridCard from "@/src/components/_shared/others/GridCard";
 
 export default function Home() {
   return (

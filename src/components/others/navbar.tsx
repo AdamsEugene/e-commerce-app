@@ -28,21 +28,21 @@ import { siteConfig } from "@/src/config/site";
 import NextLink from "next/link";
 import clsx from "clsx";
 
-import { ThemeSwitch } from "@/src/components/theme-switch";
+import { ThemeSwitch } from "@/src/components/others/theme-switch";
 import {
   TwitterIcon,
   CartIcon,
   NotificationIcon,
-} from "@/src/components/_shared/icons";
+} from "@/src/components/_shared/others/icons";
 
-import { Logo } from "@/src/components/_shared/icons";
-import StyledInput from "./_shared/Styled/StyledInput";
+import { Logo } from "@/src/components/_shared/others/icons";
+import StyledInput from "../_shared/Styled/StyledInput";
 import { FiSearch } from "react-icons/fi";
 import { UserCard } from "./UserCard";
 import SignupOrLogin from "./SignupOrLogin";
-import StyledModal from "./_shared/Styled/StyledModal";
-import SearchResults from "./_shared/search/SearchResults";
-import { useAppStore } from "../providers/AppStoreProvider";
+import StyledModal from "../_shared/Styled/StyledModal";
+import SearchResults from "../_shared/search/SearchResults";
+import { useAppStore } from "../../providers/AppStoreProvider";
 import SideDrawer from "./SideDrawer";
 
 export const Navbar = () => {

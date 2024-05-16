@@ -1,6 +1,7 @@
 import { StateCreator } from "zustand";
 import { PRODUCTS } from "../utils/cartItem";
 import { InCart } from "./productSlice";
+import { Colors, adColor } from "./initialState";
 
 export type MicsState = {
   isDrawerOpen: boolean;
@@ -10,6 +11,7 @@ export type MicsState = {
   hasExcelChanged: boolean;
   displayMode: "grid" | "list";
   modalFor?: "create_campaign" | "create_ad" | "create_budget";
+  adColor: typeof adColor;
 };
 
 export type MicsActions = {
@@ -21,6 +23,12 @@ export type MicsActions = {
   updateExcelStateChange: (newState: boolean) => void;
   toggleDisplayMode: (displayMode: MicsState["displayMode"]) => void;
   openModal: (modalFor: MicsState["modalFor"]) => void;
+  updateAdColor: (
+    type: string,
+    filed: keyof Colors,
+    color: string,
+    mode: "light" | "dark"
+  ) => void;
 };
 
 export type MicsSlice = MicsState & MicsActions;
@@ -34,6 +42,7 @@ export const initMicsStore = (): MicsState => {
     hasExcelChanged: false,
     displayMode: "grid",
     modalFor: undefined,
+    adColor,
   };
 };
 
@@ -56,4 +65,18 @@ export const createMicsSlice =
     toggleDisplayMode: (displayMode) =>
       set({ displayMode: displayMode === "grid" ? "list" : "grid" }),
     openModal: (modalFor) => set({ modalFor }),
+    updateAdColor: (type, field, color, mode) =>
+      set((state) => {
+        const updatedAdColor = {
+          ...state.adColor,
+          [type]: {
+            ...(state.adColor[type] || {}), // Initialize with an empty object if undefined
+            [mode]: {
+              ...(state.adColor[type]?.[mode] || {}),
+              [field]: color,
+            },
+          },
+        };
+        return { ...state, adColor: updatedAdColor };
+      }),
   });

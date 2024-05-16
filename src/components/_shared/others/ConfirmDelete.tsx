@@ -1,8 +1,8 @@
 import { Button, ModalBody, ModalFooter, ModalHeader } from "@nextui-org/react";
 import { TbTargetArrow } from "react-icons/tb";
 
-import StyledInput from "./Styled/StyledInput";
-import ConditionalRender from "./Conditional/ConditionalRender";
+import StyledInput from "../Styled/StyledInput";
+import ConditionalRender from "../Conditional/ConditionalRender";
 
 type PROPS = {
   onClose: () => void;

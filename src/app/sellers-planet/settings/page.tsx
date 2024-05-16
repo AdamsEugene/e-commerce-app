@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import SettingsView from "./_SettingsView";
-import ProductMetrics from "@/src/components/ProductMetrics";
-import {  settingStuff } from "@/src/utils/dashboardData";
+import ProductMetrics from "@/src/components/others/ProductMetrics";
+import { settingStuff } from "@/src/utils/dashboardData";
 
 export const metadata: Metadata = {
   title: "Settings",

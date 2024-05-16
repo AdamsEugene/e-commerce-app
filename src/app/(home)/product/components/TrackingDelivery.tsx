@@ -1,7 +1,7 @@
 // pages/index.tsx
 import { useState } from "react";
 import { motion } from "framer-motion";
-import Stepper from "@/src/components/Stepper";
+import Stepper from "@/src/components/others/Stepper";
 
 const steps = [
   {

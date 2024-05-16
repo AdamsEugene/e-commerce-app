@@ -24,7 +24,7 @@ import ConditionalRenderAB from "../Conditional/ConditionalRenderAB";
 import { MicsState } from "@/src/store/micsSlice";
 import ContentEditable from "../Styled/ContentEditable";
 import { CampaignType } from "@/src/utils/campaignData";
-import PlacedSideBySide from "@/src/components/_shared/PlacedSideBySide";
+import PlacedSideBySide from "@/src/components/_shared/others/PlacedSideBySide";
 import {
   budgetStatusRadiate,
   campaignStatusColor,
@@ -32,11 +32,11 @@ import {
   includesEndingSoon,
   radiateStatus,
 } from "@/src/utils/functions";
-import GridItem from "../../GridItem";
+import GridItem from "@/src/components/others/GridItem";
 import StyledPieChart from "../charts/StyledPieChart";
 import StyledLineChart from "../charts/StyledLineChart";
 import StyledBarChart from "../charts/StyledBarCharts";
-import { IconWrapper } from "../IconWrapper";
+import { IconWrapper } from "../others/IconWrapper";
 import StyledImage from "../Styled/StyledImage";
 import imageByIndex from "@/src/utils/imageByIndex";
 

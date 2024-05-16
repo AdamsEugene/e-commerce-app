@@ -1,4 +1,4 @@
-import KeyValueDisplay from "@/src/components/_shared/KeyValueDisplay";
+import KeyValueDisplay from "@/src/components/_shared/others/KeyValueDisplay";
 import React from "react";
 
 export default function SettingsView() {

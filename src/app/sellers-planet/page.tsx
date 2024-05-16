@@ -1,10 +1,10 @@
 import { Metadata } from "next";
 import { Chip } from "@nextui-org/react";
 import { IoCheckmarkCircle } from "react-icons/io5";
-import ProductMetrics from "@/src/components/ProductMetrics";
+import ProductMetrics from "@/src/components/others/ProductMetrics";
 import { adminDashboardMetrics } from "@/src/utils/dashboardData";
-import PlacedSideBySide from "@/src/components/_shared/PlacedSideBySide";
-import GridItem from "@/src/components/GridItem";
+import PlacedSideBySide from "@/src/components/_shared/others/PlacedSideBySide";
+import GridItem from "@/src/components/others/GridItem";
 import StyledLineChart from "@/src/components/_shared/charts/StyledLineChart";
 import StyledTable from "@/src/components/_shared/Styled/StyledTable";
 import StyledAreaChart from "@/src/components/_shared/charts/StyledAreaChart";

@@ -1,6 +1,6 @@
 import ShowSecondNav from "@/src/components/_shared/Conditional/ShowSecondNav";
 import StyledBreadcrumbs from "@/src/components/_shared/Styled/StyledBreadcrumbs";
-import { Navbar } from "@/src/components/navbar";
+import { Navbar } from "@/src/components/others/navbar";
 import Sidebar from "@/src/components/_shared/sideBar/Sidebar";
 
 export default function RootLayout({

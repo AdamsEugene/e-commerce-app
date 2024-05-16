@@ -1,6 +1,6 @@
 import React from "react";
 import { motion, useTransform } from "framer-motion";
-import ConditionalRenderAB from "./Conditional/ConditionalRenderAB";
+import ConditionalRenderAB from "../Conditional/ConditionalRenderAB";
 
 export default function CircularProgress({
   progress,

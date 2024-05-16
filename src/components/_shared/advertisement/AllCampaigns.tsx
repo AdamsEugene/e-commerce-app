@@ -15,19 +15,9 @@ import { ModalContent, useDisclosure } from "@nextui-org/react";
 import StyledModal from "../Styled/StyledModal";
 import CampaignModalContent from "./CampaignModalContent";
 import { MicsState } from "@/src/store/micsSlice";
+import { Size } from "../types/@styles";
 
 type Kind = "edit" | "view" | "delete";
-type Size =
-  | "sm"
-  | "md"
-  | "lg"
-  | "xl"
-  | "2xl"
-  | "full"
-  | "xs"
-  | "3xl"
-  | "4xl"
-  | "5xl";
 
 export default function AllCampaigns() {
   const displayMode = useAppStore((state) => state.displayMode);

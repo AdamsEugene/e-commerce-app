@@ -1,8 +1,8 @@
 // Home
 
-import { Navbar } from "@/src/components/navbar";
+import { Navbar } from "@/src/components/others/navbar";
 
-import MainFooter from "@/src/components/MainFooter";
+import MainFooter from "@/src/components/others/MainFooter";
 
 type PROPS = {
   children: Readonly<{

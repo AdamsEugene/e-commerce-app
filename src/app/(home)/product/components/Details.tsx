@@ -13,18 +13,18 @@ import { FiMoreHorizontal } from "react-icons/fi";
 
 import StyledInput from "@/src/components/_shared/Styled/StyledInput";
 import StyledButton from "@/src/components/_shared/Styled/StyledButton";
-import Ratings from "@/src/components/Ratings";
-import PurchaseType from "@/src/components/PurchaseType";
-import PlansComponent from "@/src/components/PlansComponent";
+import Ratings from "@/src/components/others/Ratings";
+import PurchaseType from "@/src/components/others/PurchaseType";
+import PlansComponent from "@/src/components/others/PlansComponent";
 import StyledButtonGroup from "@/src/components/_shared/button/StyledButtonGroup";
-import ShippingOption from "@/src/components/ShippingOption";
-import SideDrawer from "@/src/components/SideDrawer";
+import ShippingOption from "@/src/components/others/ShippingOption";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
 import cartItems from "@/src/utils/cartItem";
 import { siteConfig } from "@/src/config/site";
-import StyledDropdown from "@/src/components/_shared/Dropdown";
+import StyledDropdown from "@/src/components/_shared/others/Dropdown";
 import StyledModal from "@/src/components/_shared/Styled/StyledModal";
-import MoreOnProduct from "@/src/components/MoreOnProduct";
+import MoreOnProduct from "@/src/components/others/MoreOnProduct";
+import SideDrawer from "@/src/components/others/SideDrawer";
 
 const purchasePlan = {
   label: "Choose Your Payment Plan",

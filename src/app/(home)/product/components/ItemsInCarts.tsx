@@ -5,9 +5,9 @@ import { useParams, usePathname } from "next/navigation";
 
 import ConditionalRenderAB from "@/src/components/_shared/Conditional/ConditionalRenderAB";
 import StyledImage from "@/src/components/_shared/Styled/StyledImage";
-import PurchaseType from "@/src/components/PurchaseType";
+import PurchaseType from "@/src/components/others/PurchaseType";
 import ConditionalRender from "@/src/components/_shared/Conditional/ConditionalRender";
-import TabsForCartItems from "@/src/components/TabsForCartItems";
+import TabsForCartItems from "@/src/components/others/TabsForCartItems";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
 
 type PROPS = {

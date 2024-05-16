@@ -13,8 +13,8 @@ import {
 } from "@nextui-org/react";
 import StyledButton from "@/src/components/_shared/Styled/StyledButton";
 import StyledModal from "@/src/components/_shared/Styled/StyledModal";
-import TabWithIcon from "@/src/components/TabWithIcon";
-import SelectList from "@/src/components/_shared/SelectList";
+import TabWithIcon from "@/src/components/others/TabWithIcon";
+import SelectList from "@/src/components/_shared/others/SelectList";
 
 const paymentMethods = [
   {

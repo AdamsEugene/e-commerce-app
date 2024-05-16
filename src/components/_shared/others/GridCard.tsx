@@ -4,11 +4,11 @@ import React from "react";
 import Link from "next/link";
 import { Card, CardBody, CardFooter } from "@nextui-org/react";
 
-import StyledImage from "./Styled/StyledImage";
+import StyledImage from "../Styled/StyledImage";
 import productList, { PRODUCTS } from "@/src/utils/productList";
 import { siteConfig } from "@/src/config/site";
 import useResizeListener from "@/src/hooks/useResizeListener";
-import { useAppStore } from "../../providers/AppStoreProvider";
+import { useAppStore } from "../../../providers/AppStoreProvider";
 import imageByIndex from "@/src/utils/imageByIndex";
 
 type PROPS = {

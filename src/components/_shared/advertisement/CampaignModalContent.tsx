@@ -7,19 +7,21 @@ import CreateAudience from "./CreateAudience";
 import CreateAds from "./CreateAds";
 import CreateBudget from "./CreateBudget";
 import { CampaignType } from "@/src/utils/campaignData";
-import ConfirmDelete from "../ConfirmDelete";
+import ConfirmDelete from "../others/ConfirmDelete";
+import ColorPickerModal from "./ColorPickerModal";
 
-type Kind = "edit" | "view" | "delete";
+type Kind = "edit" | "view" | "delete" | "color_picker";
 type Create = "new goal" | "new audience" | "new budget";
 
 type PROPS = {
   onClose: () => void;
   kind: Kind | Create | MicsState["modalFor"];
   item?: CampaignType;
+  colorKey?: string;
 };
 
 export default function CampaignModalContent(props: PROPS) {
-  const { kind, onClose, item } = props;
+  const { kind, onClose, item, colorKey } = props;
   // console.log(item);
 
   switch (kind) {
@@ -36,6 +38,8 @@ export default function CampaignModalContent(props: PROPS) {
       return <CreateBudget onClose={onClose} />;
     case "new goal":
       return <CreateGoal onClose={onClose} />;
+    case "color_picker":
+      return <ColorPickerModal onClose={onClose} colorKey={colorKey} />;
     default:
       return <ConfirmDelete onClose={onClose} name={item?.campaignName} />;
   }
