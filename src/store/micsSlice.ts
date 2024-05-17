@@ -10,7 +10,7 @@ export type MicsState = {
   selectedPlan: Exclude<InCart, "later">;
   hasExcelChanged: boolean;
   displayMode: "grid" | "list";
-  modalFor?: "create_campaign" | "create_ad" | "create_budget";
+  modalFor?: "create_campaign" | "create_ad" | "create_budget" | "crop_image";
   adColor: typeof adColor;
 };
 

@@ -9,8 +9,9 @@ import CreateBudget from "./CreateBudget";
 import { CampaignType } from "@/src/utils/campaignData";
 import ConfirmDelete from "../others/ConfirmDelete";
 import ColorPickerModal from "./ColorPickerModal";
+import CropImage from "../cropImage/CropImage";
 
-type Kind = "edit" | "view" | "delete" | "color_picker" | 'crop_image';
+type Kind = "edit" | "view" | "delete" | "color_picker" | "crop_image";
 type Create = "new goal" | "new audience" | "new budget";
 
 type PROPS = {
@@ -40,6 +41,8 @@ export default function CampaignModalContent(props: PROPS) {
       return <CreateGoal onClose={onClose} />;
     case "color_picker":
       return <ColorPickerModal onClose={onClose} colorKey={colorKey} />;
+    case "crop_image":
+      return <CropImage onClose={onClose} />;
     default:
       return <ConfirmDelete onClose={onClose} name={item?.campaignName} />;
   }

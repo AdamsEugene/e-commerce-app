@@ -3,7 +3,6 @@ import SearchWithButtons from "@/src/components/_shared/search/SearchWithButtons
 import BackButton from "@/src/components/_shared/button/BackButton";
 import AllCampaigns from "@/src/components/_shared/advertisement/AllCampaigns";
 import ButtonLinkOrNot from "@/src/components/_shared/Conditional/ButtonLinkOrNot";
-import ObjectCrop from "@/src/components/_shared/cropImage/ObjectCrop";
 
 export const metadata: Metadata = {
   title: "ads",
@@ -29,7 +28,6 @@ export default function ADS() {
         <h1 className="text-3xl font-bold">{getRandomTitle()}</h1>
         <SearchWithButtons />
       </div>
-      <ObjectCrop />
       <AllCampaigns />
       <div className="h-16"></div>
     </div>
