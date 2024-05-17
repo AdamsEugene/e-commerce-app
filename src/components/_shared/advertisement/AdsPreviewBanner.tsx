@@ -105,15 +105,17 @@ export default function AdsPreviewBanner(props: PROPS) {
         <CardBody className="product_image_big_wrapper overflow-visible p-0">
           <div className="w-full h-28 relative flex justify-between ads-banner">
             <div></div>
-            <Image
-              alt="Woman listing to music"
-              className="h-28 w-full object-left-top rounded-r-none ml-auto"
-              as={StyledImage}
-              height={112}
-              src={imageByIndex(13)}
-              width={300}
-              isZoomed
-            />
+            <div className="h-28 w-[80%]">
+              <Image
+                alt="Woman listing to music"
+                className="h-28 w-full object-left-top rounded-r-none ml-auto"
+                as={StyledImage}
+                height={112}
+                src={imageByIndex(13)}
+                width={300}
+                isZoomed
+              />
+            </div>
             <div
               className="flex flex-col w-[50%] h-full absolute top-0 left-0 items-start text-left p-2 justify-between z-10 clip-path-wrapper"
               style={{
