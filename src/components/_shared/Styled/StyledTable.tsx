@@ -22,7 +22,7 @@ import { IoImage } from "react-icons/io5";
 import ConditionalRender from "../Conditional/ConditionalRender";
 
 const inCludesEndingSoon = (label: string) =>
-  label.includes("ending soon") ? "ending soon" : label;
+  label?.includes("ending soon") ? "ending soon" : label;
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   active: "success",
@@ -79,6 +79,7 @@ export default function StyledTable<T>(props: PROPS<T> & TableProps) {
 
       switch (columnKey) {
         case "name":
+        case "headline":
           return (
             <User
               avatarProps={{
@@ -91,7 +92,7 @@ export default function StyledTable<T>(props: PROPS<T> & TableProps) {
               // description={(item as any)?.description}
               name={cellValue}
             >
-              {(item as any)?.name}
+              {(item as any)?.name || (item as any)?.headline}
             </User>
           );
         case "role":
