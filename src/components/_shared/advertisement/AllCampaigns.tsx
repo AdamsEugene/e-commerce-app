@@ -1,6 +1,9 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
+import { ModalContent, useDisclosure } from "@nextui-org/react";
+
 import StyledTable from "../Styled/StyledTable";
 import {
   type CampaignType,
@@ -11,11 +14,12 @@ import { transformColumns } from "@/src/utils/functions";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
 import ConditionalRenderAB from "../Conditional/ConditionalRenderAB";
 import CampaignGrid from "./CampaignGrid";
-import { Button, ModalContent, useDisclosure } from "@nextui-org/react";
 import StyledModal from "../Styled/StyledModal";
 import CampaignModalContent from "./CampaignModalContent";
 import { MicsState } from "@/src/store/micsSlice";
 import { Size } from "../types/@styles";
+import AdsGrid from "./AdsGrid";
+import { adCreativeData, adsColumns } from "@/src/utils/adsData";
 
 type Kind = "edit" | "view" | "delete";
 
@@ -25,28 +29,36 @@ export default function AllCampaigns() {
   const modalFor = useAppStore((state) => state.modalFor);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-  const Component = useRef<Kind | MicsState["modalFor"]>(undefined);
+  const component = useRef<Kind | MicsState["modalFor"]>(undefined);
   const item = useRef<CampaignType | undefined>(undefined);
   const size = useRef<Size | undefined>();
+  const data = useRef<any[]>(campaigns);
+  const columns = useRef<any[]>(campaignsColumns);
+
+  const pathname = usePathname();
+
+  const Component = useRef(
+    <CampaignGrid campaigns={campaigns} onOpen={handleCampaignClick} />
+  );
+  const isAds = pathname.endsWith("/ads");
+  if (isAds) {
+    Component.current = (
+      <AdsGrid data={adCreativeData} onOpen={handleCampaignClick} />
+    );
+    data.current = adCreativeData;
+    columns.current = adsColumns;
+  }
 
   useEffect(() => {
-    if (modalFor === "create_campaign") Component.current = "create_campaign";
-    if (modalFor === "create_ad") Component.current = "create_ad";
-    if (modalFor === "crop_image") {
-      Component.current = "crop_image";
-      size.current = "lg";
-    }
-    if (
-      modalFor === "create_campaign" ||
-      modalFor === "create_ad" ||
-      modalFor === "crop_image"
-    )
-      onOpen();
+    size.current = undefined;
+    if (modalFor === "create_campaign") component.current = "create_campaign";
+    if (modalFor === "create_ad") component.current = "create_ad";
+    if (modalFor === "create_campaign" || modalFor === "create_ad") onOpen();
   }, [modalFor, onOpen]);
 
-  function handleCampaignClick(kind: Kind, _item: CampaignType) {
-    item.current = _item;
-    Component.current = kind;
+  function handleCampaignClick<T>(kind: Kind, _item: T) {
+    item.current = _item as CampaignType;
+    component.current = kind;
     if (kind === "delete") size.current = "lg";
     else size.current = undefined;
     onOpen();
@@ -54,7 +66,6 @@ export default function AllCampaigns() {
 
   return (
     <div>
-      <Button onClick={() => openModal("crop_image")}>Crop</Button>
       <ConditionalRenderAB
         condition={displayMode === "list"}
         ComponentA={
@@ -63,15 +74,13 @@ export default function AllCampaigns() {
             color="default"
             selectionMode="multiple"
             aria-label="Campaigns collection table"
-            columns={transformColumns(campaignsColumns)}
-            data={campaigns}
+            columns={transformColumns(columns.current)}
+            data={data.current}
             onRowAction={(key) => {}}
             actionClick={handleCampaignClick}
           />
         }
-        ComponentB={
-          <CampaignGrid campaigns={campaigns} onOpen={handleCampaignClick} />
-        }
+        ComponentB={Component.current}
       />
       <StyledModal
         isOpen={isOpen}
@@ -86,7 +95,7 @@ export default function AllCampaigns() {
         <ModalContent>
           {(onClose) => (
             <CampaignModalContent
-              kind={Component.current}
+              kind={component.current}
               onClose={onClose}
               item={item.current}
             />

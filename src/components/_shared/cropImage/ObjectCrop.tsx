@@ -19,6 +19,7 @@ import { imgPreview } from "./imagePreviw";
 
 type PROPS = {
   imgSrc?: string;
+  onSave: (imgUrl: string) => void;
 };
 
 function centerAspectCrop(
@@ -42,7 +43,7 @@ function centerAspectCrop(
 }
 
 export default function ObjectCrop(props: PROPS) {
-  const { imgSrc } = props;
+  const { imgSrc, onSave } = props;
   const previewCanvasRef = useRef<HTMLCanvasElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
   const hiddenAnchorRef = useRef<HTMLAnchorElement>(null);
@@ -54,17 +55,6 @@ export default function ObjectCrop(props: PROPS) {
   const [aspect, setAspect] = useState<number | undefined>(16 / 9);
   const [circularCrop, setCircularCrop] = useState(false);
   const previewImage = useRef("");
-
-  // function onSelectFile(e: React.ChangeEvent<HTMLInputElement>) {
-  //   if (e.target.files && e.target.files.length > 0) {
-  //     setCrop(undefined); // Makes crop preview update between images.
-  //     const reader = new FileReader();
-  //     reader.addEventListener("load", () =>
-  //       setImgSrc(reader.result?.toString() || "")
-  //     );
-  //     reader.readAsDataURL(e.target.files[0]);
-  //   }
-  // }
 
   function onImageLoad(e: React.SyntheticEvent<HTMLImageElement>) {
     if (aspect) {
@@ -135,6 +125,7 @@ export default function ObjectCrop(props: PROPS) {
           rotate
         );
       }
+      onSave(previewImage.current);
     },
     100,
     [completedCrop, scale, rotate]
@@ -168,9 +159,8 @@ export default function ObjectCrop(props: PROPS) {
             onChange={(_, percentCrop) => setCrop(percentCrop)}
             onComplete={(c) => setCompletedCrop(c)}
             aspect={aspect}
-            // minWidth={400}
             minHeight={100}
-            className="w-full"
+            className="w-full max-h-[500px]"
             circularCrop={circularCrop}
           >
             <Image
@@ -181,7 +171,7 @@ export default function ObjectCrop(props: PROPS) {
               src={imgSrc!}
               style={{ transform: `scale(${scale}) rotate(${rotate}deg)` }}
               onLoad={onImageLoad}
-              className="w-full"
+              className="w-full object-contain"
             />
           </ReactCrop>
         }
@@ -252,40 +242,6 @@ export default function ObjectCrop(props: PROPS) {
           </Switch>
         </div>
       </div>
-      {!!completedCrop && (
-        <>
-          {/* <div>
-            <canvas
-              ref={previewCanvasRef}
-              style={{
-                border: "1px solid black",
-                objectFit: "contain",
-                width: completedCrop.width,
-                height: completedCrop.height,
-              }}
-            />
-          </div> */}
-          {/* <div>
-            <button onClick={onDownloadCropClick}>Download Crop</button>
-            <div style={{ fontSize: 12, color: "#666" }}>
-              If you get a security error when downloading try opening the
-              Preview in a new tab (icon near top right).
-            </div>
-            <a
-              href="#hidden"
-              ref={hiddenAnchorRef}
-              download
-              style={{
-                position: "absolute",
-                top: "-200vh",
-                visibility: "hidden",
-              }}
-            >
-              Hidden download
-            </a>
-          </div> */}
-        </>
-      )}
     </div>
   );
 }

@@ -8,15 +8,17 @@ import StyledImage from "../Styled/StyledImage";
 import { IconWrapper } from "../others/IconWrapper";
 import Constant from "@/src/config/constants";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
+import { AdCreative } from "../types/@ads";
 
 type PROPS = {
   handleEditClick: (colorKey: string) => void;
+  data: AdCreative;
 };
 
 const editText = "Edit background, Headline, Description and CTA color";
 
 export default function AdsPreviewBanner(props: PROPS) {
-  const { handleEditClick } = props;
+  const { handleEditClick, data } = props;
 
   const { theme } = useTheme();
   const adColor = useAppStore((state) => state.adColor);
@@ -32,7 +34,6 @@ export default function AdsPreviewBanner(props: PROPS) {
           adColor["default"].dark[field];
   };
 
-  // console.log(adColor);
 
   return (
     <div className="flex flex-col gap-4">
@@ -40,11 +41,11 @@ export default function AdsPreviewBanner(props: PROPS) {
         <CardBody className="product_image_big_wrapper overflow-visible p-0">
           <div className="h-28 w-[80%]">
             <Image
-              alt="Woman listing to music"
+              alt={data.headline}
               className="h-28 w-full object-left-top rounded-r-none"
               as={StyledImage}
               height={112}
-              src={imageByIndex(13)}
+              src={data.url || imageByIndex(0)}
               width={300}
               isZoomed
             />
@@ -78,7 +79,7 @@ export default function AdsPreviewBanner(props: PROPS) {
                     ),
                   }}
                 >
-                  Shop Now
+                  {data.callToAction}
                 </span>
               </Button>
             </div>
@@ -88,7 +89,7 @@ export default function AdsPreviewBanner(props: PROPS) {
                 color: getColor("Headline", Constant.colorKeys.banner.one),
               }}
             >
-              justify-end
+              {data.headline}
             </h1>
             <p
               className="text-xs max-w-[90%]"
@@ -96,7 +97,7 @@ export default function AdsPreviewBanner(props: PROPS) {
                 color: getColor("Description", Constant.colorKeys.banner.one),
               }}
             >
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit
+              {data.description}
             </p>
           </div>
         </CardBody>
@@ -107,11 +108,11 @@ export default function AdsPreviewBanner(props: PROPS) {
             <div></div>
             <div className="h-28 w-[80%]">
               <Image
-                alt="Woman listing to music"
+                alt={data.headline}
                 className="h-28 w-full object-left-top rounded-r-none ml-auto"
                 as={StyledImage}
                 height={112}
-                src={imageByIndex(13)}
+                src={data.url || imageByIndex(0)}
                 width={300}
                 isZoomed
               />
@@ -131,7 +132,7 @@ export default function AdsPreviewBanner(props: PROPS) {
                   color: getColor("Description", Constant.colorKeys.banner.two),
                 }}
               >
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit
+                {data.description}
               </p>
               <h1
                 className="font-bold"
@@ -139,7 +140,7 @@ export default function AdsPreviewBanner(props: PROPS) {
                   color: getColor("Headline", Constant.colorKeys.banner.two),
                 }}
               >
-                justify-end
+                {data.headline}
               </h1>
               <div className="flex items-center w-full gap-3">
                 <Button
@@ -159,7 +160,7 @@ export default function AdsPreviewBanner(props: PROPS) {
                       ),
                     }}
                   >
-                    Shop Now
+                    {data.callToAction}
                   </span>
                 </Button>
                 <Tooltip showArrow={true} content={editText}>
@@ -181,11 +182,11 @@ export default function AdsPreviewBanner(props: PROPS) {
         <CardBody className="product_image_big_wrapper overflow-visible p-0">
           <div className="h-full w-full">
             <Image
-              alt="Woman listing to music"
+              alt={data.headline}
               className="h-28 w-full object-left-top rounded-r-none"
               as={StyledImage}
               height={112}
-              src={imageByIndex(13)}
+              src={data.url || imageByIndex(0)}
               width={500}
               isZoomed
             />
@@ -206,7 +207,7 @@ export default function AdsPreviewBanner(props: PROPS) {
                 color: getColor("Headline", Constant.colorKeys.banner.three),
               }}
             >
-              justify-end
+              {data.headline}
             </h1>
             <p
               className="text-xs max-w-[90%]"
@@ -214,7 +215,7 @@ export default function AdsPreviewBanner(props: PROPS) {
                 color: getColor("Description", Constant.colorKeys.banner.three),
               }}
             >
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit
+              {data.description}
             </p>
             <div className="flex items-center justify-between w-full">
               <div></div>
@@ -247,7 +248,7 @@ export default function AdsPreviewBanner(props: PROPS) {
                       ),
                     }}
                   >
-                    Shop Now
+                    {data.callToAction}
                   </span>
                 </Button>
               </div>

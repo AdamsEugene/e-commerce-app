@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+import { PixelCrop, centerCrop, makeAspectCrop } from "react-image-crop";
 import productList from "./productList";
 
 export const capitalizeFirstLetter = (str: string) => {
@@ -70,3 +72,103 @@ export const budgetStatus = (remaining: number, total: number) => {
 
 export const budgetStatusRadiate = (remaining: number, total: number) =>
   radiateStatus(budgetStatus(remaining, total));
+
+export const centerAspectCrop = (
+  mediaWidth: number,
+  mediaHeight: number,
+  aspect: number
+) => {
+  return centerCrop(
+    makeAspectCrop(
+      {
+        unit: "%",
+        width: 90,
+      },
+      aspect,
+      mediaWidth,
+      mediaHeight
+    ),
+    mediaWidth,
+    mediaHeight
+  );
+};
+
+export async function onDownloadCropClick(
+  imgRef: React.RefObject<HTMLImageElement>,
+  previewCanvasRef: React.RefObject<HTMLCanvasElement>,
+  completedCrop: PixelCrop | undefined,
+  blobUrlRef: React.MutableRefObject<string>,
+  hiddenAnchorRef: React.RefObject<HTMLAnchorElement>
+) {
+  const image = imgRef.current;
+  const previewCanvas = previewCanvasRef.current;
+  if (!image || !previewCanvas || !completedCrop) {
+    throw new Error("Crop canvas does not exist");
+  }
+
+  // This will size relative to the uploaded image
+  // size. If you want to size according to what they
+  // are looking at on screen, remove scaleX + scaleY
+  const scaleX = image.naturalWidth / image.width;
+  const scaleY = image.naturalHeight / image.height;
+
+  const offscreen = new OffscreenCanvas(
+    completedCrop.width * scaleX,
+    completedCrop.height * scaleY
+  );
+  const ctx = offscreen.getContext("2d");
+  if (!ctx) {
+    throw new Error("No 2d context");
+  }
+
+  ctx.drawImage(
+    previewCanvas,
+    0,
+    0,
+    previewCanvas.width,
+    previewCanvas.height,
+    0,
+    0,
+    offscreen.width,
+    offscreen.height
+  );
+  // You might want { type: "image/jpeg", quality: <0 to 1> } to
+  // reduce image size
+  const blob = await offscreen.convertToBlob({
+    type: "image/png",
+  });
+
+  if (blobUrlRef.current) {
+    URL.revokeObjectURL(blobUrlRef.current);
+  }
+  blobUrlRef.current = URL.createObjectURL(blob);
+
+  if (hiddenAnchorRef.current) {
+    hiddenAnchorRef.current.href = blobUrlRef.current;
+    hiddenAnchorRef.current.click();
+  }
+}
+
+export const getFilePreviewURL = (
+  files: FileList,
+  setImgSrc: Dispatch<SetStateAction<string[]>>
+): boolean => {
+  if (!files.length) return false;
+
+  const previews: string[] = [];
+  let success = true;
+
+  Array.from(files).forEach((file) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      previews.push(reader.result as string);
+      setImgSrc([...previews]);
+    };
+    reader.onerror = () => {
+      success = false;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  return success;
+};

@@ -29,6 +29,11 @@ export default function ReviewForm(props: PROPS) {
     }
   }, [isReviewVisible]);
 
+  const handleFileUpload = (files: FileList) => {
+    // Handle the uploaded files here
+    console.log("Uploaded files:", files);
+  };
+
   return (
     <>
       <div
@@ -55,7 +60,7 @@ export default function ReviewForm(props: PROPS) {
             maxRows={8}
           />
           <h4 className="text-lg font-bold">Picture/Video (optional)</h4>
-          <StyledFileUpload />
+          <StyledFileUpload handleFileUpload={handleFileUpload} />
           <StyledInput
             label="Name (displayed publicly like John Smith)"
             placeholder="Enter your name (public)"

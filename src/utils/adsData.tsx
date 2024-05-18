@@ -37,7 +37,7 @@ const ads: Ad[] = [
     creatives: [
       {
         type: "Image",
-        url: "https://example.com/xylophone.jpg",
+        url: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fkidlingoo.com%2Fflowers-name-in-english%2F&psig=AOvVaw1dtKppWszDIAtBvKCfd3B2&ust=1716088250714000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCPCA3oadloYDFQAAAAAdAAAAABAE",
         headline: "Spark Creativity with the Xylophone!",
         description: "Fun and educational for all ages.",
         callToAction: "Learn More",
@@ -455,3 +455,18 @@ const ads: Ad[] = [
     status: "Ended",
   },
 ];
+
+export const adsColumns = [
+  { name: "id", uid: "id" },
+  { name: "headline", uid: "headline" },
+  { name: "description", uid: "description" },
+  { name: "type", uid: "type" },
+  { name: "callToAction", uid: "callToAction" },
+  { name: "actions", uid: "actions" },
+];
+
+export const adCreativeData = ads.map((d, i) => ({
+  id: i,
+  image: d.creatives[0].url,
+  ...d.creatives[0],
+}));

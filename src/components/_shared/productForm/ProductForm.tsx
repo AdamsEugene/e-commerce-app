@@ -31,6 +31,11 @@ const ProductForm: React.FC<{}> = () => {
     setReturnPolicy(event.target.value);
   };
 
+  const handleFileUpload = (files: FileList) => {
+    // Handle the uploaded files here
+    console.log("Uploaded files:", files);
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-4 justify-between">
@@ -60,7 +65,10 @@ const ProductForm: React.FC<{}> = () => {
           />
           <StyledInput placeholder="Enter stock" label="Stock" isRequired />
         </div>
-        <StyledFileUpload label="Product Image or Video" />
+        <StyledFileUpload
+          label="Product Image or Video"
+          handleFileUpload={handleFileUpload}
+        />
         <div className="flex items-center gap-4">
           <StyledSelect
             label="Select category"

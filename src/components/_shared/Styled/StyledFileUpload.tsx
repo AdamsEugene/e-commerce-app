@@ -138,12 +138,12 @@ const FileUpload: React.FC<FileUploadProps> = ({
               />
               <Button
                 isIconOnly
-                color="danger"
+                color="default"
                 size="sm"
                 onClick={() => handleDeletePreview(index)}
                 className="absolute top-0 right-0 p-2 text-white rounded-full z-10"
               >
-                <IoCloseSharp className="text-5xl" />
+                <IoCloseSharp className="text-2xl" />
               </Button>
             </div>
           ))}
@@ -163,16 +163,12 @@ const FileUpload: React.FC<FileUploadProps> = ({
 
 type PROPS = {
   label?: string;
+  handleFileUpload: (files: FileList) => void;
 };
 
 // Usage
 const StyledFileUpload: React.FC<PROPS> = (props) => {
-  const { label } = props;
-
-  const handleFileUpload = (files: FileList) => {
-    // Handle the uploaded files here
-    console.log("Uploaded files:", files);
-  };
+  const { label, handleFileUpload } = props;
 
   return (
     <div className="w-full">
