@@ -19,11 +19,12 @@ type PROPS = {
   kind: Kind | Create | MicsState["modalFor"];
   item?: CampaignType;
   colorKey?: string;
+  data?: any;
+  onSave?: (n?: any) => void;
 };
 
 export default function CampaignModalContent(props: PROPS) {
-  const { kind, onClose, item, colorKey } = props;
-  // console.log(item);
+  const { kind, onClose, item, colorKey, data, onSave } = props;
 
   switch (kind) {
     case "view":
@@ -42,7 +43,7 @@ export default function CampaignModalContent(props: PROPS) {
     case "color_picker":
       return <ColorPickerModal onClose={onClose} colorKey={colorKey} />;
     case "crop_image":
-      return <CropImage onClose={onClose} />;
+      return <CropImage onClose={onClose} imgSrc={data} onSave={onSave} />;
     default:
       return <ConfirmDelete onClose={onClose} name={item?.campaignName} />;
   }

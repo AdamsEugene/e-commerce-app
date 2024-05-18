@@ -11,7 +11,7 @@ import { transformColumns } from "@/src/utils/functions";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
 import ConditionalRenderAB from "../Conditional/ConditionalRenderAB";
 import CampaignGrid from "./CampaignGrid";
-import { Button, ModalContent, useDisclosure } from "@nextui-org/react";
+import {  ModalContent, useDisclosure } from "@nextui-org/react";
 import StyledModal from "../Styled/StyledModal";
 import CampaignModalContent from "./CampaignModalContent";
 import { MicsState } from "@/src/store/micsSlice";
@@ -32,16 +32,7 @@ export default function AllCampaigns() {
   useEffect(() => {
     if (modalFor === "create_campaign") Component.current = "create_campaign";
     if (modalFor === "create_ad") Component.current = "create_ad";
-    if (modalFor === "crop_image") {
-      Component.current = "crop_image";
-      size.current = "lg";
-    }
-    if (
-      modalFor === "create_campaign" ||
-      modalFor === "create_ad" ||
-      modalFor === "crop_image"
-    )
-      onOpen();
+    if (modalFor === "create_campaign" || modalFor === "create_ad") onOpen();
   }, [modalFor, onOpen]);
 
   function handleCampaignClick(kind: Kind, _item: CampaignType) {
@@ -54,7 +45,6 @@ export default function AllCampaigns() {
 
   return (
     <div>
-      <Button onClick={() => openModal("crop_image")}>Crop</Button>
       <ConditionalRenderAB
         condition={displayMode === "list"}
         ComponentA={

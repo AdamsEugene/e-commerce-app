@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import { useTheme } from "next-themes";
 import {
   Button,
@@ -25,14 +25,27 @@ import AdsPreviewCard from "./AdsPreviewCard";
 import StyledModal from "../Styled/StyledModal";
 import CampaignModalContent from "./CampaignModalContent";
 import { Size } from "../types/@styles";
+import { getFilePreviewURL } from "@/src/utils/functions";
+import { AdCreative } from "../types/@ads";
 
 type PROPS = {
   onClose: () => void;
 };
 
-type Kind = "color_picker";
+type Kind = "color_picker" | "crop_image";
+
+const initAdData = {
+  type: "Image" as const,
+  url: "",
+  callToAction: "",
+  description: "",
+  headline: "",
+};
 
 export default function CreateAds({ onClose }: PROPS) {
+  const [imgSrc, setImgSrc] = useState<string[]>([]);
+  const [adData, setAdData] = useState<AdCreative>(initAdData);
+
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const { theme } = useTheme();
@@ -53,7 +66,9 @@ export default function CreateAds({ onClose }: PROPS) {
       id: "banner",
       label: "Banner",
       icon: <FaImage />,
-      content: <AdsPreviewBanner handleEditClick={handleEditClick} />,
+      content: (
+        <AdsPreviewBanner handleEditClick={handleEditClick} data={adData} />
+      ),
     },
     {
       id: "card",
@@ -62,6 +77,22 @@ export default function CreateAds({ onClose }: PROPS) {
       content: <AdsPreviewCard />,
     },
   ];
+
+  const handleFileUpload = (files: FileList) => {
+    const showModal = getFilePreviewURL(files, setImgSrc);
+    Component.current = "crop_image";
+    size.current = "lg";
+    if (showModal) onOpen();
+  };
+
+  const getCroppedFileURL = (url: string) => {
+    setAdData((p) => ({ ...p, url }));
+  };
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setAdData((p) => ({ ...p, [name]: value }));
+  };
 
   return (
     <>
@@ -75,15 +106,27 @@ export default function CreateAds({ onClose }: PROPS) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4">
           <div className="flex flex-col gap-4">
             <p>Create Ads</p>
-            <StyledInput label="Headline" placeholder="Enter headline..." />
-            <StyledFileUpload label="Images or Videos" />
+            <StyledInput
+              label="Headline"
+              placeholder="Enter headline..."
+              name="headline"
+              onChange={handleInputChange}
+            />
+            <StyledFileUpload
+              label="Images or Videos"
+              handleFileUpload={handleFileUpload}
+            />
             <StyledTextarea
               label="Description"
               placeholder="Enter description..."
+              name="description"
+              onChange={handleInputChange}
             />
             <StyledInput
               label="Button Text (CTA)"
               placeholder="e.g., 'Shop Now,' 'Learn More'"
+              name="callToAction"
+              onChange={handleInputChange}
             />
           </div>
           <div className="flex flex-col gap-4">
@@ -120,6 +163,8 @@ export default function CreateAds({ onClose }: PROPS) {
               kind={Component.current}
               onClose={onClose}
               colorKey={colorKey.current}
+              data={imgSrc?.[0]}
+              onSave={getCroppedFileURL}
             />
           )}
         </ModalContent>
