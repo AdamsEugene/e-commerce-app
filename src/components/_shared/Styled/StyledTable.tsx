@@ -79,7 +79,7 @@ export default function StyledTable<T>(props: PROPS<T> & TableProps) {
 
       switch (columnKey) {
         case "name":
-        // case "headline":
+          // case "headline":
           return (
             <User
               avatarProps={{
