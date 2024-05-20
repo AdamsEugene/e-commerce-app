@@ -6,10 +6,10 @@ import CreateGoal from "./CreateGoal";
 import CreateAudience from "./CreateAudience";
 import CreateAds from "./CreateAds";
 import CreateBudget from "./CreateBudget";
-import { CampaignType } from "@/src/utils/campaignData";
 import ConfirmDelete from "../others/ConfirmDelete";
 import ColorPickerModal from "./ColorPickerModal";
 import CropImage from "../cropImage/CropImage";
+import { isAdCreative, isCampaignType } from "@/src/utils/functions";
 
 type Kind = "edit" | "view" | "delete" | "color_picker" | "crop_image";
 type Create = "new goal" | "new audience" | "new budget";
@@ -17,7 +17,7 @@ type Create = "new goal" | "new audience" | "new budget";
 type PROPS = {
   onClose: () => void;
   kind: Kind | Create | MicsState["modalFor"];
-  item?: CampaignType;
+  item?: any;
   colorKey?: string;
   data?: any;
   onSave?: (n?: any) => void;
@@ -25,6 +25,11 @@ type PROPS = {
 
 export default function CampaignModalContent(props: PROPS) {
   const { kind, onClose, item, colorKey, data, onSave } = props;
+
+  const deleteName = () => {
+    if (isCampaignType(item)) return item.campaignName;
+    if (isAdCreative(item)) return item?.headline;
+  };
 
   switch (kind) {
     case "view":
@@ -45,6 +50,6 @@ export default function CampaignModalContent(props: PROPS) {
     case "crop_image":
       return <CropImage onClose={onClose} imgSrc={data} onSave={onSave} />;
     default:
-      return <ConfirmDelete onClose={onClose} name={item?.campaignName} />;
+      return <ConfirmDelete onClose={onClose} name={deleteName()} />;
   }
 }

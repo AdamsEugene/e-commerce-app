@@ -30,7 +30,7 @@ export default function AllCampaigns() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const component = useRef<Kind | MicsState["modalFor"]>(undefined);
-  const item = useRef<CampaignType | undefined>(undefined);
+  const item = useRef<any | undefined>(undefined);
   const size = useRef<Size | undefined>();
   const data = useRef<any[]>(campaigns);
   const columns = useRef<any[]>(campaignsColumns);
@@ -57,7 +57,7 @@ export default function AllCampaigns() {
   }, [modalFor, onOpen]);
 
   function handleCampaignClick<T>(kind: Kind, _item: T) {
-    item.current = _item as CampaignType;
+    item.current = _item;
     component.current = kind;
     if (kind === "delete") size.current = "lg";
     else size.current = undefined;

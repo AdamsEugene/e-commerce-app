@@ -18,7 +18,7 @@ export default function ConfirmDelete(props: PROPS) {
         <div className="flex items-center gap-3">
           <TbTargetArrow className="text-2xl" />
           <p className="text-lg font-bold">
-            Are you sure you want to delete this campaign?
+            Are you sure you want to delete this?
           </p>
         </div>
       </ModalHeader>

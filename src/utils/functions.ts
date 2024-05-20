@@ -1,6 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
 import { PixelCrop, centerCrop, makeAspectCrop } from "react-image-crop";
 import productList from "./productList";
+import { AdCreative } from "../components/_shared/types/@ads";
+import { CampaignType } from "./campaignData";
 
 export const capitalizeFirstLetter = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -172,3 +174,32 @@ export const getFilePreviewURL = (
 
   return success;
 };
+
+export const isAdCreative = (data: any): data is AdCreative =>
+  typeof data === "object" &&
+  "type" in data &&
+  (data.type === "Image" || data.type === "Video") &&
+  typeof data.url === "string" &&
+  (typeof data.headline === "string" || data.headline === undefined) &&
+  (typeof data.description === "string" || data.description === undefined) &&
+  typeof data.callToAction === "string";
+
+export const isCampaignType = (data: any): data is CampaignType =>
+  typeof data === "object" &&
+  "id" in data &&
+  typeof data.id === "number" &&
+  "campaignName" in data &&
+  typeof data.campaignName === "string" &&
+  "targetAudience" in data &&
+  Array.isArray(data.targetAudience) &&
+  data.targetAudience.every((item: any) => typeof item === "string") &&
+  "budget" in data &&
+  typeof data.budget === "number" &&
+  "status" in data &&
+  typeof data.status === "string" &&
+  "impressions" in data &&
+  typeof data.impressions === "number" &&
+  "clicks" in data &&
+  typeof data.clicks === "number" &&
+  "spend" in data &&
+  typeof data.spend === "number";
