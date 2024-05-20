@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { CSSProperties, useMemo, useState } from "react";
 import {
   Button,
   ButtonGroup,
@@ -70,21 +70,18 @@ function AdsGridItem({
   data: AdCreative;
   onOpen: (kind: "edit" | "view" | "delete", item: AdCreative) => void;
 }) {
+  const bgImage: CSSProperties = {
+    backgroundImage: `url(${imageByIndex(13)})`,
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundColor: "tomato",
+  };
+
   return (
     <Card>
-      <CardBody>
+      <CardBody style={bgImage}>
         <div className="flex flex-col gap-4">
-          <div className="h-32 w-full rounded-lg ads-banner">
-            <Image
-              alt={data.headline}
-              className="h-28 w-full object-center rounded-r-none"
-              as={StyledImage}
-              height={112}
-              src={imageByIndex(13)}
-              width={3000}
-              isZoomed
-            />
-          </div>
           <div className="flex flex-col gap-3">
             <p className="text-lg font-semibold truncate">{data.headline}</p>
             <p className="text-sm">{data.description}</p>
