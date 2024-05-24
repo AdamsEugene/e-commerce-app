@@ -6,7 +6,12 @@ import { usePathname } from "next/navigation";
 import { Button } from "@nextui-org/button";
 import ConditionalRenderAB from "./ConditionalRenderAB";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
-import { campaignMetrics, adsMetrics } from "@/src/utils/dashboardData";
+import {
+  campaignMetrics,
+  adsMetrics,
+  budgetMetrics,
+  adsGroupMetrics,
+} from "@/src/utils/dashboardData";
 
 export default function ButtonLinkOrNot() {
   const openModal = useAppStore((state) => state.openModal);
@@ -14,8 +19,12 @@ export default function ButtonLinkOrNot() {
 
   const metrics = useRef<any[]>(campaignMetrics);
   const isAds = pathname.endsWith("/ads");
+  const isBudget = pathname.endsWith("/budget");
+  const isGroup = pathname.endsWith("/group");
 
   if (isAds) metrics.current = adsMetrics;
+  if (isBudget) metrics.current = budgetMetrics;
+  if (isGroup) metrics.current = adsGroupMetrics;
 
   return (
     <>
@@ -43,7 +52,15 @@ export default function ButtonLinkOrNot() {
                 style={{ background: item.bgColor }}
                 startContent={<Icon />}
                 onClick={() =>
-                  openModal(isAds ? "create_ad" : "create_campaign")
+                  openModal(
+                    isAds
+                      ? "create_ad"
+                      : isGroup
+                      ? "create_group"
+                      : isBudget
+                      ? "create_budget"
+                      : "create_campaign"
+                  )
                 }
               >
                 {item.value}

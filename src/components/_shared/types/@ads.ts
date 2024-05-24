@@ -4,12 +4,16 @@ export interface Ad {
   campaignGoals: string[]; // Array of campaign goals (e.g., "Increase Sales", "Boost Product Discovery")
   budget: number; // Total budget allocated for the campaign
   bidStrategy: "CPC" | "CPM"; // Bidding strategy (Cost-per-Click or Cost-per-Mille)
-  startDate?: Date; // Optional start date for the campaign
-  endDate?: Date; // Optional end date for the campaign
   status: "Draft" | "Running" | "Paused" | "Ended"; // Current status of the campaign
-  targeting?: Targeting; // Targeting options for the campaign (optional)
   creatives: AdCreative[]; // Array of associated ad creatives (images, videos, etc.)
   performanceMetrics: PerformanceMetrics; // Performance metrics for the campaign
+  targeting?: Targeting; // Targeting options for the campaign (optional)
+  startDate?: Date; // Optional start date for the campaign
+  endDate?: Date; // Optional end date for the campaign
+  keywords?: string[];
+  negativeKeywords?: string[];
+  scheduling?: Schedule; // Optional scheduling settings
+  notes?: string; // Optional notes for internal reference
 }
 
 export interface Targeting {
@@ -57,4 +61,10 @@ export interface PerformanceMetrics {
     completionRate?: number; // Percentage of video ad watched to completion (optional)
   }; // Video-specific metrics (optional)
   // You can add more performance metrics as needed
+}
+
+export interface Schedule {
+  startDateTime: string; // ISO 8601 formatted date and time (e.g., "2024-05-22T09:00:00Z")
+  endDateTime?: string; // Optional end date and time (ISO 8601 format)
+  adDelivery?: "Standard" | "Accelerated"; // Optional delivery speed
 }

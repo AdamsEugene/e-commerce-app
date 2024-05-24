@@ -31,12 +31,12 @@ export default function GridCard(props: PROPS) {
       ref={ref}
       className="container mx-auto flex flex-col justify-center items-center gap-4"
     >
-      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {(
           data?.slice(0, numberOfItems) || productList.slice(0, numberOfItems)
         ).map((item, index) => (
           <Card
-            shadow="sm"
+            shadow="none"
             as={Link}
             href={`${baseLink ? baseLink : siteConfig.pages.product}/${
               item.productId
@@ -50,12 +50,12 @@ export default function GridCard(props: PROPS) {
           >
             <CardBody className="overflow-visible p-0">
               <StyledImage
-                shadow="sm"
+                shadow="none"
                 radius="lg"
                 width={300}
                 height={300}
                 alt={item.name}
-                className="object-cover product_image"
+                className="object-cover product_image xs:w-full w-[216.8px]"
                 src={item.image || imageByIndex(index)}
                 isZoomed
               />

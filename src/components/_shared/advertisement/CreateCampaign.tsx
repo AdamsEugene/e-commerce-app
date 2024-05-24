@@ -16,6 +16,7 @@ import { targetAudienceData } from "@/src/utils/targetAudienceData";
 import StyledModal from "../Styled/StyledModal";
 import { useRef } from "react";
 import CampaignModalContent from "./CampaignModalContent";
+import StyledRangeDatePicker from "../Styled/StyledRangeDatePicker";
 
 type PROPS = {
   onClose: () => void;
@@ -37,7 +38,7 @@ type Kind =
   | "new goal"
   | "new audience"
   | "create_ad"
-  | "new budget"
+  | "create_budget"
   | undefined;
 
 export default function CreateCampaign(props: PROPS) {
@@ -142,12 +143,13 @@ export default function CreateCampaign(props: PROPS) {
                 color="primary"
                 variant="flat"
                 startContent={<IoAdd className="text-xl" />}
-                onClick={() => onAddButtonClick("new budget")}
+                onClick={() => onAddButtonClick("create_budget")}
               >
                 New Budget
               </Button>
             </div>
           </div>
+          <StyledRangeDatePicker label="Start Date & End Date"  />
         </div>
       </ModalBody>
       <ModalFooter>

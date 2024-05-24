@@ -62,6 +62,10 @@ export default function CreateBudget({ onClose }: PROPS) {
       <ModalBody>
         <div className="flex flex-col gap-4">
           <StyledInput
+            label="Name"
+            placeholder="Enter a distinct name for this budget"
+          />
+          <StyledInput
             type="number"
             label="Total Budget"
             placeholder="Enter the total budget they want to allocate for their ad campaign."

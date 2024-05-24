@@ -7,11 +7,14 @@ import { IoGridSharp, IoListSharp } from "react-icons/io5";
 import StyledInput from "../Styled/StyledInput";
 import { FiSearch } from "react-icons/fi";
 import { FaFilter } from "react-icons/fa";
+import ConditionalRender from "../Conditional/ConditionalRender";
 
 export default function SearchWithButtons({
   buttons,
+  mode = true,
 }: {
   buttons?: JSX.Element[];
+  mode?: boolean;
 }) {
   const displayMode = useAppStore((state) => state.displayMode);
   const toggleDisplayMode = useAppStore((state) => state.toggleDisplayMode);
@@ -19,18 +22,23 @@ export default function SearchWithButtons({
   return (
     <div className="flex gap-3 items-center">
       {buttons}
-      <Button
-        onClick={() => toggleDisplayMode(displayMode)}
-        variant="flat"
-        // color="warning"
-        isIconOnly
-      >
-        <ConditionalRenderAB
-          condition={displayMode === "grid"}
-          ComponentA={<IoListSharp className="text-xl" />}
-          ComponentB={<IoGridSharp className="text-xl" />}
-        />
-      </Button>
+      <ConditionalRender
+        condition={mode}
+        Component={
+          <Button
+            onClick={() => toggleDisplayMode(displayMode)}
+            variant="flat"
+            // color="warning"
+            isIconOnly
+          >
+            <ConditionalRenderAB
+              condition={displayMode === "grid"}
+              ComponentA={<IoListSharp className="text-xl" />}
+              ComponentB={<IoGridSharp className="text-xl" />}
+            />
+          </Button>
+        }
+      />
       <Button
         key="filter"
         // onClick={() => {}}

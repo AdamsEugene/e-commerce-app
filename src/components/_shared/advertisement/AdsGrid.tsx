@@ -5,13 +5,11 @@ import {
   Card,
   CardBody,
   CardFooter,
-  Image,
   Pagination,
 } from "@nextui-org/react";
 import { FaEdit, FaEye } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import ConditionalRender from "../Conditional/ConditionalRender";
-import StyledImage from "../Styled/StyledImage";
 import imageByIndex from "@/src/utils/imageByIndex";
 import { type AdCreative } from "../types/@ads";
 
@@ -75,7 +73,7 @@ function AdsGridItem({
     backgroundPosition: "center",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
-    backgroundColor: "tomato",
+    backgroundColor: "default",
   };
 
   return (

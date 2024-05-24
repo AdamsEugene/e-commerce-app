@@ -5,7 +5,7 @@ import { fontSans } from "@/src/config/fonts";
 import { Providers } from "../providers/providers";
 import clsx from "clsx";
 
-import './(home)/home.css'
+import "./(home)/home.css";
 import "react-image-crop/dist/ReactCrop.css";
 
 const APP_NAME = siteConfig.name;
@@ -76,7 +76,9 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
+        <Providers
+          themeProps={{ attribute: "class", defaultTheme: "light", children }}
+        >
           <div className="relative flex flex-col">{children}</div>
         </Providers>
       </body>

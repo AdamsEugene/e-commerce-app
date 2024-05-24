@@ -27,7 +27,6 @@ import { FaFileCsv } from "react-icons/fa6";
 import { RiAdvertisementFill } from "react-icons/ri";
 import { MdCampaign } from "react-icons/md";
 import { SiSimpleanalytics } from "react-icons/si";
-import { GrMoney } from "react-icons/gr";
 
 type Metric = {
   value: string;
@@ -259,20 +258,6 @@ const _campaignMetrics = [
     icon: MdCampaign,
     iconColor: "#009688", // Orange
   },
-  // {
-  //   value: "Create a New Ad",
-  //   label: "Create Ad",
-  //   link: pages.ads,
-  //   icon: RiAdvertisementFill,
-  //   iconColor: "#FF5733", // Orange
-  // },
-  // {
-  //   value: "Manage Ad Budget",
-  //   label: "Ad Budget Management",
-  //   link: pages.adsBudget,
-  //   icon: GrMoney,
-  //   iconColor: "#5E35B1", // Purple
-  // },
 ];
 
 const _adsMetrics = [
@@ -283,21 +268,28 @@ const _adsMetrics = [
     icon: RiAdvertisementFill,
     iconColor: "#FF5733", // Orange
   },
-  // {
-  //   value: "Ads Campaign",
-  //   label: "Create Campaign",
-  //   link: pages.adsCampaigns,
-  //   icon: MdCampaign,
-  //   iconColor: "#009688", // Orange
-  // },
-  // {
-  //   value: "Manage Ad Budget",
-  //   label: "Ad Budget Management",
-  //   link: pages.adsBudget,
-  //   icon: GrMoney,
-  //   iconColor: "#5E35B1", // Purple
-  // },
 ];
+
+const _budgetMetrics = [
+  {
+    value: "Create a New Budget",
+    label: "Create Budget",
+    link: "",
+    icon: RiAdvertisementFill,
+    iconColor: "#4486ef", // Orange
+  },
+];
+
+const _adsGroupMetrics = [
+  {
+    value: "Create a New Ads Group",
+    label: "Create Ads Group",
+    link: "",
+    icon: RiAdvertisementFill,
+    iconColor: "#44cdef", // Orange
+  },
+];
+
 
 // Set bgColor to 50% transparent version of iconColor
 const addBgColor = (metrics: Metric[]) =>
@@ -311,6 +303,8 @@ export const addProductsMetrics = addBgColor(_addProductsMetrics);
 export const settingStuff = addBgColor(_settingStuff);
 export const campaignMetrics = addBgColor(_campaignMetrics);
 export const adsMetrics = addBgColor(_adsMetrics);
+export const budgetMetrics = addBgColor(_budgetMetrics);
+export const adsGroupMetrics = addBgColor(_adsGroupMetrics);
 
 const columns = [
   { name: "NAME", uid: "name" },
