@@ -56,6 +56,8 @@ export default function ButtonLinkOrNot() {
                     isAds
                       ? "create_ad"
                       : isGroup
+                      ? "create_group"
+                      : isBudget
                       ? "create_budget"
                       : "create_campaign"
                   )

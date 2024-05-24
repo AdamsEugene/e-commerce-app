@@ -20,6 +20,13 @@ import { budgetColumns, budgetsData } from "@/src/utils/budgetData";
 
 type Kind = "edit" | "view" | "delete";
 
+const modalTypes = [
+  "create_campaign",
+  "create_ad",
+  "create_budget",
+  "create_group",
+];
+
 export default function AllCampaigns() {
   const displayMode = useAppStore((state) => state.displayMode);
   const openModal = useAppStore((state) => state.openModal);
@@ -59,12 +66,8 @@ export default function AllCampaigns() {
     if (modalFor === "create_campaign") component.current = "create_campaign";
     if (modalFor === "create_ad") component.current = "create_ad";
     if (modalFor === "create_budget") component.current = "create_budget";
-    if (
-      modalFor === "create_campaign" ||
-      modalFor === "create_ad" ||
-      modalFor === "create_budget"
-    )
-      onOpen();
+    if (modalFor === "create_group") component.current = "create_group";
+    if (modalTypes.includes(modalFor || "")) onOpen();
   }, [modalFor, onOpen]);
 
   function handleCampaignClick<T>(kind: Kind, _item: T) {

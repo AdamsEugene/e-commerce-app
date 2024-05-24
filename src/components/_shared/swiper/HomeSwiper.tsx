@@ -119,8 +119,8 @@ const HomeSwiper: FC = () => {
   const products2 = productList.slice(11, 17);
 
   return (
-    <div className="flex h-[34rem]">
-      <div className="w-[70%] h-[34rem]">
+    <div className="flex xs:h-[min(25rem,60vh)] h-[34rem]">
+      <div className="xs:w-full xs:h-[min(25rem,60vh)] w-[70%] h-[34rem]">
         <SwiperCarousel
           products={products}
           width={200}
@@ -128,7 +128,7 @@ const HomeSwiper: FC = () => {
           delay={10000}
         />
       </div>
-      <div className="flex flex-col w-[30%]">
+      <div className="w-[30%] xs:hidden flex-col">
         <div className="h-[17rem]">
           <SwiperCarousel
             products={products1}
