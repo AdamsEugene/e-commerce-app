@@ -117,7 +117,7 @@ export default function Details() {
   const getCurrentItem = cartItems.find((item) => item.productId === productId);
 
   return (
-    <div className="w-full mx-auto p-6 flex flex-col gap-4">
+    <div className="w-full mx-auto xs:p-0 p-6 flex flex-col gap-4">
       <div>
         <div className="flex justify-between">
           <Ratings rating={2.5} numberOfReviews={8} />
@@ -141,7 +141,7 @@ export default function Details() {
         </div>
         <h1 className="text-4xl font-bold mt-4">{getCurrentItem?.itemName}</h1>
       </div>
-      <div className="pr-16 flex flex-col gap-4">
+      <div className="xs:pr-0 pr-16 flex flex-col gap-4">
         <p className="mt-2">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus
           minima soluta ullam repellendus delectus! Molestias aspernatur omnis,
@@ -159,7 +159,7 @@ export default function Details() {
       <PurchaseType {...purchasePlan} />
       <PlansComponent />
       <Divider className="my-4" />
-      <div className="flex gap-6">
+      <div className="flex xs:flex-col flex-row gap-6">
         <StyledButtonGroup data={quantityData} />
         <StyledButtonGroup data={_addToCart} color="secondary" />
         <StyledButton
