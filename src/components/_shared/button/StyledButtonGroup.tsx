@@ -5,6 +5,14 @@ import StyledPopover from "../Styled/StyledPopover";
 type PROPS = {
   data: {
     name: string;
+    variant?:
+      | "solid"
+      | "bordered"
+      | "light"
+      | "flat"
+      | "faded"
+      | "shadow"
+      | "ghost";
     onClick?: () => void;
     popOverData?: {
       title: string;
@@ -16,18 +24,20 @@ type PROPS = {
 export default function StyledButtonGroup(props: PROPS & ButtonGroupProps) {
   const { data, ...other } = props;
   return (
-    <ButtonGroup {...other}>
+    <ButtonGroup fullWidth {...other}>
       {data?.map((data) => {
         if (data.popOverData) {
           const { content, title } = data.popOverData;
           return (
             <StyledPopover key={data.name} title={title} content={content}>
-              <Button onClick={data.onClick}>{data.name}</Button>
+              <Button onClick={data.onClick} variant={data.variant}>
+                {data.name}
+              </Button>
             </StyledPopover>
           );
         }
         return (
-          <Button key={data.name} onClick={data.onClick}>
+          <Button key={data.name} onClick={data.onClick} variant={data.variant}>
             {data.name}
           </Button>
         );
