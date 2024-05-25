@@ -63,10 +63,10 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
         direction="right"
         // lockBackgroundScroll={!isDrawerOpen}
         size={450}
-        className="!h-[100vh] rounded-sm"
+        className="!h-[100vh] xs:!w-full rounded-sm"
       >
         <Card
-          className="h-[100vh]"
+          className="h-[100vh] xs:!w-full"
           radius="none"
           onMouseEnter={() => {
             setIsMouseOver(true);
@@ -78,7 +78,7 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
             setIsMouseOver(false);
           }}
         >
-          <CardBody className="side-drawer-content flex flex-col items-center p-4 !h-[100vh]">
+          <CardBody className="side-drawer-content flex flex-col items-center p-4 xs:!w-full !h-[100vh]">
             <CardHeader className="w-full flex justify-between items-center mb-4">
               <div className="flex flex-col justify-center items-center w-full">
                 <Badge
