@@ -104,7 +104,7 @@ export default function Details() {
   ];
 
   const _addToCart = [
-    { name: "$27.99" },
+    { name: "$27.99", variant: "bordered" as const },
     {
       name: "ADD TO CART",
       onClick: (state?: boolean) => {
