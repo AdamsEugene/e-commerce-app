@@ -3,6 +3,7 @@
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { Avatar, Card, Divider, Pagination, Button } from "@nextui-org/react";
 import { FiSearch } from "react-icons/fi";
+import { FaFilter } from "react-icons/fa";
 import useKeyboardShortcut from "use-keyboard-shortcut";
 
 import StyledInput from "../_shared/Styled/StyledInput";
@@ -159,8 +160,8 @@ const ReviewList = () => {
 
   return (
     <div className="space-y-6 flex flex-col items-center w-full">
-      <div className="flex w-[80%]">
-        <div ref={reviewRef} className="w-[80%] p-4">
+      <div className="flex xs:w-full xs:gap-2 w-[80%]">
+        <div ref={reviewRef} className="w-[80%] xs:p-0 p-4">
           <StyledInput
             baseRef={inputRef}
             placeholder="Search for a review"
@@ -172,15 +173,15 @@ const ReviewList = () => {
             onChange={({ target }) => handleSearchChange(target.value)}
           />
         </div>
-        <Divider orientation="vertical" className="mx-4 h-[100]" />
-        <div className="flex items-center gap-4 w-[20%] p-4">
-          <p className="text-2xl font-bold text-gray-400">Filter</p>
+        {/* <Divider orientation="vertical" className="mx-4 h-[100]" /> */}
+        <div className="flex items-center gap-4 xs:p-0 p-4">
           <StyledDropdown
             Trigger={
               <Button
                 variant="solid"
-                color="secondary"
-                className="capitalize min-w-[150px]"
+                color="default"
+                startContent={<FaFilter className="text-base" />}
+                className="capitalize"
                 fullWidth
               >
                 {selectedKeys}

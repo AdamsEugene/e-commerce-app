@@ -66,7 +66,7 @@ export default function AddReview({ addReview = true }) {
         </div>
         {/* <Divider orientation="vertical" className="mx-4" /> */}
         <div
-          className={`flex flex-col justify-center items-center w-[${
+          className={`flex flex-col justify-center items-center xs:w-full w-[${
             addReview ? "50%" : "100%"
           }]`}
         >
@@ -85,7 +85,7 @@ export default function AddReview({ addReview = true }) {
         <ConditionalRender
           condition={addReview}
           Component={
-            <div className="flex flex-col justify-center items-center w-[25%]">
+            <div className="flex flex-col justify-center items-center xs:w-full w-[25%]">
               <StyledButton
                 content="Write a Review"
                 className="w-60"
