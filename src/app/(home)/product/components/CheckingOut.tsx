@@ -41,7 +41,7 @@ export default function CheckingOut(props: PROPS) {
   }, [addToBuyNow, addToSelectedProduct, param, props.buyNow, selectedProduct]);
 
   return (
-    <div className="main flex flex-col w-full items-center">
+    <div className="main flex flex-col w-full items-center pb-8">
       <BackButton previousPage={selectedProduct?.name} />
       <div className="main flex gap-5 w-full">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
