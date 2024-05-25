@@ -42,8 +42,8 @@ export default function Products() {
     <section className="w-full home">
       <div className="main flex flex-col w-full items-center">
         <BackButton />
-        <div className="main flex">
-          <div className="gallery_wrapper">
+        <div className="main flex xs:flex-col">
+          <div className="gallery_wrapper xs:w-full w-[500px] h-[600px] xs:static sticky top-[90px]">
             <ImageGallery />
           </div>
           <div className="product_details">

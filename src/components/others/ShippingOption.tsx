@@ -23,7 +23,7 @@ const data: Offer[] = [
 
 const Offers: React.FC<OffersProps> = ({ data }) => {
   return (
-    <div className="flex gap-4">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
       {data.map((item, index) => (
         <div key={index} className="flex items-center gap-3">
           <div className="text-2xl text-primary">{item.icon}</div>

@@ -41,10 +41,10 @@ export default function ImageGallery() {
         }}
         thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Navigation, Thumbs]}
-        className="mySwiper2"
+        className="mySwiper2 xs:!w-full"
       >
         {[1, 2, 3, 4, 5].map((item) => (
-          <SwiperSlide key={item}>
+          <SwiperSlide key={item} className="xs:!w-full">
             <StyledImage
               src={getCurrentItem?.image}
               alt={String(item)}
