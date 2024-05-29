@@ -22,7 +22,7 @@ const ShippingOption: React.FC<ShippingProps> = ({ name, price, options }) => (
     <div className="h-40 w-40 rounded-full flex justify-center items-center border-gray-400 border-[16px]">
       <p className="text-2xl font-bold">{price}</p>
     </div>
-    <ul className="list-disc text-base flex flex-col gap-3">
+    <ul className="list-disc text-base flex xs:flex-row flex-col gap-3">
       {options.map((item, index) => (
         <li key={index} className="flex items-center gap-2">
           {item.icon && (
@@ -51,7 +51,7 @@ const ShippingOption: React.FC<ShippingProps> = ({ name, price, options }) => (
 
 const CreateShippingOption: React.FC = () => {
   return (
-    <div className="flex gap-3">
+    <div className="flex xs:flex-col gap-3">
       <ShippingOption name="Free" price="Free" options={freeOption} />
       <ShippingOption name="Regular" price="GHS8" options={regularOption} />
       <ShippingOption name="Express" price="GHS15" options={expressOption} />

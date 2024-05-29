@@ -37,19 +37,23 @@ const PlacedSideBySide: React.FC<Props> = ({
 
   const renderOneThird = (
     <div
-      className={`grid grid-cols-3 gap-4 w-full ${
+      className={`grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 w-full ${
         reverse ? "grid-cols-1-2" : ""
       }`}
     >
       {reverse ? (
         <>
-          <div className="col-span-2">{secondComponent}</div>
+          <div className="col-span-1 md:col-span-2 lg:col-span-2">
+            {secondComponent}
+          </div>
           <div className="col-span-1">{firstComponent}</div>
         </>
       ) : (
         <>
           <div className="col-span-1">{firstComponent}</div>
-          <div className="col-span-2">{secondComponent}</div>
+          <div className="col-span-1 md:col-span-2 lg:col-span-2">
+            {secondComponent}
+          </div>
         </>
       )}
     </div>
@@ -57,7 +61,7 @@ const PlacedSideBySide: React.FC<Props> = ({
 
   const renderGridWithEqualCols = (
     <div
-      className={`grid grid-cols-${numberOfCols} gap-4 w-full ${
+      className={`grid col-span-1 md:col-span-${numberOfCols} lg:grid-cols-${numberOfCols} gap-4 w-full ${
         reverse ? "flex-row-reverse" : ""
       } ${className}`}
     >

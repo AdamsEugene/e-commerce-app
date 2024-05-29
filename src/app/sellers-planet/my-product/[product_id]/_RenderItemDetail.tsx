@@ -28,6 +28,7 @@ import AddPriceInfo from "@/src/components/others/AddPriceInfo";
 import CreateShippingOption from "@/src/components/others/CreateShippingOption";
 import ConditionalRenderAB from "@/src/components/_shared/Conditional/ConditionalRenderAB";
 import GridItem from "@/src/components/others/GridItem";
+import { adCreativeData } from "@/src/utils/adsData";
 
 const options = [
   { key: "share", label: "Share this product" },
@@ -69,6 +70,19 @@ const supportedPlane = [
   { text: "Renting" },
   { text: "+" },
 ];
+
+const adsColumns = [
+  { name: "id", uid: "id" },
+  { name: "type", uid: "type" },
+  { name: "callToAction", uid: "callToAction" },
+  { name: "actions", uid: "actions" },
+];
+
+type Column = { name: string; uid: string };
+
+const transformColumns = (columns: Column[]): Column[] => {
+  return columns.map((c) => ({ ...c, name: c.name.toUpperCase() }));
+};
 
 export default function RenderItemDetail() {
   const params = useParams();
@@ -124,7 +138,7 @@ export default function RenderItemDetail() {
                     {getCurrentItem?.itemName}
                   </h1>
                 </div>
-                <div className="pr-16 flex flex-col gap-4">
+                <div className="xs:p-0 pr-16 flex flex-col gap-4">
                   <p className="mt-2">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Possimus minima soluta ullam repellendus delectus! Molestias
@@ -141,7 +155,7 @@ export default function RenderItemDetail() {
                   </p>
                 </div>
                 <Divider className="my-4" />
-                <div className="flex flex-row gap-3">
+                <div className="flex xs:flex-col gap-3">
                   <RenderSizeAndColor data={colors} title="Colors" />
                   <RenderSizeAndColor
                     data={sizes}
@@ -149,7 +163,7 @@ export default function RenderItemDetail() {
                     title="Sizes"
                   />
                 </div>
-                <div className="flex flex-row gap-3">
+                <div className="flex xs:flex-col gap-3">
                   <RenderSizeAndColor
                     data={quantity}
                     title="Available Quantity"
@@ -443,8 +457,19 @@ export default function RenderItemDetail() {
             ]}
           >
             <ConditionalRenderAB
-              condition={false}
-              ComponentA={<StyledTable columns={[]} data={[]} />}
+              condition={!!adCreativeData.length}
+              ComponentA={
+                <StyledTable
+                  // isHeaderSticky
+                  color="default"
+                  // selectionMode="multiple"
+                  aria-label="Campaigns collection table"
+                  columns={transformColumns(adsColumns)}
+                  data={adCreativeData.slice(0, 6)}
+                  // onRowAction={(key) => {}}
+                  // actionClick={handleCampaignClick}
+                />
+              }
               ComponentB={<div>no data</div>}
             />
           </GridItem>
@@ -452,6 +477,7 @@ export default function RenderItemDetail() {
         secondComponent={
           <GridItem
             title="Performance On The Market"
+            className="min-h-[400px] xs:h-full"
             leftSideComponent={[
               <Chip
                 key={"check"}
