@@ -13,15 +13,29 @@ import {
   filterNameUVandPV,
 } from "@/src/utils/generateDataForSelect";
 import ConditionalRenderAB from "@/src/components/_shared/Conditional/ConditionalRenderAB";
+import { adCreativeData } from "@/src/utils/adsData";
 
 export const metadata: Metadata = {
   title: "Sellers Planet",
 };
 
+const adsColumns = [
+  { name: "id", uid: "id" },
+  { name: "type", uid: "type" },
+  { name: "callToAction", uid: "callToAction" },
+  { name: "actions", uid: "actions" },
+];
+
+type Column = { name: string; uid: string };
+
+const transformColumns = (columns: Column[]): Column[] => {
+  return columns.map((c) => ({ ...c, name: c.name.toUpperCase() }));
+};
+
 export default function AdminDashboard() {
   return (
     <div className="flex flex-col gap-4">
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {adminDashboardMetrics.slice(0, 4).map((metrics, index) => (
           <ProductMetrics {...metrics} key={index} />
         ))}
@@ -30,6 +44,7 @@ export default function AdminDashboard() {
         firstComponent={
           <GridItem
             title="Simple Line Chart"
+            className="min-h-[476px] h-full"
             leftSideComponent={[
               <Chip
                 key={"check"}
@@ -54,7 +69,7 @@ export default function AdminDashboard() {
         }
         secondComponent={
           <GridItem
-            title="Simple Table"
+            title="Metrics"
             className="min-h-[400px]"
             leftSideComponent={[
               <Chip
@@ -79,7 +94,7 @@ export default function AdminDashboard() {
         reverse
         firstComponent={
           <GridItem
-            title="Simple Line Chart"
+            title="Table"
             leftSideComponent={[
               <Chip
                 key={"check"}
@@ -100,8 +115,19 @@ export default function AdminDashboard() {
             ]}
           >
             <ConditionalRenderAB
-              condition={false}
-              ComponentA={<StyledTable columns={[]} data={[]} />}
+              condition={!!adCreativeData.length}
+              ComponentA={
+                <StyledTable
+                  // isHeaderSticky
+                  color="default"
+                  // selectionMode="multiple"
+                  aria-label="Campaigns collection table"
+                  columns={transformColumns(adsColumns)}
+                  data={adCreativeData.slice(0, 6)}
+                  // onRowAction={(key) => {}}
+                  // actionClick={handleCampaignClick}
+                />
+              }
               ComponentB={<div>no data</div>}
             />
           </GridItem>
@@ -120,7 +146,7 @@ export default function AdminDashboard() {
               </Chip>,
             ]}
           >
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {adminDashboardMetrics.slice(2).map((metrics, index) => (
                 <ProductMetrics {...metrics} key={index} />
               ))}
@@ -154,8 +180,19 @@ export default function AdminDashboard() {
             ]}
           >
             <ConditionalRenderAB
-              condition={false}
-              ComponentA={<StyledTable columns={[]} data={[]} />}
+              condition={!!adCreativeData.length}
+              ComponentA={
+                <StyledTable
+                  // isHeaderSticky
+                  color="default"
+                  // selectionMode="multiple"
+                  aria-label="Campaigns collection table"
+                  columns={transformColumns(adsColumns)}
+                  data={adCreativeData.slice(0, 6)}
+                  // onRowAction={(key) => {}}
+                  // actionClick={handleCampaignClick}
+                />
+              }
               ComponentB={<div>no data</div>}
             />
           </GridItem>

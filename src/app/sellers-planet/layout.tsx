@@ -12,11 +12,11 @@ export default function RootLayout({
     <div className="relative flex flex-col min-h-screen">
       <Navbar />
       <div className="flex gap-8 flex-grow">
-        <div className="w-56">
+        <div className="w-56 xs:absolute xs:z-50 xs:bg-default-50 xs:hidden">
           <Sidebar />
         </div>
         <div className="home flex-grow pt-8">
-          <div className="main flex flex-col gap-4 !p-0">
+          <div className="main flex flex-col gap-4 !p-0 xs:!px-4">
             <StyledBreadcrumbs />
             {children}
           </div>
