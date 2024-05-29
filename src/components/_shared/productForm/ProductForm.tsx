@@ -57,7 +57,7 @@ const ProductForm: React.FC<{}> = () => {
           label="Product Description"
           isRequired
         />
-        <div className="flex items-center gap-4">
+        <div className="flex xs:flex-col items-center gap-4">
           <StyledInput
             placeholder="Enter product price"
             label="Product Price"
@@ -69,7 +69,7 @@ const ProductForm: React.FC<{}> = () => {
           label="Product Image or Video"
           handleFileUpload={handleFileUpload}
         />
-        <div className="flex items-center gap-4">
+        <div className="flex xs:flex-col items-center gap-4">
           <StyledSelect
             label="Select category"
             data={animals}
@@ -80,7 +80,7 @@ const ProductForm: React.FC<{}> = () => {
           </StyledSelect>
           <StyledInput placeholder="Enter brand" label="Brand" />
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex xs:flex-col items-center gap-4">
           <StyledInput placeholder="Enter SKU" label="SKU" />
           <StyledInput
             placeholder="Enter low stock threshold"
@@ -92,7 +92,7 @@ const ProductForm: React.FC<{}> = () => {
           placeholder="Enter meta description"
           label="Meta Description"
         />
-        <div className="flex items-center gap-4">
+        <div className="flex xs:flex-col items-center gap-4">
           <StyledInput placeholder="Enter weight" label="Weight" />
           <StyledSelect
             label="Select size"
@@ -126,7 +126,7 @@ const ProductForm: React.FC<{}> = () => {
         </div>
 
         {subscriptionAllowed && (
-          <div className="flex flex-col gap-4">
+          <div className="flex xs:flex-col flex-col gap-4">
             <h3 className="text-lg font-semibold">Subscription Details</h3>
             <StyledInput
               placeholder="Enter subscription price"
@@ -151,7 +151,7 @@ const ProductForm: React.FC<{}> = () => {
       </form>
 
       {/* Buttons */}
-      <div className="flex items-center gap-4 justify-end">
+      <div className="flex flex-wrap items-center gap-4 xs:justify-start justify-end">
         <Checkbox color="secondary" defaultSelected>
           Add more products
         </Checkbox>
