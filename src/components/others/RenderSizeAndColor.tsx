@@ -13,7 +13,7 @@ export default function RenderSizeAndColor(props: PROPS & ChipProps) {
   return (
     <div className="flex items-center gap-3 flex-1">
       <p className="min-w-[50px]">{title}</p>
-      <div className="flex gap-1 items-center">
+      <div className="flex gap-1 items-center flex-wrap">
         {data.map((item) =>
           item.text !== "+" ? (
             editing ? (

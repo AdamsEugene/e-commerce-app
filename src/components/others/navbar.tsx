@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
   Badge,
   ModalContent,
@@ -19,7 +19,7 @@ import {
   NavbarItem,
   NavbarMenuItem,
 } from "@nextui-org/navbar";
-import { Link } from "@nextui-org/link";
+// import { Link } from "@nextui-org/link";
 
 import { link as linkStyles } from "@nextui-org/theme";
 import useKeyboardShortcut from "use-keyboard-shortcut";
@@ -44,6 +44,13 @@ import StyledModal from "../_shared/Styled/StyledModal";
 import SearchResults from "../_shared/search/SearchResults";
 import { useAppStore } from "../../providers/AppStoreProvider";
 import SideDrawer from "./SideDrawer";
+import { usePathname } from "next/navigation";
+import {
+  _adminDashboardLinks,
+  adminDashboardLinks,
+  userDashboardLinks,
+} from "@/src/utils/dashboardLinks";
+import Link from "next/link";
 
 export const Navbar = () => {
   const [isInvisible, setIsInvisible] = useState(true);
@@ -51,6 +58,13 @@ export const Navbar = () => {
 
   const toggleDrawer = useAppStore((state) => state.toggleDrawer);
   const itemsInCart = useAppStore((state) => state.itemsInCart);
+
+  const pathName = usePathname();
+  let linksToRender = userDashboardLinks;
+
+  if (_adminDashboardLinks.some((link) => pathName.includes(link.id))) {
+    linksToRender = adminDashboardLinks;
+  }
 
   const { flushHeldKeys } = useKeyboardShortcut(
     ["Meta", "K"],
@@ -64,6 +78,10 @@ export const Navbar = () => {
 
   const randomIntFromInterval = (min: number, max: number) =>
     Math.floor(Math.random() * (max - min + 1) + min);
+
+  const convertLink = useMemo(() => {
+    return linksToRender.map((l) => ({ label: l.name, href: l.path }));
+  }, [linksToRender]);
 
   return (
     <>
@@ -101,13 +119,13 @@ export const Navbar = () => {
           justify="end"
         >
           <NavbarItem className="hidden sm:flex gap-2">
-            <Link
+            {/* <Link
               isExternal
               href={siteConfig.links.twitter}
               aria-label="Twitter"
             >
               <TwitterIcon className="text-default-500" />
-            </Link>
+            </Link> */}
             <ThemeSwitch />
           </NavbarItem>
           <NavbarItem className="lg:flex">
@@ -164,9 +182,9 @@ export const Navbar = () => {
         </NavbarContent>
 
         <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-          <Link isExternal href={siteConfig.links.twitter} aria-label="Twitter">
+          {/* <Link isExternal href={siteConfig.links.twitter} aria-label="Twitter">
             <TwitterIcon className="text-default-500" />
-          </Link>
+          </Link> */}
           <ThemeSwitch />
           <Badge
             color="secondary"
@@ -190,7 +208,7 @@ export const Navbar = () => {
         <NavbarMenu>
           <StyledInput iconStart both Icon={FiSearch} onClick={onOpen} />
           <div className="mx-4 mt-2 flex flex-col gap-2">
-            {siteConfig.navMenuItems.map((item, index) => (
+            {[...siteConfig.navMenuItems, ...convertLink].map((item, index) => (
               <NavbarMenuItem key={`${item}-${index}`}>
                 <Link
                   color={
@@ -200,8 +218,8 @@ export const Navbar = () => {
                       ? "danger"
                       : "foreground"
                   }
-                  href="#"
-                  size="lg"
+                  href={item.href}
+                  // size="lg"
                 >
                   {item.label}
                 </Link>
