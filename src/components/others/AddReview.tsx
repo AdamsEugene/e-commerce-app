@@ -20,14 +20,17 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({
 }) => {
   return (
     <div className="flex items-center gap-3 mt-3">
-      <Ratings rating={rating} noComment />
+      <Ratings rating={rating} noComment className="xs:!text-xs" />
       <Progress
         color="warning"
         aria-label="Loading..."
         value={progressValue}
-        className="w-[80%]"
+        className="xs:w-full w-[80%]"
+        size="md"
       />
-      <p className="text-lg text-gray-500 w-48">{reviewCount} reviews</p>
+      <p className="text-lg text-gray-500 xs:text-xs xs:w-40 w-48">
+        {reviewCount} reviews
+      </p>
     </div>
   );
 };
@@ -59,7 +62,7 @@ export default function AddReview({ addReview = true }) {
             !addReview ? "" : "w-[25%]"
           }`}
         >
-          <div className="flex flex-col gap-3 sm:mb-4 xs:items-center">
+          <div className="flex flex-col gap-3 sm:mb-4 xs:items-center xs:mb-2">
             <Ratings rating={4.5} col={!addReview} />
             <p className="text-sm text-gray-500 mt-2">Based on 1441 reviews</p>
           </div>
@@ -85,10 +88,10 @@ export default function AddReview({ addReview = true }) {
         <ConditionalRender
           condition={addReview}
           Component={
-            <div className="flex flex-col justify-center items-center xs:w-full w-[25%]">
+            <div className="flex flex-col justify-center items-center xs:mt-8 xs:mb-4 xs:w-full w-[25%]">
               <StyledButton
                 content="Write a Review"
-                className="w-60"
+                className="xs:w-full w-60"
                 color="secondary"
                 onClick={() => setReviewVisible(!isReviewVisible)}
               />

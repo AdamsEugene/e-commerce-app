@@ -81,8 +81,10 @@ const PlacedSideBySide: React.FC<Props> = ({
     renderGridWithEqualCols
   ) : (
     <div
-      className={`flex w-full ${
-        isEqualSize ? "grid grid-cols-2 gap-4" : "gap-4"
+      className={`flex w-full xs:flex-col ${
+        isEqualSize
+          ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4"
+          : "gap-4"
       } ${reverse ? "flex-row-reverse" : ""} ${className}`}
     >
       {isEqualSize

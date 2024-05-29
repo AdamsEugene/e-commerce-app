@@ -12,6 +12,7 @@ type PROPS = {
   isPressable?: boolean;
   size?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
   col?: boolean;
+  className?: string;
 };
 
 export default function Ratings(props: PROPS) {
@@ -23,6 +24,7 @@ export default function Ratings(props: PROPS) {
     size,
     initRating = 0,
     col = false,
+    className,
   } = props;
   const starRating = rating || initRating;
 
@@ -56,7 +58,7 @@ export default function Ratings(props: PROPS) {
                 ? "hover:text-gray-500 text-gray-500"
                 : " cursor-pointer text-yellow-500"
               : "text-yellow-500"
-          } `}
+          } ${className} `}
           onMouseEnter={() =>
             isPressable ? handleStarHover(i + 1) : undefined
           }
@@ -77,7 +79,7 @@ export default function Ratings(props: PROPS) {
                 ? "hover:text-gray-500 text-gray-500"
                 : " cursor-pointer text-yellow-500"
               : "text-yellow-500"
-          }`}
+          } ${className}`}
           onMouseEnter={() =>
             isPressable ? handleStarHover(fullStars + 1) : undefined
           }
@@ -98,7 +100,7 @@ export default function Ratings(props: PROPS) {
                 ? "hover:text-gray-500 text-gray-500"
                 : " cursor-pointer text-yellow-500"
               : "text-yellow-500"
-          }`}
+          } ${className}`}
           onMouseEnter={() =>
             isPressable ? handleStarHover(i + fullStars + 1) : undefined
           }
