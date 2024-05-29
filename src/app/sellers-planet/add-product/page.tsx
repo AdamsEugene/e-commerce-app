@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 export default function AddProducts() {
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between">
-        <div></div>
+      <div className="flex items-center xs:!justify-center justify-between">
+        <div className="xs:hidden"></div>
         <div className="flex gap-4 items-center">
           {addProductsMetrics.map((item) => {
             const Icon = item.icon;
