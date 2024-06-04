@@ -23,6 +23,7 @@ import ConditionalRender from "../Conditional/ConditionalRender";
 import { Fragment, useMemo, useState } from "react";
 import StyledInput from "../Styled/StyledInput";
 import StyledAutocomplete from "../Styled/StyledAutocomplete";
+import MapComponent from "../map/MapComponent";
 
 type PROPS<T> = {
   onClose: () => void;
@@ -119,8 +120,9 @@ export default function CreateAudience<T>(props: PROPS<T>) {
                 {selectedAudience.icon}
                 <p>{selectedAudience.label}</p>
               </div>
-              <div>
+              <div className="max-h-72">
                 <StyledAutocomplete items={animals} />
+                <MapComponent />
               </div>
             </div>
             <div className="h-full">

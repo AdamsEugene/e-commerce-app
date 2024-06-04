@@ -3,6 +3,7 @@ import { Button } from "@nextui-org/button";
 import { addProductsMetrics } from "@/src/utils/dashboardData";
 import BackButton from "@/src/components/_shared/button/BackButton";
 import LoadExcel from "@/src/components/_shared/files/LoadExcel";
+import { Fragment } from "react";
 
 interface ItemDetailsParams {
   params: { slug: string[] };
@@ -42,15 +43,26 @@ const ButtonIcons = () => (
       {addProductsMetrics.map((item) => {
         const Icon = item.icon;
         return (
-          <Button
-            key={item.value}
-            as={Link}
-            href={item.link}
-            style={{ background: item.bgColor }}
-            startContent={<Icon />}
-          >
-            {item.value}
-          </Button>
+          <Fragment key={item.value}>
+            <Button
+              as={Link}
+              href={item.link}
+              isIconOnly
+              style={{ background: item.bgColor }}
+              className="md:hidden lg:hidden"
+            >
+              <Icon />
+            </Button>
+            <Button
+              as={Link}
+              href={item.link}
+              style={{ background: item.bgColor }}
+              startContent={<Icon />}
+              className="xs:hidden"
+            >
+              {item.value}
+            </Button>
+          </Fragment>
         );
       })}
     </div>

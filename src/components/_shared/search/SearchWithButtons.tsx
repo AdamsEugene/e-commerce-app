@@ -20,41 +20,47 @@ export default function SearchWithButtons({
   const toggleDisplayMode = useAppStore((state) => state.toggleDisplayMode);
 
   return (
-    <div className="flex gap-3 items-center">
-      {buttons}
-      <ConditionalRender
-        condition={mode}
-        Component={
+    <div className="flex xs:flex-col gap-3 items-center w-full">
+      <div className="flex items-center justify-end w-full gap-3">
+        {buttons}
+      </div>
+      <div className="flex items-center gap-3 w-full justify-between">
+        <div className="flex items-center gap-3">
+          <ConditionalRender
+            condition={mode}
+            Component={
+              <Button
+                onClick={() => toggleDisplayMode(displayMode)}
+                variant="flat"
+                // color="warning"
+                isIconOnly
+              >
+                <ConditionalRenderAB
+                  condition={displayMode === "grid"}
+                  ComponentA={<IoListSharp className="text-xl" />}
+                  ComponentB={<IoGridSharp className="text-xl" />}
+                />
+              </Button>
+            }
+          />
           <Button
-            onClick={() => toggleDisplayMode(displayMode)}
+            key="filter"
+            // onClick={() => {}}
             variant="flat"
             // color="warning"
             isIconOnly
           >
-            <ConditionalRenderAB
-              condition={displayMode === "grid"}
-              ComponentA={<IoListSharp className="text-xl" />}
-              ComponentB={<IoGridSharp className="text-xl" />}
-            />
+            <FaFilter className="text-base" />
           </Button>
-        }
-      />
-      <Button
-        key="filter"
-        // onClick={() => {}}
-        variant="flat"
-        // color="warning"
-        isIconOnly
-      >
-        <FaFilter className="text-base" />
-      </Button>
-      <StyledInput
-        iconStart
-        both
-        keys="L"
-        Icon={FiSearch}
-        className="lg:w-[400px] md:w-[340px] sm:w-[200px]"
-      />
+        </div>
+        <StyledInput
+          iconStart
+          both
+          keys="L"
+          Icon={FiSearch}
+          className="lg:w-[400px] md:w-[340px] sm:w-[200px]"
+        />
+      </div>
     </div>
   );
 }

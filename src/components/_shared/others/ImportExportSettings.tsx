@@ -215,7 +215,7 @@ export default function ImportProductSettings({
             onValueChange={(value) => setPath(value)}
           />
           <h2 className="text-xl font-bold ">Select Import Columns</h2>
-          <div className="grid grid-cols-5 gap-4">
+          <div className="grid xs:grid-cols-2 grid-cols-5 gap-4">
             {productKeys.map((data) => (
               <CheckboxGroup
                 key={data.name}
@@ -242,7 +242,7 @@ export default function ImportProductSettings({
             <ConditionalRenderAB
               condition={!loading}
               ComponentA={
-                <div className="grid grid-cols-4 gap-4 w-full mt-2">
+                <div className="grid xs:grid-cols-2 grid-cols-4 gap-4 w-full mt-2">
                   {selected.map((data) => (
                     <StyledInput
                       key={data.name}
@@ -268,7 +268,7 @@ export default function ImportProductSettings({
           <SiMicrosoftexcel className="text-[400px] text-success-50 opacity-50" />
         </div>
       </ModalBody>
-      <ModalFooter>
+      <ModalFooter className="xs:flex xs:flex-col-reverse">
         <Button color="danger" variant="light" onPress={onClose}>
           Cancel
         </Button>
