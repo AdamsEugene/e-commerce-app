@@ -21,7 +21,9 @@ export default function RootLayout({
             {children}
           </div>
         </div>
-        <ShowSecondNav />
+        <div className="xs:hidden">
+          <ShowSecondNav />
+        </div>
       </div>
     </div>
   );

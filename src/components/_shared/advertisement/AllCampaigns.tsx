@@ -90,7 +90,10 @@ export default function AllCampaigns() {
             color="default"
             selectionMode="multiple"
             aria-label="Campaigns collection table"
-            columns={transformColumns(columns.current)}
+            columns={[
+              ...transformColumns(columns.current).slice(1, 3),
+              transformColumns(columns.current)[columns.current.length - 1],
+            ]}
             data={data.current}
             onRowAction={(key) => {}}
             actionClick={handleCampaignClick}
