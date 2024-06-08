@@ -11,8 +11,8 @@ export default function MainFooter() {
   ];
 
   return (
-    <div className="flex justify-center items-center w-full">
-      <div className="h-[544px] w-full max-w-[1780px] relative overflow-hidden">
+    <footer className="flex justify-center items-center w-full">
+      <div className="h-[544px] w-full xs:max-h-full max-w-[1780px] relative overflow-hidden">
         <div className="absolute inset-0 z-10 bg-black dark:bg-opacity-80 bg-opacity-20"></div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-0 h-full">
           {backgroundImages.map((imageUrl, index) => (
@@ -30,6 +30,6 @@ export default function MainFooter() {
         </div>
         {/* Your content goes here */}
       </div>
-    </div>
+    </footer>
   );
 }

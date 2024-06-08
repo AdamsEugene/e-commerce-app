@@ -15,7 +15,7 @@ export default function StyledCheckboxGroup(props: PROPS) {
   const [selected, setSelected] = React.useState([""]);
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col xs:flex-row gap-6">
       {checkboxData.map((data) => (
         <CheckboxGroup
           key={data.label}

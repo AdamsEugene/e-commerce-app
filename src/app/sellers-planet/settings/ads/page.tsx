@@ -24,7 +24,7 @@ export default function ADS() {
           <ButtonLinkOrNot />
         </div>
       </div>
-      <div className="flex items-center justify-between">
+      <div className="flex xs:flex-col xs:items-start items-center justify-between">
         <h1 className="text-3xl font-bold">{getRandomTitle()}</h1>
         <SearchWithButtons />
       </div>

@@ -54,6 +54,8 @@ import Link from "next/link";
 
 export const Navbar = () => {
   const [isInvisible, setIsInvisible] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const toggleDrawer = useAppStore((state) => state.toggleDrawer);
@@ -85,7 +87,13 @@ export const Navbar = () => {
 
   return (
     <>
-      <NextUINavbar maxWidth="xl" position="sticky" className="mt-2">
+      <NextUINavbar
+        isMenuOpen={isMenuOpen}
+        onMenuOpenChange={setIsMenuOpen}
+        maxWidth="xl"
+        position="sticky"
+        className="mt-2"
+      >
         <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
           <NavbarBrand as="li" className="gap-3 max-w-fit">
             <NextLink
@@ -188,11 +196,15 @@ export const Navbar = () => {
           <ThemeSwitch />
           <Badge
             color="secondary"
-            content={50}
-            isInvisible={isInvisible}
+            content={itemsInCart}
+            isInvisible={!Boolean(itemsInCart)}
             shape="circle"
           >
-            <CartIcon size={32} />
+            <CartIcon
+              size={32}
+              onClick={() => toggleDrawer(true)}
+              className="cursor-pointer"
+            />
           </Badge>
           <Badge
             color="warning"
@@ -202,15 +214,27 @@ export const Navbar = () => {
           >
             <NotificationIcon className="fill-current" size={32} />
           </Badge>
-          <NavbarMenuToggle />
+          <NavbarMenuToggle
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            className="sm:hidden"
+          />
         </NavbarContent>
 
         <NavbarMenu>
-          <StyledInput iconStart both Icon={FiSearch} onClick={onOpen} />
+          <StyledInput
+            iconStart
+            both
+            Icon={FiSearch}
+            onClick={() => {
+              setIsMenuOpen(false);
+              onOpen();
+            }}
+          />
           <div className="mx-4 mt-2 flex flex-col gap-2">
             {[...siteConfig.navMenuItems, ...convertLink].map((item, index) => (
               <NavbarMenuItem key={`${item}-${index}`}>
                 <Link
+                  onClick={() => setIsMenuOpen(false)}
                   color={
                     index === 2
                       ? "primary"

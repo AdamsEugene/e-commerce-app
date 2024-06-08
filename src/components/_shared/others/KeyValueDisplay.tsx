@@ -15,7 +15,9 @@ export default function KeyValueDisplay() {
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center gap-4 w-full">
-        <p className="min-w-[300px] text-xl font-bold">key</p>
+        <p className="xs:min-w-max w-full md:min-w-[300px] lg:min-w-[300px] text-xl font-bold">
+          key
+        </p>
         <div className="flex items-center justify-between w-full">
           <p className="text-end font-light">value</p>
           <div className="flex items-center gap-4">

@@ -107,7 +107,7 @@ function LoadExcel() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between w-full my-4">
+      <div className="flex xs:items-start items-center xs:flex-col justify-between w-full xs:gap-4 my-4">
         <h1 className="text-3xl font-bold">Imported Data</h1>
         <SearchWithButtons
           buttons={[
@@ -137,7 +137,7 @@ function LoadExcel() {
         }
         ComponentB={
           <StyledTable
-            columns={columns}
+            columns={[...columns.slice(0, 3), columns[columns.length - 1]]}
             data={importedData.current || []}
             isHeaderSticky
           />
