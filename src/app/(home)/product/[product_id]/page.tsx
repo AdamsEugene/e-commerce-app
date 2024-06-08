@@ -40,7 +40,7 @@ export async function generateMetadata(
 export default function Products() {
   return (
     <section className="w-full home pb-8">
-      <div className="main flex flex-col w-full items-center">
+      <div className=" flex flex-col w-full items-center">
         <BackButton />
         <div className="main flex xs:flex-col">
           <div className="gallery_wrapper xs:w-full w-[500px] h-[600px] xs:static sticky top-[90px]">

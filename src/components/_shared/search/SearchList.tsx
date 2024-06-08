@@ -11,7 +11,7 @@ export default function SearchList() {
       onAction={(key) => alert(key)}
       className="p-0 gap-0 divide-y divide-default-300/50 dark:divide-default-100/80 bg-content1 overflow-visible rounded-medium"
       itemClasses={{
-        base: "px-3 first:rounded-t-medium last:rounded-b-medium gap-3 h-12",
+        base: "px-3 first:rounded-t-medium last:rounded-b-medium gap-3 h-12 xs:p-0",
       }}
     >
       <ListboxItem
@@ -23,6 +23,7 @@ export default function SearchList() {
               alt={imageByIndex(1)}
               className="flex-shrink-0"
               size="sm"
+              radius="sm"
               src={"item.avatar"}
             />
           </IconWrapper>
@@ -39,6 +40,7 @@ export default function SearchList() {
               alt={"item.name"}
               className="flex-shrink-0"
               size="sm"
+              radius="sm"
               src={"item.avatar"}
             />
           </IconWrapper>
@@ -55,6 +57,7 @@ export default function SearchList() {
               alt={"item.name"}
               className="flex-shrink-0"
               size="sm"
+              radius="sm"
               src={"item.avatar"}
             />
           </IconWrapper>
@@ -71,6 +74,7 @@ export default function SearchList() {
               alt={"item.name"}
               className="flex-shrink-0"
               size="sm"
+              radius="sm"
               src={"item.avatar"}
             />
           </IconWrapper>
@@ -87,6 +91,7 @@ export default function SearchList() {
               alt={"item.name"}
               className="flex-shrink-0"
               size="sm"
+              radius="sm"
               src={"item.avatar"}
             />
           </IconWrapper>
@@ -104,6 +109,7 @@ export default function SearchList() {
               alt={"item.name"}
               className="flex-shrink-0"
               size="sm"
+              radius="sm"
               src={"item.avatar"}
             />
           </IconWrapper>
@@ -132,6 +138,7 @@ export default function SearchList() {
               alt={"item.name"}
               className="flex-shrink-0"
               size="sm"
+              radius="sm"
               src={"item.avatar"}
             />
           </IconWrapper>
@@ -148,6 +155,7 @@ export default function SearchList() {
               alt={"item.name"}
               className="flex-shrink-0"
               size="sm"
+              radius="sm"
               src={"item.avatar"}
             />
           </IconWrapper>
@@ -164,6 +172,7 @@ export default function SearchList() {
               alt={"item.name"}
               className="flex-shrink-0"
               size="sm"
+              radius="sm"
               src={"item.avatar"}
             />
           </IconWrapper>

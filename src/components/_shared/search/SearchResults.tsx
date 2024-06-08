@@ -64,12 +64,13 @@ export default function SearchResults(props: PROPS) {
       </ModalHeader>
       <Divider className="my-4" />
       <ModalBody>
-        <div className="flex w-full h-full pb-4">
-          <div className="w-[208px] flex justify-between gap-4">
+        <div className="flex xs:flex-col w-full h-full pb-4">
+          <div className="xs:w-full w-[208px] flex justify-between gap-4">
             <StyledCheckboxGroup checkboxData={checkboxData} />
-            <Divider orientation="vertical" />
+            <Divider className="xs:hidden" orientation="vertical" />
           </div>
-          <div className="w-[calc(100%-208px)] flex flex-col px-4 gap-4">
+          <Divider className="md:hidden lg:hidden" />
+          <div className="xs:w-full w-[calc(100%-208px)] flex flex-col xs:p-0 px-4 gap-4">
             <ConditionalRenderAB
               condition={!!deferredValue}
               ComponentA={<SearchList />}
