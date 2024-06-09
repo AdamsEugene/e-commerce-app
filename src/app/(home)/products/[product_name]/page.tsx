@@ -34,7 +34,7 @@ export default function Products(props: Props) {
   const productName = params.product_name;
 
   return (
-    <section className="w-full home">
+    <section className="w-full home mb-4">
       <div className="main flex flex-col justify-center items-center">
         <div className="w-full">
           <BackButton />

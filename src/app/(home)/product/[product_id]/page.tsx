@@ -8,6 +8,8 @@ import StyledFAQ from "@/src/components/others/FAQ";
 import cartItems from "@/src/utils/cartItem";
 import "../../home.css";
 import BackButton from "@/src/components/_shared/button/BackButton";
+import NormalSwapper from "@/src/components/_shared/swiper/NormalSwapper";
+import { Button } from "@nextui-org/button";
 
 type Props = {
   params: { product_id: string };
@@ -53,13 +55,16 @@ export default function Products() {
         <div className="main flex flex-col justify-center items-center">
           <div className="w-full">
             <h3 className="text-3xl font-bold mb-4">Use cases</h3>
+            {/* <NormalSwapper /> */}
           </div>
         </div>
         <div className="main flex flex-col justify-center items-center">
-          <div className="w-full">
+          <div className="w-full flex justify-between items-baseline">
             <h3 className="text-3xl font-bold mb-4">You may also like</h3>
+            <Button variant="light">See more</Button>
           </div>
-          <GridCard numberOfItems={10} />
+          <NormalSwapper />
+          <NormalSwapper />
         </div>
         <div className="main flex flex-col justify-center items-center">
           <div className="w-full">
