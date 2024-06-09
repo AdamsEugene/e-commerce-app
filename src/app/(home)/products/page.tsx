@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function Products() {
   return (
-    <section className="w-full home mb-4">
+    <section className="w-full home mb-8">
       <div className="main flex flex-col justify-center items-center">
         <div className="w-full">
           <BackButton />

@@ -10,6 +10,9 @@ import "../../home.css";
 import BackButton from "@/src/components/_shared/button/BackButton";
 import NormalSwapper from "@/src/components/_shared/swiper/NormalSwapper";
 import { Button } from "@nextui-org/button";
+import Link from "next/link";
+import { siteConfig } from "@/src/config/site";
+import Specifications from "@/src/components/others/Specifications";
 
 type Props = {
   params: { product_id: string };
@@ -42,7 +45,7 @@ export async function generateMetadata(
 export default function Products() {
   return (
     <section className="w-full home pb-8">
-      <div className=" flex flex-col w-full items-center">
+      <div className="flex flex-col w-full items-center gap-8 max-w-[1180px]">
         <BackButton />
         <div className="main flex xs:flex-col">
           <div className="gallery_wrapper xs:w-full w-[500px] h-[600px] xs:static sticky top-[90px]">
@@ -61,14 +64,22 @@ export default function Products() {
         <div className="main flex flex-col justify-center items-center">
           <div className="w-full flex justify-between items-baseline">
             <h3 className="text-3xl font-bold mb-4">You may also like</h3>
-            <Button variant="light">See more</Button>
+            <Button as={Link} href={siteConfig.pages.products} variant="light">
+              See more
+            </Button>
           </div>
           <NormalSwapper />
           <NormalSwapper />
         </div>
         <div className="main flex flex-col justify-center items-center">
           <div className="w-full">
-            <h3 className="text-3xl font-bold mb-4">What our customers say:</h3>
+            <h3 className="text-3xl font-bold mb-4">Specifications</h3>
+          </div>
+          <Specifications />
+        </div>
+        <div className="main flex flex-col justify-center items-center">
+          <div className="w-full">
+            <h3 className="text-3xl font-bold mb-4">What our customers say</h3>
           </div>
           <AddReview />
         </div>

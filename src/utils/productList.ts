@@ -213,4 +213,37 @@ const productList: PRODUCTS[] = [
   // Add 4 more items...
 ];
 
+export const productSpecifications = [
+  { id: 1, name: "Brand", value: "ExampleBrand" },
+  { id: 2, name: "Model", value: "ExampleModel" },
+  { id: 3, name: "Dimensions", value: "10 x 5 x 3 inches" },
+  { id: 4, name: "Weight", value: "1.5 lbs" },
+  { id: 5, name: "Color", value: "Black" },
+  { id: 6, name: "Material", value: "Plastic" },
+  { id: 7, name: "Screen Size", value: "6.5 inches" },
+  { id: 8, name: "Resolution", value: "1080 x 2400 pixels" },
+  { id: 9, name: "Battery Life", value: "10 hours" },
+  { id: 10, name: "Charging Time", value: "2 hours" },
+  { id: 11, name: "Processor", value: "Octa-core 2.0 GHz" },
+  { id: 12, name: "RAM", value: "4 GB" },
+  { id: 13, name: "Storage Capacity", value: "128 GB" },
+  { id: 14, name: "Expandable Storage", value: "Up to 256 GB" },
+  { id: 15, name: "Operating System", value: "Android 11" },
+  { id: 16, name: "Camera", value: "12 MP" },
+  { id: 17, name: "Front Camera", value: "8 MP" },
+  { id: 18, name: "Bluetooth", value: "5.0" },
+  { id: 19, name: "WiFi", value: "802.11 a/b/g/n/ac" },
+  { id: 20, name: "NFC", value: "Yes" },
+  { id: 21, name: "USB Type", value: "USB-C" },
+  { id: 22, name: "Audio Jack", value: "3.5mm" },
+  { id: 23, name: "Water Resistance", value: "IP68" },
+  { id: 24, name: "Warranty", value: "1 year" },
+  { id: 25, name: "Country of Origin", value: "USA" },
+  { id: 26, name: "Release Date", value: "January 2023" },
+  { id: 27, name: "Price", value: "$499" },
+  { id: 28, name: "Ratings", value: "4.5/5" },
+  { id: 29, name: "Reviews", value: "1500 reviews" },
+  { id: 30, name: "In Stock", value: "Yes" },
+];
+
 export default productList;
