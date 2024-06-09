@@ -185,7 +185,12 @@ export default function Details() {
         scrollBehavior="inside"
       >
         <ModalContent>
-          {(onClose) => <MoreOnProduct onCopy={onClose} />}
+          {(onClose) => (
+            <MoreOnProduct
+              onCopy={onClose}
+              productName={getCurrentItem?.itemName}
+            />
+          )}
         </ModalContent>
       </StyledModal>
     </div>

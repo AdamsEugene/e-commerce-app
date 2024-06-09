@@ -62,7 +62,13 @@ export default function StyledCardGrid(props: PROPS) {
   ];
 
   return (
-    <div className={`flex flex-wrap gap-${onOpenChange ? 3 : 4}`}>
+    <div
+      className={`grid grid-cols-2 sm:grid-cols-${
+        onOpenChange ? 4 : 5
+      } md:grid-cols-${onOpenChange ? 4 : 5} lg:grid-cols-${
+        onOpenChange ? 4 : 5
+      } xl:grid-cols-${onOpenChange ? 4 : 5} gap-${onOpenChange ? 3 : 4}`}
+    >
       {list.map((item) => (
         <Card
           isFooterBlurred
