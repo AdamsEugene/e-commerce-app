@@ -172,20 +172,20 @@ export default function Details() {
           quisquam, nemo similique vitae maxime reprehenderit.
         </p>
       </div>
-      <Divider className="my-2" />
+      <Divider className="my-1" />
       <ProductVariant field="pattern" />
-      <Divider className="my-2" />
+      <Divider className="my-1" />
       <ProductVariant field="material" />
-      <Divider className="my-2" />
+      <Divider className="my-1" />
       <ProductVariant field="design" />
-      <Divider className="my-2" />
+      <Divider className="my-1" />
       <ProductVariant field="compatibility" />
-      <Divider className="my-2" />
+      <Divider className="my-1" />
       <ProductColor />
-      <Divider className="my-2" />
+      <Divider className="my-1" />
       <PurchaseType {...purchasePlan} />
       <PlansComponent />
-      <Divider className="my-2" />
+      <Divider className="my-1" />
       <div className="flex xs:flex-col flex-row gap-6">
         <StyledButtonGroup data={quantityData} />
         <StyledButtonGroup data={_addToCart} color="secondary" />
@@ -199,7 +199,7 @@ export default function Details() {
           onClick={() => addToBuyNow(selectedPlan, productId)}
         />
       </div>
-      <Divider className="my-2" />
+      <Divider className="my-1" />
       <ShippingOption />
       <SideDrawer />
       <StyledModal
