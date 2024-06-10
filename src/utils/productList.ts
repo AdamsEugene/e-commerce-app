@@ -554,4 +554,10 @@ export const productVariants = [
   },
 ];
 
+export const getProductVariant = (field: keyof (typeof productVariants)[number]) =>
+  Array.from(new Set(productVariants.map((product) => product[field])));
+
+export const getProductColors = (id: number) =>
+  productVariants.find((product) => product.id === id)?.colors;
+
 export default productList;

@@ -8,13 +8,20 @@ import ConditionalRender from "../_shared/Conditional/ConditionalRender";
 export default function Specifications() {
   const [showAll, setShowAll] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
-  const [maxHeight, setMaxHeight] = useState("200px");
+  const [maxHeight, setMaxHeight] = useState("180px");
+  const [shouldShowButton, setShouldShowButton] = useState(false);
+
+  useEffect(() => {
+    if (contentRef.current) {
+      setShouldShowButton(contentRef.current.scrollHeight > 180);
+    }
+  }, []);
 
   useEffect(() => {
     if (showAll) {
       setMaxHeight(`${(contentRef?.current?.scrollHeight || 0) + 300}px`);
     } else {
-      setMaxHeight("200px");
+      setMaxHeight("180px");
     }
   }, [showAll]);
 
@@ -29,7 +36,7 @@ export default function Specifications() {
         style={{ maxHeight }}
       >
         <ConditionalRender
-          condition={showAll}
+          condition={showAll && shouldShowButton}
           Component={
             <div className="flex justify-end mb-4">
               <Button variant="light" onClick={handleShowMore}>
@@ -40,7 +47,7 @@ export default function Specifications() {
         />
         <div
           ref={contentRef}
-          className="grid xs:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4"
+          className="grid xs:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-x-3 gap-y-1"
         >
           {productSpecifications.map((specification, index) => (
             <div key={index} className="grid grid-cols-5 gap-0">
@@ -54,11 +61,16 @@ export default function Specifications() {
           ))}
         </div>
       </div>
-      <div className="flex justify-end mt-4">
-        <Button variant="light" onClick={handleShowMore}>
-          {showAll ? "Show Less" : "Show More"}
-        </Button>
-      </div>
+      <ConditionalRender
+        condition={shouldShowButton}
+        Component={
+          <div className="flex justify-end mb-4">
+            <Button variant="light" onClick={handleShowMore}>
+              {showAll ? "Show Less" : "Show More"}
+            </Button>
+          </div>
+        }
+      />
     </div>
   );
 }
