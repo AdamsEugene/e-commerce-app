@@ -5,11 +5,14 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import {
   Button,
+  Card,
+  CardBody,
   Divider,
   ModalContent,
   useDisclosure,
 } from "@nextui-org/react";
 import { FiMoreHorizontal } from "react-icons/fi";
+import { IoPricetag, IoChevronForward } from "react-icons/io5";
 
 import StyledInput from "@/src/components/_shared/Styled/StyledInput";
 import StyledButton from "@/src/components/_shared/Styled/StyledButton";
@@ -141,6 +144,18 @@ export default function Details() {
         </div>
         <h1 className="text-4xl font-bold mt-4">{getCurrentItem?.itemName}</h1>
       </div>
+      <p className="text-xs -mb-2">Extra 2% off with coins</p>
+      <Card isPressable>
+        <CardBody>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <IoPricetag />
+              <p>Coupons & discounts</p>
+            </div>
+            <IoChevronForward />
+          </div>
+        </CardBody>
+      </Card>
       <div className="xs:pr-0 pr-16 flex flex-col gap-4">
         <p className="mt-2">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus
