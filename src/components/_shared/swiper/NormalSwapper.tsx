@@ -18,18 +18,20 @@ import { siteConfig } from "@/src/config/site";
 import StyledImage from "../Styled/StyledImage";
 import imageByIndex from "@/src/utils/imageByIndex";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
+import useScreenSize from "@/src/hooks/useScreenSize";
 
 export default function NormalSwapper() {
   const addToSelectedProduct = useAppStore(
     (state) => state.addToSelectedProduct
   );
   const changePlan = useAppStore((state) => state.changePlan);
+  const screenSize = useScreenSize();
   const baseLink = "";
 
   return (
     <>
       <Swiper
-        slidesPerView={5}
+        slidesPerView={screenSize === "xs" ? 2 : 5}
         spaceBetween={16}
         navigation={{
           prevEl: ".custom-prev",
