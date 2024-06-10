@@ -56,7 +56,7 @@ export default function NormalSwapper() {
                 changePlan("default");
                 addToSelectedProduct(item);
               }}
-              className="h-full"
+              className="h-full w-full"
             >
               <CardBody className="overflow-visible p-0 h-full">
                 <StyledImage
@@ -65,7 +65,7 @@ export default function NormalSwapper() {
                   width={300}
                   height={300}
                   alt={item.name}
-                  className="object-cover product_image xs:w-full w-[216.8px] !h-[300px]"
+                  className="object-cover product_image xs:w-full !w-full !h-[300px]"
                   src={item.image || imageByIndex(index)}
                   isZoomed
                 />
