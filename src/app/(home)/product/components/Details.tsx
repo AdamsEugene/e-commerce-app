@@ -173,6 +173,16 @@ export default function Details() {
         </p>
       </div>
       <Divider className="my-2" />
+      <ProductVariant field="pattern" />
+      <Divider className="my-2" />
+      <ProductVariant field="material" />
+      <Divider className="my-2" />
+      <ProductVariant field="design" />
+      <Divider className="my-2" />
+      <ProductVariant field="compatibility" />
+      <Divider className="my-2" />
+      <ProductColor />
+      <Divider className="my-2" />
       <PurchaseType {...purchasePlan} />
       <PlansComponent />
       <Divider className="my-2" />
@@ -189,10 +199,6 @@ export default function Details() {
           onClick={() => addToBuyNow(selectedPlan, productId)}
         />
       </div>
-      <Divider className="my-2" />
-      <ProductVariant />
-      <Divider className="my-2" />
-      <ProductColor />
       <Divider className="my-2" />
       <ShippingOption />
       <SideDrawer />

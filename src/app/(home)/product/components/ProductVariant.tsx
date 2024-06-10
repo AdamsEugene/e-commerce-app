@@ -1,16 +1,32 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { productVariants as productVariants } from "@/src/utils/productList";
+import {
+  getProductVariant,
+  productVariants as productVariants,
+} from "@/src/utils/productList";
 import { Button, Chip } from "@nextui-org/react";
 import { FaCircleCheck } from "react-icons/fa6";
 import ConditionalRenderAB from "@/src/components/_shared/Conditional/ConditionalRenderAB";
+import { capitalizeFirstLetter } from "@/src/utils/functions";
 
-export default function ProductVariant() {
+type PROPS = {
+  field: keyof (typeof productVariants)[number];
+  label?: string;
+};
+
+export default function ProductVariant({ field, label }: PROPS) {
   const [showAll, setShowAll] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
   const [maxHeight, setMaxHeight] = useState("80px");
-  const [selected, setSelected] = useState<number>();
+  const [selected, setSelected] = useState<string>();
+  const [shouldShowButton, setShouldShowButton] = useState(false);
+
+  useEffect(() => {
+    if (contentRef.current) {
+      setShouldShowButton(contentRef.current.scrollHeight > 80);
+    }
+  }, []);
 
   useEffect(() => {
     if (showAll) {
@@ -27,33 +43,44 @@ export default function ProductVariant() {
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center justify-between">
-        <p>Material: For 13 Pro Max</p>
-        <Button variant="light" onClick={handleShowMore}>
-          {showAll ? "Show Less" : "Show More"}
-        </Button>
+        <p>
+          {label ? capitalizeFirstLetter(label) : capitalizeFirstLetter(field)}:{" "}
+          {selected}
+        </p>
+        <ConditionalRenderAB
+          condition={shouldShowButton}
+          ComponentA={
+            <Button variant="light" onClick={handleShowMore}>
+              {showAll ? "Show Less" : "Show More"}
+            </Button>
+          }
+          ComponentB={null}
+        />
       </div>
       <div
+        ref={contentRef}
         className={`overflow-hidden transition-all duration-500 ease-in-out`}
         style={{ maxHeight }}
       >
         <div className="flex gap-3 items-center flex-wrap">
-          {productVariants.map((variant) => (
+          {getProductVariant(field)?.map((variant) => (
             <Chip
+              key={String(variant)}
               startContent={
                 <ConditionalRenderAB
-                  condition={selected === variant.id}
+                  condition={selected === variant}
                   ComponentA={<FaCircleCheck />}
                   ComponentB={""}
                 />
               }
-              color={selected === variant.id ? "secondary" : "default"}
+              color={selected === variant ? "secondary" : "default"}
               size="lg"
               variant="bordered"
               radius="sm"
               className="cursor-pointer"
-              onClick={() => setSelected(variant.id)}
+              onClick={() => setSelected(String(variant))}
             >
-              {variant.compatibility}
+              {variant}
             </Chip>
           ))}
         </div>
