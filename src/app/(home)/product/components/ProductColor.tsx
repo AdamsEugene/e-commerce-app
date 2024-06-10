@@ -51,7 +51,7 @@ export default function ProductColor() {
         className={`overflow-hidden transition-all duration-500 ease-in-out`}
         style={{ maxHeight }}
       >
-        <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-4">
+        <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-2">
           {getProductColors(1)?.map((color, index) => (
             <Card
               shadow="none"

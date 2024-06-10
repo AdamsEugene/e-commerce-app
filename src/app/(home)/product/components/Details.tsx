@@ -30,6 +30,8 @@ import MoreOnProduct from "@/src/components/others/MoreOnProduct";
 import SideDrawer from "@/src/components/others/SideDrawer";
 import ProductVariant from "./ProductVariant";
 import ProductColor from "./ProductColor";
+import useIsVisible from "@/src/hooks/useIsVisible";
+import FloatingAddToCarts from "./FloatingAddToCarts";
 
 const purchasePlan = {
   label: "Choose Your Payment Plan",
@@ -72,6 +74,8 @@ export default function Details() {
   const addToCart = useAppStore((state) => state.addToCart);
   const addToBuyNow = useAppStore((state) => state.addToBuyNow);
   const selectedPlan = useAppStore((state) => state.selectedPlan);
+
+  const [ref, isVisible] = useIsVisible();
 
   const params = useParams();
   const productId = params.product_id as string;
@@ -186,7 +190,7 @@ export default function Details() {
       <PurchaseType {...purchasePlan} />
       <PlansComponent />
       <Divider className="my-1" />
-      <div className="flex xs:flex-col flex-row gap-6">
+      <div ref={ref as any} className="flex xs:flex-col flex-row gap-6">
         <StyledButtonGroup data={quantityData} />
         <StyledButtonGroup data={_addToCart} color="secondary" />
         <StyledButton
@@ -220,6 +224,7 @@ export default function Details() {
           )}
         </ModalContent>
       </StyledModal>
+      <FloatingAddToCarts visible={isVisible} />
     </div>
   );
 }

@@ -1,10 +1,12 @@
 import React from "react";
-import { Button, ButtonGroup, ButtonGroupProps } from "@nextui-org/react";
+import { As, Button, ButtonGroup, ButtonGroupProps } from "@nextui-org/react";
 import StyledPopover from "../Styled/StyledPopover";
 
 type PROPS = {
   data: {
     name: string;
+    as?: As<any>;
+    href?: string;
     variant?:
       | "solid"
       | "bordered"
@@ -30,14 +32,25 @@ export default function StyledButtonGroup(props: PROPS & ButtonGroupProps) {
           const { content, title } = data.popOverData;
           return (
             <StyledPopover key={data.name} title={title} content={content}>
-              <Button onClick={data.onClick} variant={data.variant}>
+              <Button
+                onClick={data.onClick}
+                variant={data.variant}
+                as={data.as}
+                href={data.href}
+              >
                 {data.name}
               </Button>
             </StyledPopover>
           );
         }
         return (
-          <Button key={data.name} onClick={data.onClick} variant={data.variant}>
+          <Button
+            key={data.name}
+            onClick={data.onClick}
+            variant={data.variant}
+            as={data.as}
+            href={data.href}
+          >
             {data.name}
           </Button>
         );
