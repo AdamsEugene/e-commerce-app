@@ -50,7 +50,7 @@ const ReviewList = () => {
   const reviewRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLDivElement>(null);
 
-  const itemsPerPage = 5;
+  const itemsPerPage = 3;
 
   const filteredReviews = useMemo(() => {
     const startIndex = (currentPage - 1) * itemsPerPage;
