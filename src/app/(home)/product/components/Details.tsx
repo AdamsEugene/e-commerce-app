@@ -28,6 +28,8 @@ import StyledDropdown from "@/src/components/_shared/others/Dropdown";
 import StyledModal from "@/src/components/_shared/Styled/StyledModal";
 import MoreOnProduct from "@/src/components/others/MoreOnProduct";
 import SideDrawer from "@/src/components/others/SideDrawer";
+import ProductVariant from "./ProductVariant";
+import ProductColor from "./ProductColor";
 
 const purchasePlan = {
   label: "Choose Your Payment Plan",
@@ -120,7 +122,7 @@ export default function Details() {
   const getCurrentItem = cartItems.find((item) => item.productId === productId);
 
   return (
-    <div className="w-full mx-auto xs:p-0 p-6 flex flex-col gap-4">
+    <div className="w-full mx-auto xs:p-0 px-6 flex flex-col gap-4">
       <div>
         <div className="flex justify-between">
           <Ratings rating={2.5} numberOfReviews={8} />
@@ -170,10 +172,10 @@ export default function Details() {
           quisquam, nemo similique vitae maxime reprehenderit.
         </p>
       </div>
-      <Divider className="my-4" />
+      <Divider className="my-2" />
       <PurchaseType {...purchasePlan} />
       <PlansComponent />
-      <Divider className="my-4" />
+      <Divider className="my-2" />
       <div className="flex xs:flex-col flex-row gap-6">
         <StyledButtonGroup data={quantityData} />
         <StyledButtonGroup data={_addToCart} color="secondary" />
@@ -187,7 +189,11 @@ export default function Details() {
           onClick={() => addToBuyNow(selectedPlan, productId)}
         />
       </div>
-      <Divider className="my-4" />
+      <Divider className="my-2" />
+      <ProductVariant />
+      <Divider className="my-2" />
+      <ProductColor />
+      <Divider className="my-2" />
       <ShippingOption />
       <SideDrawer />
       <StyledModal

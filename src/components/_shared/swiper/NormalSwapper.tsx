@@ -1,27 +1,23 @@
 "use client";
 
-import React, { useRef, useState } from "react";
-// Import Swiper React components
+import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 
-// import "./styles.css";
-
-// import required modules
 import { Navigation } from "swiper/modules";
-import productList from "@/src/utils/productList";
-import { Button, Card, CardBody, CardFooter, Link } from "@nextui-org/react";
-import { siteConfig } from "@/src/config/site";
-import StyledImage from "../Styled/StyledImage";
-import imageByIndex from "@/src/utils/imageByIndex";
-import { useAppStore } from "@/src/providers/AppStoreProvider";
 import {
   MdOutlineArrowBackIos,
   MdOutlineArrowForwardIos,
 } from "react-icons/md";
+
+import productList from "@/src/utils/productList";
+import { Button, Card, CardBody, CardFooter } from "@nextui-org/react";
+import { siteConfig } from "@/src/config/site";
+import StyledImage from "../Styled/StyledImage";
+import imageByIndex from "@/src/utils/imageByIndex";
+import { useAppStore } from "@/src/providers/AppStoreProvider";
 
 export default function NormalSwapper() {
   const addToSelectedProduct = useAppStore(
