@@ -20,11 +20,11 @@ export default function AutoPlaySwapper() {
       spaceBetween={0}
       centeredSlides={true}
       loop={true}
-      //   autoplay={{
-      //     delay: 5000,
-      //     disableOnInteraction: true,
-      //     pauseOnMouseEnter: true,
-      //   }}
+      autoplay={{
+        delay: 5000,
+        disableOnInteraction: true,
+        pauseOnMouseEnter: true,
+      }}
       navigation={{
         prevEl: ".custom-prev",
         nextEl: ".custom-next",
