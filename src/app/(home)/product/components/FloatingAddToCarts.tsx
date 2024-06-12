@@ -53,7 +53,7 @@ export default function FloatingAddToCarts({ visible }: { visible: boolean }) {
       } ${
         expand && visible
           ? "block w-max xs:w-full right-14 xs:right-0 max-w-max xs:max-w-full !m-0 bottom-5 xs:bottom-0 bg-default-50"
-          : "block w-max xs:w-full right-14 xs:right-0 bg-default-50 max-w-max xs:max-w-max !m-0 bottom-5 xs:bottom-0"
+          : "block w-max xs:w-full right-14 xs:right-5 bg-default-50 max-w-max xs:max-w-max !m-0 bottom-5 xs:bottom-5"
       }`}
     >
       {!expand ? (
