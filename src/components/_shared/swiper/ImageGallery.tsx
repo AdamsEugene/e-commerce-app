@@ -41,7 +41,7 @@ export default function ImageGallery() {
         }}
         thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Navigation, Thumbs]}
-        className="mySwiper2 xs:!w-full xs:!h-[80%] h-[470px]"
+        className="mySwiper2 xs:!w-full xs:!h-[80%] !h-[80%]"
       >
         {[1, 2, 3, 4, 5].map((item) => (
           <SwiperSlide key={item} className="xs:!w-full">
@@ -51,7 +51,7 @@ export default function ImageGallery() {
               shadow="lg"
               width={300}
               height={300}
-              className="xs:!h-[100%] !h-[470px]"
+              className="xs:!h-[100%] !h-[100%]"
             />
           </SwiperSlide>
         ))}
