@@ -10,8 +10,8 @@ type PROPS = {
 export const IconWrapper = ({ children, className, ...others }: PROPS) => (
   <div
     className={cn(
-      className,
-      "flex items-center rounded-small justify-center w-7 h-7"
+      "flex items-center rounded-small justify-center w-7 h-7",
+      className
     )}
     {...others}
   >

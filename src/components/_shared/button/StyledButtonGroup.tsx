@@ -1,12 +1,15 @@
 import React from "react";
 import { As, Button, ButtonGroup, ButtonGroupProps } from "@nextui-org/react";
 import StyledPopover from "../Styled/StyledPopover";
+import { IconType } from "react-icons";
 
 type PROPS = {
   data: {
     name: string;
+    icon?: IconType;
     as?: As<any>;
     href?: string;
+    isIconOnly?: boolean;
     variant?:
       | "solid"
       | "bordered"
@@ -28,6 +31,7 @@ export default function StyledButtonGroup(props: PROPS & ButtonGroupProps) {
   return (
     <ButtonGroup fullWidth {...other}>
       {data?.map((data) => {
+        const Icon = data.icon;
         if (data.popOverData) {
           const { content, title } = data.popOverData;
           return (
@@ -50,8 +54,9 @@ export default function StyledButtonGroup(props: PROPS & ButtonGroupProps) {
             variant={data.variant}
             as={data.as}
             href={data.href}
+            isIconOnly={data.isIconOnly}
           >
-            {data.name}
+            {Icon ? <Icon /> : data.name}
           </Button>
         );
       })}
