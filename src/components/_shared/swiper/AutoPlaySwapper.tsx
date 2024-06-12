@@ -19,6 +19,7 @@ export default function AutoPlaySwapper() {
     <Swiper
       spaceBetween={0}
       centeredSlides={true}
+      loop={true}
       autoplay={{
         delay: 5000,
         disableOnInteraction: true,
@@ -29,7 +30,7 @@ export default function AutoPlaySwapper() {
         nextEl: ".custom-next",
       }}
       modules={[Autoplay, Navigation]}
-      className="max-w-[1180px] xs:max-h-full w-full"
+      className="max-w-[1180px] xs:max-w-[100%] w-full"
     >
       <SwiperSlide>
         <Card className="w-full h-36 xs:h-28 relative flex">

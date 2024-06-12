@@ -3,7 +3,7 @@ import AutoPlaySwapper from "../swiper/AutoPlaySwapper";
 
 export default function BannerAdsDisplay() {
   return (
-    <div>
+    <div className="w-full max-w-full">
       <AutoPlaySwapper />
     </div>
   );
