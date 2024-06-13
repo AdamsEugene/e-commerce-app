@@ -1,8 +1,7 @@
 "use client";
 
-import { useRouter, useParams } from "next/navigation";
-import { Button, Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
-import { IoArrowBackOutline } from "react-icons/io5";
+import { useParams } from "next/navigation";
+import { Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
 
 import "../../home.css";
 import ItemsInCarts from "./ItemsInCarts";
@@ -28,7 +27,6 @@ export default function CheckingOut(props: PROPS) {
 
   const totalItems = props.buyNow ? 1 : itemsInCart;
 
-  const router = useRouter();
   const param = useParams();
 
   useEffect(() => {
@@ -41,9 +39,9 @@ export default function CheckingOut(props: PROPS) {
   }, [addToBuyNow, addToSelectedProduct, param, props.buyNow, selectedProduct]);
 
   return (
-    <div className=" flex flex-col w-full items-center pb-8">
+    <div className="flex flex-col w-full items-center max-w-[1180px] gap-4">
       <BackButton previousPage={selectedProduct?.name} />
-      <div className="main flex gap-5 w-full">
+      <div className="flex gap-5 w-full">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="w-full">
             <Card className="w-full">

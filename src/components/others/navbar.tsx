@@ -101,7 +101,7 @@ export const Navbar = () => {
               href="/"
             >
               <Logo />
-              <p className="font-bold text-inherit">ACME</p>
+              <p className="font-bold text-inherit">E-BUY</p>
             </NextLink>
           </NavbarBrand>
           <ul className="hidden lg:flex gap-4 justify-start ml-2">
@@ -171,11 +171,13 @@ export const Navbar = () => {
               content={itemsInCart}
               isInvisible={!Boolean(itemsInCart)}
               shape="circle"
+              size="lg"
+              onClick={() => toggleDrawer(true)}
             >
               <CartIcon
                 size={32}
-                onClick={() => toggleDrawer(true)}
                 className="cursor-pointer"
+                onClick={() => toggleDrawer(true)}
               />
             </Badge>
             <Badge
@@ -183,6 +185,7 @@ export const Navbar = () => {
               content={5}
               isInvisible={isInvisible}
               shape="circle"
+              size="lg"
             >
               <NotificationIcon className="fill-current" size={32} />
             </Badge>
@@ -199,11 +202,13 @@ export const Navbar = () => {
             content={itemsInCart}
             isInvisible={!Boolean(itemsInCart)}
             shape="circle"
+            size="lg"
+            onClick={() => toggleDrawer(true)}
           >
             <CartIcon
               size={32}
-              onClick={() => toggleDrawer(true)}
               className="cursor-pointer"
+              onClick={() => toggleDrawer(true)}
             />
           </Badge>
           <Badge
