@@ -68,3 +68,12 @@ export interface Schedule {
   endDateTime?: string; // Optional end date and time (ISO 8601 format)
   adDelivery?: "Standard" | "Accelerated"; // Optional delivery speed
 }
+
+export interface AdPreview {
+  type: "Image" | "Video";
+  imagePosition: "left" | "right" | "full";
+  url: string;
+  headline?: string;
+  description?: string;
+  callToAction: string;
+}

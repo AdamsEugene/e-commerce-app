@@ -11,7 +11,7 @@ export default function CustomNavigationButtons(props: ButtonProps) {
       <Button
         isIconOnly
         radius="full"
-        variant="faded"
+        variant="light"
         size="sm"
         color="secondary"
         className="custom-prev absolute left-2 top-1/2 transform -translate-y-1/2 z-10"
@@ -22,7 +22,7 @@ export default function CustomNavigationButtons(props: ButtonProps) {
       <Button
         isIconOnly
         radius="full"
-        variant="faded"
+        variant="light"
         size="sm"
         color="secondary"
         className="custom-next absolute right-2 top-1/2 transform -translate-y-1/2 z-10"
