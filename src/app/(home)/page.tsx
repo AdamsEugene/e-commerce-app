@@ -6,6 +6,7 @@
 // import { title, subtitle } from "@/src/components/primitives";
 import HomeSwiper from "@/src/components/_shared/swiper/HomeSwiper";
 import GridCard from "@/src/components/_shared/others/GridCard";
+import BannerAdsDisplay from "@/src/components/_shared/advertisement/BannerAdsDisplay";
 
 export default function Home() {
   return (
@@ -13,7 +14,11 @@ export default function Home() {
       <div className="xs:h-[min(25rem,60vh)] h-[34rem] w-full max-w-[1780px]">
         <HomeSwiper />
       </div>
-      <div className="container main">
+      <div className="container main flex flex-col items-center justify-center !gap-8">
+        <GridCard />
+        <BannerAdsDisplay />
+        <GridCard />
+        <BannerAdsDisplay />
         <GridCard />
       </div>
       {/* <div className="inline-block max-w-lg text-center justify-center">

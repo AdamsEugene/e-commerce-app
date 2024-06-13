@@ -9,10 +9,8 @@ import { Autoplay, Navigation } from "swiper/modules";
 import { Button, Card, CardBody, Image } from "@nextui-org/react";
 import StyledImage from "../Styled/StyledImage";
 import imageByIndex from "@/src/utils/imageByIndex";
-import {
-  MdOutlineArrowBackIos,
-  MdOutlineArrowForwardIos,
-} from "react-icons/md";
+
+import CustomNavigationButtons from "./CustomNavigationButtons";
 
 export default function AutoPlaySwapper() {
   return (
@@ -144,11 +142,11 @@ export default function AutoPlaySwapper() {
       </SwiperSlide>
       <SwiperSlide>
         <Card className="w-full h-36 xs:h-28 relative flex overflow-hidden">
-          <CardBody className="product_image_big_wrapper overflow-visible p-0">
-            <div className="h-full w-full">
+          <CardBody className="product_image_big_wrapper overflow-visible p-0 h-36 xs:h-28">
+            <div className="!h-36 xs:!h-28 w-full">
               <Image
                 alt={"data.headline"}
-                className="h-36 xs:h-28 w-full object-cover rounded-r-none"
+                className="!h-36 xs:!h-28 w-full object-cover rounded-r-none"
                 as={StyledImage}
                 height={112}
                 src={imageByIndex(9)}
@@ -158,7 +156,7 @@ export default function AutoPlaySwapper() {
             </div>
             <div className="absolute inset-0 bg-black opacity-20 backdrop-blur-md backdrop-filter rounded-lg z-20 pointer-events-none"></div>
             <div
-              className="flex flex-col w-full h-full absolute top-0 left-0 items-start text-left p-2 justify-between z-10 pointer-events-none"
+              className="flex flex-col w-full h-36 xs:h-28 absolute top-0 left-0 items-start text-left p-2 justify-between z-10 pointer-events-none"
               style={{ background: "" }}
             >
               <h1 className="font-bold" style={{ color: "" }}>
@@ -192,24 +190,7 @@ export default function AutoPlaySwapper() {
           </CardBody>
         </Card>
       </SwiperSlide>
-      <Button
-        isIconOnly
-        radius="full"
-        variant="faded"
-        color="secondary"
-        className="custom-prev absolute left-2 top-1/2 transform -translate-y-1/2 z-10"
-      >
-        <MdOutlineArrowBackIos className="text-xl" />
-      </Button>
-      <Button
-        isIconOnly
-        radius="full"
-        variant="faded"
-        color="secondary"
-        className="custom-next absolute right-2 top-1/2 transform -translate-y-1/2 z-10"
-      >
-        <MdOutlineArrowForwardIos className="text-xl" />
-      </Button>
+      <CustomNavigationButtons />
     </Swiper>
   );
 }
