@@ -10,7 +10,7 @@ import BannerAdsDisplay from "@/src/components/_shared/advertisement/BannerAdsDi
 
 export default function Home() {
   return (
-    <section className="flex flex-col items-center justify-center !gap-8 py-8 md:py-10 home">
+    <section className="flex flex-col items-center justify-center !gap-8 pb-8 home">
       <div className="xs:h-[min(25rem,60vh)] h-[34rem] w-full max-w-[1780px]">
         <HomeSwiper />
       </div>

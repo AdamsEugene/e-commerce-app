@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { Card, CardBody, CardFooter } from "@nextui-org/react";
+import { MdOutlineAddShoppingCart } from "react-icons/md";
 
 import StyledImage from "../Styled/StyledImage";
 import productList, { PRODUCTS } from "@/src/utils/productList";
@@ -10,6 +11,7 @@ import { siteConfig } from "@/src/config/site";
 import useResizeListener from "@/src/hooks/useResizeListener";
 import { useAppStore } from "../../../providers/AppStoreProvider";
 import imageByIndex from "@/src/utils/imageByIndex";
+import { IconWrapper } from "./IconWrapper";
 
 type PROPS = {
   numberOfItems?: number;
@@ -25,6 +27,8 @@ export default function GridCard(props: PROPS) {
     (state) => state.addToSelectedProduct
   );
   const changePlan = useAppStore((state) => state.changePlan);
+  const toggleDrawer = useAppStore((state) => state.toggleDrawer);
+  const addToCart = useAppStore((state) => state.addToCart);
 
   return (
     <div
@@ -35,36 +39,47 @@ export default function GridCard(props: PROPS) {
         {(
           data?.slice(0, numberOfItems) || productList.slice(0, numberOfItems)
         ).map((item, index) => (
-          <Card
-            shadow="none"
-            as={Link}
-            href={`${baseLink ? baseLink : siteConfig.pages.product}/${
-              item.productId
-            }`}
-            key={index}
-            isPressable
-            onClick={() => {
-              changePlan("default");
-              addToSelectedProduct(item);
-            }}
-          >
-            <CardBody className="overflow-visible p-0">
-              <StyledImage
-                shadow="none"
-                radius="lg"
-                width={300}
-                height={300}
-                alt={item.name}
-                className="object-cover product_image xs:w-full w-[216.8px]"
-                src={item.image || imageByIndex(index)}
-                isZoomed
-              />
-            </CardBody>
-            <CardFooter className="text-small justify-between">
-              <b>{item.name}</b>
-              <p className="text-default-500">{item.price}</p>
-            </CardFooter>
-          </Card>
+          <div className="relative">
+            <Card
+              shadow="none"
+              as={Link}
+              href={`${baseLink ? baseLink : siteConfig.pages.product}/${
+                item.productId
+              }`}
+              key={index}
+              isPressable
+              onClick={() => {
+                changePlan("default");
+                addToSelectedProduct(item);
+              }}
+            >
+              <CardBody className="overflow-visible p-0">
+                <StyledImage
+                  shadow="none"
+                  radius="lg"
+                  width={300}
+                  height={300}
+                  alt={item.name}
+                  className="object-cover product_image xs:w-full w-[216.8px]"
+                  src={item.image || imageByIndex(index)}
+                  isZoomed
+                />
+              </CardBody>
+              <CardFooter className="text-small justify-between">
+                <b>{item.name}</b>
+                <p className="text-default-500">{item.price}</p>
+              </CardFooter>
+            </Card>
+            <IconWrapper
+              onClick={() => {
+                addToCart("default", item.productId);
+                toggleDrawer(true);
+              }}
+              className="bg-secondary/10 text-secondary cursor-pointer hover:bg-secondary/30 transition duration-300 ease-in-out absolute z-10 bottom-14 right-3 !w-10 !h-10"
+            >
+              <MdOutlineAddShoppingCart className="text-2xl" />
+            </IconWrapper>
+          </div>
         ))}
       </div>
     </div>

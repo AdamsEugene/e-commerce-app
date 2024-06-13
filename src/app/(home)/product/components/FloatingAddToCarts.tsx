@@ -10,6 +10,7 @@ import { useAppStore } from "@/src/providers/AppStoreProvider";
 import StyledButtonGroup from "@/src/components/_shared/button/StyledButtonGroup";
 import { siteConfig } from "@/src/config/site";
 import { IconWrapper } from "@/src/components/_shared/others/IconWrapper";
+import { Badge } from "@nextui-org/react";
 
 export default function FloatingAddToCarts({ visible }: { visible: boolean }) {
   const [expand, setExpand] = useState(false);
@@ -17,6 +18,7 @@ export default function FloatingAddToCarts({ visible }: { visible: boolean }) {
   const addToCart = useAppStore((state) => state.addToCart);
   const addToBuyNow = useAppStore((state) => state.addToBuyNow);
   const selectedPlan = useAppStore((state) => state.selectedPlan);
+  const itemsInCart = useAppStore((state) => state.itemsInCart);
 
   const params = useParams();
   const productId = params.product_id as string;
@@ -57,12 +59,21 @@ export default function FloatingAddToCarts({ visible }: { visible: boolean }) {
       }`}
     >
       {!expand ? (
-        <IconWrapper
+        <Badge
+          color="secondary"
+          content={itemsInCart}
+          isInvisible={!Boolean(itemsInCart)}
+          shape="circle"
+          size="lg"
           onClick={() => setExpand((p) => !p)}
-          className="bg-secondary/10 text-secondary cursor-pointer hover:bg-secondary/30 transition duration-300 ease-in-out !w-14 !h-14 !p-2"
         >
-          <IoCart className="text-[70px]" />
-        </IconWrapper>
+          <IconWrapper
+            onClick={() => setExpand((p) => !p)}
+            className="bg-secondary/10 text-secondary cursor-pointer hover:bg-secondary/30 transition duration-300 ease-in-out !w-14 !h-14 !p-2"
+          >
+            <IoCart className="text-[70px]" />
+          </IconWrapper>
+        </Badge>
       ) : (
         <StyledButtonGroup data={_addToCart} color="secondary" radius="none" />
       )}
