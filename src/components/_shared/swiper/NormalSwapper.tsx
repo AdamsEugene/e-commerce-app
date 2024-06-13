@@ -7,18 +7,15 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 import { Navigation } from "swiper/modules";
-import {
-  MdOutlineArrowBackIos,
-  MdOutlineArrowForwardIos,
-} from "react-icons/md";
 
 import productList from "@/src/utils/productList";
-import { Button, Card, CardBody, CardFooter } from "@nextui-org/react";
+import { Card, CardBody, CardFooter } from "@nextui-org/react";
 import { siteConfig } from "@/src/config/site";
 import StyledImage from "../Styled/StyledImage";
 import imageByIndex from "@/src/utils/imageByIndex";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
 import useScreenSize from "@/src/hooks/useScreenSize";
+import CustomNavigationButtons from "./CustomNavigationButtons";
 
 export default function NormalSwapper() {
   const addToSelectedProduct = useAppStore(
@@ -75,24 +72,7 @@ export default function NormalSwapper() {
             </Card>
           </SwiperSlide>
         ))}
-        <Button
-          isIconOnly
-          radius="full"
-          variant="faded"
-          color="secondary"
-          className="custom-prev absolute left-2 top-1/2 transform -translate-y-1/2 z-10"
-        >
-          <MdOutlineArrowBackIos className="text-xl" />
-        </Button>
-        <Button
-          isIconOnly
-          radius="full"
-          variant="faded"
-          color="secondary"
-          className="custom-next absolute right-2 top-1/2 transform -translate-y-1/2 z-10"
-        >
-          <MdOutlineArrowForwardIos className="text-xl" />
-        </Button>
+        <CustomNavigationButtons />
       </Swiper>
     </>
   );

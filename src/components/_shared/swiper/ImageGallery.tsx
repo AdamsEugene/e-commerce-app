@@ -4,11 +4,7 @@ import React, { useState } from "react";
 import { useParams } from "next/navigation";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Button } from "@nextui-org/button";
-import {
-  MdOutlineArrowBackIos,
-  MdOutlineArrowForwardIos,
-} from "react-icons/md";
+
 import StyledImage from "../Styled/StyledImage";
 
 // Import Swiper styles
@@ -21,10 +17,13 @@ import "./swiper.css";
 
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import cartItems from "@/src/utils/cartItem";
+import CustomNavigationButtons from "./CustomNavigationButtons";
+import useScreenSize from "@/src/hooks/useScreenSize";
 
 export default function ImageGallery() {
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
 
+  const screenSize = useScreenSize();
   const params = useParams();
   const productId = params.product_id as string;
 
@@ -55,24 +54,7 @@ export default function ImageGallery() {
             />
           </SwiperSlide>
         ))}
-        <Button
-          isIconOnly
-          radius="full"
-          variant="faded"
-          color="secondary"
-          className="custom-prev absolute left-2 top-1/2 transform -translate-y-1/2 z-10"
-        >
-          <MdOutlineArrowBackIos className="text-xl" />
-        </Button>
-        <Button
-          isIconOnly
-          radius="full"
-          variant="faded"
-          color="secondary"
-          className="custom-next absolute right-2 top-1/2 transform -translate-y-1/2 z-10"
-        >
-          <MdOutlineArrowForwardIos className="text-xl" />
-        </Button>
+        <CustomNavigationButtons size={screenSize === "xs" ? "md" : "lg"} />
       </Swiper>
       <Swiper
         onSwiper={setThumbsSwiper}
