@@ -1,5 +1,4 @@
 /** @type {import('next').NextConfig} */
-const { withNextVideo } = require("next-video/process");
 
 const withPWA = require("@ducanh2912/next-pwa").default({
   dest: "public",
@@ -15,6 +14,5 @@ const withPWA = require("@ducanh2912/next-pwa").default({
 });
 
 const nextConfig = {};
-const videoConfig = withNextVideo(nextConfig);
 
-module.exports = withPWA(videoConfig);
+module.exports = withPWA(nextConfig);
