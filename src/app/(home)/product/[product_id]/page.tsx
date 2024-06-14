@@ -14,6 +14,7 @@ import Link from "next/link";
 import { siteConfig } from "@/src/config/site";
 import Specifications from "@/src/components/others/Specifications";
 import BannerAdsDisplay from "@/src/components/_shared/advertisement/BannerAdsDisplay";
+import UseCases from "../components/UseCases";
 
 type Props = {
   params: { product_id: string };
@@ -59,7 +60,7 @@ export default function Products() {
         <div className="main flex flex-col justify-center items-center">
           <div className="w-full">
             <h3 className="text-3xl font-bold mb-4">Use cases</h3>
-            {/* <NormalSwapper /> */}
+            <UseCases />
           </div>
         </div>
         <div className="main flex flex-col justify-center items-center">

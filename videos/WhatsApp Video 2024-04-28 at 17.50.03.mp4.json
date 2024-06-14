@@ -1,0 +1,23 @@
+{
+  "status": "ready",
+  "originalFilePath": "videos/WhatsApp Video 2024-04-28 at 17.50.03.mp4",
+  "provider": "mux",
+  "providerMetadata": {
+    "mux": {
+      "uploadId": "JYcxtz1KE6fmNGC02FwpUjB9udVPIL02amEHVErlMUA8Q",
+      "assetId": "rW965jj1axWwWLFFvKAIsphZ8028GJJnHLBs200pYGAwk",
+      "playbackId": "tryUFQKELlmWWgqi01EB01tkXHcUZSyhCDqaxT100e01K9s"
+    }
+  },
+  "createdAt": 1718367773464,
+  "updatedAt": 1718367780881,
+  "size": 3461769,
+  "sources": [
+    {
+      "src": "https://stream.mux.com/tryUFQKELlmWWgqi01EB01tkXHcUZSyhCDqaxT100e01K9s.m3u8",
+      "type": "application/x-mpegURL"
+    }
+  ],
+  "poster": "https://image.mux.com/tryUFQKELlmWWgqi01EB01tkXHcUZSyhCDqaxT100e01K9s/thumbnail.webp",
+  "blurDataURL": "data:image/webp;base64,UklGRqYAAABXRUJQVlA4IJoAAABQAgCdASoJABAAAQAcJbACdDBUAYsWWqXkF0AAyyQYI+6pOxnPgq3m1/FF8IO38WYiExIGrpTMz3Qv6BvZkSLwJ1C+p81jAqF7w6DDiL7sR2Vj/lg18PRZostqbfvyu2lTT4OWJX7spOwRP8SV/0OQBy+uaR34XFswZ8+hzf/GV5FM9iz7PAXj0fDPn/87ZkHrO1m+9/2cUQAA"
+}

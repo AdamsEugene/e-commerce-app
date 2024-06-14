@@ -75,7 +75,7 @@ export default function GridCard(props: PROPS) {
                 addToCart("default", item.productId);
                 toggleDrawer(true);
               }}
-              className="bg-secondary/10 text-secondary cursor-pointer hover:bg-secondary/30 transition duration-300 ease-in-out absolute z-10 bottom-14 right-3 !w-10 !h-10"
+              className="bg-primary/10 text-primary cursor-pointer hover:bg-primary/30 transition duration-300 ease-in-out absolute z-10 bottom-14 right-3 !w-10 !h-10"
             >
               <MdOutlineAddShoppingCart className="text-2xl" />
             </IconWrapper>

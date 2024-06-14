@@ -7,6 +7,7 @@
 import HomeSwiper from "@/src/components/_shared/swiper/HomeSwiper";
 import GridCard from "@/src/components/_shared/others/GridCard";
 import BannerAdsDisplay from "@/src/components/_shared/advertisement/BannerAdsDisplay";
+import ProductsGrid from "./products/components/ProductsGrid";
 
 export default function Home() {
   return (
@@ -15,11 +16,15 @@ export default function Home() {
         <HomeSwiper />
       </div>
       <div className="container main flex flex-col items-center justify-center !gap-8">
+        <ProductsGrid />
         <GridCard />
+        <ProductsGrid reverse />
         <BannerAdsDisplay />
         <GridCard />
+        <ProductsGrid />
         <BannerAdsDisplay />
         <GridCard />
+        <ProductsGrid reverse />
       </div>
       {/* <div className="inline-block max-w-lg text-center justify-center">
         <h1 className={title()}>Make&nbsp;</h1>
