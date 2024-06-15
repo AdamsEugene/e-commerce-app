@@ -1,14 +1,23 @@
-export default function VideoPlayer() {
+"use client";
+import ReactPlayer from "react-player";
+
+const VideoPlayer = () => {
+  let videoSrc = "https://youtu.be/FB_am3ZPY7I?si=bx6CODbGiEFCBfEk";
+
   return (
-    <video width="100%" height="240" controls preload="none">
-      <source src={'/videos/vid.mp4'} type="video/mp4" />
-      <track
-        src="/path/to/captions.vtt"
-        kind="subtitles"
-        srcLang="en"
-        label="English"
+    <div>
+      <ReactPlayer
+        className="react-player"
+        width="100%"
+        height="400px"
+        url={videoSrc}
+        controls={false}
+        light={false}
+        pip={true}
       />
-      Your browser does not support the video tag.
-    </video>
+      <source src={videoSrc} type="video/mp4" />
+    </div>
   );
-}
+};
+
+export default VideoPlayer;

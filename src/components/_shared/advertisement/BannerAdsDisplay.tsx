@@ -9,8 +9,17 @@ import { AdPreview } from "../types/@ads";
 import { adsPreview } from "@/src/utils/adsData";
 import ConditionalRenderAB from "../Conditional/ConditionalRenderAB";
 
-export default function BannerAdsDisplay() {
-  const Ads = adsPreview.map((ad) => <AdsWrapper {...ad} />);
+type PROPS = {
+  ads?: AdPreview[];
+};
+
+export default function BannerAdsDisplay(props: PROPS) {
+  const { ads } = props;
+
+  const Ads = ads?.map((ad) => <AdsWrapper {...ad} />);
+
+  if (!Ads) return null;
+
   return (
     <div className="w-full max-w-full">
       <AutoPlaySwapper children={Ads} />

@@ -1,3 +1,5 @@
+import { AdPreview } from "../components/_shared/types/@ads";
+import { adsPreview } from "./adsData";
 import imageByIndex from "./imageByIndex";
 
 export type PRODUCTS = {
@@ -6,6 +8,20 @@ export type PRODUCTS = {
   image: any;
   price: string | number;
   description: string;
+};
+
+export type PRODUCTS_GRID = {
+  gridId: string;
+  title: string;
+  cta: string;
+  image: any;
+  products: [PRODUCTS[], PRODUCTS[]];
+};
+
+export type PRODUCTS_FOR_HOME = {
+  products: PRODUCTS[];
+  productsGrid?: PRODUCTS_GRID;
+  ads?: AdPreview[];
 };
 
 const productList: PRODUCTS[] = [
@@ -209,8 +225,173 @@ const productList: PRODUCTS[] = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquet sagittis malesuada. Vestibulum et ante vitae eros malesuada vulputate. Sed vel ultrices risus. Nullam vel purus non nunc suscipit aliquam ut a urna. Proin ut euismod mi. Phasellus fringilla ligula at ultrices laoreet. Sed nec hendrerit nulla. Fusce vel laoreet sem. Duis in justo a dolor tristique eleifend eu id elit. Nunc vulputate massa ac ultricies dictum. Nullam interdum pellentesque suscipit. Sed malesuada ex nec posuere auctor. Nullam eget sem ac metus sagittis sagittis. In hac habitasse platea dictumst.",
   },
-  // { productId: "26", name: "Papaya", image: imageByIndex(31), price: "$6.80" },
-  // Add 4 more items...
+  {
+    productId: "26",
+    name: "Sony WH-CH710N Wireless Headphones",
+    image: imageByIndex(31),
+    price: 149.99,
+    description:
+      "Wireless over-ear headphones with noise cancellation and up to 35 hours of battery life.",
+  },
+  {
+    productId: "27",
+    name: "Samsung Galaxy Tab S7+",
+    image: imageByIndex(32),
+    price: 849.99,
+    description:
+      "An advanced Android tablet with a stunning AMOLED display and S Pen support.",
+  },
+  {
+    productId: "28",
+    name: "Sony A7 III Mirrorless Camera",
+    image: imageByIndex(33),
+    price: 1999,
+    description:
+      "A full-frame mirrorless camera with 24.2MP resolution and 4K video recording.",
+  },
+  {
+    productId: "29",
+    name: "Bose QuietComfort Earbuds",
+    image: imageByIndex(34),
+    price: 279,
+    description:
+      "True wireless earbuds with world-class noise cancellation and clear audio.",
+  },
+  {
+    productId: "30",
+    name: "LG OLED C1 Series 4K TV",
+    image: imageByIndex(35),
+    price: 1899,
+    description:
+      "An OLED TV with AI ThinQ, Dolby Vision IQ, and Dolby Atmos for immersive viewing.",
+  },
+  {
+    productId: "31",
+    name: "Garmin Fenix 7X Sapphire Solar",
+    image: imageByIndex(36),
+    price: 999.99,
+    description:
+      "A premium multisport GPS smartwatch with solar charging and advanced health metrics.",
+  },
+  {
+    productId: "32",
+    name: "KitchenAid Artisan Stand Mixer",
+    image: imageByIndex(37),
+    price: 379.99,
+    description: "A versatile stand mixer for baking and cooking enthusiasts.",
+  },
+  {
+    productId: "33",
+    name: "Microsoft Surface Laptop 4",
+    image: imageByIndex(38),
+    price: 1299,
+    description:
+      "A sleek and powerful laptop with touchscreen and Intel or AMD processor options.",
+  },
+  {
+    productId: "34",
+    name: "Canon EOS RP Mirrorless Camera",
+    image: imageByIndex(39),
+    price: 999,
+    description:
+      "A lightweight and compact full-frame mirrorless camera for photography enthusiasts.",
+  },
+  {
+    productId: "35",
+    name: "Apple iPad Air (5th Generation)",
+    image: imageByIndex(40),
+    price: 599,
+    description:
+      "The latest iPad Air with a stunning Liquid Retina display and A15 Bionic chip.",
+  },
+  {
+    productId: "36",
+    name: "Dyson Airwrap Styler",
+    image: imageByIndex(41),
+    price: 549.99,
+    description:
+      "A hair styling tool that uses air to curl, wave, smooth, and dry hair.",
+  },
+  {
+    productId: "37",
+    name: "Sony PlayStation VR2",
+    image: imageByIndex(42),
+    price: 299.99,
+    description:
+      "Immersive virtual reality headset for PlayStation 5 with stunning graphics and intuitive controls.",
+  },
+  {
+    productId: "38",
+    name: "Samsung Galaxy Watch 4 Classic",
+    image: imageByIndex(43),
+    price: 349.99,
+    description:
+      "A premium smartwatch with rotating bezel, health tracking, and ECG monitoring.",
+  },
+  {
+    productId: "39",
+    name: "LG UltraGear 27GN950-B Gaming Monitor",
+    image: imageByIndex(44),
+    price: 899.99,
+    description:
+      "A high-performance gaming monitor with 4K resolution and fast refresh rate.",
+  },
+  {
+    productId: "40",
+    name: "Sonos Beam Smart Soundbar",
+    image: imageByIndex(45),
+    price: 399,
+    description:
+      "A compact smart soundbar for TV, music, and more with built-in voice control.",
+  },
+  {
+    productId: "41",
+    name: "Nikon Z7 II Mirrorless Camera",
+    image: imageByIndex(46),
+    price: 2999,
+    description:
+      "A professional mirrorless camera with 45.7MP resolution and 4K UHD video recording.",
+  },
+  {
+    productId: "42",
+    name: "Samsung Odyssey G9 Curved Gaming Monitor",
+    image: imageByIndex(47),
+    price: 1699.99,
+    description:
+      "An ultra-wide gaming monitor with 240Hz refresh rate and QLED technology.",
+  },
+  {
+    productId: "43",
+    name: "Apple AirPods Pro",
+    image: imageByIndex(48),
+    price: 249,
+    description:
+      "Active noise-cancelling wireless earbuds with transparency mode and customizable fit.",
+  },
+  {
+    productId: "44",
+    name: "Logitech MX Master 3 Wireless Mouse",
+    image: imageByIndex(49),
+    price: 99.99,
+    description:
+      "A high-precision ergonomic mouse with customizable buttons and fast scrolling.",
+  },
+  {
+    productId: "45",
+    name: "Google Pixel 6 Pro",
+    image: imageByIndex(50),
+    price: 899,
+    description:
+      "Google's flagship smartphone with advanced camera features and 5G capability.",
+  },
+  {
+    productId: "46",
+    name: "Razer BlackWidow V3 Mechanical Gaming Keyboard",
+    image: imageByIndex(51),
+    price: 139.99,
+    description:
+      "A durable mechanical gaming keyboard with customizable RGB lighting and programmable keys.",
+  },
 ];
 
 export const productSpecifications = [
@@ -554,8 +735,79 @@ export const productVariants = [
   },
 ];
 
-export const getProductVariant = (field: keyof (typeof productVariants)[number]) =>
-  Array.from(new Set(productVariants.map((product) => product[field])));
+export const productGrids: PRODUCTS_GRID[] = [];
+
+const productsPerGrid = [4, 6];
+let currentIndex = 0;
+let gridIndex = 1;
+
+while (currentIndex < productList.length) {
+  const gridProducts: PRODUCTS[] = [];
+  let addMoreProducts = true;
+
+  for (const count of productsPerGrid) {
+    if (currentIndex + count <= productList.length) {
+      const productGroup = productList.slice(
+        currentIndex,
+        currentIndex + count
+      );
+      gridProducts.push(...productGroup);
+      currentIndex += count;
+    } else {
+      addMoreProducts = false;
+      break;
+    }
+  }
+
+  if (addMoreProducts) {
+    const grid: PRODUCTS_GRID = {
+      gridId: `grid${gridIndex}`,
+      title: `Product Grid ${gridIndex}`,
+      cta: currentIndex % 2 === 0 ? "Shop Now" : "See all deals",
+      image: gridProducts[0].image, // Assuming the grid image is the image of the first product in the slice
+      products: [
+        gridProducts.slice(0, 4), // First 4 products
+        gridProducts.slice(4, 10), // Next 6 products
+      ],
+    };
+
+    productGrids.push(grid);
+    gridIndex++;
+  } else {
+    break;
+  }
+}
+
+export const homeProductList: PRODUCTS_FOR_HOME[] = [];
+
+const adsPerSet = 1;
+const productsPerSet = 10;
+
+for (let i = 0; i < Math.ceil(productList.length / productsPerSet); i++) {
+  const adsSlice = adsPreview.slice(i * adsPerSet, (i + 5) * adsPerSet);
+  const productsSlice = productList.slice(
+    i * productsPerSet,
+    (i + 1) * productsPerSet
+  );
+  const productsGridSlice = productGrids[i];
+  const goodSlice =
+    productsSlice.length === productsPerSet ||
+    productsSlice.length === productsPerSet / 2;
+  const moreThenHalf =
+    productsSlice.length >= productsPerSet / 2 ? productsSlice.slice(0, 5) : [];
+
+  const homeProduct: PRODUCTS_FOR_HOME = {
+    products: goodSlice ? productsSlice : moreThenHalf,
+    ads: adsSlice.length > 0 ? adsSlice : undefined,
+    productsGrid: productsGridSlice ? productsGridSlice : undefined,
+  };
+
+  homeProductList.push(homeProduct);
+}
+
+export const getProductVariant = (
+  field: keyof (typeof productVariants)[number]
+) => Array.from(new Set(productVariants.map((product) => product[field])));
 
 export const getProductColors = (id: number) =>
   productVariants.find((product) => product.id === id)?.colors;
