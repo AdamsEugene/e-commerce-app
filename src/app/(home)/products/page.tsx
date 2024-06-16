@@ -19,9 +19,11 @@ export default function Products() {
           <h3 className="text-3xl font-bold my-2">Products categories</h3>
         </div>
         {productGrids.map((products, index) => (
-          <ProductsGrid products={products} reverse={index % 2 === 0} />
+          <div className="mx-auto flex flex-col justify-center items-center gap-4">
+            <ProductsGrid products={products} reverse={index % 2 === 0} />
+            <StyledCardGrid munPerRow={5} />
+          </div>
         ))}
-        <StyledCardGrid />
       </div>
     </section>
   );

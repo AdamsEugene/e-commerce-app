@@ -22,9 +22,9 @@ export default function ProductsGrid(props: PROPS) {
         {products.products.map((list, index) => (
           <div
             key={index}
-            className={`${reverse ? "order-last" : "order-first"} ${
-              list.length === 4 ? " col-span-2" : " col-span-3"
-            }  h-full`}
+            className={`${
+              reverse && index === 0 ? "order-last" : "order-first"
+            } ${list.length === 4 ? " col-span-2" : " col-span-3"}  h-full`}
           >
             <Card
               shadow="sm"

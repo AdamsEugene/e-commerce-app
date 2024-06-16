@@ -9,10 +9,11 @@ import { useAppStore } from "@/src/providers/AppStoreProvider";
 
 type PROPS = {
   onOpenChange?: () => void;
+  munPerRow?: number;
 };
 
 export default function StyledCardGrid(props: PROPS) {
-  const { onOpenChange } = props;
+  const { onOpenChange, munPerRow } = props;
   //  const addToSelectedProduct = useAppStore(
   //    (state) => state.addToSelectedProduct
   //  );
@@ -69,7 +70,7 @@ export default function StyledCardGrid(props: PROPS) {
         onOpenChange ? 4 : 5
       } xl:grid-cols-${onOpenChange ? 4 : 5} gap-${onOpenChange ? 3 : 4}`}
     >
-      {list.map((item) => (
+      {list.slice(0, munPerRow).map((item) => (
         <Card
           isFooterBlurred
           isPressable
