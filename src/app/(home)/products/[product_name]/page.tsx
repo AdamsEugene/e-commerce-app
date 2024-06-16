@@ -1,6 +1,5 @@
 import type { Metadata, ResolvingMetadata } from "next";
 import "../../home.css";
-import GridCard from "@/src/components/_shared/others/GridCard";
 import BackButton from "@/src/components/_shared/button/BackButton";
 import ConditionalRender from "@/src/components/_shared/Conditional/ConditionalRender";
 import ProductTiles from "@/src/components/others/ProductTiles";
@@ -37,7 +36,7 @@ export default function Products(props: Props) {
 
   return (
     <section className="w-full home mb-4">
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center gap-4">
         <div className="main w-full">
           <BackButton />
           <ConditionalRender
