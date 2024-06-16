@@ -763,7 +763,7 @@ while (currentIndex < productList.length) {
     const grid: PRODUCTS_GRID = {
       gridId: `grid${gridIndex}`,
       title: `Product Grid ${gridIndex}`,
-      cta: currentIndex % 2 === 0 ? "Shop Now" : "See all deals",
+      cta: gridIndex % 2 === 0 ? "Shop Now" : "See all deals",
       image: gridProducts[0].image, // Assuming the grid image is the image of the first product in the slice
       products: [
         gridProducts.slice(0, 4), // First 4 products

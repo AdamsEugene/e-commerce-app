@@ -5,17 +5,24 @@ import BannerAdsDisplay from "../_shared/advertisement/BannerAdsDisplay";
 import { homeProductList } from "@/src/utils/productList";
 import ConditionalRender from "../_shared/Conditional/ConditionalRender";
 
-export default function ProductTiles() {
+type PROP = {
+  showGrid?: boolean;
+};
+
+export default function ProductTiles({ showGrid }: PROP) {
   return (
     <div className="container main flex flex-col items-center justify-center !gap-8">
       {homeProductList.map((item, index) => {
-        console.log(index % 2);
-
         return (
           <Fragment key={index}>
-            <ProductsGrid
-              products={item.productsGrid}
-              reverse={index % 2 === 0}
+            <ConditionalRender
+              condition={!!showGrid}
+              Component={
+                <ProductsGrid
+                  products={item.productsGrid}
+                  reverse={index % 2 === 0}
+                />
+              }
             />
             <GridCard data={item.products} />
             <ConditionalRender
