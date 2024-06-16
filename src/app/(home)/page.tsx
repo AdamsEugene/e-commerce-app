@@ -5,9 +5,9 @@
 // import { siteConfig } from "@/src/config/site";
 // import { title, subtitle } from "@/src/components/primitives";
 import HomeSwiper from "@/src/components/_shared/swiper/HomeSwiper";
-import GridCard from "@/src/components/_shared/others/GridCard";
-import BannerAdsDisplay from "@/src/components/_shared/advertisement/BannerAdsDisplay";
-import ProductsGrid from "./products/components/ProductsGrid";
+// import GridCard from "@/src/components/_shared/others/GridCard";
+// import BannerAdsDisplay from "@/src/components/_shared/advertisement/BannerAdsDisplay";
+// import ProductsGrid from "./products/components/ProductsGrid";
 import ProductTiles from "@/src/components/others/ProductTiles";
 
 export default function Home() {
@@ -17,7 +17,7 @@ export default function Home() {
         <HomeSwiper />
       </div>
       <div className="container main flex flex-col items-center justify-center !gap-8">
-        <ProductTiles />
+        <ProductTiles showGrid />
       </div>
       {/* <div className="inline-block max-w-lg text-center justify-center">
         <h1 className={title()}>Make&nbsp;</h1>

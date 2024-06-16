@@ -2,8 +2,8 @@ import type { Metadata, ResolvingMetadata } from "next";
 import "../../home.css";
 import GridCard from "@/src/components/_shared/others/GridCard";
 import BackButton from "@/src/components/_shared/button/BackButton";
-import Image from "next/image";
 import ConditionalRender from "@/src/components/_shared/Conditional/ConditionalRender";
+import ProductTiles from "@/src/components/others/ProductTiles";
 
 type Props = {
   params: { product_name: string };
@@ -37,39 +37,43 @@ export default function Products(props: Props) {
 
   return (
     <section className="w-full home mb-4">
-      <div className="main flex flex-col justify-center items-center">
-        <div className="w-full">
+      <div className="flex flex-col justify-center items-center">
+        <div className="main w-full">
           <BackButton />
-          <h3 className="text-3xl font-bold my-2">
-            {decodeURIComponent(productName)}
-          </h3>
+          <ConditionalRender
+            condition={!!!searchParams?.image}
+            Component={
+              <h3 className="text-3xl font-bold my-2">
+                {decodeURIComponent(productName)}
+              </h3>
+            }
+          />
         </div>
         <ConditionalRender
           condition={!!searchParams?.image}
           Component={
-            <div className="w-full !h-[250px] mb-4">
-              <Image
-                alt="Mountains"
-                src={String(searchParams?.image)}
-                blurDataURL={String(searchParams?.image)}
-                placeholder="blur"
-                quality={100}
-                width={3000}
-                height={200}
-                className="w-full !h-[250px]"
-                // fill
-                // sizes="100vw"
-                style={
-                  {
-                    // objectFit: "",
-                    // backgroundRepeat: "repeat-x",
-                  }
-                }
-              />
-            </div>
+            <>
+              <div
+                className="relative w-[1780px] !h-[250px] mb-6 mt-2 !max-w-[1480px] bg-center bg-cover bg-no-repeat"
+                style={{
+                  backgroundImage: `url(${String(searchParams?.image)})`,
+                  backgroundSize: "50% 100%",
+                  backgroundRepeat: "repeat-x",
+                }}
+              >
+                <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center text-white">
+                  <h1 className="text-4xl font-bold mb-4">
+                    {decodeURIComponent(productName)}
+                  </h1>
+                  <p className="text-xl">And I'm a Photographer</p>
+                </div>
+              </div>
+            </>
           }
         />
-        <GridCard />
+        <div className="main">
+          <ProductTiles />
+        </div>
       </div>
     </section>
   );
