@@ -59,7 +59,7 @@ export default function ProductsGrid(props: PROPS) {
                   } gap-4 w-full`}
                 >
                   {list?.map((product, index) => (
-                    <div key={index}>
+                    <div key={index} className="truncate">
                       <StyledImage
                         shadow="sm"
                         radius="lg"
@@ -70,9 +70,9 @@ export default function ProductsGrid(props: PROPS) {
                         src={product.image || imageByIndex(index)}
                         isZoomed
                       />
-                      <p className="text-default-500 truncate">
+                      <b className="text-small text-default-500">
                         {product.name}
-                      </p>
+                      </b>
                     </div>
                   ))}
                 </div>

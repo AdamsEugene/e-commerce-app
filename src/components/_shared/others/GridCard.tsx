@@ -2,7 +2,16 @@
 
 import React from "react";
 import Link from "next/link";
-import { Card, CardBody, CardFooter } from "@nextui-org/react";
+import {
+  Button,
+  ButtonGroup,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  ScrollShadow,
+  Tooltip,
+} from "@nextui-org/react";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 
 import StyledImage from "../Styled/StyledImage";
@@ -12,6 +21,8 @@ import { siteConfig } from "@/src/config/site";
 import { useAppStore } from "../../../providers/AppStoreProvider";
 import imageByIndex from "@/src/utils/imageByIndex";
 import { IconWrapper } from "./IconWrapper";
+import { isMoney } from "@/src/utils/functions";
+import ProductTooltip from "./ProductTootip";
 
 type PROPS = {
   numberOfItems?: number;
@@ -39,7 +50,7 @@ export default function GridCard(props: PROPS) {
         {(
           data?.slice(0, numberOfItems) || productList.slice(0, numberOfItems)
         ).map((item, index) => (
-          <div className="">
+          <ProductTooltip item={item} baseLink={baseLink}>
             <Card
               shadow="none"
               as={Link}
@@ -80,21 +91,9 @@ export default function GridCard(props: PROPS) {
                 <p className="text-default-500">{item.price}</p>
               </CardFooter>
             </Card>
-          </div>
+          </ProductTooltip>
         ))}
       </div>
     </div>
   );
 }
-
-const Advertisement = () => {
-  return (
-    <div className="w-full mb-4">
-      <Card>
-        <CardBody>
-          <div className="h-[150px]">Advertisement</div>
-        </CardBody>
-      </Card>
-    </div>
-  );
-};

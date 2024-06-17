@@ -203,3 +203,19 @@ export const isCampaignType = (data: any): data is CampaignType =>
   typeof data.clicks === "number" &&
   "spend" in data &&
   typeof data.spend === "number";
+
+/**
+ * Checks if a given string or number is a valid money amount.
+ * @param value - The value to check.
+ * @returns A boolean indicating if the value is a valid money amount.
+ */
+export const isMoney = (value: string | number): boolean => {
+  if (typeof value === "number") {
+    value = value.toString();
+  }
+
+  const moneyRegex =
+    /^(\$|€|£|¥|₹|₽|₩|₦|฿|₫|₪|₲|₴|₵|₡|₭|₸|₱|৳|₮)?\s?(\d{1,3}(,\d{3})*|\d+)?(\.\d{2})?$/;
+
+  return moneyRegex.test(value);
+};
