@@ -2,11 +2,9 @@
 
 import { Button, Card, CardBody, Image } from "@nextui-org/react";
 import StyledImage from "../Styled/StyledImage";
-import imageByIndex from "@/src/utils/imageByIndex";
 
 import AutoPlaySwapper from "../swiper/AutoPlaySwapper";
 import { AdPreview } from "../types/@ads";
-import { adsPreview } from "@/src/utils/adsData";
 import ConditionalRenderAB from "../Conditional/ConditionalRenderAB";
 
 type PROPS = {
