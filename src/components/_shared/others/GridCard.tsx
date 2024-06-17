@@ -50,7 +50,7 @@ export default function GridCard(props: PROPS) {
         {(
           data?.slice(0, numberOfItems) || productList.slice(0, numberOfItems)
         ).map((item, index) => (
-          <ProductTooltip item={item} baseLink={baseLink}>
+          <ProductTooltip item={item}>
             <Card
               shadow="none"
               as={Link}

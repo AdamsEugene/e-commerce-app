@@ -8,14 +8,14 @@ import { useAppStore } from "@/src/providers/AppStoreProvider";
 
 type PROPS = {
   item: PRODUCTS;
-  baseLink?: string;
 };
 
 export default function ProductTooltip(props: PropsWithChildren<PROPS>) {
-  const { item, children, baseLink } = props;
+  const { item, children } = props;
 
   const toggleDrawer = useAppStore((state) => state.toggleDrawer);
   const addToCart = useAppStore((state) => state.addToCart);
+  const addToBuyNow = useAppStore((state) => state.addToBuyNow);
 
   return (
     <Tooltip
@@ -44,9 +44,8 @@ export default function ProductTooltip(props: PropsWithChildren<PROPS>) {
             </Button>
             <Button
               as={Link}
-              href={`${baseLink ? baseLink : siteConfig.pages.product}/${
-                item.productId
-              }`}
+              href={`${siteConfig.pages.product}/${item.productId}/${siteConfig.pages.buyNow}`}
+              onClick={() => addToBuyNow("default", item.productId)}
             >
               Buy now
             </Button>
