@@ -36,7 +36,7 @@ export default function Products(props: Props) {
 
   return (
     <section className="w-full home mb-4">
-      <div className="flex flex-col justify-center items-center gap-4">
+      <div className="flex flex-col justify-center items-center gap-4 w-full">
         <div className="main w-full">
           <BackButton />
           <ConditionalRender
@@ -51,23 +51,17 @@ export default function Products(props: Props) {
         <ConditionalRender
           condition={!!searchParams?.image}
           Component={
-            <>
-              <div
-                className="relative w-[1780px] !h-[250px] mb-6 mt-2 !max-w-[1480px] bg-center bg-cover bg-no-repeat"
-                style={{
-                  backgroundImage: `url(${String(searchParams?.image)})`,
-                  backgroundSize: "50% 100%",
-                  backgroundRepeat: "repeat-x",
-                }}
-              >
-                <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center text-white">
-                  <h1 className="text-4xl font-bold mb-4">
-                    {decodeURIComponent(productName)}
-                  </h1>
-                  <p className="text-xl">And I'm a Photographer</p>
-                </div>
-              </div>
-            </>
+            <div
+              className="relative !w-full max-w-[1780px] !h-[250px] mb-6 mt-2 bg-center bg-repeat-x xs:bg-no-repeat bg-50-100 xs:bg-100-100"
+              style={{ backgroundImage: `url(${String(searchParams?.image)})` }}
+            >
+              {/* <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center text-white">
+                <h1 className="text-4xl font-bold mb-4">
+                  {decodeURIComponent(productName)}
+                </h1>
+                <p className="text-xl">And I'm a Photographer</p>
+              </div> */}
+            </div>
           }
         />
         <div className="main">

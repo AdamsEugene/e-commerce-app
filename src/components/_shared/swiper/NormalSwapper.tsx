@@ -35,7 +35,7 @@ export default function NormalSwapper() {
           nextEl: ".custom-next",
         }}
         modules={[Navigation]}
-        className=""
+        className="!h-[342px] xs:!h-[292px]"
       >
         {productList.map((item, index) => (
           <SwiperSlide>
@@ -60,7 +60,7 @@ export default function NormalSwapper() {
                   width={300}
                   height={300}
                   alt={item.name}
-                  className="object-cover product_image xs:w-full !w-full !h-[300px]"
+                  className="object-cover product_image xs:w-full !w-full !h-[300px] xs:!h-[250px]"
                   src={item.image || imageByIndex(index)}
                   isZoomed
                 />
