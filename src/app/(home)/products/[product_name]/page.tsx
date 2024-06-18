@@ -3,6 +3,8 @@ import "../../home.css";
 import BackButton from "@/src/components/_shared/button/BackButton";
 import ConditionalRender from "@/src/components/_shared/Conditional/ConditionalRender";
 import ProductTiles from "@/src/components/others/ProductTiles";
+import ConditionalRenderAB from "@/src/components/_shared/Conditional/ConditionalRenderAB";
+import ProductTilesList from "@/src/components/others/ProductTilesList";
 
 type Props = {
   params: { product_name: string };
@@ -55,17 +57,21 @@ export default function Products(props: Props) {
               className="relative !w-full max-w-[1780px] !h-[250px] mb-6 mt-2 bg-center bg-repeat-x xs:bg-no-repeat bg-50-100 xs:bg-100-100"
               style={{ backgroundImage: `url(${String(searchParams?.image)})` }}
             >
-              {/* <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center text-white">
+              <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center text-white">
                 <h1 className="text-4xl font-bold mb-4">
                   {decodeURIComponent(productName)}
                 </h1>
                 <p className="text-xl">And I'm a Photographer</p>
-              </div> */}
+              </div>
             </div>
           }
         />
         <div className="main">
-          <ProductTiles />
+          <ConditionalRenderAB
+            condition={!!searchParams?.ads}
+            ComponentA={<ProductTilesList />}
+            ComponentB={<ProductTiles />}
+          />
         </div>
       </div>
     </section>

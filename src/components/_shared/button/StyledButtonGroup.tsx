@@ -5,7 +5,7 @@ import { IconType } from "react-icons";
 
 type PROPS = {
   data: {
-    name: string;
+    name?: string | number;
     icon?: IconType;
     as?: As<any>;
     href?: string;
