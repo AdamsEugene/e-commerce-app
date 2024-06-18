@@ -11,7 +11,7 @@ type PROP = {
 
 export default function ProductTiles({ showGrid }: PROP) {
   return (
-    <div className="container main flex flex-col items-center justify-center !gap-8">
+    <div className="container flex flex-col items-center justify-center !gap-8">
       {homeProductList.map((item, index) => {
         return (
           <Fragment key={index}>

@@ -1,4 +1,4 @@
-import {nextui} from '@nextui-org/theme'
+import { nextui } from "@nextui-org/theme";
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -12,6 +12,10 @@ module.exports = {
     extend: {
       screens: {
         xs: { max: "460px" },
+      },
+      backgroundSize: {
+        "50-100": "50% 100%",
+        "100-100": "100% 100%",
       },
     },
   },

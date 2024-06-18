@@ -2,14 +2,14 @@
 import ReactPlayer from "react-player";
 
 const VideoPlayer = () => {
-  let videoSrc = "https://youtu.be/FB_am3ZPY7I?si=bx6CODbGiEFCBfEk";
+  let videoSrc = "https://youtu.be/YInQ137_J3Y?si=pvws--5hQah3_iWt";
 
   return (
-    <div>
+    <div className="!rounded-2xl !h-[min(500px,60vh)] xs:!h-[min(300px,40vh)] overflow-hidden">
       <ReactPlayer
-        className="react-player"
+        className="react-player !rounded-lg h-full"
         width="100%"
-        height="400px"
+        height="100%"
         url={videoSrc}
         controls={false}
         light={false}

@@ -15,6 +15,7 @@ import { siteConfig } from "@/src/config/site";
 import Specifications from "@/src/components/others/Specifications";
 import BannerAdsDisplay from "@/src/components/_shared/advertisement/BannerAdsDisplay";
 import UseCases from "../components/UseCases";
+import { adsPreview } from "@/src/utils/adsData";
 
 type Props = {
   params: { product_id: string };
@@ -64,7 +65,7 @@ export default function Products() {
           </div>
         </div>
         <div className="main flex flex-col justify-center items-center">
-          <BannerAdsDisplay />
+          <BannerAdsDisplay ads={adsPreview} />
         </div>
         <div className="main flex flex-col justify-center items-center">
           <div className="w-full flex justify-between items-baseline">
