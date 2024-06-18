@@ -54,7 +54,7 @@ export default function Products(props: Props) {
           condition={!!searchParams?.image}
           Component={
             <div
-              className="relative !w-full max-w-[1780px] !h-[250px] mb-6 mt-2 bg-center bg-repeat-x xs:bg-no-repeat bg-50-100 xs:bg-100-100"
+              className="relative !w-full max-w-[1480px] !h-[250px] mb-6 mt-2 bg-center bg-repeat-x xs:bg-no-repeat bg-50-100 xs:bg-100-100"
               style={{ backgroundImage: `url(${String(searchParams?.image)})` }}
             >
               <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center text-white">

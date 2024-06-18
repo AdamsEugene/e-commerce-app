@@ -11,8 +11,8 @@ export default function ProductTilesList() {
   return (
     <div className="container flex flex-col items-center justify-center !gap-8 mb-4">
       {[1, 2, 3, 4, 5, 6].map((item, index) => (
-        <Fragment key={item}>
-          <Product />
+        <Fragment key={index}>
+          <Product key={index + 5 * index} />
           <ConditionalRender
             condition={index + 1 !== 6}
             Component={<Divider />}
@@ -25,7 +25,7 @@ export default function ProductTilesList() {
 
 const Product = () => {
   return (
-    <Card>
+    <Card isPressable>
       <CardBody>
         <div className="grid xs:grid-cols-1 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5 gap-4 w-full">
           <div className="col-span-1">
@@ -55,7 +55,6 @@ const Product = () => {
                 </p>
               </div>
               <ButtonGroup size="md">
-                <Button>Check it out</Button>
                 <Button>Add to cart</Button>
                 <Button>Buy now</Button>
               </ButtonGroup>
