@@ -112,8 +112,10 @@ export default function Details() {
     { name: "+", onClick: () => setQuantity((p) => p + 1) },
   ];
 
+  const getCurrentItem = cartItems.find((item) => item.productId === productId);
+
   const _addToCart = [
-    { name: "$27.99", variant: "bordered" as const },
+    { name: getCurrentItem?.price, variant: "bordered" as const },
     {
       name: "ADD TO CART",
       onClick: (state?: boolean) => {
@@ -122,8 +124,6 @@ export default function Details() {
       },
     },
   ];
-
-  const getCurrentItem = cartItems.find((item) => item.productId === productId);
 
   return (
     <div className="w-full mx-auto xs:p-0 px-6 flex flex-col gap-4">
@@ -149,6 +149,9 @@ export default function Details() {
           />
         </div>
         <h1 className="text-4xl font-bold mt-4">{getCurrentItem?.itemName}</h1>
+        <h2 className="text-2xl font-bold text-default-500 italic mt-1">
+          {getCurrentItem?.price}
+        </h2>
       </div>
       <p className="text-xs -mb-2">Extra 2% off with coins</p>
       <Card isPressable>

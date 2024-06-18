@@ -1,11 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import { Button, Card, CardBody, Image } from "@nextui-org/react";
 import StyledImage from "../Styled/StyledImage";
 
 import AutoPlaySwapper from "../swiper/AutoPlaySwapper";
 import { AdPreview } from "../types/@ads";
 import ConditionalRenderAB from "../Conditional/ConditionalRenderAB";
+import { siteConfig } from "@/src/config/site";
 
 type PROPS = {
   ads?: AdPreview[];
@@ -45,7 +47,15 @@ const AdsWrapper = (props: AdPreview) => {
 const ImageOnLeft = (props: AdPreview) => {
   const { callToAction, description, url, headline } = props;
   return (
-    <Card className="w-full h-36 xs:h-28 relative flex">
+    <Card
+      isPressable
+      className="w-full h-36 xs:h-28 relative bg-default flex"
+      as={Link}
+      href={{
+        pathname: `${siteConfig.pages.products}/${headline}`,
+        query: { image: url, ads: true },
+      }}
+    >
       <CardBody className="product_image_big_wrapper overflow-visible p-0">
         <div className="w-full h-36 xs:h-28 relative flex justify-between ads-banner">
           <div></div>
@@ -70,7 +80,13 @@ const ImageOnLeft = (props: AdPreview) => {
             <h1 className="font-bold" style={{ color: "" }}>
               {headline}
             </h1>
-            <Button size="sm" style={{ background: "" }}>
+            <Button
+              as={Link}
+              href={`${siteConfig.pages.products}/${headline}`}
+              onClick={() => {}}
+              size="sm"
+              style={{ background: "" }}
+            >
               <span style={{ color: "" }}>{callToAction}</span>
             </Button>
           </div>
@@ -83,7 +99,15 @@ const ImageOnLeft = (props: AdPreview) => {
 const ImageOnRight = (props: AdPreview) => {
   const { callToAction, description, url, headline } = props;
   return (
-    <Card className="w-full h-36 xs:h-28 relative flex">
+    <Card
+      isPressable
+      className="w-full h-36 xs:h-28 relative bg-default flex"
+      as={Link}
+      href={{
+        pathname: `${siteConfig.pages.products}/${headline}`,
+        query: { image: url, ads: true },
+      }}
+    >
       <CardBody className="product_image_big_wrapper overflow-visible p-0">
         <div className="h-36 xs:h-28 w-[66%]">
           <Image
@@ -101,7 +125,13 @@ const ImageOnRight = (props: AdPreview) => {
           style={{ background: "" }}
         >
           <div className="flex items-center w-full gap-3 justify-end">
-            <Button size="sm" style={{ background: "" }}>
+            <Button
+              as={Link}
+              href={`${siteConfig.pages.products}/${headline}`}
+              onClick={() => {}}
+              size="sm"
+              style={{ background: "" }}
+            >
               <span style={{ color: "" }}>{callToAction}</span>
             </Button>
           </div>
@@ -120,7 +150,15 @@ const ImageOnRight = (props: AdPreview) => {
 const FullImage = (props: AdPreview) => {
   const { callToAction, description, url, headline } = props;
   return (
-    <Card className="w-full h-36 xs:h-28 relative flex overflow-hidden">
+    <Card
+      isPressable
+      className="w-full h-36 xs:h-28 relative bg-default flex overflow-hidden"
+      as={Link}
+      href={{
+        pathname: `${siteConfig.pages.products}/${headline}`,
+        query: { image: url, ads: true },
+      }}
+    >
       <CardBody className="product_image_big_wrapper overflow-visible p-0 h-36 xs:h-28">
         <div className="!h-36 xs:!h-28 w-full">
           <Image
@@ -148,6 +186,9 @@ const FullImage = (props: AdPreview) => {
             <div></div>
             <div className="flex items-center w-full gap-3 justify-end">
               <Button
+                as={Link}
+                href={`${siteConfig.pages.products}/${headline}`}
+                onClick={() => {}}
                 size="sm"
                 className="pointer-events-auto"
                 style={{ background: "" }}
