@@ -6,17 +6,16 @@ import "./productGallery.css";
 
 import "swiper/css";
 import "swiper/css/free-mode";
-import "swiper/css/pagination";
-
-// import "./styles.css";
 
 // import required modules
-import { FreeMode, Pagination } from "swiper/modules";
+import { FreeMode, Autoplay } from "swiper/modules";
 import StyledCard from "../Styled/StyledCard";
 import Link from "next/link";
 import { siteConfig } from "@/src/config/site";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
 import productList from "@/src/utils/productList";
+import CustomNavigationButtons from "./CustomNavigationButtons";
+import useScreenSize from "@/src/hooks/useScreenSize";
 
 type PROPS = {
   onOpenChange: () => void;
@@ -29,20 +28,27 @@ export default function ProductGallery(props: PROPS) {
     (state) => state.addToSelectedProduct
   );
   const changePlan = useAppStore((state) => state.changePlan);
+  const screenSize = useScreenSize();
 
   const topProducts = productList.slice(3, 12);
 
   return (
     <>
       <Swiper
-        slidesPerView={5}
+        slidesPerView={screenSize === "xs" ? 4 : 5}
         spaceBetween={16}
         freeMode={true}
         loop
-        pagination={{
-          clickable: true,
+        autoplay={{
+          delay: 5000,
+          disableOnInteraction: true,
+          pauseOnMouseEnter: true,
         }}
-        modules={[FreeMode, Pagination]}
+        navigation={{
+          prevEl: ".custom-prev",
+          nextEl: ".custom-next",
+        }}
+        modules={[FreeMode, Autoplay]}
         className="mySwiper_productGallery"
       >
         {topProducts.map((item) => (
@@ -56,10 +62,11 @@ export default function ProductGallery(props: PROPS) {
                 addToSelectedProduct(item);
                 onOpenChange();
               }}
-              className="h-[120px]"
+              className="h-[100%]"
             />
           </SwiperSlide>
         ))}
+        <CustomNavigationButtons />
       </Swiper>
     </>
   );
