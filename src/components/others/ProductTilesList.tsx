@@ -1,3 +1,5 @@
+"use client";
+
 import React, { Fragment } from "react";
 import StyledImage from "../_shared/Styled/StyledImage";
 import imageByIndex from "@/src/utils/imageByIndex";
@@ -6,13 +8,14 @@ import Link from "next/link";
 import { siteConfig } from "@/src/config/site";
 import { Card, CardBody, Divider } from "@nextui-org/react";
 import ConditionalRender from "../_shared/Conditional/ConditionalRender";
+import { useAppStore } from "@/src/providers/AppStoreProvider";
 
 export default function ProductTilesList() {
   return (
     <div className="container flex flex-col items-center justify-center !gap-8 mb-4">
       {[1, 2, 3, 4, 5, 6].map((item, index) => (
         <Fragment key={index}>
-          <Product key={index + 5 * index} />
+          <Product key={index + 5 * index} item={item} />
           <ConditionalRender
             condition={index + 1 !== 6}
             Component={<Divider />}
@@ -23,9 +26,25 @@ export default function ProductTilesList() {
   );
 }
 
-const Product = () => {
+const Product = ({ item }: { item: number }) => {
+  const addToSelectedProduct = useAppStore(
+    (state) => state.addToSelectedProduct
+  );
+  const changePlan = useAppStore((state) => state.changePlan);
+  const toggleDrawer = useAppStore((state) => state.toggleDrawer);
+  const addToCart = useAppStore((state) => state.addToCart);
+  const addToBuyNow = useAppStore((state) => state.addToBuyNow);
+
   return (
-    <Card isPressable>
+    <Card
+      isPressable
+      as={Link}
+      href={`${siteConfig.pages.product}/${item}`}
+      onClick={() => {
+        changePlan("default");
+        // addToSelectedProduct(item);
+      }}
+    >
       <CardBody>
         <div className="grid xs:grid-cols-1 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5 gap-4 w-full">
           <div className="col-span-1">
@@ -36,7 +55,7 @@ const Product = () => {
               height={300}
               alt={"product.description"}
               className="object-cover product_image !h-52 !w-full"
-              src={imageByIndex(13)}
+              src={imageByIndex(item)}
               isZoomed
             />
           </div>
@@ -55,8 +74,21 @@ const Product = () => {
                 </p>
               </div>
               <ButtonGroup size="md">
-                <Button>Add to cart</Button>
-                <Button>Buy now</Button>
+                <Button
+                  onClick={() => {
+                    addToCart("default", String(item));
+                    toggleDrawer(true);
+                  }}
+                >
+                  Add to cart
+                </Button>
+                <Button
+                  as={Link}
+                  href={`/product/${String(item)}/${siteConfig.pages.buyNow}`}
+                  onClick={() => addToBuyNow("default", String(item))}
+                >
+                  Buy now
+                </Button>
               </ButtonGroup>
             </div>
           </div>
