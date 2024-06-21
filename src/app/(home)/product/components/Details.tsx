@@ -32,6 +32,7 @@ import ProductVariant from "./ProductVariant";
 import ProductColor from "./ProductColor";
 import useIsVisible from "@/src/hooks/useIsVisible";
 import FloatingAddToCarts from "./FloatingAddToCarts";
+import OptionsOnProduct from "./OptionsOnProduct";
 
 const purchasePlan = {
   label: "Choose Your Payment Plan",
@@ -51,6 +52,12 @@ const purchasePlan = {
       description: "Includes 24/7 support. Contact us for pricing.",
       value: "rent",
       label: "Rent This Item Plan",
+    },
+    {
+      description:
+        "One-time payment for a lifetime of access to unlimited items and premium support",
+      value: "high_purchase",
+      label: "High Purchase Plan",
     },
   ],
 };
@@ -189,6 +196,8 @@ export default function Details() {
       <ProductVariant field="compatibility" />
       <Divider className="my-1" />
       <ProductColor />
+      <Divider className="my-1" />
+      <OptionsOnProduct />
       <Divider className="my-1" />
       <PurchaseType {...purchasePlan} />
       <PlansComponent />
