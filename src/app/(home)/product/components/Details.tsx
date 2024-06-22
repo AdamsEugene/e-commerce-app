@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import {
@@ -26,13 +26,14 @@ import cartItems from "@/src/utils/cartItem";
 import { siteConfig } from "@/src/config/site";
 import StyledDropdown from "@/src/components/_shared/others/Dropdown";
 import StyledModal from "@/src/components/_shared/Styled/StyledModal";
-import MoreOnProduct from "@/src/components/others/MoreOnProduct";
 import SideDrawer from "@/src/components/others/SideDrawer";
 import ProductVariant from "./ProductVariant";
 import ProductColor from "./ProductColor";
 import useIsVisible from "@/src/hooks/useIsVisible";
 import FloatingAddToCarts from "./FloatingAddToCarts";
 import OptionsOnProduct from "./OptionsOnProduct";
+import { Options, Size } from "@/src/types";
+import DetailsModalContent from "./DetailsModalContent";
 
 const purchasePlan = {
   label: "Choose Your Payment Plan",
@@ -70,10 +71,13 @@ const options = [
 ] as const;
 
 type DropdownItemsType = (typeof options)[number]["key"];
+export type ModalType = DropdownItemsType | Options;
 
 export default function Details() {
   const [quantity, setQuantity] = useState(1);
   const [value, setValue] = useState(0);
+  const size = useRef<Size>();
+  const modalType = useRef<ModalType>();
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -88,9 +92,22 @@ export default function Details() {
   const productId = params.product_id as string;
 
   const handleSelect = (key: any) => {
+    size.current = undefined;
     const currentKey = key.currentKey as DropdownItemsType;
-    if (currentKey === "share") onOpen();
+    if (currentKey === "share") {
+      modalType.current = "share";
+      onOpen();
+    }
     if (currentKey === "later") addToCart("later", productId);
+  };
+
+  const optionChanged = (option: Options) => {
+    if (option === "customization") modalType.current = "customization";
+    if (option === "protection") modalType.current = "protection";
+    if (option === "subscription") modalType.current = "subscription";
+    if (option === "selectPlan") modalType.current = "selectPlan";
+    size.current = "5xl";
+    onOpen();
   };
 
   const quantityData = [
@@ -197,7 +214,7 @@ export default function Details() {
       <Divider className="my-1" />
       <ProductColor />
       <Divider className="my-1" />
-      <OptionsOnProduct />
+      <OptionsOnProduct optionChanged={optionChanged} />
       <Divider className="my-1" />
       <PurchaseType {...purchasePlan} />
       <PlansComponent />
@@ -223,14 +240,15 @@ export default function Details() {
         onOpenChange={onOpenChange}
         placement="top"
         backdrop="blur"
-        size="sm"
+        size={size.current || "sm"}
         className="search_result"
         scrollBehavior="inside"
       >
         <ModalContent>
           {(onClose) => (
-            <MoreOnProduct
+            <DetailsModalContent
               onCopy={onClose}
+              modalType={modalType.current}
               productName={getCurrentItem?.itemName}
             />
           )}

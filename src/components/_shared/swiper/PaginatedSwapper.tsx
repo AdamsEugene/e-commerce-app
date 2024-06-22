@@ -16,7 +16,7 @@ export default function PaginatedSwapper(props: PropsWithChildren<PROPS>) {
 
   const pagination = {
     clickable: true,
-    renderBullet: function (index: number, className: string) {
+    renderBullet: function (_: number, className: string) {
       return '<span class="' + className + '">' + "</span>";
     },
   };

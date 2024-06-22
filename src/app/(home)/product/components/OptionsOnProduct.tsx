@@ -1,3 +1,4 @@
+import { Options } from "@/src/types";
 import { Card, CardBody, Tooltip } from "@nextui-org/react";
 import {
   FaHandHoldingUsd,
@@ -34,9 +35,15 @@ const options = [
       "Get protection plans to safeguard your product against damages.",
     icon: FaShieldAlt,
   },
-];
+] as const;
 
-export default function OptionsOnProduct() {
+type PROPS = {
+  optionChanged: (option: Options) => void;
+};
+
+export default function OptionsOnProduct(props: PROPS) {
+  const { optionChanged } = props;
+
   return (
     <div className="grid xs:grid-cols-2 grid-cols-4 gap-4">
       {options.map((option) => {
@@ -48,7 +55,15 @@ export default function OptionsOnProduct() {
             content={option.description}
             color="foreground"
           >
-            <Card id={option.key} isPressable fullWidth className="h-full">
+            <Card
+              id={option.key}
+              isPressable
+              fullWidth
+              className="h-full"
+              onClick={() => {
+                optionChanged(option.key);
+              }}
+            >
               <CardBody>
                 <div className="flex flex-col gap-2 items-center justify-center relative text-center h-full">
                   {/* <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
