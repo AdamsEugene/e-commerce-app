@@ -49,28 +49,28 @@ const Product = ({ item }: { item: PRODUCTS }) => {
       }}
       className="h-full w-full"
     >
-      <CardBody className="overflow-visible p-0 h-full">
-        <PaginatedSwapper>
-          <SwiperSlide>
+      <CardBody className="overflow-visible p-0 h-[80%] w-full">
+        <PaginatedSwapper direction="vertical">
+          <SwiperSlide className="w-full ads_grid">
             <StyledImage
               shadow="none"
               radius="lg"
-              width={300}
+              width={3000}
               height={300}
               alt={item.name}
-              className="object-cover product_image xs:w-full !w-full !h-[300px] xs:!h-[250px]"
+              className="object-cover product_image_ads xs:w-full !w-full !h-[300px] xs:!h-[250px]"
               src={item.image || imageByIndex(+item.productId)}
               isZoomed
             />
           </SwiperSlide>
-          <SwiperSlide>
+          <SwiperSlide className="w-full ads_grid">
             <StyledImage
               shadow="none"
               radius="lg"
-              width={300}
+              width={3000}
               height={300}
               alt={item.name}
-              className="object-cover product_image xs:w-full !w-full !h-[300px] xs:!h-[250px]"
+              className="object-cover product_image_ads xs:w-full !w-full !h-[300px] xs:!h-[250px]"
               src={item.image || imageByIndex(+item.productId)}
               isZoomed
             />
@@ -78,7 +78,7 @@ const Product = ({ item }: { item: PRODUCTS }) => {
         </PaginatedSwapper>
       </CardBody>
       <CardFooter className="text-small justify-between">
-        <b>{item.name}</b>
+        <b className="truncate">{item.name}</b>
         <p className="text-default-500">{item.price}</p>
       </CardFooter>
     </Card>
