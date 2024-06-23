@@ -194,7 +194,7 @@ export default function Details() {
       <OptionsOnProduct optionChanged={optionChanged} />
       {/* <Divider className="my-1" /> */}
       {/* <PurchaseType {...purchasePlan} /> */}
-      <Card>
+      <Card shadow="sm">
         <CardBody>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-8">
