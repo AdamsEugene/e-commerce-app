@@ -60,6 +60,7 @@ export default function OptionsOnProduct(props: PROPS) {
               id={option.key}
               isPressable
               fullWidth
+              shadow="sm"
               className="h-full"
               onClick={() => {
                 optionChanged(option.key);
