@@ -103,3 +103,13 @@
 .product_image_big_wrapper .rounded-large {
   max-width: 100% !important;
 }
+
+.ads_grid .relative.shadow-black\/5.shadow-none.rounded-large {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.ads_grid .relative.overflow-hidden.rounded-inherit.rounded-large {
+  width: 100% !important;
+  height: 100% !important;
+}

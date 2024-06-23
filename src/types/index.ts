@@ -54,3 +54,21 @@ interface NewProductVariant {
   stock?: number; // Variant-specific stock quantity (overrides main product stock if set)
   // ... other variant-specific properties
 }
+
+export type Options =
+  | "selectPlan"
+  | "customization"
+  | "subscription"
+  | "protection";
+
+export type Size =
+  | "sm"
+  | "md"
+  | "lg"
+  | "xl"
+  | "2xl"
+  | "full"
+  | "xs"
+  | "3xl"
+  | "4xl"
+  | "5xl";

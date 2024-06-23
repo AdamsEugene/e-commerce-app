@@ -14,6 +14,7 @@ import { useDeferredValue } from "react";
 import ConditionalRenderAB from "../Conditional/ConditionalRenderAB";
 import SearchList from "./SearchList";
 import { siteConfig } from "@/src/config/site";
+import useScreenSize from "@/src/hooks/useScreenSize";
 
 type PROPS = {
   onOpenChange: () => void;
@@ -49,6 +50,8 @@ export default function SearchResults(props: PROPS) {
   const [searchTerm, setSearchTerm] = useState("");
   const deferredValue = useDeferredValue(searchTerm);
 
+  const screenSize = useScreenSize();
+
   return (
     <>
       <ModalHeader className="flex flex-col gap-1">
@@ -64,9 +67,12 @@ export default function SearchResults(props: PROPS) {
       </ModalHeader>
       <Divider className="my-4" />
       <ModalBody>
-        <div className="flex xs:flex-col w-full h-full pb-4">
-          <div className="xs:w-full w-[208px] flex justify-between gap-4">
-            <StyledCheckboxGroup checkboxData={checkboxData} />
+        <div className="flex xs:flex-col w-full h-full pb-4 xs:h-screen">
+          <div className="xs:w-full w-[208px] flex justify-between gap-4 xs:mb-4">
+            <StyledCheckboxGroup
+              checkboxData={checkboxData}
+              size={screenSize === "xs" ? "sm" : "md"}
+            />
             <Divider className="xs:hidden" orientation="vertical" />
           </div>
           <Divider className="md:hidden lg:hidden" />
@@ -76,7 +82,7 @@ export default function SearchResults(props: PROPS) {
               ComponentA={<SearchList />}
               ComponentB={
                 <>
-                  <div className="w-full h-[163px]">
+                  <div className="w-full h-[150px]">
                     <p className="text-lg font-semibold mb-2">
                       Best Selling Products
                     </p>

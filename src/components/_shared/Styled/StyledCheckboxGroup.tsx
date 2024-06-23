@@ -1,5 +1,5 @@
 import React from "react";
-import { CheckboxGroup, Checkbox } from "@nextui-org/react";
+import { CheckboxGroup, Checkbox, CheckboxGroupProps } from "@nextui-org/react";
 
 type PROPS = {
   checkboxData: {
@@ -10,8 +10,8 @@ type PROPS = {
   }[];
 };
 
-export default function StyledCheckboxGroup(props: PROPS) {
-  const { checkboxData } = props;
+export default function StyledCheckboxGroup(props: PROPS & CheckboxGroupProps) {
+  const { checkboxData, ...others } = props;
   const [selected, setSelected] = React.useState([""]);
 
   return (
@@ -23,6 +23,7 @@ export default function StyledCheckboxGroup(props: PROPS) {
           color="secondary"
           value={selected}
           onValueChange={setSelected}
+          {...others}
         >
           {data.data.map((item) => (
             <Checkbox key={item.name} value={item.name}>

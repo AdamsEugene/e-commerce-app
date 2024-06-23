@@ -7,12 +7,14 @@ export type ProductState = {
     leasing: string[];
     rent: string[];
     later: string[];
+    high_purchase: string[];
   };
   buyNow: {
     default: string[];
     leasing: string[];
     rent: string[];
     later: string[];
+    high_purchase: string[];
   };
 };
 
@@ -38,12 +40,14 @@ export const initProductStore = (): ProductState => {
       leasing: [],
       rent: [],
       later: [],
+      high_purchase: [],
     },
     buyNow: {
       default: [],
       leasing: [],
       rent: [],
       later: [],
+      high_purchase: [],
     },
   };
 };
