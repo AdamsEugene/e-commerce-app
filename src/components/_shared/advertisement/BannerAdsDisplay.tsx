@@ -16,7 +16,7 @@ type PROPS = {
 export default function BannerAdsDisplay(props: PROPS) {
   const { ads } = props;
 
-  const Ads = ads?.map((ad) => <AdsWrapper {...ad} />);
+  const Ads = ads?.map((ad, index) => <AdsWrapper {...ad} key={index} />);
 
   if (!Ads) return null;
 

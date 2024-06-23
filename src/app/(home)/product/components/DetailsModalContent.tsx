@@ -1,4 +1,3 @@
-import { ReactNode, useRef } from "react";
 import { ModalType } from "./Details";
 import MoreOnProduct from "@/src/components/others/MoreOnProduct";
 import Customization from "./Customization";
@@ -15,37 +14,24 @@ type PROPS = {
 export default function DetailsModalContent(props: PROPS) {
   const { modalType, onCopy, productName } = props;
 
-  const Component = useRef<ReactNode>();
-
-  switch (modalType) {
+   switch (modalType) {
     case "customization":
-      Component.current = <Customization />;
-      break;
+      return <Customization />;
     case "protection":
-      Component.current = <Protection />;
-      break;
+      return <Protection />;
     case "selectPlan":
-      Component.current = <SelectPlan />;
-      break;
+      return <SelectPlan />;
     case "subscription":
-      Component.current = <Subscription />;
-      break;
+      return <Subscription />;
     case "share":
-      Component.current = (
-        <MoreOnProduct onCopy={onCopy} productName={productName} />
-      );
-      break;
-
+      return <MoreOnProduct onCopy={onCopy} productName={productName} />;
     default:
-      Component.current = (
+      return (
         <div className="flex w-full h-[50vh] justify-center items-center p-8 text-center">
           <h1 className="text-7xl text-default-300">
             How did you get here?...
           </h1>
         </div>
       );
-      break;
   }
-
-  return Component.current;
 }

@@ -3,6 +3,8 @@ import { PixelCrop, centerCrop, makeAspectCrop } from "react-image-crop";
 import productList from "./productList";
 import { AdCreative } from "../components/_shared/types/@ads";
 import { CampaignType } from "./campaignData";
+import { purchasePlan } from "./onProduct";
+import { InCart } from "../store/productSlice";
 
 export const capitalizeFirstLetter = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -218,4 +220,24 @@ export const isMoney = (value: string | number): boolean => {
     /^(\$|€|£|¥|₹|₽|₩|₦|฿|₫|₪|₲|₴|₵|₡|₭|₸|₱|৳|₮)?\s?(\d{1,3}(,\d{3})*|\d+)?(\.\d{2})?$/;
 
   return moneyRegex.test(value);
+};
+
+export const getSelectedPlan = (_plan: Exclude<InCart, "later">) =>
+  purchasePlan.data.find((plan) => plan.value === _plan);
+
+export const getRandomTitle = (titles: string[]): string => {
+  const randomIndex = Math.floor(Math.random() * titles.length);
+  return titles[randomIndex];
+};
+
+export const getValueFromMoney = (money: string) => money.match(/\d+/) || "0";
+
+export const getPeriodEquivalent = {
+  Week: 7,
+  "2 Weeks": 14,
+  Month: 30,
+  "3 Months": 3 * 30, // Assuming 3 months as 90 days for simplicity
+  "6 Months": 6 * 30,
+  Year: 365, // Assuming 1 year as 365 days
+  // Add more durations as needed
 };

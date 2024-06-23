@@ -51,6 +51,7 @@ export default function OptionsOnProduct(props: PROPS) {
 
         return (
           <Tooltip
+            key={option.key}
             showArrow={true}
             content={option.description}
             color="foreground"

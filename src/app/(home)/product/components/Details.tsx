@@ -12,7 +12,7 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import { FiMoreHorizontal } from "react-icons/fi";
-import { IoPricetag, IoChevronForward } from "react-icons/io5";
+import { IoPricetag, IoChevronForward, IoStarSharp } from "react-icons/io5";
 
 import StyledInput from "@/src/components/_shared/Styled/StyledInput";
 import StyledButton from "@/src/components/_shared/Styled/StyledButton";
@@ -34,34 +34,8 @@ import FloatingAddToCarts from "./FloatingAddToCarts";
 import OptionsOnProduct from "./OptionsOnProduct";
 import { Options, Size } from "@/src/types";
 import DetailsModalContent from "./DetailsModalContent";
-
-const purchasePlan = {
-  label: "Choose Your Payment Plan",
-  description: "You can change your selected plan at any time.",
-  data: [
-    {
-      description: "Pay as you go for up to 20 items",
-      value: "default",
-      label: "Pay As You Go Plan (Default)",
-    },
-    {
-      description: "Unlimited items at $10 per month",
-      value: "leasing",
-      label: "Leasing Plan",
-    },
-    {
-      description: "Includes 24/7 support. Contact us for pricing.",
-      value: "rent",
-      label: "Rent This Item Plan",
-    },
-    {
-      description:
-        "One-time payment for a lifetime of access to unlimited items and premium support",
-      value: "high_purchase",
-      label: "High Purchase Plan",
-    },
-  ],
-};
+import { purchasePlan } from "@/src/utils/onProduct";
+import { getSelectedPlan } from "@/src/utils/functions";
 
 const options = [
   { key: "share", label: "Share this product" },
@@ -149,6 +123,9 @@ export default function Details() {
     },
   ];
 
+  const currentPlan = getSelectedPlan(selectedPlan);
+  const CurrentPlanIcon = currentPlan?.icon!;
+
   return (
     <div className="w-full mx-auto xs:p-0 px-6 flex flex-col gap-4">
       <div>
@@ -215,9 +192,26 @@ export default function Details() {
       <ProductColor />
       <Divider className="my-1" />
       <OptionsOnProduct optionChanged={optionChanged} />
-      <Divider className="my-1" />
-      <PurchaseType {...purchasePlan} />
-      <PlansComponent />
+      {/* <Divider className="my-1" /> */}
+      {/* <PurchaseType {...purchasePlan} /> */}
+      <Card>
+        <CardBody>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-8">
+              <div className="flex items-center gap-2">
+                <CurrentPlanIcon />
+                <p>{currentPlan?.label}</p>
+                <IoChevronForward />
+              </div>
+              <p className="text-xl font-bold text-default-500">
+                {getCurrentItem?.price}
+              </p>
+            </div>
+            <IoStarSharp />
+          </div>
+        </CardBody>
+      </Card>
+      {/* <PlansComponent /> */}
       <Divider className="my-1" />
       <div ref={ref as any} className="flex xs:flex-col flex-row gap-6">
         <StyledButtonGroup data={quantityData} />
