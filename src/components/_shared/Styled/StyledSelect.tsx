@@ -27,7 +27,7 @@ export default function StyledSelect(props: SelectProps & PROPS) {
       variant="flat"
       {...other}
       items={data}
-      renderValue={(items: SelectedItems<PROPS["data"][0]>) => {
+      renderValue={(items: SelectedItems<PROPS["data"][number]>) => {
         return (
           <div className="flex flex-wrap gap-2">
             {items.map((item) => (
@@ -37,7 +37,9 @@ export default function StyledSelect(props: SelectProps & PROPS) {
                 showArrow={true}
                 content={item.data?.description}
               >
-                <Chip color="secondary">{item.data?.label}</Chip>
+                <Chip color={other.color || "secondary"}>
+                  {item.data?.label}
+                </Chip>
               </Tooltip>
             ))}
           </div>
