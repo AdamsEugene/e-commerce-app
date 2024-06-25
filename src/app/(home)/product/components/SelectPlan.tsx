@@ -56,7 +56,7 @@ export default function SelectPlan() {
         </div>
       </ModalHeader>
       <ModalBody>
-        <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 xs:gap-y-4 md:gap-4">
           <div className="flex flex-col gap-4">
             {data.map((item) => {
               const Icon = item.icon;
@@ -98,7 +98,7 @@ export default function SelectPlan() {
               );
             })}
           </div>
-          <div className="flex flex-col col-span-2 gap-4">
+          <div className="flex flex-col col-span-2 gap-4 md:border-l-1 border-default-300 md:pl-4 xs:border-t-1 xs:pt-4">
             <ConditionalRenderAB
               condition={selectedPlan === "default"}
               ComponentA={

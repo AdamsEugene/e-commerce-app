@@ -1,11 +1,46 @@
 import { FaCoins, FaInfinity, FaHeadset, FaCrown } from "react-icons/fa";
-import { MdOutlinePayments } from "react-icons/md";
+import {
+  FaHandHoldingUsd,
+  FaCogs,
+  FaSyncAlt,
+  FaShieldAlt,
+} from "react-icons/fa";
+
+export const productDetailOptions = [
+  {
+    name: "Select Plan",
+    key: "selectPlan",
+    description: "Choose from various plans like rent, lease, or purchase.",
+    icon: FaHandHoldingUsd,
+  },
+  {
+    name: "Customization",
+    key: "customization",
+    description:
+      "Opt for customization to personalize the product according to your needs.",
+    icon: FaCogs,
+  },
+  {
+    name: "Subscription",
+    key: "subscription",
+    description:
+      "Subscribe to receive regular product deliveries on a weekly or monthly basis.",
+    icon: FaSyncAlt,
+  },
+  {
+    name: "Protection Plan",
+    key: "protection",
+    description:
+      "Get protection plans to safeguard your product against damages.",
+    icon: FaShieldAlt,
+  },
+] as const;
 
 export const purchasePlan = {
   label: "Choose Your Payment Plan",
   description:
     "Select the best payment plan that suits your needs. You can switch plans anytime.",
-  icon: MdOutlinePayments,
+  icon: FaHandHoldingUsd,
   data: [
     {
       description: "Flexible payment option for up to 20 items per month.",

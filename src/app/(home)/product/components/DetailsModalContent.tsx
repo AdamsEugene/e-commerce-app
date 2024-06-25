@@ -1,6 +1,6 @@
 import { ModalType } from "./Details";
 import MoreOnProduct from "@/src/components/others/MoreOnProduct";
-import Customization from "./Customization";
+import Customization from "./Customization/Customization";
 import Protection from "./Protection";
 import SelectPlan from "./SelectPlan";
 import Subscription from "./Subscription";

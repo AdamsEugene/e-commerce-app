@@ -1,41 +1,6 @@
-import { Options } from "@/src/types";
 import { Card, CardBody, Tooltip } from "@nextui-org/react";
-import {
-  FaHandHoldingUsd,
-  FaCogs,
-  FaSyncAlt,
-  FaShieldAlt,
-} from "react-icons/fa";
-
-const options = [
-  {
-    name: "Select Plan",
-    key: "selectPlan",
-    description: "Choose from various plans like rent, lease, or purchase.",
-    icon: FaHandHoldingUsd,
-  },
-  {
-    name: "Customization",
-    key: "customization",
-    description:
-      "Opt for customization to personalize the product according to your needs.",
-    icon: FaCogs,
-  },
-  {
-    name: "Subscription",
-    key: "subscription",
-    description:
-      "Subscribe to receive regular product deliveries on a weekly or monthly basis.",
-    icon: FaSyncAlt,
-  },
-  {
-    name: "Protection Plan",
-    key: "protection",
-    description:
-      "Get protection plans to safeguard your product against damages.",
-    icon: FaShieldAlt,
-  },
-] as const;
+import { type Options } from "@/src/types";
+import { productDetailOptions } from "@/src/utils/onProduct";
 
 type PROPS = {
   optionChanged: (option: Options) => void;
@@ -46,7 +11,7 @@ export default function OptionsOnProduct(props: PROPS) {
 
   return (
     <div className="grid xs:grid-cols-2 grid-cols-4 gap-4">
-      {options.map((option) => {
+      {productDetailOptions.map((option) => {
         const Icon = option.icon;
 
         return (
