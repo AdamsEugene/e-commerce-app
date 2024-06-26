@@ -1,5 +1,5 @@
 import { useParams } from "next/navigation";
-import { ModalBody, ModalFooter, ModalHeader } from "@nextui-org/react";
+import { ModalBody, ModalHeader } from "@nextui-org/react";
 import { FaCogs, FaEnvelope, FaTools } from "react-icons/fa";
 import cartItems from "@/src/utils/cartItem";
 import { getRandomTitle } from "@/src/utils/functions";
@@ -61,7 +61,6 @@ export default function Customization() {
         <StyledTab data={customizationTab} color="secondary" />
         <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 xs:gap-y-4 md:gap-4"></div>
       </ModalBody>
-      <ModalFooter></ModalFooter>
     </>
   );
 }
