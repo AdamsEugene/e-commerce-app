@@ -5,9 +5,10 @@ import { PRODUCTS } from "@/src/utils/productList";
 import { PropsWithChildren } from "react";
 import { siteConfig } from "@/src/config/site";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
+import { TProduct } from "@/src/types";
 
 type PROPS = {
-  item: PRODUCTS;
+  item: TProduct;
 };
 
 export default function ProductTooltip(props: PropsWithChildren<PROPS>) {
@@ -26,7 +27,7 @@ export default function ProductTooltip(props: PropsWithChildren<PROPS>) {
       className="!w-[216.8px]"
       content={
         <div className="w-full flex flex-col gap-2 py-2">
-          <b className="">{item.name}</b>
+          <b className="">{item.title}</b>
           <p className="text-default-500 text-4xl">
             {isMoney(item.price) ? `${item.price}` : `${item.price}`}
           </p>
@@ -36,7 +37,7 @@ export default function ProductTooltip(props: PropsWithChildren<PROPS>) {
           <ButtonGroup fullWidth size="sm">
             <Button
               onClick={() => {
-                addToCart("default", item.productId);
+                addToCart("default", String(item.id));
                 toggleDrawer(true);
               }}
             >
@@ -44,8 +45,8 @@ export default function ProductTooltip(props: PropsWithChildren<PROPS>) {
             </Button>
             <Button
               as={Link}
-              href={`${siteConfig.pages.product}/${item.productId}/${siteConfig.pages.buyNow}`}
-              onClick={() => addToBuyNow("default", item.productId)}
+              href={`${siteConfig.pages.product}/${item.id}/${siteConfig.pages.buyNow}`}
+              onClick={() => addToBuyNow("default", String(item.id))}
             >
               Buy now
             </Button>

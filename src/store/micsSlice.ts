@@ -1,12 +1,12 @@
 import { StateCreator } from "zustand";
-import { PRODUCTS } from "../utils/cartItem";
 import { InCart } from "./productSlice";
 import { Colors, adColor } from "./initialState";
+import { TProduct } from "../types";
 
 export type MicsState = {
   isDrawerOpen: boolean;
   activeStep: number;
-  selectedProduct?: PRODUCTS;
+  selectedProduct?: TProduct;
   selectedPlan: Exclude<InCart, "later">;
   hasExcelChanged: boolean;
   displayMode: "grid" | "list";
@@ -16,7 +16,7 @@ export type MicsState = {
 
 export type MicsActions = {
   toggleDrawer: (state: boolean) => void;
-  addToSelectedProduct: (item: PRODUCTS) => void;
+  addToSelectedProduct: (item: TProduct) => void;
   deleteFromSelectedProduct: () => void;
   changePlan: (plan: Exclude<InCart, "later">) => void; // Change this line
   updateActiveStep: (activeStep: number) => void;

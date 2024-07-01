@@ -1,4 +1,5 @@
 import { SVGProps } from "react";
+import { AdPreview } from "../components/_shared/types/@ads";
 
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
@@ -72,3 +73,70 @@ export type Size =
   | "3xl"
   | "4xl"
   | "5xl";
+
+export type PRODUCTS_FOR_HOME = {
+  products: TProduct[];
+  productsGrid?: PRODUCTS_GRID;
+  ads?: AdPreview[];
+};
+
+export type PRODUCTS_GRID = {
+  gridId: string;
+  title: string;
+  cta: string;
+  image: any;
+  products: [TProduct[], TProduct[]];
+};
+
+export type TReview = {
+  rating: number;
+  comment: string;
+  date: string;
+  reviewerName: string;
+  reviewerEmail: string;
+};
+
+export type TDimensions = {
+  width: number;
+  height: number;
+  depth: number;
+};
+
+export type TMeta = {
+  createdAt: string;
+  updatedAt: string;
+  barcode: string;
+  qrCode: string;
+};
+
+export type TProduct = {
+  id: number;
+  title: string;
+  description: string;
+  category: string;
+  price: number;
+  discountPercentage: number;
+  rating: number;
+  stock: number;
+  tags: string[];
+  brand: string;
+  sku: string;
+  weight: number;
+  dimensions: TDimensions;
+  warrantyInformation?: string;
+  shippingInformation?: string;
+  availabilityStatus?: string;
+  reviews?: TReview[];
+  returnPolicy?: string;
+  minimumOrderQuantity?: number;
+  meta?: TMeta;
+  images?: string[];
+  thumbnail?: string;
+};
+
+export interface TFetchedProduct {
+  products: TProduct[];
+  total: number;
+  skip: number;
+  limit: number;
+}

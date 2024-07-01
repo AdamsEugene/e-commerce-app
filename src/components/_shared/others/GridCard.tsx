@@ -23,15 +23,16 @@ import imageByIndex from "@/src/utils/imageByIndex";
 import { IconWrapper } from "./IconWrapper";
 import { isMoney } from "@/src/utils/functions";
 import ProductTooltip from "./ProductTootip";
+import { TProduct } from "@/src/types";
 
 type PROPS = {
   numberOfItems?: number;
   baseLink?: string;
-  data?: PRODUCTS[];
+  data?: TProduct[];
 };
 
 export default function GridCard(props: PROPS) {
-  const { baseLink, numberOfItems = productList.length, data } = props;
+  const { baseLink, numberOfItems = 100, data } = props;
 
   // const { ref, products } = useResizeListener(232.797, numberOfItems);
   const addToSelectedProduct = useAppStore(
@@ -41,21 +42,21 @@ export default function GridCard(props: PROPS) {
   const toggleDrawer = useAppStore((state) => state.toggleDrawer);
   const addToCart = useAppStore((state) => state.addToCart);
 
+  console.log(data);
+
   return (
     <div
       // ref={ref}
       className="container mx-auto flex flex-col justify-center items-center gap-4"
     >
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-        {(
-          data?.slice(0, numberOfItems) || productList.slice(0, numberOfItems)
-        ).map((item, index) => (
-          <ProductTooltip item={item}>
+        {data?.slice(0, numberOfItems).map((item, index) => (
+          <ProductTooltip item={item} key={item.id}>
             <Card
               shadow="none"
               as={Link}
               href={`${baseLink ? baseLink : siteConfig.pages.product}/${
-                item.productId
+                item.id
               }`}
               key={index}
               isPressable
@@ -71,14 +72,14 @@ export default function GridCard(props: PROPS) {
                   radius="lg"
                   width={300}
                   height={300}
-                  alt={item.name}
+                  alt={item.title}
                   className="object-cover product_image xs:w-full w-[100%] !h-[300px]"
-                  src={item.image || imageByIndex(index)}
+                  src={item?.thumbnail || imageByIndex(index)}
                   isZoomed
                 />
                 <IconWrapper
                   onClick={() => {
-                    addToCart("default", item.productId);
+                    addToCart("default", String(item.id));
                     toggleDrawer(true);
                   }}
                   className="bg-primary/10 text-primary cursor-pointer hover:bg-primary/30 transition duration-300 ease-in-out absolute z-10 bottom-3 right-3 !w-10 !h-10"
@@ -87,7 +88,7 @@ export default function GridCard(props: PROPS) {
                 </IconWrapper>
               </CardBody>
               <CardFooter className="text-small justify-between items-baseline">
-                <b className="truncate">{item.name}</b>
+                <b className="truncate">{item.title}</b>
                 <p className="text-default-500">{item.price}</p>
               </CardFooter>
             </Card>
