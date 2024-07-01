@@ -16,6 +16,8 @@ import UseCases from "../components/UseCases";
 import { adsPreview } from "@/src/utils/adsData";
 import RecommendedProducts from "../components/RecommendedProducts";
 import RecommendedAds from "../components/RecommendedAds";
+import { apiGet } from "@/src/api/apiCalles";
+import { TProduct } from "@/src/types";
 
 type Props = {
   params: { product_id: string };
@@ -45,17 +47,21 @@ export async function generateMetadata(
   };
 }
 
-export default function Products() {
+export default async function Products() {
+  const product = await apiGet<TProduct>(`https://dummyjson.com/products/13`);
+
+  // console.log(product);
+
   return (
     <section className="w-full home pb-8">
       <div className="flex flex-col w-full items-center gap-8 max-w-[1180px] relative">
         <BackButton />
         <div className="main flex xs:flex-col">
           <div className="gallery_wrapper xs:w-full w-[500px] xs:h-[min(60vh,520px)] h-[min(60vh,600px)] xs:static sticky top-[90px]">
-            <ImageGallery />
+            <ImageGallery images={product?.images} />
           </div>
           <div className="product_details">
-            <Details />
+            <Details product={product} />
           </div>
         </div>
         <div className="main flex flex-col justify-center items-center">

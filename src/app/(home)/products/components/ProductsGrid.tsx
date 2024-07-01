@@ -3,7 +3,7 @@ import { Button, Card, CardBody, CardHeader } from "@nextui-org/react";
 import StyledImage from "@/src/components/_shared/Styled/StyledImage";
 import { siteConfig } from "@/src/config/site";
 import imageByIndex from "@/src/utils/imageByIndex";
-import { PRODUCTS_GRID } from "@/src/utils/productList";
+import { PRODUCTS_GRID } from "@/src/types";
 
 type PROPS = {
   products?: PRODUCTS_GRID;
@@ -39,7 +39,7 @@ export default function ProductsGrid(props: PROPS) {
             >
               <CardHeader className="pb-0">
                 <div className="flex items-center justify-between w-full">
-                  <p className="text-lg font-semibold">{list[0].name}</p>
+                  <p className="text-lg font-semibold">{list[0].title}</p>
                   <div className="flex items-center gap-3">
                     <Button
                       color="secondary"
@@ -62,17 +62,21 @@ export default function ProductsGrid(props: PROPS) {
                   {list?.map((product, index) => (
                     <div key={index} className="truncate">
                       <StyledImage
-                        shadow="sm"
+                        shadow="none"
                         radius="lg"
                         width={300}
                         height={300}
                         alt={product.description}
                         className="object-cover product_image !h-36 w-full"
-                        src={product.image || imageByIndex(index)}
+                        src={
+                          product?.thumbnail ||
+                          product?.images?.[0] ||
+                          imageByIndex(index)
+                        }
                         isZoomed
                       />
                       <b className="text-small text-default-500">
-                        {product.name}
+                        {product.title}
                       </b>
                     </div>
                   ))}

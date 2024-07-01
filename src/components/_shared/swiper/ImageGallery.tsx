@@ -16,18 +16,22 @@ import "swiper/css/thumbs";
 import "./swiper.css";
 
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
-import cartItems from "@/src/utils/cartItem";
+// import cartItems from "@/src/utils/cartItem";
 import CustomNavigationButtons from "./CustomNavigationButtons";
 import useScreenSize from "@/src/hooks/useScreenSize";
 
-export default function ImageGallery() {
+type PROPS = {
+  images?: string[];
+};
+
+export default function ImageGallery({ images }: PROPS) {
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
 
   const screenSize = useScreenSize();
   const params = useParams();
   const productId = params.product_id as string;
 
-  const getCurrentItem = cartItems.find((item) => item.productId === productId);
+  // const getCurrentItem = cartItems.find((item) => item.productId === productId);
 
   return (
     <>
@@ -42,10 +46,10 @@ export default function ImageGallery() {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper2 xs:!w-full xs:!h-[80%] !h-[80%]"
       >
-        {[1, 2, 3, 4, 5].map((item) => (
+        {images?.map((item) => (
           <SwiperSlide key={item} className="xs:!w-full">
             <StyledImage
-              src={getCurrentItem?.image}
+              src={item}
               alt={String(item)}
               shadow="lg"
               width={300}
@@ -66,10 +70,10 @@ export default function ImageGallery() {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper"
       >
-        {[1, 2, 3, 4, 5].map((item) => (
+        {images?.map((item) => (
           <SwiperSlide key={item}>
             <StyledImage
-              src={getCurrentItem?.image}
+              src={item}
               alt={String(item)}
               shadow="lg"
               width={100}
