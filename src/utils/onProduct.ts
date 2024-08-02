@@ -51,21 +51,21 @@ export const purchasePlan = {
     {
       description: "Enjoy unlimited items for a flat rate of $10 per month.",
       value: "leasing",
-      label: "Monthly Subscription",
+      label: "Lease",
       icon: FaInfinity,
     },
     {
       description:
         "Rent items with 24/7 support included. Contact us for personalized pricing.",
       value: "rent",
-      label: "Item Rental Plan",
+      label: "Item Rental",
       icon: FaHeadset,
     },
     {
       description:
         "Make a one-time payment for lifetime access to all items and premium support.",
       value: "high_purchase",
-      label: "High Purchase Plan",
+      label: "High Purchase",
       icon: FaCrown,
     },
   ] as const,

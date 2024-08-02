@@ -18,7 +18,7 @@ export default function UseCases() {
   return (
     <div className="flex flex-col w-full gap-8">
       <div>
-        <NormalSwapper
+        {/* <NormalSwapper
           slidesPerView={1}
           className="!h-[min(500px,60vh)] xs:!h-[min(300px,40vh)]"
         >
@@ -27,7 +27,7 @@ export default function UseCases() {
               <VideoPlayer url={vid} />
             </SwiperSlide>
           ))}
-        </NormalSwapper>
+        </NormalSwapper> */}
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-y-6 gap-x-2">
         <div className="w-full">

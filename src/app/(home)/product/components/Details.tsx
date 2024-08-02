@@ -17,12 +17,12 @@ import { IoPricetag, IoChevronForward, IoStarSharp } from "react-icons/io5";
 import StyledInput from "@/src/components/_shared/Styled/StyledInput";
 import StyledButton from "@/src/components/_shared/Styled/StyledButton";
 import Ratings from "@/src/components/others/Ratings";
-import PurchaseType from "@/src/components/others/PurchaseType";
-import PlansComponent from "@/src/components/others/PlansComponent";
+// import PurchaseType from "@/src/components/others/PurchaseType";
+// import PlansComponent from "@/src/components/others/PlansComponent";
 import StyledButtonGroup from "@/src/components/_shared/button/StyledButtonGroup";
 import ShippingOption from "@/src/components/others/ShippingOption";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
-import cartItems from "@/src/utils/cartItem";
+// import cartItems from "@/src/utils/cartItem";
 import { siteConfig } from "@/src/config/site";
 import StyledDropdown from "@/src/components/_shared/others/Dropdown";
 import StyledModal from "@/src/components/_shared/Styled/StyledModal";
@@ -34,8 +34,9 @@ import FloatingAddToCarts from "./FloatingAddToCarts";
 import OptionsOnProduct from "./OptionsOnProduct";
 import { Options, Size, TProduct } from "@/src/types";
 import DetailsModalContent from "./DetailsModalContent";
-import { purchasePlan } from "@/src/utils/onProduct";
+// import { purchasePlan } from "@/src/utils/onProduct";
 import { getSelectedPlan } from "@/src/utils/functions";
+import StyledAccordion from "@/src/components/_shared/Styled/StyledAccordion";
 
 const options = [
   { key: "share", label: "Share this product" },
@@ -182,8 +183,9 @@ export default function Details({ product }: PROPS) {
       <Divider className="my-1" />
       <ProductVariant field="compatibility" />
       <Divider className="my-1" />
-      <ProductColor />
+      <ProductColor images={product.images} />
       <Divider className="my-1" />
+      <StyledAccordion />
       <OptionsOnProduct optionChanged={optionChanged} />
       {/* <Divider className="my-1" /> */}
       {/* <PurchaseType {...purchasePlan} /> */}

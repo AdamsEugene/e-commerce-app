@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import {
   Button,
@@ -15,13 +15,12 @@ import {
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 
 import StyledImage from "../Styled/StyledImage";
-import productList, { PRODUCTS } from "@/src/utils/productList";
 import { siteConfig } from "@/src/config/site";
 // import useResizeListener from "@/src/hooks/useResizeListener";
 import { useAppStore } from "../../../providers/AppStoreProvider";
 import imageByIndex from "@/src/utils/imageByIndex";
 import { IconWrapper } from "./IconWrapper";
-import { isMoney } from "@/src/utils/functions";
+// import { getCurrencySymbol, isMoney } from "@/src/utils/functions";
 import ProductTooltip from "./ProductTootip";
 import { TProduct } from "@/src/types";
 
@@ -42,8 +41,6 @@ export default function GridCard(props: PROPS) {
   const toggleDrawer = useAppStore((state) => state.toggleDrawer);
   const addToCart = useAppStore((state) => state.addToCart);
 
-  console.log(data);
-
   return (
     <div
       // ref={ref}
@@ -53,7 +50,7 @@ export default function GridCard(props: PROPS) {
         {data?.slice(0, numberOfItems).map((item, index) => (
           <ProductTooltip item={item} key={item.id}>
             <Card
-              shadow="none"
+              shadow="sm"
               as={Link}
               href={`${baseLink ? baseLink : siteConfig.pages.product}/${
                 item.id
@@ -66,19 +63,20 @@ export default function GridCard(props: PROPS) {
               }}
               // className="h-full"
             >
-              <CardBody className="overflow-visible p-0 relative !h-[300px]">
+              <CardBody className="overflow-visible p-0 relative xs:!h-[200px] !h-[280px]">
                 <StyledImage
                   shadow="none"
                   radius="lg"
                   width={300}
                   height={300}
                   alt={item.title}
-                  className="object-cover product_image xs:w-full w-[100%] !h-[300px]"
+                  className="product_image xs:w-full w-[100%] xs:!h-[200px] !h-[280px] !object-contain"
                   src={item?.thumbnail || imageByIndex(index)}
                   isZoomed
                 />
                 <IconWrapper
-                  onClick={() => {
+                  onClick={(event: Event) => {
+                    event.stopPropagation();
                     addToCart("default", String(item.id));
                     toggleDrawer(true);
                   }}

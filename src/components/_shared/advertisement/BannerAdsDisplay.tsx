@@ -48,6 +48,7 @@ const ImageOnLeft = (props: AdPreview) => {
   const { callToAction, description, url, headline } = props;
   return (
     <Card
+      shadow="md"
       isPressable
       className="w-full h-36 xs:h-28 relative bg-default flex"
       as={Link}
@@ -100,6 +101,7 @@ const ImageOnRight = (props: AdPreview) => {
   const { callToAction, description, url, headline } = props;
   return (
     <Card
+      shadow="md"
       isPressable
       className="w-full h-36 xs:h-28 relative bg-default flex"
       as={Link}
@@ -151,6 +153,7 @@ const FullImage = (props: AdPreview) => {
   const { callToAction, description, url, headline } = props;
   return (
     <Card
+      shadow="md"
       isPressable
       className="w-full h-36 xs:h-28 relative bg-default flex overflow-hidden"
       as={Link}

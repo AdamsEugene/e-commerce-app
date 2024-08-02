@@ -61,7 +61,7 @@ const SwiperCarousel: FC<SwiperCarouselProps> = ({
               width={width}
               height={height}
               src={product.image}
-              className={`object-cover h-[${half ? "17rem" : "34rem"}]`}
+              className={`!object-fill h-[${half ? "17rem" : "34rem"}]`}
             />
             <div className="z-20 absolute inset-0 bg-black opacity-60"></div>
             <div className="w-[90%] z-30 absolute top-1/2 left-[50%] transform -translate-x-1/2 -translate-y-1/2 text-center">
@@ -124,7 +124,7 @@ const HomeSwiper: FC = () => {
         <SwiperCarousel
           products={products}
           width={200}
-          height={200}
+          height={544}
           delay={10000}
         />
       </div>
@@ -133,7 +133,7 @@ const HomeSwiper: FC = () => {
           <SwiperCarousel
             products={products1}
             width={100}
-            height={50}
+            height={272}
             delay={14000}
             half
           />
@@ -142,7 +142,7 @@ const HomeSwiper: FC = () => {
           <SwiperCarousel
             products={products2}
             width={100}
-            height={50}
+            height={272}
             delay={17000}
             half
           />

@@ -6,6 +6,7 @@ import { PropsWithChildren } from "react";
 import { siteConfig } from "@/src/config/site";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
 import { TProduct } from "@/src/types";
+import Ratings from "../../others/Ratings";
 
 type PROPS = {
   item: TProduct;
@@ -18,6 +19,8 @@ export default function ProductTooltip(props: PropsWithChildren<PROPS>) {
   const addToCart = useAppStore((state) => state.addToCart);
   const addToBuyNow = useAppStore((state) => state.addToBuyNow);
 
+  // console.log(props.item);
+
   return (
     <Tooltip
       showArrow={true}
@@ -28,9 +31,8 @@ export default function ProductTooltip(props: PropsWithChildren<PROPS>) {
       content={
         <div className="w-full flex flex-col gap-2 py-2">
           <b className="">{item.title}</b>
-          <p className="text-default-500 text-4xl">
-            {isMoney(item.price) ? `${item.price}` : `${item.price}`}
-          </p>
+          <Ratings rating={item.rating} size={1} />
+          <p className="text-default-500 text-4xl">{`${item.price}`}</p>
           <ScrollShadow size={10} hideScrollBar className="w-full max-h-[80px]">
             <p className="text-default-500 text-xxs">{item.description}</p>
           </ScrollShadow>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button, Card, CardBody, CardHeader } from "@nextui-org/react";
+import { Card, CardBody, CardHeader } from "@nextui-org/react";
 import StyledImage from "@/src/components/_shared/Styled/StyledImage";
 import { siteConfig } from "@/src/config/site";
 import imageByIndex from "@/src/utils/imageByIndex";
@@ -27,27 +27,24 @@ export default function ProductsGrid(props: PROPS) {
               list.length === 4 ? "col-span-2" : "col-span-3"
             } xs:col-span-2  h-full`}
           >
-            <Card
-              shadow="sm"
-              as={Link}
-              isPressable
-              href={{
-                pathname: `${siteConfig.pages.products}/${products.title}`,
-                query: { image: products.image },
-              }}
-              className="h-full"
-            >
+            <Card shadow="sm" className="h-full">
               <CardHeader className="pb-0">
                 <div className="flex items-center justify-between w-full">
-                  <p className="text-lg font-semibold">{list[0].title}</p>
+                  <p className="text-lg font-semibold max-w-[70%] truncate">
+                    {list[0].title}
+                  </p>
                   <div className="flex items-center gap-3">
-                    <Button
-                      color="secondary"
-                      variant="light"
+                    <Link
+                      href={{
+                        pathname: `${siteConfig.pages.products}/${products.title}`,
+                        query: { image: products.image },
+                      }}
+                      className="text-secondary"
+                      // variant="light"
                       aria-label="Edit campaign"
                     >
                       {products.cta}
-                    </Button>
+                    </Link>
                   </div>
                 </div>
               </CardHeader>
@@ -60,14 +57,18 @@ export default function ProductsGrid(props: PROPS) {
                   } gap-4 w-full`}
                 >
                   {list?.map((product, index) => (
-                    <div key={index} className="truncate">
+                    <Link
+                      key={index}
+                      className="truncate"
+                      href={`${siteConfig.pages.product}/${product.id}`}
+                    >
                       <StyledImage
                         shadow="none"
                         radius="lg"
                         width={300}
                         height={300}
                         alt={product.description}
-                        className="object-cover product_image !h-36 w-full"
+                        className="!object-contain product_image !h-36 w-full"
                         src={
                           product?.thumbnail ||
                           product?.images?.[0] ||
@@ -78,7 +79,7 @@ export default function ProductsGrid(props: PROPS) {
                       <b className="text-small text-default-500">
                         {product.title}
                       </b>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               </CardBody>

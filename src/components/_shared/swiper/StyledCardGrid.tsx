@@ -88,10 +88,10 @@ export default function StyledCardGrid(props: PROPS) {
           <Image
             alt="Woman listing to music"
             className={`object-cover ${
-              onOpenChange ? " h-[170px] w-[175px]" : " h-[250px] w-[223px]"
+              onOpenChange ? " h-[170px] w-[175px]" : " h-[192px] w-[223px]"
             }`}
             as={StyledImage}
-            height={250}
+            height={192}
             src={item.image}
             width={223}
             isZoomed

@@ -11,6 +11,7 @@ import StyledDropdown from "../_shared/others/Dropdown";
 import reviewData from "@/src/utils/reviews";
 import Ratings from "./Ratings";
 import ConditionalRender from "../_shared/Conditional/ConditionalRender";
+import { TReview } from "@/src/types";
 
 type ReviewProps = {
   rating: number;
@@ -39,12 +40,16 @@ const dropdownItems = [
 
 type DropdownItemsType = (typeof dropdownItems)[number]["key"];
 
-const ReviewList = () => {
+type PROPS = {
+  reviews?: TReview[];
+};
+
+const ReviewList = ({ reviews }: PROPS) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedKeys, setSelectedKeys] = useState<string>("A to Z");
   const [enableSearch, setEnableSearch] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [allData, setAllData] = useState<ReviewProps[]>(reviewData);
+  const [allData, setAllData] = useState<TReview[] | undefined>(reviews || []);
   const deferredSearchTerm = useDeferredValue(searchTerm);
 
   const reviewRef = useRef<HTMLDivElement>(null);
@@ -56,14 +61,14 @@ const ReviewList = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     if (deferredSearchTerm) {
-      const data = reviewData.filter((review) =>
-        review.reviewTitle
+      const data = reviews?.filter((review) =>
+        review?.reviewerEmail
           .toLowerCase()
           .includes(deferredSearchTerm.toLowerCase())
       );
       setAllData(data);
-      return data.slice(startIndex, endIndex);
-    } else return reviewData.slice(startIndex, endIndex);
+      return data?.slice(startIndex, endIndex);
+    } else return reviews?.slice(startIndex, endIndex);
   }, [currentPage, deferredSearchTerm]);
 
   const handleSelect = (key: any) => {
@@ -71,13 +76,15 @@ const ReviewList = () => {
     const currentKey = key.currentKey as DropdownItemsType;
 
     // Create a copy of the original reviews data
-    let filteredData = [...reviewData];
+    let filteredData = reviews ? [...reviews] : [];
 
     // Apply filter based on selectedKeys
 
     switch (currentKey) {
       case "A to Z":
-        filteredData.sort((a, b) => a.reviewTitle.localeCompare(b.reviewTitle));
+        filteredData.sort((a, b) =>
+          a.reviewerEmail.localeCompare(b.reviewerEmail)
+        );
         break;
 
       default:
@@ -108,7 +115,7 @@ const ReviewList = () => {
     // Apply search term filter
     if (deferredSearchTerm) {
       filteredData = filteredData.filter((review) =>
-        review.reviewTitle
+        review.reviewerEmail
           .toLowerCase()
           .includes(deferredSearchTerm.toLowerCase())
       );
@@ -126,7 +133,7 @@ const ReviewList = () => {
 
   const handleSearchChange = (value: string) => {
     setSearchTerm(value);
-    !value && setAllData(reviewData);
+    !value && setAllData(reviews);
   };
 
   const { flushHeldKeys } = useKeyboardShortcut(
@@ -193,16 +200,16 @@ const ReviewList = () => {
           />
         </div>
       </div>
-
-      {filteredReviews.map((review, index) => (
+      {/* 
+      {filteredReviews?.map((review, index) => (
         <Reviews key={index} {...review} />
-      ))}
+      ))} */}
       <ConditionalRender
         Component={
           <div className="flex justify-end">
             <Pagination
               showControls
-              total={Math.ceil(allData.length / itemsPerPage)}
+              total={Math.ceil((allData?.length || 1) / itemsPerPage)}
               initialPage={1}
               color="secondary"
               page={currentPage}
@@ -210,7 +217,7 @@ const ReviewList = () => {
             />
           </div>
         }
-        condition={allData.length > itemsPerPage}
+        condition={(allData?.length || 0) > itemsPerPage}
       />
       <Divider className="my-4" />
     </div>

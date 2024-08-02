@@ -107,4 +107,7 @@ export const siteConfig = {
     allFields: "allFields",
     allExcelData: "allExcelData",
   },
+  meta: {
+    ITEM_PER_PAGE: 40,
+  },
 };

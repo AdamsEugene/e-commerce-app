@@ -241,3 +241,87 @@ export const getPeriodEquivalent = {
   Year: 365, // Assuming 1 year as 365 days
   // Add more durations as needed
 };
+
+const countryToCurrencyMap: { [key: string]: string } = {
+  US: "USD",
+  CA: "CAD",
+  GB: "GBP",
+  EU: "EUR",
+  JP: "JPY",
+  CN: "CNY",
+  IN: "INR",
+  AU: "AUD",
+  NZ: "NZD",
+  ZA: "ZAR",
+  BR: "BRL",
+  RU: "RUB",
+  MX: "MXN",
+  KR: "KRW",
+  SG: "SGD",
+  HK: "HKD",
+  MY: "MYR",
+  ID: "IDR",
+  TR: "TRY",
+  SA: "SAR",
+  AE: "AED",
+  CH: "CHF",
+  SE: "SEK",
+  NO: "NOK",
+  DK: "DKK",
+  PL: "PLN",
+  CZ: "CZK",
+  HU: "HUF",
+  IL: "ILS",
+  EG: "EGP",
+  TH: "THB",
+  NG: "NGN",
+  KE: "KES",
+  GH: "GHS", // Ghana
+  BD: "BDT",
+  PK: "PKR",
+  VN: "VND",
+  PH: "PHP",
+  // Add more country codes and their corresponding currencies here
+};
+
+export async function getCurrencySymbol(): Promise<string> {
+  try {
+    const position = await getCurrentPosition();
+    const country = await getCountryFromCoords(
+      position.coords.latitude,
+      position.coords.longitude
+    );
+
+    const currencyCode = countryToCurrencyMap[country] || "USD"; // Default to USD if country not found
+    return (
+      new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: currencyCode,
+      })
+        .formatToParts(1)
+        .find((part) => part.type === "currency")?.value || "$"
+    ); // Default to $ if symbol not found
+  } catch (error) {
+    console.error("Error detecting country:", error);
+    return "$"; // Default to $ on error
+  }
+}
+
+function getCurrentPosition(): Promise<GeolocationPosition> {
+  return new Promise((resolve, reject) => {
+    if (!navigator.geolocation) {
+      return reject(new Error("Geolocation is not supported by this browser."));
+    }
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+}
+
+async function getCountryFromCoords(lat: number, lon: number): Promise<string> {
+  const response = await fetch(`https://geocode.xyz/${lat},${lon}?geoit=json`);
+  const data = await response.json();
+  console.log("====================================");
+  console.log(data);
+  console.log("====================================");
+
+  return data.prov || "US"; // Default to US if country not found
+}

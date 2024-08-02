@@ -47,10 +47,13 @@ export async function generateMetadata(
   };
 }
 
-export default async function Products() {
-  const product = await apiGet<TProduct>(`https://dummyjson.com/products/13`);
+type PROPS = {
+  params: { product_id: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
+};
 
-  // console.log(product);
+export default async function Products({ params }: PROPS) {
+  const product = await apiGet<TProduct>(`products/${params.product_id}`);
 
   return (
     <section className="w-full home pb-8">
@@ -108,7 +111,7 @@ export default async function Products() {
           <div className="w-full">
             <h3 className="text-3xl font-bold mb-4">Reviews</h3>
           </div>
-          <ReviewList />
+          <ReviewList reviews={product.reviews} />
         </div>
         <div className="main flex flex-col justify-center items-center">
           <div className="w-full">

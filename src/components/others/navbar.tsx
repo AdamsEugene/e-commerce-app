@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   Badge,
   ModalContent,
@@ -30,7 +30,6 @@ import clsx from "clsx";
 
 import { ThemeSwitch } from "@/src/components/others/theme-switch";
 import {
-  TwitterIcon,
   CartIcon,
   NotificationIcon,
 } from "@/src/components/_shared/others/icons";
@@ -51,6 +50,8 @@ import {
   userDashboardLinks,
 } from "@/src/utils/dashboardLinks";
 import Link from "next/link";
+import { Button } from "@nextui-org/button";
+import Notifications from "./Notifications";
 
 export const Navbar = () => {
   const [isInvisible, setIsInvisible] = useState(true);
@@ -166,29 +167,43 @@ export const Navbar = () => {
                 )}
               </PopoverContent>
             </Popover>
-            <Badge
-              color="secondary"
-              content={itemsInCart}
-              isInvisible={!Boolean(itemsInCart)}
-              shape="circle"
-              size="lg"
-              onClick={() => toggleDrawer(true)}
-            >
-              <CartIcon
-                size={32}
-                className="cursor-pointer"
+            <Button isIconOnly variant="light">
+              <Badge
+                color="secondary"
+                content={itemsInCart}
+                isInvisible={!Boolean(itemsInCart)}
+                shape="circle"
+                size="lg"
                 onClick={() => toggleDrawer(true)}
-              />
-            </Badge>
-            <Badge
-              color="warning"
-              content={5}
-              isInvisible={isInvisible}
-              shape="circle"
-              size="lg"
-            >
-              <NotificationIcon className="fill-current" size={32} />
-            </Badge>
+              >
+                <CartIcon
+                  size={32}
+                  className="cursor-pointer"
+                  onClick={() => toggleDrawer(true)}
+                />
+              </Badge>
+            </Button>
+            <Popover showArrow placement="bottom" backdrop="blur">
+              <PopoverTrigger>
+                <Button isIconOnly variant="light">
+                  <Badge
+                    color="warning"
+                    content={5}
+                    isInvisible={isInvisible}
+                    shape="circle"
+                    size="lg"
+                  >
+                    <NotificationIcon
+                      className="fill-current cursor-pointer"
+                      size={32}
+                    />
+                  </Badge>
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="p-1">
+                <Notifications />
+              </PopoverContent>
+            </Popover>
           </NavbarItem>
         </NavbarContent>
 
@@ -244,8 +259,8 @@ export const Navbar = () => {
                     index === 2
                       ? "primary"
                       : index === siteConfig.navMenuItems.length - 1
-                      ? "danger"
-                      : "foreground"
+                        ? "danger"
+                        : "foreground"
                   }
                   href={item.href}
                   // size="lg"
