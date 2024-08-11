@@ -334,7 +334,7 @@ const productList: PRODUCTS[] = [
     image: imageByIndex(44),
     price: 899.99,
     description:
-      "A high-performance gaming monitor with 4K resolution and fast refresh rate.",
+      "A Hire-performance gaming monitor with 4K resolution and fast refresh rate.",
   },
   {
     productId: "40",
@@ -374,7 +374,7 @@ const productList: PRODUCTS[] = [
     image: imageByIndex(49),
     price: 99.99,
     description:
-      "A high-precision ergonomic mouse with customizable buttons and fast scrolling.",
+      "A Hire-precision ergonomic mouse with customizable buttons and fast scrolling.",
   },
   {
     productId: "45",

@@ -10,7 +10,7 @@ import ContactManufacturer from "./ContactManufacturer";
 
 const title = (name: string = "Product Name") => [
   `Make it Yours: Customize Your ${name} (Focuses on personalization)`,
-  `Customize Your ${name}: Design Options & Features (Highlights customization and features)`,
+  `Customize Your ${name}: Design Options & Features (Hirelights customization and features)`,
   `Create Your Dream ${name}: Explore Customization (Appeals to emotional connection)`,
 ];
 

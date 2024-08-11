@@ -106,7 +106,7 @@ export default function Campaign() {
     | undefined;
 
   if (remainingBudget / totalBudget > 0.5) {
-    progressBarColor = "primary"; // High remaining budget
+    progressBarColor = "primary"; // Hire remaining budget
   } else if (remainingBudget / totalBudget > 0.25) {
     progressBarColor = "secondary"; // Medium remaining budget
   } else {

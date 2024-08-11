@@ -7,7 +7,7 @@ export const budgets: Budget[] = [
     billingStrategy: "cpc",
   },
   {
-    title: "High Budget Campaign",
+    title: "Hire Budget Campaign",
     budget: 5000.0,
     dailyLimit: 250.0,
     billingStrategy: "cpm",

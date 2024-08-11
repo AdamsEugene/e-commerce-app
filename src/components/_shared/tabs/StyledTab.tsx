@@ -22,7 +22,7 @@ export default function StyledTab({
       <Tabs
         aria-label="Dynamic tabs"
         items={data}
-        fullWidth={!placement}
+        fullWidth
         // isVertical
         color={color || "primary"}
         placement={placement}

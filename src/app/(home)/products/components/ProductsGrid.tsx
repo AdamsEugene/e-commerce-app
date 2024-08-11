@@ -28,7 +28,9 @@ export default function ProductsGrid(props: PROPS) {
             } xs:col-span-2  h-full`}
           >
             <Card shadow="sm" className="h-full">
-              <CardHeader className="pb-0">
+              <CardHeader
+                className={`bg-warning-500 ${reverse ? "bg-danger-500" : ""}`}
+              >
                 <div className="flex items-center justify-between w-full">
                   <p className="text-lg font-semibold max-w-[70%] truncate">
                     {list[0].title}
@@ -39,7 +41,7 @@ export default function ProductsGrid(props: PROPS) {
                         pathname: `${siteConfig.pages.products}/${products.title}`,
                         query: { image: products.image },
                       }}
-                      className="text-secondary"
+                      className="text-primary"
                       // variant="light"
                       aria-label="Edit campaign"
                     >

@@ -1,4 +1,11 @@
-import { FaCoins, FaInfinity, FaHeadset, FaCrown } from "react-icons/fa";
+import {
+  FaCoins,
+  FaInfinity,
+  FaHeadset,
+  FaCrown,
+  FaTools,
+  FaEnvelope,
+} from "react-icons/fa";
 import {
   FaHandHoldingUsd,
   FaCogs,
@@ -64,9 +71,33 @@ export const purchasePlan = {
     {
       description:
         "Make a one-time payment for lifetime access to all items and premium support.",
-      value: "high_purchase",
-      label: "High Purchase",
+      value: "Hire_purchase",
+      label: "Hire Purchase",
       icon: FaCrown,
     },
   ] as const,
 };
+
+export const customizationTab = [
+  {
+    id: "default",
+    label: "Basic Customization",
+    icon: FaTools,
+    description:
+      "Modify basic features and settings to personalize your product.",
+  },
+  {
+    id: "advanced",
+    label: "Advanced Customization",
+    icon: FaCogs,
+    description:
+      "Access advanced options for in-depth customization and configuration.",
+  },
+  {
+    id: "contact",
+    label: "Contact Manufacturer",
+    icon: FaEnvelope,
+    description:
+      "Reach out to the manufacturer for specialized requests or support.",
+  },
+];
