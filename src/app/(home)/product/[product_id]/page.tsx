@@ -70,7 +70,7 @@ export default async function Products({ params }: PROPS) {
         <div className="main flex flex-col justify-center items-center">
           <div className="w-full">
             <h3 className="text-3xl font-bold mb-4">Use cases</h3>
-            <UseCases />
+            <UseCases product={product} />
           </div>
         </div>
         <div className="main flex flex-col justify-center items-center">

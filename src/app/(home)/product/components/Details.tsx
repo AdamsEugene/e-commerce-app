@@ -185,8 +185,12 @@ export default function Details({ product }: PROPS) {
       <Divider className="my-1" />
       <ProductColor images={product.images} />
       <Divider className="my-1" />
-      <StyledAccordion price={product.price} />
-      <OptionsOnProduct optionChanged={optionChanged} />
+      <div className="lg:hidden">
+        <StyledAccordion price={product.price} />
+      </div>
+      <div className="xs:hidden">
+        <OptionsOnProduct optionChanged={optionChanged} />
+      </div>
       {/* <Divider className="my-1" /> */}
       {/* <PurchaseType {...purchasePlan} /> */}
       <Card shadow="sm">

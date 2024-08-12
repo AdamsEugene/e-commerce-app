@@ -59,8 +59,8 @@ export default function ImageGallery({ images, preview }: PROPS) {
           preview === "sm"
             ? "!w-[100%] !h-[100%] xs:!w-[100%] xs:!h-[70vh]"
             : preview === "lg"
-            ? "!w-[70vw] !h-[75.5vh] xs:!w-[100%] xs:!h-[70vh]"
-            : ""
+              ? "!w-[70vw] !h-[75.5vh] xs:!w-[100%] xs:!h-[70vh]"
+              : ""
         }`}
       >
         {images?.map((item) => (
@@ -106,7 +106,7 @@ export default function ImageGallery({ images, preview }: PROPS) {
         onSwiper={setThumbsSwiper}
         loop={true}
         spaceBetween={10}
-        slidesPerView={!preview ? 5 : 6}
+        slidesPerView={screenSize === "xs" ? 4 : !preview ? 5 : 6}
         freeMode={true}
         watchSlidesProgress={true}
         modules={[FreeMode, Navigation, Thumbs]}
@@ -114,8 +114,8 @@ export default function ImageGallery({ images, preview }: PROPS) {
           preview === "sm"
             ? "!w-[100%] xs:!w-[100%]"
             : preview === "lg"
-            ? "!w-[70vw] xs:!w-[100%]"
-            : ""
+              ? "!w-[70vw] xs:!w-[100%]"
+              : ""
         }`}
       >
         {images?.map((item) => (
@@ -152,12 +152,13 @@ const ImageRender = ({ item, preview, productId, handle }: ImageProps) => {
       shadow={preview ? "none" : "lg"}
       width={30000}
       height={300}
+      isZoomed
       className={`xs:!h-[100%] !h-[100%] !object-contain ${
         preview === "sm"
           ? "!w-[100%] !h-[65vh] xs:!w-[100%] xs:!h-[80vh]"
           : preview === "lg"
-          ? "!w-[100%] !h-[72vh] xs:!w-[100%] xs:!h-[80vh]"
-          : "cursor-pointer"
+            ? "!w-[100%] !h-[72vh] xs:!w-[100%] xs:!h-[80vh]"
+            : "cursor-pointer"
       } ${handle.active ? "!w-[100vw] !h-[100vh]" : ""}`}
       onClick={() =>
         !preview ? router.push(`${productId}/preview`) : undefined

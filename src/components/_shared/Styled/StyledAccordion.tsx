@@ -531,7 +531,7 @@ const ProtectionOptions = () => {
       <p className="text-sm">
         Choose a protection plan to cover accidental damage and repairs.
       </p>
-      <CheckboxGroup className="!w-full">
+      <CheckboxGroup className="!w-full" color="success">
         {protectionPlans.map((plan) => (
           <CustomCheckbox data={plan} />
         ))}
@@ -553,7 +553,7 @@ export const CustomCheckbox = ({
           "inline-flex max-w-md w-full bg-content1 m-0",
           "hover:bg-content2 items-center justify-start",
           "cursor-pointer rounded-lg gap-2 p-4 border-2 border-transparent",
-          "data-[selected=true]:border-primary"
+          "data-[selected=true]:border-success"
         ),
         label: "w-full",
       }}
