@@ -100,4 +100,4 @@ export const customizationTab = [
     description:
       "Reach out to the manufacturer for specialized requests or support.",
   },
-];
+] as const;
