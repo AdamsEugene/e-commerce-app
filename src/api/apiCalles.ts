@@ -34,6 +34,21 @@ export const fetchProducts = async (props?: FetchProducts) => {
   return data;
 };
 
+export const fetchSimilarProducts = async (productName: string) => {
+  const names = productName.split(" ");
+  const filteredNames = names.filter((name) => name.length > 3);
+  const requests = filteredNames.map((name) =>
+    apiGet<TFetchedProduct>(`products/search?q=${encodeURIComponent(name)}`)
+  );
+
+  const responses = await Promise.all(requests);
+  const combinedData = responses.reduce((acc, res) => {
+    return acc.concat(res.products as any);
+  }, []);
+
+  return combinedData;
+};
+
 export async function removeBg(url: string) {
   const formData = new FormData();
   formData.append("size", "auto");

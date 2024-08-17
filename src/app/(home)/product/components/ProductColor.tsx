@@ -13,13 +13,13 @@ type PROPS = {
 export default function ProductColor({ images }: PROPS) {
   const [showAll, setShowAll] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
-  const [maxHeight, setMaxHeight] = useState("90px");
+  const [maxHeight, setMaxHeight] = useState("100px");
   const [selected, setSelected] = useState<string>();
   const [shouldShowButton, setShouldShowButton] = useState(false);
 
   useEffect(() => {
     if (contentRef.current) {
-      setShouldShowButton(contentRef.current.scrollHeight > 80);
+      setShouldShowButton(contentRef.current.scrollHeight > 90);
     }
   }, []);
 
@@ -27,7 +27,7 @@ export default function ProductColor({ images }: PROPS) {
     if (showAll) {
       setMaxHeight(`${(contentRef?.current?.scrollHeight || 0) + 500}px`);
     } else {
-      setMaxHeight("90px");
+      setMaxHeight("100px");
     }
   }, [showAll]);
 

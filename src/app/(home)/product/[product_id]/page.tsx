@@ -16,7 +16,7 @@ import UseCases from "../components/UseCases";
 import { adsPreview } from "@/src/utils/adsData";
 import RecommendedProducts from "../components/RecommendedProducts";
 import RecommendedAds from "../components/RecommendedAds";
-import { apiGet } from "@/src/api/apiCalles";
+import { apiGet, fetchSimilarProducts } from "@/src/api/apiCalles";
 import { TProduct } from "@/src/types";
 
 type Props = {
@@ -55,6 +55,8 @@ type PROPS = {
 export default async function Products({ params }: PROPS) {
   const product = await apiGet<TProduct>(`products/${params.product_id}`);
 
+  const similarProducts = await fetchSimilarProducts(product.title);
+
   return (
     <section className="w-full home pb-8">
       <div className="flex flex-col w-full items-center gap-8 max-w-[1180px] relative">
@@ -80,7 +82,7 @@ export default async function Products({ params }: PROPS) {
               See more
             </Button>
           </div>
-          <RecommendedAds />
+          <RecommendedAds products={similarProducts} />
         </div>
         <div className="main flex flex-col justify-center items-center">
           <BannerAdsDisplay ads={adsPreview} />
@@ -92,8 +94,8 @@ export default async function Products({ params }: PROPS) {
               See more
             </Button>
           </div>
-          <RecommendedProducts />
-          <RecommendedProducts />
+          <RecommendedProducts products={similarProducts} />
+          <RecommendedProducts products={similarProducts} />
         </div>
         <div className="main flex flex-col justify-center items-center">
           <div className="w-full">

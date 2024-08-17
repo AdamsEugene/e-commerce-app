@@ -51,7 +51,10 @@ export default function Notifications() {
                   }
                   ComponentB={
                     <div className="flex flex-col gap-4 h-[510px] overflow-y-auto">
-                      <Accordion variant="splitted">
+                      <Accordion
+                        variant="splitted"
+                        defaultExpandedKeys={["1", "2"]}
+                      >
                         <AccordionItem
                           key="1"
                           aria-label="Accordion 1"
@@ -70,7 +73,7 @@ export default function Notifications() {
                             <BiSolidPurchaseTag className="text-secondary text-2xl" />
                           }
                         >
-                          <div className="flex flex-col gap-2">
+                          <div className="flex flex-col gap-2 mb-2">
                             <div className="flex gap-2">
                               <div className="w-full">
                                 <StyledImage

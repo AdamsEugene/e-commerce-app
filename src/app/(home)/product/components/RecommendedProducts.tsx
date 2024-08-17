@@ -13,11 +13,16 @@ import imageByIndex from "@/src/utils/imageByIndex";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
 import StyledImage from "@/src/components/_shared/Styled/StyledImage";
 import NormalSwapper from "@/src/components/_shared/swiper/NormalSwapper";
+import { TProduct } from "@/src/types";
 
-export default function RecommendedProducts() {
+type PROPS = {
+  products: TProduct[];
+};
+
+export default function RecommendedProducts({ products }: PROPS) {
   return (
     <NormalSwapper>
-      {productList.map((item, index) => (
+      {products.map((item, index) => (
         <SwiperSlide key={index}>
           <Product item={item} />
         </SwiperSlide>
@@ -26,7 +31,7 @@ export default function RecommendedProducts() {
   );
 }
 
-const Product = ({ item }: { item: PRODUCTS }) => {
+const Product = ({ item }: { item: TProduct }) => {
   const addToSelectedProduct = useAppStore(
     (state) => state.addToSelectedProduct
   );
@@ -37,10 +42,8 @@ const Product = ({ item }: { item: PRODUCTS }) => {
     <Card
       shadow="none"
       as={Link}
-      href={`${baseLink ? baseLink : siteConfig.pages.product}/${
-        item.productId
-      }`}
-      key={item.productId}
+      href={`${baseLink ? baseLink : siteConfig.pages.product}/${item.id}`}
+      key={item.id}
       isPressable
       onClick={() => {
         changePlan("default");
@@ -54,14 +57,14 @@ const Product = ({ item }: { item: PRODUCTS }) => {
           radius="lg"
           width={300}
           height={300}
-          alt={item.name}
+          alt={item.title}
           className="object-cover product_image xs:w-full !w-full !h-[300px] xs:!h-[250px]"
-          src={item.image || imageByIndex(+item.productId)}
+          src={item.thumbnail || imageByIndex(+item.id)}
           isZoomed
         />
       </CardBody>
       <CardFooter className="text-small justify-between">
-        <b>{item.name}</b>
+        <b className="truncate">{item.title}</b>
         <p className="text-default-500">{item.price}</p>
       </CardFooter>
     </Card>
