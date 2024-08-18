@@ -15,9 +15,11 @@ import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "./homeSwiper.css";
+import { TProduct } from "@/src/types";
+import { getRandomSubsets } from "@/src/utils/functions";
 
 type SwiperCarouselProps = {
-  products: PRODUCTS[];
+  products: TProduct[];
   width: number;
   height: number;
   delay: number;
@@ -53,21 +55,21 @@ const SwiperCarousel: FC<SwiperCarouselProps> = ({
           className={`rounded-none relative h-[${half ? "17rem" : "34rem"}]`}
         >
           <div
-            className={`w-full hero-container relative h-[${
+            className={`w-full hero-container bg-default-50 relative h-[${
               half ? "17rem" : "34rem"
             }]`}
           >
             <StyledImage
               width={width}
               height={height}
-              src={product.image}
+              src={product?.images?.[0] || product.thumbnail}
               className={`!object-fill h-[${half ? "17rem" : "34rem"}]`}
             />
             <div className="z-20 absolute inset-0 bg-black opacity-60"></div>
             <div className="w-[90%] z-30 absolute top-1/2 left-[50%] transform -translate-x-1/2 -translate-y-1/2 text-center">
               <div className="w-[60%] text-left">
                 <h2 className={title({ size: half ? "sm" : "lg" })}>
-                  <span className="text-white">{product.name}</span>
+                  <span className="text-white">{product.title}</span>
                 </h2>
                 <p className={`line-clamp-4 mt-4 text-white`}>
                   {product.description}
@@ -76,12 +78,12 @@ const SwiperCarousel: FC<SwiperCarouselProps> = ({
               <div className="w-full flex gap-4 mt-4">
                 <Button
                   as={Link}
-                  href={`${siteConfig.pages.product}/${product.productId}/${siteConfig.pages.buyNow}`}
+                  href={`${siteConfig.pages.product}/${product.id}/${siteConfig.pages.buyNow}`}
                   variant="solid"
                   color="default"
                   radius="full"
                   size={half ? "sm" : "lg"}
-                  onClick={() => addToBuyNow("default", product.productId)}
+                  onClick={() => addToBuyNow("default", String(product.id))}
                 >
                   Buy Now
                 </Button>
@@ -90,13 +92,13 @@ const SwiperCarousel: FC<SwiperCarouselProps> = ({
                   color="secondary"
                   radius="full"
                   size={half ? "sm" : "lg"}
-                  onClick={() => addToCart("default", product.productId)}
+                  onClick={() => addToCart("default", String(product.id))}
                 >
                   Add To Cart
                 </Button>
                 <Button
                   as={Link}
-                  href={`${siteConfig.pages.products}/${product.name}`}
+                  href={`${siteConfig.pages.products}/${product.title}`}
                   variant="flat"
                   color="default"
                   radius="full"
@@ -113,25 +115,28 @@ const SwiperCarousel: FC<SwiperCarouselProps> = ({
   );
 };
 
-const HomeSwiper: FC = () => {
-  const products = productList.slice(0, 5);
-  const products1 = productList.slice(5, 11);
-  const products2 = productList.slice(11, 17);
+type PROPS = {
+  products: TProduct[];
+  total: number;
+};
+
+const HomeSwiper: FC<PROPS> = ({ products, total }) => {
+  const randomSubsets = getRandomSubsets(products, 10, 3);
 
   return (
     <div className="flex xs:h-[min(25rem,60vh)] h-[34rem]">
-      <div className="xs:w-full xs:h-[min(25rem,60vh)] w-[70%] h-[34rem]">
+      <div className="xs:w-full xs:h-[min(25rem,60vh)] w-[60%] h-[34rem]">
         <SwiperCarousel
-          products={products}
+          products={randomSubsets[0]}
           width={200}
           height={544}
           delay={10000}
         />
       </div>
-      <div className="w-[30%] xs:hidden flex-col">
+      <div className="w-[40%] xs:hidden flex-col">
         <div className="h-[17rem]">
           <SwiperCarousel
-            products={products1}
+            products={randomSubsets[1]}
             width={100}
             height={272}
             delay={14000}
@@ -140,7 +145,7 @@ const HomeSwiper: FC = () => {
         </div>
         <div className="h-[17rem]">
           <SwiperCarousel
-            products={products2}
+            products={randomSubsets[2]}
             width={100}
             height={272}
             delay={17000}

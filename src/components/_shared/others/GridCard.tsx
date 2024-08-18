@@ -1,18 +1,11 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import Link from "next/link";
-import {
-  Button,
-  ButtonGroup,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  ScrollShadow,
-  Tooltip,
-} from "@nextui-org/react";
+import { Card, CardBody, CardFooter, Chip } from "@nextui-org/react";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
+import { IoStar } from "react-icons/io5";
+import { GoSponsorTiers } from "react-icons/go";
 
 import StyledImage from "../Styled/StyledImage";
 import { siteConfig } from "@/src/config/site";
@@ -64,6 +57,24 @@ export default function GridCard(props: PROPS) {
               // className="h-full"
             >
               <CardBody className="overflow-visible p-0 relative xs:!h-[200px] !h-[280px]">
+                <div className="absolute top-1 right-1 flex flex-col gap-2 z-20">
+                  <Chip
+                    endContent={<IoStar />}
+                    variant="flat"
+                    color="secondary"
+                    size="sm"
+                  >
+                    refurbish
+                  </Chip>
+                  <Chip
+                    endContent={<GoSponsorTiers />}
+                    variant="flat"
+                    color="secondary"
+                    size="sm"
+                  >
+                    sponsored
+                  </Chip>
+                </div>
                 <StyledImage
                   shadow="none"
                   radius="lg"

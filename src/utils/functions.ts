@@ -5,6 +5,7 @@ import { AdCreative } from "../components/_shared/types/@ads";
 import { CampaignType } from "./campaignData";
 import { purchasePlan } from "./onProduct";
 import { InCart } from "../store/productSlice";
+import { TProduct } from "../types";
 
 export const capitalizeFirstLetter = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -324,4 +325,19 @@ async function getCountryFromCoords(lat: number, lon: number): Promise<string> {
   console.log("====================================");
 
   return data.prov || "US"; // Default to US if country not found
+}
+
+export function getRandomSubsets(
+  array: TProduct[],
+  subsetSize: number,
+  numSubsets: number
+) {
+  const subsets = [];
+
+  for (let i = 0; i < numSubsets; i++) {
+    const shuffled = [...array].sort(() => 0.5 - Math.random());
+    subsets.push(shuffled.slice(0, subsetSize));
+  }
+
+  return subsets;
 }

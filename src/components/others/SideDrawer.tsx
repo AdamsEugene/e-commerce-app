@@ -128,7 +128,7 @@ const RenderEmptyCartContent = () => (
       <StyledImage
         src="/assets/svgs/emptyCart.svg"
         alt=" Your shopping cart is empty"
-        height={400}
+        height={350}
         width={300}
       />
       <p className="text-lg font-semibold text-gray-600">

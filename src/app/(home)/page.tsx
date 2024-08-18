@@ -4,7 +4,7 @@
 // import { button as buttonStyles } from "@nextui-org/theme";
 // import { siteConfig } from "@/src/config/site";
 // import { title, subtitle } from "@/src/components/primitives";
-import HomeSwiper from "@/src/components/_shared/swiper/HomeSwiper";
+// import HomeSwiper from "@/src/components/_shared/swiper/HomeSwiper";
 // import GridCard from "@/src/components/_shared/others/GridCard";
 // import BannerAdsDisplay from "@/src/components/_shared/advertisement/BannerAdsDisplay";
 // import ProductsGrid from "./products/components/ProductsGrid";
@@ -13,9 +13,9 @@ import ProductTiles from "@/src/components/others/ProductTiles";
 export default function Home() {
   return (
     <section className="flex flex-col items-center justify-center !gap-8 pb-8 home">
-      <div className="xs:h-[min(25rem,60vh)] h-[34rem] w-full max-w-[1780px]">
+      {/* <div className="xs:h-[min(25rem,60vh)] h-[34rem] w-full max-w-[1780px]">
         <HomeSwiper />
-      </div>
+      </div> */}
       <div className="container main flex flex-col items-center justify-center !gap-8">
         <ProductTiles showGrid />
       </div>
