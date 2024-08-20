@@ -55,7 +55,7 @@ type PROPS = {
 export default async function Products({ params }: PROPS) {
   const product = await apiGet<TProduct>(`products/${params.product_id}`);
 
-  const similarProducts = await fetchSimilarProducts(product.title);
+  const similarProducts = await fetchSimilarProducts(product.category);
 
   return (
     <section className="w-full home pb-8">

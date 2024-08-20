@@ -5,7 +5,7 @@ import { AdCreative } from "../components/_shared/types/@ads";
 import { CampaignType } from "./campaignData";
 import { purchasePlan } from "./onProduct";
 import { InCart } from "../store/productSlice";
-import { TProduct } from "../types";
+import { ProductCategory, TProduct } from "../types";
 
 export const capitalizeFirstLetter = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -341,3 +341,58 @@ export function getRandomSubsets(
 
   return subsets;
 }
+
+interface GroupedData {
+  [key: string]: ProductCategory[];
+}
+
+const purposeGroups = {
+  "Beauty & Personal Care": ["beauty", "fragrances", "skin-care"],
+  "Home & Living": ["furniture", "home-decoration", "kitchen-accessories"],
+  Electronics: ["laptops", "smartphones", "tablets", "mobile-accessories"],
+  Fashion: [
+    "mens-shirts",
+    "mens-shoes",
+    "mens-watches",
+    "womens-bags",
+    "womens-dresses",
+    "womens-jewellery",
+    "womens-shoes",
+    "womens-watches",
+    "sunglasses",
+    "tops",
+  ],
+  Automotive: ["motorcycle", "vehicle"],
+  "Sports & Outdoors": ["sports-accessories"],
+  Groceries: ["groceries"],
+};
+
+// Function to group the data
+// export const groupProductByCategory = (data: ProductCategory[]) => {
+//   return Object.keys(purposeGroups).reduce(
+//     (acc: GroupedData, group: string) => {
+//       acc[group] = data.filter((item: ProductCategory) =>
+//         purposeGroups[group as keyof typeof purposeGroups].includes(item.slug)
+//       );
+//       return acc;
+//     },
+//     {}
+//   );
+// };
+
+export const groupProductByCategory = (data: ProductCategory[]) =>
+  Object.keys(purposeGroups).map((group: string) => {
+    return {
+      label: group,
+      data: data
+        .filter((item: ProductCategory) =>
+          purposeGroups[group as keyof typeof purposeGroups].includes(item.slug)
+        )
+        .map((item: ProductCategory) => ({
+          name: item.name,
+          slug: item.slug,
+          url: item.url,
+        })),
+    };
+  });
+

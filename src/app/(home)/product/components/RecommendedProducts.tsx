@@ -21,7 +21,7 @@ type PROPS = {
 
 export default function RecommendedProducts({ products }: PROPS) {
   return (
-    <NormalSwapper>
+    <NormalSwapper showNavigation autoplay={false}>
       {products.map((item, index) => (
         <SwiperSlide key={index}>
           <Product item={item} />

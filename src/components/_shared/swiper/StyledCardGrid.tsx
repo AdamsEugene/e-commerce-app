@@ -6,14 +6,16 @@ import StyledImage from "../Styled/StyledImage";
 import imageByIndex from "@/src/utils/imageByIndex";
 import { siteConfig } from "@/src/config/site";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
+import { TProduct } from "@/src/types";
 
 type PROPS = {
   onOpenChange?: () => void;
   munPerRow?: number;
+  featuresCollections?: TProduct[];
 };
 
 export default function StyledCardGrid(props: PROPS) {
-  const { onOpenChange, munPerRow } = props;
+  const { onOpenChange, munPerRow, featuresCollections } = props;
   //  const addToSelectedProduct = useAppStore(
   //    (state) => state.addToSelectedProduct
   //  );
@@ -70,14 +72,14 @@ export default function StyledCardGrid(props: PROPS) {
         onOpenChange ? 4 : 5
       } xl:grid-cols-${onOpenChange ? 4 : 5} gap-${onOpenChange ? 3 : 4}`}
     >
-      {list.slice(0, munPerRow).map((item) => (
+      {featuresCollections?.slice(0, munPerRow).map((item) => (
         <Card
           isFooterBlurred
           isPressable
           radius="lg"
           as={Link}
-          href={`${siteConfig.pages.products}/${item.name}`}
-          key={item.name}
+          href={`${siteConfig.pages.products}/${item.category}`}
+          key={item.title}
           className="border-none"
           onClick={() => {
             changePlan("default");
@@ -92,12 +94,12 @@ export default function StyledCardGrid(props: PROPS) {
             }`}
             as={StyledImage}
             height={192}
-            src={item.image}
+            src={item.thumbnail}
             width={223}
             isZoomed
           />
           <CardFooter className="justify-center before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
-            <p className="text-tiny text-white/80">{item.name}</p>
+            <p className="text-tiny text-white/80 truncate">{item.title}</p>
             {/* <Button
               className="text-tiny text-white bg-black/20"
               variant="flat"

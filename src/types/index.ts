@@ -140,3 +140,9 @@ export interface TFetchedProduct {
   skip: number;
   limit: number;
 }
+
+export interface ProductCategory {
+  slug: string;
+  name: string;
+  url: string;
+}

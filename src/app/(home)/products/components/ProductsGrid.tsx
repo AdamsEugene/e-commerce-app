@@ -4,6 +4,7 @@ import StyledImage from "@/src/components/_shared/Styled/StyledImage";
 import { siteConfig } from "@/src/config/site";
 import imageByIndex from "@/src/utils/imageByIndex";
 import { PRODUCTS_GRID } from "@/src/types";
+import ConditionalRender from "@/src/components/_shared/Conditional/ConditionalRender";
 
 type PROPS = {
   products?: PRODUCTS_GRID;
@@ -35,6 +36,14 @@ export default function ProductsGrid(props: PROPS) {
                   <p className="text-lg font-semibold max-w-[70%] truncate">
                     {list[0].title}
                   </p>
+                  <ConditionalRender
+                    condition={list.length !== 4}
+                    Component={
+                      <p className="text-base font-semibold truncate">
+                        We've got all your needs covered
+                      </p>
+                    }
+                  />
                   <div className="flex items-center gap-3">
                     <Link
                       href={{

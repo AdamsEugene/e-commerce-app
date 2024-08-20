@@ -1,8 +1,15 @@
 "use client";
 
-import React from "react";
+import React, { Fragment, useEffect } from "react";
 import Link from "next/link";
-import { ModalBody, ModalHeader, Divider } from "@nextui-org/react";
+import {
+  ModalBody,
+  ModalHeader,
+  Divider,
+  Card,
+  Skeleton,
+  Spinner,
+} from "@nextui-org/react";
 import { FiSearch } from "react-icons/fi";
 
 import StyledInput from "../Styled/StyledInput";
@@ -15,52 +22,118 @@ import ConditionalRenderAB from "../Conditional/ConditionalRenderAB";
 import SearchList from "./SearchList";
 import { siteConfig } from "@/src/config/site";
 import useScreenSize from "@/src/hooks/useScreenSize";
+import {
+  fetchProducts,
+  fetchProductsCategory,
+  fetchSearchResults,
+  getFeaturedCollection,
+} from "@/src/api/apiCalles";
+import { groupProductByCategory } from "@/src/utils/functions";
+import CustomSuspense from "../Conditional/CustomSuspense";
+import FallbackCheckbox from "./FallbackCheckbox";
+import { TFetchedProduct, TProduct } from "@/src/types";
+import FallbackBestSelling from "./FallbackBestSelling";
+import FallbackFeaturedCollection from "./FallbackFeaturedCollection";
+import { useInView } from "react-intersection-observer";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import ConditionalRender from "../Conditional/ConditionalRender";
+import LoadingSearchResults from "./LoadingSearchResults";
 
 type PROPS = {
   onOpenChange: () => void;
+  initialSearchTerm: string;
 };
 
-const checkboxData = [
-  {
-    label: "Top Searches",
-    data: [
-      { name: "Cars" },
-      { name: "Phones" },
-      { name: "Spectacles" },
-      { name: "TV Remotes" },
-    ],
-  },
-  {
-    label: "Recent Searched",
-    data: [
-      { name: "Laptops" },
-      { name: "Pen Drives" },
-      { name: "Microphones" },
-      { name: "Home Theater" },
-    ],
-  },
-  {
-    label: "Suggested Items",
-    data: [{ name: "Perfumes" }, { name: "Cloths" }, { name: "Keyboard Pad" }],
-  },
-];
+type CheckListData = {
+  label: string;
+  data: {
+    name: string;
+    slug: string;
+    url: string;
+  }[];
+};
+
+const RESULTS_PER_FETCH = 20;
 
 export default function SearchResults(props: PROPS) {
-  const { onOpenChange } = props;
-  const [searchTerm, setSearchTerm] = useState("");
-  const deferredValue = useDeferredValue(searchTerm);
+  const { onOpenChange, initialSearchTerm } = props;
+  const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
+  const [checkboxData, setCheckboxData] = useState<CheckListData[]>();
+  const [bestSelling, setBestSelling] = useState<TProduct[]>();
+  const [featuresCollections, setFeaturesCollections] = useState<TProduct[]>();
+
+  const deferredValue = useDeferredValue(searchTerm.trim());
 
   const screenSize = useScreenSize();
+  const { ref, inView } = useInView();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const [categories, _bestSelling, features] = await Promise.all([
+          fetchProductsCategory(),
+          fetchProducts({ limit: 20, skip: 60 }),
+          getFeaturedCollection(),
+        ]);
+        setCheckboxData(groupProductByCategory(categories));
+        setBestSelling(_bestSelling.products);
+        setFeaturesCollections(features);
+      } catch (error) {
+        console.error("Failed to fetch data:", error);
+      }
+    })();
+  }, []);
+
+  // useEffect(() => {
+  //   if (deferredValue) {
+  //     (async () => {
+  //       const results = await fetchSearchResults({
+  //         limit: 20,
+  //         skip: 0,
+  //         searchTerm: deferredValue,
+  //       });
+  //       setSearchResults(results);
+  //     })();
+  //   }
+  // }, [deferredValue]);
+
+  const { data, isFetching, isFetchingNextPage, fetchNextPage, hasNextPage } =
+    useInfiniteQuery({
+      queryKey: ["search", "result", deferredValue],
+      queryFn: async ({ pageParam }): Promise<TFetchedProduct["products"]> => {
+        const response = await fetchSearchResults({
+          limit: RESULTS_PER_FETCH,
+          skip: pageParam * RESULTS_PER_FETCH,
+          searchTerm: deferredValue,
+        });
+        return response.products;
+      },
+      initialPageParam: 0,
+      getNextPageParam: (currentProducts, allProductsOnPage) => {
+        return currentProducts.length === RESULTS_PER_FETCH
+          ? allProductsOnPage.length + 1
+          : undefined;
+      },
+      enabled: !!deferredValue,
+    });
+
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, inView]);
 
   return (
-    <>
+    <Fragment>
       <ModalHeader className="flex flex-col gap-1">
         <StyledInput
           iconStart
           both
           Icon={FiSearch}
           autoFocus
+          variant="flat"
           className="px-6"
+          value={searchTerm}
           placeholder="Looking for something specific? Start typing..."
           onChange={({ target }) => setSearchTerm(target.value)}
         />
@@ -68,31 +141,69 @@ export default function SearchResults(props: PROPS) {
       <Divider className="my-4" />
       <ModalBody>
         <div className="flex xs:flex-col w-full h-full pb-4 xs:h-screen">
-          <div className="xs:w-full w-[208px] flex justify-between gap-4 xs:mb-4">
-            <StyledCheckboxGroup
-              checkboxData={checkboxData}
-              size={screenSize === "xs" ? "sm" : "md"}
+          <div className="xs:w-full w-[208px] flex justify-between gap-4 xs:mb-4 overflow-y-auto overflow-hidden lg:max-h-[626px]">
+            <CustomSuspense
+              condition={!!checkboxData}
+              fallback={<FallbackCheckbox />}
+            >
+              <StyledCheckboxGroup
+                checkboxData={checkboxData}
+                size={screenSize === "xs" ? "sm" : "md"}
+              />
+            </CustomSuspense>
+            <Divider
+              className="xs:hidden sticky top-0 bottom-0"
+              orientation="vertical"
             />
-            <Divider className="xs:hidden" orientation="vertical" />
           </div>
           <Divider className="md:hidden lg:hidden" />
-          <div className="xs:w-full w-[calc(100%-208px)] flex flex-col xs:p-0 px-4 gap-4">
+          <div className="xs:w-full w-[calc(100%-208px)] flex flex-col xs:p-0 px-4 gap-4 overflow-y-auto overflow-hidden lg:max-h-[626px]">
             <ConditionalRenderAB
               condition={!!deferredValue}
-              ComponentA={<SearchList />}
+              ComponentA={
+                <ConditionalRenderAB
+                  condition={isFetching && !isFetchingNextPage}
+                  ComponentA={<LoadingSearchResults />}
+                  ComponentB={
+                    <Fragment>
+                      <SearchList
+                        myRef={ref}
+                        searchResults={data?.pages?.flatMap((d) => d)}
+                        deferredValue={deferredValue}
+                      />
+                      <ConditionalRender
+                        condition={isFetchingNextPage}
+                        Component={
+                          <div className="w-full flex items-center justify-center my-8">
+                            <Spinner label="Loading..." color="secondary" />
+                          </div>
+                        }
+                      />
+                    </Fragment>
+                  }
+                />
+              }
               ComponentB={
-                <>
+                <Fragment>
                   <div className="w-full h-[150px]">
                     <p className="text-lg font-semibold mb-2">
                       Best Selling Products
                     </p>
-                    <ProductGallery onOpenChange={onOpenChange} />
+                    <CustomSuspense
+                      condition={!!bestSelling}
+                      fallback={<FallbackBestSelling />}
+                    >
+                      <ProductGallery
+                        onOpenChange={onOpenChange}
+                        bestSelling={bestSelling}
+                      />
+                    </CustomSuspense>
                   </div>
                   <Divider className="my-1" />
                   <div className="">
                     <div className="flex justify-between items-center">
                       <p className="text-lg font-semibold mb-2">
-                        Best Selling Products
+                        Featured Collections
                       </p>
                       <Link
                         className="text-secondary cursor-pointer"
@@ -102,14 +213,26 @@ export default function SearchResults(props: PROPS) {
                         View more
                       </Link>
                     </div>
-                    <StyledCardGrid onOpenChange={onOpenChange} />
+                    <CustomSuspense
+                      condition={!!featuresCollections}
+                      fallback={
+                        <FallbackFeaturedCollection
+                          onOpenChange={onOpenChange}
+                        />
+                      }
+                    >
+                      <StyledCardGrid
+                        onOpenChange={onOpenChange}
+                        featuresCollections={featuresCollections}
+                      />
+                    </CustomSuspense>
                   </div>
-                </>
+                </Fragment>
               }
             />
           </div>
         </div>
       </ModalBody>
-    </>
+    </Fragment>
   );
 }

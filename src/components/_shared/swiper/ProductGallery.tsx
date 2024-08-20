@@ -16,13 +16,15 @@ import { useAppStore } from "@/src/providers/AppStoreProvider";
 import productList from "@/src/utils/productList";
 import CustomNavigationButtons from "./CustomNavigationButtons";
 import useScreenSize from "@/src/hooks/useScreenSize";
+import { TProduct } from "@/src/types";
 
 type PROPS = {
   onOpenChange: () => void;
+  bestSelling?: TProduct[];
 };
 
 export default function ProductGallery(props: PROPS) {
-  const { onOpenChange } = props;
+  const { onOpenChange, bestSelling } = props;
 
   const addToSelectedProduct = useAppStore(
     (state) => state.addToSelectedProduct
@@ -51,12 +53,12 @@ export default function ProductGallery(props: PROPS) {
         modules={[FreeMode, Autoplay]}
         className="mySwiper_productGallery"
       >
-        {topProducts.map((item) => (
-          <SwiperSlide key={item.productId} className="!h-[120px]">
+        {bestSelling?.map((item) => (
+          <SwiperSlide key={item.id} className="!h-[120px]">
             <StyledCard
-              {...item}
+              data={item}
               as={Link}
-              link={`${siteConfig.pages.product}/${item.productId}`}
+              link={`${siteConfig.pages.product}/${item.id}`}
               onClick={() => {
                 changePlan("default");
                 addToSelectedProduct(item);

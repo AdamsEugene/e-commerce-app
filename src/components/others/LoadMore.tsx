@@ -10,27 +10,15 @@ import {
 } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-import {
-  Button,
-  ButtonGroup,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  ScrollShadow,
-  Spinner,
-  Tooltip,
-} from "@nextui-org/react";
+import { Card, CardBody, CardFooter, Spinner } from "@nextui-org/react";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 
 import { apiGet } from "@/src/api/apiCalles";
 import { TFetchedProduct, TProduct } from "@/src/types";
 import ConditionalRender from "../_shared/Conditional/ConditionalRender";
-import GridCard from "../_shared/others/GridCard";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
 import ProductTooltip from "../_shared/others/ProductTootip";
 import StyledImage from "../_shared/Styled/StyledImage";
-import imageByIndex from "@/src/utils/imageByIndex";
 import { IconWrapper } from "../_shared/others/IconWrapper";
 import { siteConfig } from "@/src/config/site";
 import ConditionalRenderAB from "../_shared/Conditional/ConditionalRenderAB";

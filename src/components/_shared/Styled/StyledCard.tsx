@@ -7,10 +7,10 @@ import {
   Image,
 } from "@nextui-org/react";
 import StyledImage from "./StyledImage";
-import { PRODUCTS } from "../../../utils/productList";
+import { TProduct } from "@/src/types";
 
 export default function StyledCard(
-  props: CardProps & PRODUCTS & { link: string }
+  props: CardProps & { data: TProduct } & { link: string }
 ) {
   return (
     <Card shadow="sm" isPressable {...props} href={props.link}>
@@ -22,14 +22,14 @@ export default function StyledCard(
           radius="lg"
           width={300}
           height={200}
-          alt={props.name}
-          className="!w-[200px] object-cover !h-[90px]"
-          src={props.image}
+          alt={props.data.title}
+          className="!w-[200px] !object-contain !h-[90px]"
+          src={props.data.thumbnail}
         />
       </CardBody>
       <CardFooter className="text-small justify-between">
-        <b className="max-w-[100px] truncate">{props.title}</b>
-        <p className="text-default-500">{props.price}</p>
+        <b className="max-w-[100px] truncate">{props.data.title}</b>
+        <p className="text-default-500">{props.data.price}</p>
       </CardFooter>
     </Card>
   );

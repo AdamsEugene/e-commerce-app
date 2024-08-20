@@ -1,6 +1,6 @@
 "use server";
 
-import { TFetchedProduct } from "../types";
+import { ProductCategory, TFetchedProduct } from "../types";
 
 export async function apiGet<T>(
   url: string,
@@ -38,7 +38,9 @@ export const fetchSimilarProducts = async (productName: string) => {
   const names = productName.split(" ");
   const filteredNames = names.filter((name) => name.length > 3);
   const requests = filteredNames.map((name) =>
-    apiGet<TFetchedProduct>(`products/search?q=${encodeURIComponent(name)}`)
+    apiGet<TFetchedProduct>(`products/category/${encodeURIComponent(name)}`, {
+      next: { tags: ["product", "category", name] },
+    })
   );
 
   const responses = await Promise.all(requests);
@@ -47,6 +49,13 @@ export const fetchSimilarProducts = async (productName: string) => {
   }, []);
 
   return combinedData;
+};
+
+export const fetchProductsCategory = async () => {
+  const requests = await apiGet<ProductCategory[]>(`products/categories`, {
+    next: { tags: ["search", "categories"] },
+  });
+  return requests;
 };
 
 export async function removeBg(url: string) {
@@ -66,3 +75,35 @@ export async function removeBg(url: string) {
     throw new Error(`${response.status}: ${response.statusText}`);
   }
 }
+
+function getRandomItems(items: string[], count: number = 8) {
+  const shuffled = [...items].sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, count);
+}
+
+export const getFeaturedCollection = async () => {
+  const categories = await apiGet<string[]>("products/category-list");
+  const topItems = getRandomItems(categories);
+
+  const topItemPromises = topItems.map((category) =>
+    apiGet<TFetchedProduct>(`products/category/${category}?limit=1`)
+  );
+
+  const results = await Promise.all(topItemPromises);
+  return results.map((res) => res.products[0]);
+};
+
+type SearchProps = {
+  limit: number;
+  skip: number;
+  searchTerm: string;
+};
+
+export const fetchSearchResults = async (props: SearchProps) => {
+  const { limit, skip, searchTerm } = props;
+  const data = await apiGet<TFetchedProduct>(
+    `products/search?q=${searchTerm}&skip=${skip}&limit=${limit}`
+  );
+
+  return data;
+};

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useState } from "react";
 import {
   Badge,
   ModalContent,
@@ -52,10 +52,15 @@ import {
 import Link from "next/link";
 import { Button } from "@nextui-org/button";
 import Notifications from "./Notifications";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export const Navbar = () => {
   const [isInvisible, setIsInvisible] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const deferredValue = useDeferredValue(searchTerm.trim());
+  const queryClient = new QueryClient();
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -78,6 +83,10 @@ export const Navbar = () => {
       repeatOnHold: false,
     }
   );
+
+  useEffect(() => {
+    if (deferredValue) onOpen();
+  }, [deferredValue]);
 
   const randomIntFromInterval = (min: number, max: number) =>
     Math.floor(Math.random() * (max - min + 1) + min);
@@ -143,6 +152,7 @@ export const Navbar = () => {
               both
               Icon={FiSearch}
               onClick={onOpen}
+              onChange={({ target }) => setSearchTerm(target.value)}
               className="lg:w-[400px] md:w-[340px] sm:w-[200px]"
             />
           </NavbarItem>
@@ -281,7 +291,14 @@ export const Navbar = () => {
           scrollBehavior="inside"
         >
           <ModalContent>
-            {(onClose) => <SearchResults onOpenChange={onOpenChange} />}
+            {(onClose) => (
+              <QueryClientProvider client={queryClient}>
+                <SearchResults
+                  onOpenChange={onOpenChange}
+                  initialSearchTerm={deferredValue}
+                />
+              </QueryClientProvider>
+            )}
           </ModalContent>
         </StyledModal>
       </NextUINavbar>
