@@ -1,9 +1,11 @@
 import React from "react";
+import { useRouter } from "next/navigation";
 import { Avatar, Listbox, ListboxItem } from "@nextui-org/react";
 import { TProduct } from "@/src/types";
 import Ratings from "../../others/Ratings";
 import StyledImage from "../Styled/StyledImage";
 import ConditionalRenderAB from "../Conditional/ConditionalRenderAB";
+import { siteConfig } from "@/src/config/site";
 
 type PROPS = {
   deferredValue: string;
@@ -11,15 +13,16 @@ type PROPS = {
   myRef: (node?: Element | null | undefined) => void;
 };
 
-export default function SearchList({
-  searchResults,
-  deferredValue,
-  myRef,
-}: PROPS) {
+export default function SearchList(props: PROPS) {
+  const { searchResults, deferredValue, myRef } = props;
+
+  const route = useRouter();
+
   const formattedData = searchResults?.map((product, index) => ({
     ...product,
-    key: index,
+    key: product.id,
     label: product.title,
+    index,
   }));
 
   if (!formattedData) return;
@@ -41,7 +44,7 @@ export default function SearchList({
           </p>
         </div>
       }
-      onAction={(key) => alert(key)}
+      onAction={(key) => route.push(`${siteConfig.pages.product}/${key}`)}
       className="p-0 gap-0 divide-y divide-default-300/50 dark:divide-default-100/80 bg-content1 overflow-visible rounded-medium"
       itemClasses={{
         base: "px-3 first:rounded-t-medium last:rounded-b-medium gap-3 h-16 xs:p-0",
@@ -72,7 +75,7 @@ export default function SearchList({
             <div className="px-2 py-1 rounded-small bg-default-100 group-data-[hover=true]:bg-default-200 max-w-[33rem]">
               <div className="flex gap-2 text-tiny">
                 <ConditionalRenderAB
-                  condition={product.key + 4 === searchResults?.length}
+                  condition={product.index + 4 === searchResults?.length}
                   ComponentA={
                     <span ref={myRef} className="text-default-500 truncate">
                       {product.description}

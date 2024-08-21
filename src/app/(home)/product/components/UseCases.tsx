@@ -39,6 +39,7 @@ export default function UseCases({ product }: PROPS) {
       </div>
       {images?.map((image, index) => (
         <div
+          key={index}
           className={`flex ${index === 1 ? "flex-row-reverse" : ""} xs:flex-col-reverse gap-y-6 gap-x-2`}
         >
           <div className="inline-block max-w-lg text-center justify-center flex-1">

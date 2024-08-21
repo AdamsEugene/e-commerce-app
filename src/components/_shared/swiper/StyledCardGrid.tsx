@@ -7,6 +7,7 @@ import imageByIndex from "@/src/utils/imageByIndex";
 import { siteConfig } from "@/src/config/site";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
 import { TProduct } from "@/src/types";
+import { useUrlChangeListener } from "@/src/hooks/useUrlChangeListener";
 
 type PROPS = {
   onOpenChange?: () => void;
@@ -21,48 +22,7 @@ export default function StyledCardGrid(props: PROPS) {
   //  );
   const changePlan = useAppStore((state) => state.changePlan);
 
-  const list = [
-    {
-      name: "Orange",
-      image: imageByIndex(0),
-      price: "$5.50",
-    },
-    {
-      name: "Tangerine",
-      image: imageByIndex(2),
-      price: "$3.00",
-    },
-    {
-      name: "Raspberry",
-      image: imageByIndex(3),
-      price: "$10.00",
-    },
-    {
-      name: "Lemon",
-      image: imageByIndex(4),
-      price: "$5.30",
-    },
-    {
-      name: "Avocado",
-      image: imageByIndex(5),
-      price: "$15.70",
-    },
-    {
-      name: "Lemon 2",
-      image: imageByIndex(6),
-      price: "$8.00",
-    },
-    {
-      name: "Banana",
-      image: imageByIndex(7),
-      price: "$7.50",
-    },
-    {
-      name: "Watermelon",
-      image: imageByIndex(8),
-      price: "$12.20",
-    },
-  ];
+  useUrlChangeListener(onOpenChange);
 
   return (
     <div
@@ -84,7 +44,6 @@ export default function StyledCardGrid(props: PROPS) {
           onClick={() => {
             changePlan("default");
             // addToSelectedProduct(item);
-            onOpenChange && onOpenChange();
           }}
         >
           <Image

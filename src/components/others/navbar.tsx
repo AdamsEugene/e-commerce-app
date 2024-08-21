@@ -52,7 +52,6 @@ import {
 import Link from "next/link";
 import { Button } from "@nextui-org/button";
 import Notifications from "./Notifications";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export const Navbar = () => {
   const [isInvisible, setIsInvisible] = useState(true);
@@ -60,7 +59,6 @@ export const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const deferredValue = useDeferredValue(searchTerm.trim());
-  const queryClient = new QueryClient();
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -74,15 +72,11 @@ export const Navbar = () => {
     linksToRender = adminDashboardLinks;
   }
 
-  const { flushHeldKeys } = useKeyboardShortcut(
-    ["Meta", "K"],
-    (shortcutKeys) => onOpen(),
-    {
-      overrideSystem: false,
-      ignoreInputFields: false,
-      repeatOnHold: false,
-    }
-  );
+  useKeyboardShortcut(["Meta", "K"], (shortcutKeys) => onOpen(), {
+    overrideSystem: false,
+    ignoreInputFields: false,
+    repeatOnHold: false,
+  });
 
   useEffect(() => {
     if (deferredValue) onOpen();
@@ -292,12 +286,11 @@ export const Navbar = () => {
         >
           <ModalContent>
             {(onClose) => (
-              <QueryClientProvider client={queryClient}>
-                <SearchResults
-                  onOpenChange={onOpenChange}
-                  initialSearchTerm={deferredValue}
-                />
-              </QueryClientProvider>
+              <SearchResults
+                onOpenChange={onOpenChange}
+                initialSearchTerm={deferredValue}
+                onClose={onClose}
+              />
             )}
           </ModalContent>
         </StyledModal>

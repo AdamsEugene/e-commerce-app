@@ -3,11 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { useInView } from "react-intersection-observer";
-import {
-  useInfiniteQuery,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { Card, CardBody, CardFooter, Spinner } from "@nextui-org/react";
@@ -23,14 +19,8 @@ import { IconWrapper } from "../_shared/others/IconWrapper";
 import { siteConfig } from "@/src/config/site";
 import ConditionalRenderAB from "../_shared/Conditional/ConditionalRenderAB";
 
-const queryClient = new QueryClient();
-
 export default function LoadMore() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <Example />
-    </QueryClientProvider>
-  );
+  return <Example />;
 }
 
 function Example() {

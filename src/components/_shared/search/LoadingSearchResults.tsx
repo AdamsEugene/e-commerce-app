@@ -2,11 +2,13 @@ import { Skeleton } from "@nextui-org/react";
 
 export default function LoadingSearchResults({
   count = 10,
+  className
 }: {
   count?: number;
+  className?:string
 }) {
   return (
-    <div className="flex flex-col gap-4">
+    <div className={`flex flex-col gap-4 w-full ${className}`}>
       {Array.from({ length: count }, (_, i) => i).map((_) => (
         <div key={_} className="w-full flex items-center gap-3">
           <div>

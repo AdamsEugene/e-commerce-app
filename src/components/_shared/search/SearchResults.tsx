@@ -31,17 +31,20 @@ import {
 import { groupProductByCategory } from "@/src/utils/functions";
 import CustomSuspense from "../Conditional/CustomSuspense";
 import FallbackCheckbox from "./FallbackCheckbox";
-import { TFetchedProduct, TProduct } from "@/src/types";
+import { ProductCategory, TFetchedProduct, TProduct } from "@/src/types";
 import FallbackBestSelling from "./FallbackBestSelling";
 import FallbackFeaturedCollection from "./FallbackFeaturedCollection";
 import { useInView } from "react-intersection-observer";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQueries } from "@tanstack/react-query";
 import ConditionalRender from "../Conditional/ConditionalRender";
 import LoadingSearchResults from "./LoadingSearchResults";
+import { useUrlChangeListener } from "@/src/hooks/useUrlChangeListener";
+import { useAppStore } from "@/src/providers/AppStoreProvider";
 
 type PROPS = {
   onOpenChange: () => void;
   initialSearchTerm: string;
+  onClose: () => void;
 };
 
 type CheckListData = {
@@ -56,46 +59,62 @@ type CheckListData = {
 const RESULTS_PER_FETCH = 20;
 
 export default function SearchResults(props: PROPS) {
-  const { onOpenChange, initialSearchTerm } = props;
+  const { onOpenChange, initialSearchTerm, onClose } = props;
   const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
   const [checkboxData, setCheckboxData] = useState<CheckListData[]>();
   const [bestSelling, setBestSelling] = useState<TProduct[]>();
   const [featuresCollections, setFeaturesCollections] = useState<TProduct[]>();
 
   const deferredValue = useDeferredValue(searchTerm.trim());
+  const queryClient = useAppStore((state) => state.queryClient);
 
   const screenSize = useScreenSize();
   const { ref, inView } = useInView();
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const [categories, _bestSelling, features] = await Promise.all([
-          fetchProductsCategory(),
-          fetchProducts({ limit: 20, skip: 60 }),
-          getFeaturedCollection(),
-        ]);
-        setCheckboxData(groupProductByCategory(categories));
-        setBestSelling(_bestSelling.products);
-        setFeaturesCollections(features);
-      } catch (error) {
-        console.error("Failed to fetch data:", error);
-      }
-    })();
-  }, []);
+  useUrlChangeListener(onClose);
 
-  // useEffect(() => {
-  //   if (deferredValue) {
-  //     (async () => {
-  //       const results = await fetchSearchResults({
-  //         limit: 20,
-  //         skip: 0,
-  //         searchTerm: deferredValue,
-  //       });
-  //       setSearchResults(results);
-  //     })();
-  //   }
-  // }, [deferredValue]);
+  const queries = useQueries({
+    queries: [
+      {
+        queryKey: ["categories"],
+        queryFn: () => {
+          return fetchProductsCategory();
+        },
+        staleTime: Infinity,
+        initialData: () => {
+          return queryClient?.getQueryData<ProductCategory[]>(["categories"]);
+        },
+        initialDataUpdatedAt: () =>
+          queryClient?.getQueryState(["categories"])?.dataUpdatedAt,
+      },
+      {
+        queryKey: ["bestSelling"],
+        queryFn: () => {
+          return fetchProducts({ limit: 20, skip: 60 });
+        },
+      },
+      {
+        queryKey: ["features"],
+        queryFn: () => {
+          return getFeaturedCollection();
+        },
+      },
+    ],
+  });
+
+  const [categoriesQuery, bestSellingQuery, featuresQuery] = queries;
+
+  useEffect(() => {
+    if (categoriesQuery.data) {
+      setCheckboxData(groupProductByCategory(categoriesQuery.data));
+    }
+    if (bestSellingQuery.data) {
+      setBestSelling(bestSellingQuery.data.products);
+    }
+    if (featuresQuery.data) {
+      setFeaturesCollections(featuresQuery.data);
+    }
+  }, [categoriesQuery.data, bestSellingQuery.data, featuresQuery.data]);
 
   const { data, isFetching, isFetchingNextPage, fetchNextPage, hasNextPage } =
     useInfiniteQuery({
@@ -174,8 +193,11 @@ export default function SearchResults(props: PROPS) {
                       <ConditionalRender
                         condition={isFetchingNextPage}
                         Component={
-                          <div className="w-full flex items-center justify-center my-8">
-                            <Spinner label="Loading..." color="secondary" />
+                          <div className="w-full flex items-center justify-center">
+                            <LoadingSearchResults
+                              count={3}
+                              className="w-[96%]"
+                            />
                           </div>
                         }
                       />
@@ -196,6 +218,7 @@ export default function SearchResults(props: PROPS) {
                       <ProductGallery
                         onOpenChange={onOpenChange}
                         bestSelling={bestSelling}
+                        onClose={onClose}
                       />
                     </CustomSuspense>
                   </div>

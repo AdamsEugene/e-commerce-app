@@ -17,14 +17,16 @@ import productList from "@/src/utils/productList";
 import CustomNavigationButtons from "./CustomNavigationButtons";
 import useScreenSize from "@/src/hooks/useScreenSize";
 import { TProduct } from "@/src/types";
+import { useUrlChangeListener } from "@/src/hooks/useUrlChangeListener";
 
 type PROPS = {
   onOpenChange: () => void;
   bestSelling?: TProduct[];
+  onClose: () => void;
 };
 
 export default function ProductGallery(props: PROPS) {
-  const { onOpenChange, bestSelling } = props;
+  const { bestSelling, onClose } = props;
 
   const addToSelectedProduct = useAppStore(
     (state) => state.addToSelectedProduct
@@ -32,7 +34,7 @@ export default function ProductGallery(props: PROPS) {
   const changePlan = useAppStore((state) => state.changePlan);
   const screenSize = useScreenSize();
 
-  const topProducts = productList.slice(3, 12);
+  useUrlChangeListener(onClose);
 
   return (
     <>
@@ -62,7 +64,6 @@ export default function ProductGallery(props: PROPS) {
               onClick={() => {
                 changePlan("default");
                 addToSelectedProduct(item);
-                onOpenChange();
               }}
               className="h-[100%]"
             />

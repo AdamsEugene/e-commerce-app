@@ -2,6 +2,7 @@ import { StateCreator } from "zustand";
 import { InCart } from "./productSlice";
 import { Colors, adColor } from "./initialState";
 import { TProduct } from "../types";
+import { QueryClient } from "@tanstack/react-query";
 
 export type MicsState = {
   isDrawerOpen: boolean;
@@ -12,6 +13,7 @@ export type MicsState = {
   displayMode: "grid" | "list";
   modalFor?: "create_campaign" | "create_ad" | "create_budget" | "create_group";
   adColor: typeof adColor;
+  queryClient?: QueryClient;
 };
 
 export type MicsActions = {
@@ -23,6 +25,7 @@ export type MicsActions = {
   updateExcelStateChange: (newState: boolean) => void;
   toggleDisplayMode: (displayMode: MicsState["displayMode"]) => void;
   openModal: (modalFor: MicsState["modalFor"]) => void;
+  setQueryClient: (queryClient: QueryClient) => void;
   updateAdColor: (
     type: string,
     filed: keyof Colors,
@@ -43,6 +46,7 @@ export const initMicsStore = (): MicsState => {
     displayMode: "grid",
     modalFor: undefined,
     adColor,
+    queryClient: undefined,
   };
 };
 
@@ -65,6 +69,7 @@ export const createMicsSlice =
     toggleDisplayMode: (displayMode) =>
       set({ displayMode: displayMode === "grid" ? "list" : "grid" }),
     openModal: (modalFor) => set({ modalFor }),
+    setQueryClient: (queryClient) => set({ queryClient }),
     updateAdColor: (type, field, color, mode) =>
       set((state) => {
         const updatedAdColor = {
