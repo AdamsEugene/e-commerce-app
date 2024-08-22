@@ -13,15 +13,17 @@ import { IconWrapper } from "./IconWrapper";
 import ProductTooltip from "./ProductTootip";
 import { TProduct } from "@/src/types";
 import Tags from "./Tags";
+import ConditionalRenderAB from "../Conditional/ConditionalRenderAB";
 
 type PROPS = {
   numberOfItems?: number;
   baseLink?: string;
   data?: TProduct[];
+  myRef: (node?: Element | null | undefined) => void;
 };
 
 export default function GridCard(props: PROPS) {
-  const { baseLink, numberOfItems = 100, data } = props;
+  const { baseLink, numberOfItems = 100, data, myRef } = props;
 
   // const { ref, products } = useResizeListener(232.797, numberOfItems);
   const addToSelectedProduct = useAppStore(
@@ -32,10 +34,7 @@ export default function GridCard(props: PROPS) {
   const addToCart = useAppStore((state) => state.addToCart);
 
   return (
-    <div
-      // ref={ref}
-      className="container mx-auto flex flex-col justify-center items-center gap-4"
-    >
+    <div className="container mx-auto flex flex-col justify-center items-center gap-4">
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {data?.slice(0, numberOfItems).map((item, index) => (
           <ProductTooltip item={item} key={item.id}>
@@ -78,7 +77,15 @@ export default function GridCard(props: PROPS) {
               </CardBody>
               <CardFooter className="text-small justify-between items-baseline">
                 <b className="truncate">{item.title}</b>
-                <p className="text-default-500">{item.price}</p>
+                <ConditionalRenderAB
+                  condition={index + 10 === data.length}
+                  ComponentA={
+                    <p ref={myRef} className="text-default-500">
+                      {item.price}
+                    </p>
+                  }
+                  ComponentB={<p className="text-default-500">{item.price}</p>}
+                />
               </CardFooter>
             </Card>
           </ProductTooltip>

@@ -1,12 +1,12 @@
 import { PRODUCTS_FOR_HOME, PRODUCTS_GRID, TProduct } from "../types";
 import { adsPreview } from "./adsData";
 
-export const homeProductList = (
-  productList: TProduct[]
-): PRODUCTS_FOR_HOME[] => {
+export const homeProductList = (productList?: TProduct[]) => {
   const _productList: PRODUCTS_FOR_HOME[] = [];
   const adsPerSet = 1;
   const productsPerSet = 10;
+
+  if (!productList) return;
 
   for (let i = 0; i < Math.ceil(productList.length / productsPerSet); i++) {
     const adsSlice = adsPreview.slice(i * adsPerSet, (i + 5) * adsPerSet);

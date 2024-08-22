@@ -79,7 +79,7 @@ export default function ProductsGrid(props: PROPS) {
                   {list?.map((product, index) => (
                     <Link
                       key={index}
-                      className="truncate z-10"
+                      className="truncate z-10 text-center"
                       href={`${siteConfig.pages.product}/${product.id}`}
                     >
                       <StyledImage
@@ -96,7 +96,7 @@ export default function ProductsGrid(props: PROPS) {
                         }
                         isZoomed
                       />
-                      <b className="text-small text-default-500">
+                      <b className="text-small  text-default-500">
                         {product.title}
                       </b>
                     </Link>
