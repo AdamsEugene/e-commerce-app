@@ -1,6 +1,6 @@
 "use server";
 
-import { ProductCategory, TFetchedProduct } from "../types";
+import { ProductCategory, TFetchedProduct, TProduct } from "../types";
 
 export async function apiGet<T>(
   url: string,
@@ -51,11 +51,28 @@ export const fetchSimilarProducts = async (productName: string) => {
   return combinedData;
 };
 
-export const fetchProductsCategory = async () => {
-  const requests = await apiGet<ProductCategory[]>(`products/categories`, {
+export const fetchProductsCategory = async (): Promise<ProductCategory[]> => {
+  const categories = await apiGet<ProductCategory[]>(`products/categories`, {
     next: { tags: ["search", "categories"] },
   });
-  return requests;
+
+  const categoriesWithProducts = await Promise.all(
+    categories.map(async (category) => {
+      const products = await apiGet<TFetchedProduct>(
+        `products/category/${category.slug}`,
+        {
+          next: { tags: [category.slug, "categories"] },
+        }
+      );
+
+      return {
+        ...category,
+        products: products.products,
+      };
+    })
+  );
+
+  return categoriesWithProducts;
 };
 
 export async function removeBg(url: string) {

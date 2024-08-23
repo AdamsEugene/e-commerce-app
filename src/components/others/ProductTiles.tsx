@@ -56,7 +56,6 @@ export default function ProductTiles({ showGrid }: PROP) {
   }, [fetchNextPage, inView]);
 
   const products = data?.pages?.flatMap((d) => d);
-  console.log(homeProductList(products));
 
   return (
     <div className="container flex flex-col items-center justify-center !gap-8">

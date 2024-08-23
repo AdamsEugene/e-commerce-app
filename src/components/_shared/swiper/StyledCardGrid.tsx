@@ -1,22 +1,33 @@
 "use client";
 
 import Link from "next/link";
-import { Button, Card, CardBody, CardFooter, Image } from "@nextui-org/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  Chip,
+  Image,
+} from "@nextui-org/react";
 import StyledImage from "../Styled/StyledImage";
 import imageByIndex from "@/src/utils/imageByIndex";
 import { siteConfig } from "@/src/config/site";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
 import { TProduct } from "@/src/types";
 import { useUrlChangeListener } from "@/src/hooks/useUrlChangeListener";
+import ConditionalRender from "../Conditional/ConditionalRender";
+import NormalSwapper from "./NormalSwapper";
+import { SwiperSlide } from "swiper/react";
 
 type PROPS = {
   onOpenChange?: () => void;
   munPerRow?: number;
   featuresCollections?: TProduct[];
+  showPrice?: boolean;
 };
 
 export default function StyledCardGrid(props: PROPS) {
-  const { onOpenChange, munPerRow, featuresCollections } = props;
+  const { onOpenChange, munPerRow, featuresCollections, showPrice } = props;
   //  const addToSelectedProduct = useAppStore(
   //    (state) => state.addToSelectedProduct
   //  );
@@ -38,24 +49,47 @@ export default function StyledCardGrid(props: PROPS) {
           isPressable
           radius="lg"
           as={Link}
-          href={`${siteConfig.pages.products}/${item.category}`}
+          href={
+            showPrice
+              ? `${siteConfig.pages.product}/${item.id}`
+              : ` ${siteConfig.pages.products}/${item.category}`
+          }
           key={item.title}
-          className="border-none"
+          className="border-none relative"
           onClick={() => {
             changePlan("default");
             // addToSelectedProduct(item);
           }}
         >
-          <Image
-            alt="Woman listing to music"
-            className={`object-cover ${
-              onOpenChange ? " h-[170px] w-[175px]" : " h-[192px] w-[223px]"
-            }`}
-            as={StyledImage}
-            height={192}
-            src={item.thumbnail}
-            width={223}
-            isZoomed
+          <NormalSwapper slidesPerView={1} className="!h-48" loop>
+            {/* {item.images?.map((image) => (
+              <SwiperSlide key={image}> */}
+            <Image
+              alt="Woman listing to music"
+              className={`object-cover ${
+                onOpenChange ? " h-[170px] w-[175px]" : " h-[192px] w-[223px]"
+              }`}
+              as={StyledImage}
+              height={192}
+              src={item.thumbnail}
+              width={223}
+              isZoomed
+            />
+            {/* </SwiperSlide>
+            ))} */}
+          </NormalSwapper>
+          <ConditionalRender
+            condition={!!showPrice}
+            Component={
+              <Chip
+                content="5"
+                color="default"
+                size="sm"
+                className="absolute right-1 top-1 z-10 font-bold"
+              >
+                ${item.price}
+              </Chip>
+            }
           />
           <CardFooter className="justify-center before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
             <p className="text-tiny text-white/80 truncate">{item.title}</p>

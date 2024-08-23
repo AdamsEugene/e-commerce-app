@@ -1,14 +1,9 @@
-"use client";
-
 import React from "react";
-import {
-  CheckboxGroup,
-  Checkbox,
-  CheckboxGroupProps,
-  Skeleton,
-} from "@nextui-org/react";
+import { CheckboxGroup, Checkbox, CheckboxGroupProps } from "@nextui-org/react";
 
 type PROPS = {
+  setCategories: React.Dispatch<React.SetStateAction<string[] | undefined>>;
+  categories?: string[];
   checkboxData?: {
     label: string;
     data: {
@@ -19,8 +14,7 @@ type PROPS = {
   }[];
 };
 export default function StyledCheckboxGroup(props: PROPS & CheckboxGroupProps) {
-  const { checkboxData, ...others } = props;
-  const [selected, setSelected] = React.useState([""]);
+  const { checkboxData, setCategories, categories, ...others } = props;
 
   return (
     <div className="flex flex-col xs:flex-row gap-6">
@@ -29,8 +23,8 @@ export default function StyledCheckboxGroup(props: PROPS & CheckboxGroupProps) {
           key={data.label}
           label={data.label}
           color="secondary"
-          value={selected}
-          onValueChange={setSelected}
+          value={categories}
+          onValueChange={setCategories}
           {...others}
         >
           {data.data.map((item) => (

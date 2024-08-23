@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useMemo } from "react";
 import Link from "next/link";
 import {
   ModalBody,
@@ -64,6 +64,8 @@ export default function SearchResults(props: PROPS) {
   const [checkboxData, setCheckboxData] = useState<CheckListData[]>();
   const [bestSelling, setBestSelling] = useState<TProduct[]>();
   const [featuresCollections, setFeaturesCollections] = useState<TProduct[]>();
+  const [categories, setCategories] = useState<string[]>();
+  const [categoriesData, setCategoriesData] = useState<ProductCategory[]>();
 
   const deferredValue = useDeferredValue(searchTerm.trim());
   const queryClient = useAppStore((state) => state.queryClient);
@@ -106,6 +108,7 @@ export default function SearchResults(props: PROPS) {
 
   useEffect(() => {
     if (categoriesQuery.data) {
+      setCategoriesData(categoriesQuery.data);
       setCheckboxData(groupProductByCategory(categoriesQuery.data));
     }
     if (bestSellingQuery.data) {
@@ -142,6 +145,18 @@ export default function SearchResults(props: PROPS) {
     }
   }, [fetchNextPage, inView]);
 
+  const getProductsForCategories = useMemo(() => {
+    return categories
+      ?.map((category) => {
+        return (
+          categoriesData?.find(
+            (data) => data.name.toLowerCase() === category.toLowerCase()
+          )?.products ?? []
+        );
+      })
+      .flat();
+  }, [categories, categoriesData]);
+
   return (
     <Fragment>
       <ModalHeader className="flex flex-col gap-1">
@@ -166,7 +181,9 @@ export default function SearchResults(props: PROPS) {
               fallback={<FallbackCheckbox />}
             >
               <StyledCheckboxGroup
+                setCategories={setCategories}
                 checkboxData={checkboxData}
+                categories={categories}
                 size={screenSize === "xs" ? "sm" : "md"}
               />
             </CustomSuspense>
@@ -206,51 +223,65 @@ export default function SearchResults(props: PROPS) {
                 />
               }
               ComponentB={
-                <Fragment>
-                  <div className="w-full h-[150px]">
-                    <p className="text-lg font-semibold mb-2">
-                      Best Selling Products
-                    </p>
-                    <CustomSuspense
-                      condition={!!bestSelling}
-                      fallback={<FallbackBestSelling />}
-                    >
-                      <ProductGallery
-                        onOpenChange={onOpenChange}
-                        bestSelling={bestSelling}
-                        onClose={onClose}
-                      />
-                    </CustomSuspense>
-                  </div>
-                  <Divider className="my-1" />
-                  <div className="">
-                    <div className="flex justify-between items-center">
-                      <p className="text-lg font-semibold mb-2">
-                        Featured Collections
-                      </p>
-                      <Link
-                        className="text-secondary cursor-pointer"
-                        href={siteConfig.pages.products}
-                        onClick={onOpenChange}
-                      >
-                        View more
-                      </Link>
-                    </div>
-                    <CustomSuspense
-                      condition={!!featuresCollections}
-                      fallback={
-                        <FallbackFeaturedCollection
-                          onOpenChange={onOpenChange}
-                        />
-                      }
-                    >
+                <ConditionalRenderAB
+                  condition={!deferredValue && (categories || [])?.length > 0}
+                  ComponentA={
+                    <div>
                       <StyledCardGrid
+                        showPrice
                         onOpenChange={onOpenChange}
-                        featuresCollections={featuresCollections}
+                        featuresCollections={getProductsForCategories}
                       />
-                    </CustomSuspense>
-                  </div>
-                </Fragment>
+                    </div>
+                  }
+                  ComponentB={
+                    <Fragment>
+                      <div className="w-full h-[150px]">
+                        <p className="text-lg font-semibold mb-2">
+                          Best Selling Products
+                        </p>
+                        <CustomSuspense
+                          condition={!!bestSelling}
+                          fallback={<FallbackBestSelling />}
+                        >
+                          <ProductGallery
+                            onOpenChange={onOpenChange}
+                            bestSelling={bestSelling}
+                            onClose={onClose}
+                          />
+                        </CustomSuspense>
+                      </div>
+                      <Divider className="my-1" />
+                      <div className="">
+                        <div className="flex justify-between items-center">
+                          <p className="text-lg font-semibold mb-2">
+                            Featured Collections
+                          </p>
+                          <Link
+                            className="text-secondary cursor-pointer"
+                            href={siteConfig.pages.products}
+                            onClick={onOpenChange}
+                          >
+                            View more
+                          </Link>
+                        </div>
+                        <CustomSuspense
+                          condition={!!featuresCollections}
+                          fallback={
+                            <FallbackFeaturedCollection
+                              onOpenChange={onOpenChange}
+                            />
+                          }
+                        >
+                          <StyledCardGrid
+                            onOpenChange={onOpenChange}
+                            featuresCollections={featuresCollections}
+                          />
+                        </CustomSuspense>
+                      </div>
+                    </Fragment>
+                  }
+                />
               }
             />
           </div>
