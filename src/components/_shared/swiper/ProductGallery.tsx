@@ -8,25 +8,26 @@ import "swiper/css";
 import "swiper/css/free-mode";
 
 // import required modules
-import { FreeMode, Autoplay } from "swiper/modules";
+import { FreeMode, Autoplay, Navigation } from "swiper/modules";
 import StyledCard from "../Styled/StyledCard";
 import Link from "next/link";
 import { siteConfig } from "@/src/config/site";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
-import productList from "@/src/utils/productList";
 import CustomNavigationButtons from "./CustomNavigationButtons";
 import useScreenSize from "@/src/hooks/useScreenSize";
 import { TProduct } from "@/src/types";
 import { useUrlChangeListener } from "@/src/hooks/useUrlChangeListener";
+import { SwiperOptions } from "swiper/types";
 
 type PROPS = {
-  onOpenChange: () => void;
+  onOpenChange?: () => void;
   bestSelling?: TProduct[];
-  onClose: () => void;
+  onClose?: () => void;
+  forHome?: boolean;
 };
 
-export default function ProductGallery(props: PROPS) {
-  const { bestSelling, onClose } = props;
+export default function ProductGallery(props: PROPS & SwiperOptions) {
+  const { bestSelling, onClose, forHome, ...others } = props;
 
   const addToSelectedProduct = useAppStore(
     (state) => state.addToSelectedProduct
@@ -52,11 +53,15 @@ export default function ProductGallery(props: PROPS) {
           prevEl: ".custom-prev",
           nextEl: ".custom-next",
         }}
-        modules={[FreeMode, Autoplay]}
-        className="mySwiper_productGallery"
+        modules={[FreeMode, Autoplay, Navigation]}
+        className="mySwiper_productGallery bg-transparent"
+        {...others}
       >
         {bestSelling?.map((item) => (
-          <SwiperSlide key={item.id} className="!h-[120px]">
+          <SwiperSlide
+            key={item.id}
+            className={`${forHome ? "!h-[150px]" : "!h-[120px]"} bg-transparent`}
+          >
             <StyledCard
               data={item}
               as={Link}
@@ -65,7 +70,8 @@ export default function ProductGallery(props: PROPS) {
                 changePlan("default");
                 addToSelectedProduct(item);
               }}
-              className="h-[100%]"
+              forHome={forHome}
+              className="h-[100%] bg-transparent"
             />
           </SwiperSlide>
         ))}

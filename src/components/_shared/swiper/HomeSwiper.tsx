@@ -69,7 +69,7 @@ const SwiperCarousel: FC<SwiperCarouselProps> = ({
             <div className="w-[90%] z-30 absolute top-1/2 left-[50%] transform -translate-x-1/2 -translate-y-1/2 text-center flex flex-col justify-center items-center">
               <div className="w-[80%] ">
                 <h2 className={title({ size: half ? "sm" : "lg" })}>
-                  <span className="text-white line-clamp-2">
+                  <span className="text-white line-clamp-1">
                     {product.title}
                   </span>
                 </h2>

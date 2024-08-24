@@ -61,7 +61,7 @@ export default function StyledCardGrid(props: PROPS) {
             // addToSelectedProduct(item);
           }}
         >
-          <NormalSwapper slidesPerView={1} className="!h-48" loop>
+          {/* <NormalSwapper slidesPerView={1} className="!h-48" loop> */}
             {/* {item.images?.map((image) => (
               <SwiperSlide key={image}> */}
             <Image
@@ -77,7 +77,7 @@ export default function StyledCardGrid(props: PROPS) {
             />
             {/* </SwiperSlide>
             ))} */}
-          </NormalSwapper>
+          {/* </NormalSwapper> */}
           <ConditionalRender
             condition={!!showPrice}
             Component={

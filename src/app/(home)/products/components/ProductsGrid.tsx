@@ -28,9 +28,12 @@ export default function ProductsGrid(props: PROPS) {
               list.length === 4 ? "col-span-2" : "col-span-3"
             } xs:col-span-2  h-full`}
           >
-            <Card shadow="sm" className="h-full">
+            <Card
+              shadow="sm"
+              className={`h-full ${reverse ? "bg-danger-50" : "bg-warning-50"}`}
+            >
               <CardHeader
-                className={`bg-warning-500 justify-between before:bg-white/10 overflow-hidden py-1 before:rounded-xl rounded-large w-[calc(100%_-_8px)] shadow-small ml-1 z-10 ${reverse ? "bg-danger-500" : ""}`}
+                className={`${reverse ? "bg-danger-500" : "bg-warning-500"} justify-between before:bg-white/10 overflow-hidden py-1 before:rounded-xl rounded-large w-[calc(100%_-_8px)] shadow-small ml-1 z-10`}
               >
                 <div className="flex items-center justify-between w-full">
                   <p className="text-lg font-semibold max-w-[70%] truncate">
@@ -65,7 +68,7 @@ export default function ProductsGrid(props: PROPS) {
                     list.length === 4
                       ? "md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2"
                       : "md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3"
-                  } gap-4 w-full`}
+                  } gap-4 w-full ${reverse ? "bg-danger-50" : "bg-warning-50"}`}
                 >
                   <div
                     key={index}
@@ -74,7 +77,7 @@ export default function ProductsGrid(props: PROPS) {
                       backgroundImage: `url(${list?.[0]?.images?.[0]})`,
                     }}
                   >
-                    <div className="absolute inset-0 bg-default-50 bg-opacity-80 flex flex-col items-center justify-center text-center" />
+                    <div className="absolute inset-0 bg-default-50 bg-opacity-80 flex flex-col items-center justify-center text-center rounded-lg" />
                   </div>
                   {list?.map((product, index) => (
                     <Link
