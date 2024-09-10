@@ -55,7 +55,7 @@ const Product = ({ item }: { item: TProduct }) => {
       <CardBody className="overflow-visible p-0 h-[80%] w-full">
         <PaginatedSwapper direction="vertical">
           {item.images?.map((img) => (
-            <SwiperSlide className="w-full ads_grid">
+            <SwiperSlide key={img} className="w-full ads_grid">
               <StyledImage
                 shadow="none"
                 radius="lg"

@@ -18,6 +18,24 @@ export async function apiGet<T>(
   return data as T;
 }
 
+export async function apiPost<T>(
+  url: string,
+  options?: RequestInit
+): Promise<T> {
+  const res = await fetch(`${process.env.BASE_URL}${url}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    ...options,
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  const data = await res.json();
+  return data as T;
+}
+
 type FetchProducts = {
   limit: number;
   skip: number;

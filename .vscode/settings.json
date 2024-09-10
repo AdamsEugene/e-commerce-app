@@ -1,4 +1,5 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
-  "cSpell.words": ["Microsoftexcel"]
+  "cSpell.words": ["Microsoftexcel"],
+  "scm.showHistoryGraph": false
 }

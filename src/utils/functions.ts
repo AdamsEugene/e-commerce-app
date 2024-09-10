@@ -6,6 +6,7 @@ import { CampaignType } from "./campaignData";
 import { purchasePlan } from "./onProduct";
 import { InCart } from "../store/productSlice";
 import { ProductCategory, TProduct } from "../types";
+import { UserData } from "../types/@user";
 
 export const capitalizeFirstLetter = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -396,3 +397,14 @@ export const groupProductByCategory = (data: ProductCategory[]) =>
     };
   });
 
+export function getDisplayName(user?: UserData): string {
+  if (!user) return "Guest User";
+  const { firstName, lastName, maidenName } = user;
+
+  // Check if maidenName exists and include it in the display name
+  if (maidenName) {
+    return `${firstName} ${maidenName} ${lastName}`;
+  }
+
+  return `${firstName} ${lastName}`;
+}

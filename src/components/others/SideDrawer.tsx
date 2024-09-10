@@ -9,6 +9,7 @@ import {
   CardFooter,
   Divider,
   Badge,
+  Spinner,
 } from "@nextui-org/react";
 import Drawer from "react-modern-drawer";
 import { GiShoppingCart } from "react-icons/gi";
@@ -31,6 +32,7 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
   const toggleDrawer = useAppStore((state) => state.toggleDrawer);
   const itemsInCart = useAppStore((state) => state.itemsInCart);
   const inCart = useAppStore((state) => state.inCart);
+  const cartsData = useAppStore((state) => state.cartsData);
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const AUTO_CLOSE_DELAY = 2000;
@@ -113,7 +115,7 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
             <Divider />
             <ConditionalRender
               condition={isDataInCart}
-              Component={<RenderCartFooter />}
+              Component={<RenderCartFooter total={cartsData.total} />}
             />
           </CardBody>
         </Card>
@@ -138,21 +140,29 @@ const RenderEmptyCartContent = () => (
   </div>
 );
 
-const RenderCartFooter = () => (
-  <CardFooter className="flex flex-col w-full gap-4 items-center bottom-0 z-10">
-    <div className="flex justify-between w-full">
-      <p className="text-sm text-gray-600">SUBTOTAL</p>
-      <p className="text-lg font-semibold">$78.98</p>
-    </div>
-    <Divider />
-    <StyledButton
-      as={Link}
-      href={`/checkout`}
-      className="w-full"
-      content="GO TO CHECKOUT"
-      color="secondary"
-    />
-  </CardFooter>
-);
+const RenderCartFooter = ({ total }: { total?: number }) => {
+  const isAddingToCart = useAppStore((state) => state.isAddingToCart);
+
+  return (
+    <CardFooter className="flex flex-col w-full gap-4 items-center bottom-0 z-10">
+      <div className="flex justify-between items-center w-full">
+        <p className="text-sm text-gray-600">SUBTOTAL</p>
+        <ConditionalRenderAB
+          condition={isAddingToCart}
+          ComponentA={<Spinner size="sm" />}
+          ComponentB={<p className="text-lg font-semibold">{total || 0}</p>}
+        />
+      </div>
+      <Divider />
+      <StyledButton
+        as={Link}
+        href={`/checkout`}
+        className="w-full"
+        content="GO TO CHECKOUT"
+        color="secondary"
+      />
+    </CardFooter>
+  );
+};
 
 export default SideDrawer;

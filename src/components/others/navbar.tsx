@@ -52,8 +52,16 @@ import {
 import Link from "next/link";
 import { Button } from "@nextui-org/button";
 import Notifications from "./Notifications";
+import { UserData } from "@/src/types/@user";
+import { CartResponse } from "@/src/types/@carts";
 
-export const Navbar = () => {
+type PROPS = {
+  user: UserData;
+  carts: CartResponse;
+};
+
+export const Navbar = (props: PROPS) => {
+  const { user, carts } = props;
   const [isInvisible, setIsInvisible] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -64,6 +72,8 @@ export const Navbar = () => {
 
   const toggleDrawer = useAppStore((state) => state.toggleDrawer);
   const itemsInCart = useAppStore((state) => state.itemsInCart);
+  const setUser = useAppStore((state) => state.setUser);
+  const setCartData = useAppStore((state) => state.setCartData);
 
   const pathName = usePathname();
   let linksToRender = userDashboardLinks;
@@ -77,6 +87,11 @@ export const Navbar = () => {
     ignoreInputFields: false,
     repeatOnHold: false,
   });
+
+  useEffect(() => {
+    if (user) setUser(user);
+    if (carts) setCartData(carts);
+  }, []);
 
   useEffect(() => {
     if (deferredValue) onOpen();
@@ -158,9 +173,7 @@ export const Navbar = () => {
                   name=""
                   // description="Product Designer"
                   className="transition-transform"
-                  avatarProps={{
-                    src: "https://avatars.githubusercontent.com/u/30373425?v=4",
-                  }}
+                  avatarProps={{ src: user.image }}
                 />
               </PopoverTrigger>
               <PopoverContent className="p-1">
@@ -171,22 +184,22 @@ export const Navbar = () => {
                 )}
               </PopoverContent>
             </Popover>
-            <Button isIconOnly variant="light">
-              <Badge
-                color="secondary"
-                content={itemsInCart}
-                isInvisible={!Boolean(itemsInCart)}
-                shape="circle"
-                size="lg"
-                onClick={() => toggleDrawer(true)}
-              >
+            <Badge
+              color="secondary"
+              content={itemsInCart}
+              isInvisible={!Boolean(itemsInCart)}
+              shape="circle"
+              size="lg"
+              onClick={() => toggleDrawer(true)}
+            >
+              <Button isIconOnly variant="light">
                 <CartIcon
                   size={32}
                   className="cursor-pointer"
                   onClick={() => toggleDrawer(true)}
                 />
-              </Badge>
-            </Button>
+              </Button>
+            </Badge>
             <Popover showArrow placement="bottom" backdrop="blur">
               <PopoverTrigger>
                 <Button isIconOnly variant="light">

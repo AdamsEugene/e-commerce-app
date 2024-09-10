@@ -37,6 +37,7 @@ export default function ItemsInCarts(props: PROPS) {
   const inCart = useAppStore((state) => state.inCart);
   const buyNow = useAppStore((state) => state.buyNow);
   // const isDrawerOpen = useAppStore((state) => state.isDrawerOpen);
+  const cartsData = useAppStore((state) => state.cartsData);
 
   // const params = useParams();
   // const productId = params.product_id;
@@ -64,7 +65,9 @@ export default function ItemsInCarts(props: PROPS) {
                 <div className="flex flex-col gap-2">
                   <div className="flex justify-between">
                     <p className="text-lg font-bold text-gray-500">SUBTOTAL</p>
-                    <p className="text-lg font-bold text-gray-500">$1,399USD</p>
+                    <p className="text-lg font-bold text-gray-500">
+                      ${cartsData.total || 0}
+                    </p>
                   </div>
                   <PurchaseType {...plan} notPlan />
                 </div>

@@ -1,14 +1,7 @@
 "use client";
 
 import React, { Fragment, useEffect, useState } from "react";
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  ModalBody,
-  ModalContent,
-  useDisclosure,
-} from "@nextui-org/react";
+import { ModalBody, ModalContent, useDisclosure } from "@nextui-org/react";
 import { GiMagicBroom } from "react-icons/gi";
 import { motion } from "framer-motion";
 

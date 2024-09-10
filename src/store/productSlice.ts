@@ -1,4 +1,5 @@
 import { StateCreator } from "zustand";
+import { CartResponse } from "../types/@carts";
 
 export type ProductState = {
   itemsInCart: number;
@@ -16,6 +17,8 @@ export type ProductState = {
     later: string[];
     Hire_purchase: string[];
   };
+  cartsData: CartResponse;
+  isAddingToCart: boolean;
 };
 
 export type InCart = keyof ProductState["inCart"];
@@ -28,6 +31,8 @@ export type ProductActions = {
   addToBuyNow: (to: InBuyNow, id: string) => void;
   moveToBuyNow: (from: InBuyNow, to: InBuyNow, id: string) => void;
   removeItemFromBuyNow: (cartType: InBuyNow, id: string) => void;
+  setCartData: (cartsData: CartResponse) => void;
+  setIsAddingToCart: (isAddingToCart: boolean) => void;
 };
 
 export type ProductSlice = ProductState & ProductActions;
@@ -49,6 +54,8 @@ export const initProductStore = (): ProductState => {
       later: [],
       Hire_purchase: [],
     },
+    cartsData: { carts: [], total: 0 },
+    isAddingToCart: false,
   };
 };
 
@@ -155,6 +162,35 @@ export const createProductSlice = (
           },
         };
       }),
+    setCartData: (cartsData) =>
+      set((state) => {
+        const index = state.cartsData.carts?.[0]?.products?.findIndex(
+          (item) => item?.id === cartsData?.carts?.[0]?.products?.[0].id
+        );
+        let updatedCarts;
+        if (index >= 0) {
+          updatedCarts = state.cartsData.carts.map((item, i) =>
+            i === index ? cartsData.carts[0] : item
+          );
+        } else {
+          if (cartsData.carts[0])
+            updatedCarts = [...state.cartsData.carts, cartsData.carts[0]];
+          else updatedCarts = [...state.cartsData.carts];
+        }
+        const totalCartValue = updatedCarts
+          .reduce((pre, cur) => pre + cur.total, 0)
+          .toFixed(2);
+        return {
+          ...state,
+          isAddingToCart: false,
+          cartsData: {
+            ...state.cartsData,
+            carts: updatedCarts,
+            total: +totalCartValue,
+          },
+        };
+      }),
+    setIsAddingToCart: (isAddingToCart) => set({ isAddingToCart }),
   });
 
   return createProductSlice;
