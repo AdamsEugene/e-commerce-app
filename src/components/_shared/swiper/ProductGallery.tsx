@@ -24,10 +24,11 @@ type PROPS = {
   bestSelling?: TProduct[];
   onClose?: () => void;
   forHome?: boolean;
+  textColor?: string;
 };
 
 export default function ProductGallery(props: PROPS & SwiperOptions) {
-  const { bestSelling, onClose, forHome, ...others } = props;
+  const { bestSelling, onClose, forHome, textColor, ...others } = props;
 
   const addToSelectedProduct = useAppStore(
     (state) => state.addToSelectedProduct
@@ -44,23 +45,23 @@ export default function ProductGallery(props: PROPS & SwiperOptions) {
         spaceBetween={16}
         freeMode={true}
         loop
-        autoplay={{
-          delay: 5000,
-          disableOnInteraction: true,
-          pauseOnMouseEnter: true,
-        }}
+        // autoplay={{
+        //   delay: 5000,
+        //   disableOnInteraction: true,
+        //   pauseOnMouseEnter: true,
+        // }}
         navigation={{
           prevEl: ".custom-prev",
           nextEl: ".custom-next",
         }}
-        modules={[FreeMode, Autoplay, Navigation]}
+        modules={[FreeMode, Navigation]}
         className="mySwiper_productGallery bg-transparent"
         {...others}
       >
         {bestSelling?.map((item) => (
           <SwiperSlide
             key={item.id}
-            className={`${forHome ? "!h-[150px]" : "!h-[120px]"} bg-transparent`}
+            className={`${forHome ? "!h-[144px]" : "!h-[120px]"} bg-transparent`}
           >
             <StyledCard
               data={item}
@@ -72,6 +73,7 @@ export default function ProductGallery(props: PROPS & SwiperOptions) {
               }}
               forHome={forHome}
               className="h-[100%] bg-transparent"
+              textColor={textColor}
             />
           </SwiperSlide>
         ))}

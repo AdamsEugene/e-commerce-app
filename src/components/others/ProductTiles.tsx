@@ -49,8 +49,7 @@ export default function ProductTiles({ showGrid }: PROP) {
       },
       staleTime: Infinity,
       initialPageParam: 0,
-      initialData: () =>
-        queryClient?.getQueryData<any>(["all", "products"]),
+      initialData: () => queryClient?.getQueryData<any>(["all", "products"]),
       initialDataUpdatedAt: () =>
         queryClient?.getQueryState(["all", "products"])?.dataUpdatedAt,
       // getPreviousPageParam: (firstPage) => firstPage,
@@ -89,9 +88,10 @@ export default function ProductTiles({ showGrid }: PROP) {
           <Fragment key={index}>
             <Card
               shadow="sm"
-              className={`h-full ${index % 2 === 0 ? "bg-lime-100" : "bg-teal-100"} `}
+              className={`h-full ${index % 2 === 0 ? "bg-lime-500" : "bg-teal-500"} `}
               fullWidth
             >
+              <div className="absolute inset-0 bg-default-50 bg-opacity-80 flex flex-col items-center justify-center text-center rounded-lg" />
               <CardHeader
                 className={`${index % 2 === 0 ? "bg-lime-500" : "bg-teal-500"}  justify-between before:bg-white/10 overflow-hidden py-1 before:rounded-xl rounded-large w-[calc(100%_-_8px)] shadow-small ml-1 z-10`}
               >
@@ -114,6 +114,7 @@ export default function ProductTiles({ showGrid }: PROP) {
                     slidesPerView={6}
                     // autoplay={false}
                     forHome
+                    textColor={index % 2 === 0 ? "lime" : "teal"}
                   />
                 </CustomSuspense>
               </CardBody>

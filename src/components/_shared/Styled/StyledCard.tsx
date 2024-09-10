@@ -9,13 +9,16 @@ import {
 import StyledImage from "./StyledImage";
 import { TProduct } from "@/src/types";
 
-export default function StyledCard(
-  props: CardProps & { data: TProduct } & { link: string } & {
-    forHome?: boolean;
-  }
-) {
+type PROPS = {
+  data: TProduct;
+  link: string;
+  forHome?: boolean;
+  textColor?: string;
+};
+
+export default function StyledCard(props: PROPS & CardProps) {
   return (
-    <Card shadow="none" isPressable {...props} href={props.link}>
+    <Card shadow="sm" isPressable {...props} href={props.link}>
       <CardBody
         className={`overflow-visible p-0 ${props.forHome ? "!h-[110px]" : "!h-[90px]"}`}
       >
@@ -31,11 +34,15 @@ export default function StyledCard(
           src={props.data.thumbnail}
         />
       </CardBody>
-      <CardFooter className="text-small justify-between">
-        <b className="max-w-[100px] truncate text-default-700">
+      <CardFooter className="text-small justify-between font-bold">
+        <b
+          className={`max-w-[100px] truncate text-${props.textColor || "default"}-700`}
+        >
           {props.data.title}
         </b>
-        <p className="text-default-500">{props.data.price}</p>
+        <p className={`text-${props.textColor || "default"}-500`}>
+          {props.data.price}
+        </p>
       </CardFooter>
     </Card>
   );

@@ -2,14 +2,7 @@
 
 import React, { Fragment, useEffect, useMemo } from "react";
 import Link from "next/link";
-import {
-  ModalBody,
-  ModalHeader,
-  Divider,
-  Card,
-  Skeleton,
-  Spinner,
-} from "@nextui-org/react";
+import { ModalBody, ModalHeader, Divider } from "@nextui-org/react";
 import { FiSearch } from "react-icons/fi";
 
 import StyledInput from "../Styled/StyledInput";
