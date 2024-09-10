@@ -4,7 +4,7 @@ export default function FallbackBestSelling({ count = 5 }: { count?: number }) {
   return (
     <div className="flex items-center gap-3">
       {Array.from({ length: count }, (_, i) => i).map((_) => (
-        <Card key={_} className="w-[160px] flex flex-col gap-2 p-1" radius="lg">
+        <Card key={_} className="w-full flex flex-col gap-2 p-1" radius="lg" fullWidth>
           <Skeleton className="rounded-lg">
             <div className="h-20 rounded-lg bg-default-300"></div>
           </Skeleton>

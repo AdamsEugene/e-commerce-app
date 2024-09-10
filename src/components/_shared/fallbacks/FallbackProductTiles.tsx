@@ -1,8 +1,15 @@
 import { Card, Skeleton } from "@nextui-org/react";
+import FallbackBestSelling from "../search/FallbackBestSelling";
 
 export default function FallbackProductTiles() {
   return (
     <div className="container mx-auto flex flex-col justify-center items-center gap-4">
+      <div className="w-full flex flex-col gap-3">
+        <Skeleton className="justify-between overflow-hidden py-1 before:rounded-xl rounded-large w-[calc(100%_-_2px)] shadow-small">
+          <div className="h-7 rounded-lg bg-default-300"></div>
+        </Skeleton>
+        <FallbackBestSelling count={6} />
+      </div>
       {Array.from({ length: 4 }, (_, i) => i).map((_) => (
         <div
           key={_}

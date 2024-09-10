@@ -17,10 +17,12 @@ type PROPS = {
 };
 
 export default function StyledCard(props: PROPS & CardProps) {
+  const { data, textColor, forHome, link, ...others } = props;
+  
   return (
-    <Card shadow="sm" isPressable {...props} href={props.link}>
+    <Card shadow="sm" isPressable {...others} href={link}>
       <CardBody
-        className={`overflow-visible p-0 ${props.forHome ? "!h-[110px]" : "!h-[90px]"}`}
+        className={`overflow-visible p-0 ${forHome ? "!h-[110px]" : "!h-[90px]"}`}
       >
         <Image
           shadow="sm"
@@ -29,20 +31,18 @@ export default function StyledCard(props: PROPS & CardProps) {
           radius="lg"
           width={300}
           height={300}
-          alt={props.data.title}
-          className={`!w-[200px] !object-contain ${props.forHome ? "!h-[110px]" : "!h-[90px]"} bg-transparent`}
-          src={props.data.thumbnail}
+          alt={data.title}
+          className={`!w-[200px] !object-contain ${forHome ? "!h-[110px]" : "!h-[90px]"} bg-transparent`}
+          src={data.thumbnail}
         />
       </CardBody>
       <CardFooter className="text-small justify-between font-bold">
         <b
-          className={`max-w-[100px] truncate text-${props.textColor || "default"}-700`}
+          className={`max-w-[100px] truncate text-${textColor || "default"}-700`}
         >
-          {props.data.title}
+          {data.title}
         </b>
-        <p className={`text-${props.textColor || "default"}-500`}>
-          {props.data.price}
-        </p>
+        <p className={`text-${textColor || "default"}-500`}>{data.price}</p>
       </CardFooter>
     </Card>
   );

@@ -1,24 +1,31 @@
 "use client";
 
-import React, { Fragment, useEffect } from "react";
-import { Card, CardBody, CardHeader } from "@nextui-org/react";
+import React, { Fragment, useEffect, useState } from "react";
+import {
+  Card,
+  CardBody,
+  CardHeader,
+  ModalBody,
+  ModalContent,
+  useDisclosure,
+} from "@nextui-org/react";
+import { GiMagicBroom } from "react-icons/gi";
+import { motion } from "framer-motion";
 
 import ProductsGrid from "@/src/app/(home)/products/components/ProductsGrid";
 import GridCard from "../_shared/others/GridCard";
 import BannerAdsDisplay from "../_shared/advertisement/BannerAdsDisplay";
 import ConditionalRender from "../_shared/Conditional/ConditionalRender";
 import { homeProductList } from "@/src/utils/formatProducts";
-import { apiGet, fetchProducts } from "@/src/api/apiCalles";
-import { TFetchedProduct, TProduct } from "@/src/types";
+import { apiGet } from "@/src/api/apiCalles";
+import { TFetchedProduct } from "@/src/types";
 import { useInView } from "react-intersection-observer";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import CustomSuspense from "../_shared/Conditional/CustomSuspense";
 import FallbackProductTiles from "../_shared/fallbacks/FallbackProductTiles";
-import FallbackBestSelling from "../_shared/search/FallbackBestSelling";
-import ProductGallery from "../_shared/swiper/ProductGallery";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
-import MyStopwatch from "../_shared/others/MyStopwatch";
-import { useCountdown } from "@/src/hooks/useCountdown";
+import StyledModal from "../_shared/Styled/StyledModal";
+import Promotions from "@/src/app/(home)/products/components/Promotions";
 
 type PROP = {
   showGrid?: boolean;
@@ -26,16 +33,90 @@ type PROP = {
   searchParams?: { [key: string]: string | string[] | undefined };
 };
 
+interface Position {
+  x: string;
+  y: string;
+}
+
 const ITEM_PER_PAGE = 40;
-const fiveDaysInMillis = 5 * 24 * 60 * 60 * 1000; // 5 days in milliseconds
+const colors = [
+  "#FFFAE0", // Equivalent to text-warning-50
+  "#FFE999", // Equivalent to text-warning-100
+  "#FFD966", // Equivalent to text-warning-200
+  "#FFC533", // Equivalent to text-warning-300
+  "#FFB200", // Equivalent to text-warning-400
+  "#FF9900", // Equivalent to text-warning-500
+];
 
 export default function ProductTiles({ showGrid }: PROP) {
   const { ref, inView } = useInView();
-  const queryClient = useAppStore((state) => state.queryClient);
-  const { CountdownComponent, isCompleted } = useCountdown({
-    date: Date.now() + fiveDaysInMillis,
-    onComplete: () => console.log("done"),
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const [positions, setPositions] = useState<Position[]>([]);
+  const [colors, setColors] = useState<string[]>(Array(32).fill("#FFFAE0")); // Initial colors for each icon
+  const [rotations, setRotations] = useState<number[]>(Array(32).fill(0)); // Initial rotation angles for each icon
+
+  const generateRandomPosition = (): Position => ({
+    x: `${Math.random() * 100 - 50}vw`, // Random position between -50vw and 50vw
+    y: `${Math.random() * 100 - 50}vh`, // Random position between -50vh and 50vh
   });
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const initialPositions = Array.from({ length: 32 }, () =>
+      generateRandomPosition()
+    );
+    setPositions(initialPositions);
+
+    const updateAnimation = () => {
+      // Randomly pick some indexes to change color and rotation
+      const indexesToUpdate = Array.from(
+        { length: Math.floor(Math.random() * 32) },
+        () => Math.floor(Math.random() * 32)
+      );
+
+      setPositions(Array.from({ length: 32 }, () => generateRandomPosition()));
+
+      setColors((prevColors) =>
+        prevColors.map((color, index) =>
+          indexesToUpdate.includes(index)
+            ? colors[Math.floor(Math.random() * colors.length)]
+            : color
+        )
+      );
+
+      setRotations((prevRotations) =>
+        prevRotations.map((rotation, index) =>
+          indexesToUpdate.includes(index)
+            ? rotation + Math.random() * 360 // Randomly rotate between 0 and 360 degrees
+            : rotation
+        )
+      );
+    };
+
+    let interval: NodeJS.Timeout;
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        clearInterval(interval);
+      } else {
+        interval = setInterval(updateAnimation, 2000);
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    // Start the interval initially
+    interval = setInterval(updateAnimation, 2000);
+
+    return () => {
+      clearInterval(interval);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [isOpen]);
+
+  const queryClient = useAppStore((state) => state.queryClient);
 
   const { data, isFetchingNextPage, fetchNextPage, isFetching, hasNextPage } =
     useInfiniteQuery({
@@ -60,65 +141,22 @@ export default function ProductTiles({ showGrid }: PROP) {
       },
     });
 
-  const { data: bestSelling } = useQuery({
-    queryKey: ["bestSelling"],
-    queryFn: () => {
-      return fetchProducts({ limit: 20, skip: 60 });
-    },
-    staleTime: Infinity,
-    initialData: () =>
-      queryClient?.getQueryData<TFetchedProduct>(["bestSelling"]),
-    initialDataUpdatedAt: () =>
-      queryClient?.getQueryState(["bestSelling"])?.dataUpdatedAt,
-  });
-
   useEffect(() => {
     if (inView && hasNextPage) {
       fetchNextPage();
     }
   }, [fetchNextPage, inView]);
 
-  const products = data?.pages?.flatMap((d) => d);
+  const products = data?.pages?.flat();
 
   return (
     <div className="container flex flex-col items-center justify-center !gap-8">
+      <button onClick={onOpen}>click me</button>
       <CustomSuspense
         condition={isFetching && !isFetchingNextPage}
         fallback={homeProductList(products)?.map((item, index) => (
           <Fragment key={index}>
-            <Card
-              shadow="sm"
-              className={`h-full ${index % 2 === 0 ? "bg-lime-500" : "bg-teal-500"} `}
-              fullWidth
-            >
-              <div className="absolute inset-0 bg-default-50 bg-opacity-80 flex flex-col items-center justify-center text-center rounded-lg" />
-              <CardHeader
-                className={`${index % 2 === 0 ? "bg-lime-500" : "bg-teal-500"}  justify-between before:bg-white/10 overflow-hidden py-1 before:rounded-xl rounded-large w-[calc(100%_-_8px)] shadow-small ml-1 z-10`}
-              >
-                <div className="flex items-center justify-between w-full">
-                  <p className="text-lg font-semibold max-w-[70%] truncate">
-                    hello
-                  </p>
-                  <CountdownComponent />
-                  {isCompleted && <p>The countdown has completed.</p>}
-                  <MyStopwatch />
-                </div>
-              </CardHeader>
-              <CardBody>
-                <CustomSuspense
-                  condition={!!bestSelling}
-                  fallback={<FallbackBestSelling count={6} />}
-                >
-                  <ProductGallery
-                    bestSelling={bestSelling?.products}
-                    slidesPerView={6}
-                    // autoplay={false}
-                    forHome
-                    textColor={index % 2 === 0 ? "lime" : "teal"}
-                  />
-                </CustomSuspense>
-              </CardBody>
-            </Card>
+            <Promotions index={index} />
             <ConditionalRender
               condition={!!showGrid}
               Component={
@@ -142,6 +180,48 @@ export default function ProductTiles({ showGrid }: PROP) {
         condition={isFetchingNextPage}
         Component={<FallbackProductTiles />}
       />
+      <StyledModal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        placement="top"
+        backdrop="blur"
+        size="3xl"
+        className="search_result"
+        scrollBehavior="inside"
+      >
+        <ModalContent>
+          {(onClose) => (
+            <ModalBody>
+              <div className="max-h-screen h-[600px]">
+                <div className="flex items-center justify-center w-full h-full">
+                  {positions.map((pos, index) => (
+                    <motion.div
+                      key={index}
+                      className="absolute"
+                      animate={{
+                        x: pos.x,
+                        y: pos.y,
+                        rotate: rotations[index],
+                      }}
+                      transition={{
+                        duration: 2,
+                        ease: "easeInOut",
+                      }}
+                    >
+                      <GiMagicBroom
+                        className="text-5xl"
+                        style={{
+                          color: colors[index],
+                        }}
+                      />
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </ModalBody>
+          )}
+        </ModalContent>
+      </StyledModal>
     </div>
   );
 }
