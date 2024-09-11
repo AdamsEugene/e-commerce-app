@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useState } from "react";
 import {
   Badge,
   ModalContent,
@@ -30,7 +30,6 @@ import clsx from "clsx";
 
 import { ThemeSwitch } from "@/src/components/others/theme-switch";
 import {
-  TwitterIcon,
   CartIcon,
   NotificationIcon,
 } from "@/src/components/_shared/others/icons";
@@ -51,15 +50,30 @@ import {
   userDashboardLinks,
 } from "@/src/utils/dashboardLinks";
 import Link from "next/link";
+import { Button } from "@nextui-org/button";
+import Notifications from "./Notifications";
+import { UserData } from "@/src/types/@user";
+import { CartResponse } from "@/src/types/@carts";
 
-export const Navbar = () => {
+type PROPS = {
+  user: UserData;
+  carts: CartResponse;
+};
+
+export const Navbar = (props: PROPS) => {
+  const { user, carts } = props;
   const [isInvisible, setIsInvisible] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const deferredValue = useDeferredValue(searchTerm.trim());
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const toggleDrawer = useAppStore((state) => state.toggleDrawer);
   const itemsInCart = useAppStore((state) => state.itemsInCart);
+  const setUser = useAppStore((state) => state.setUser);
+  const setCartData = useAppStore((state) => state.setCartData);
 
   const pathName = usePathname();
   let linksToRender = userDashboardLinks;
@@ -68,15 +82,20 @@ export const Navbar = () => {
     linksToRender = adminDashboardLinks;
   }
 
-  const { flushHeldKeys } = useKeyboardShortcut(
-    ["Meta", "K"],
-    (shortcutKeys) => onOpen(),
-    {
-      overrideSystem: false,
-      ignoreInputFields: false,
-      repeatOnHold: false,
-    }
-  );
+  useKeyboardShortcut(["Meta", "K"], (shortcutKeys) => onOpen(), {
+    overrideSystem: false,
+    ignoreInputFields: false,
+    repeatOnHold: false,
+  });
+
+  useEffect(() => {
+    if (user) setUser(user);
+    if (carts) setCartData(carts);
+  }, []);
+
+  useEffect(() => {
+    if (deferredValue) onOpen();
+  }, [deferredValue]);
 
   const randomIntFromInterval = (min: number, max: number) =>
     Math.floor(Math.random() * (max - min + 1) + min);
@@ -142,6 +161,7 @@ export const Navbar = () => {
               both
               Icon={FiSearch}
               onClick={onOpen}
+              onChange={({ target }) => setSearchTerm(target.value)}
               className="lg:w-[400px] md:w-[340px] sm:w-[200px]"
             />
           </NavbarItem>
@@ -153,9 +173,7 @@ export const Navbar = () => {
                   name=""
                   // description="Product Designer"
                   className="transition-transform"
-                  avatarProps={{
-                    src: "https://avatars.githubusercontent.com/u/30373425?v=4",
-                  }}
+                  avatarProps={{ src: user?.image }}
                 />
               </PopoverTrigger>
               <PopoverContent className="p-1">
@@ -174,21 +192,35 @@ export const Navbar = () => {
               size="lg"
               onClick={() => toggleDrawer(true)}
             >
-              <CartIcon
-                size={32}
-                className="cursor-pointer"
-                onClick={() => toggleDrawer(true)}
-              />
+              <Button isIconOnly variant="light">
+                <CartIcon
+                  size={32}
+                  className="cursor-pointer"
+                  onClick={() => toggleDrawer(true)}
+                />
+              </Button>
             </Badge>
-            <Badge
-              color="warning"
-              content={5}
-              isInvisible={isInvisible}
-              shape="circle"
-              size="lg"
-            >
-              <NotificationIcon className="fill-current" size={32} />
-            </Badge>
+            <Popover showArrow placement="bottom" backdrop="blur">
+              <PopoverTrigger>
+                <Button isIconOnly variant="light">
+                  <Badge
+                    color="warning"
+                    content={5}
+                    isInvisible={isInvisible}
+                    shape="circle"
+                    size="lg"
+                  >
+                    <NotificationIcon
+                      className="fill-current cursor-pointer"
+                      size={32}
+                    />
+                  </Badge>
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="p-1">
+                <Notifications />
+              </PopoverContent>
+            </Popover>
           </NavbarItem>
         </NavbarContent>
 
@@ -244,8 +276,8 @@ export const Navbar = () => {
                     index === 2
                       ? "primary"
                       : index === siteConfig.navMenuItems.length - 1
-                      ? "danger"
-                      : "foreground"
+                        ? "danger"
+                        : "foreground"
                   }
                   href={item.href}
                   // size="lg"
@@ -266,7 +298,13 @@ export const Navbar = () => {
           scrollBehavior="inside"
         >
           <ModalContent>
-            {(onClose) => <SearchResults onOpenChange={onOpenChange} />}
+            {(onClose) => (
+              <SearchResults
+                onOpenChange={onOpenChange}
+                initialSearchTerm={deferredValue}
+                onClose={onClose}
+              />
+            )}
           </ModalContent>
         </StyledModal>
       </NextUINavbar>

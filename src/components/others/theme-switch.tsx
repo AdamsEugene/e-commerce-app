@@ -1,16 +1,13 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { VisuallyHidden } from "@react-aria/visually-hidden";
 import { SwitchProps, useSwitch } from "@nextui-org/switch";
 import { useTheme } from "next-themes";
 import { useIsSSR } from "@react-aria/ssr";
 import clsx from "clsx";
+import { MoonFilledIcon, SunFilledIcon } from "../_shared/others/icons";
 
-import {
-  SunFilledIcon,
-  MoonFilledIcon,
-} from "@/src/components/_shared/others/icons";
 
 export interface ThemeSwitchProps {
   className?: string;
@@ -21,8 +18,24 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
   className,
   classNames,
 }) => {
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme } = useTheme();
   const isSSR = useIsSSR();
+
+  useEffect(() => {
+    if (isSSR) return;
+
+    const updateTheme = (e: MediaQueryListEvent) => {
+      setTheme(e.matches ? "dark" : "light");
+    };
+
+    const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+    setTheme(prefersDarkScheme.matches ? "dark" : "light");
+
+    prefersDarkScheme.addEventListener("change", updateTheme);
+    return () => {
+      prefersDarkScheme.removeEventListener("change", updateTheme);
+    };
+  }, [isSSR, setTheme]);
 
   const onChange = () => {
     theme === "light" ? setTheme("dark") : setTheme("light");
@@ -36,9 +49,9 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
     getInputProps,
     getWrapperProps,
   } = useSwitch({
-    isSelected: theme === "light" || isSSR,
+    isSelected: resolvedTheme === "light" || isSSR,
     "aria-label": `Switch to ${
-      theme === "light" || isSSR ? "dark" : "light"
+      resolvedTheme === "light" || isSSR ? "dark" : "light"
     } mode`,
     onChange,
   });

@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { ThemeProviderProps } from "next-themes/dist/types";
 import { AppStoreProvider } from "./AppStoreProvider";
+import QueryClientProvider from "./QueryClientProvider";
 
 export interface ProvidersProps {
   children: React.ReactNode;
@@ -18,7 +19,9 @@ export function Providers({ children, themeProps }: ProvidersProps) {
   return (
     <AppStoreProvider>
       <NextUIProvider navigate={router.push}>
-        <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
+        <NextThemesProvider {...themeProps}>
+          <QueryClientProvider>{children}</QueryClientProvider>
+        </NextThemesProvider>
       </NextUIProvider>
     </AppStoreProvider>
   );

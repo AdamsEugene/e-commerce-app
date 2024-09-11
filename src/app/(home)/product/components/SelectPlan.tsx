@@ -107,7 +107,7 @@ export default function SelectPlan() {
                     <PayNowIcon className="text-[400px] text-success-50 opacity-50" />
                   </div>
                   <p className="text-9xl font-bold text-default-500">
-                    {getCurrentItem?.price}
+                    {getCurrentItem?.price || 0}
                   </p>
                 </div>
               }
@@ -120,7 +120,7 @@ export default function SelectPlan() {
                       condition={selectedPlan === "rent"}
                       ComponentA={<PlanComponent item={getItem("rent")} />}
                       ComponentB={
-                        <PlanComponent item={getItem("high_purchase")} />
+                        <PlanComponent item={getItem("Hire_purchase")} />
                       }
                     />
                   }
@@ -149,7 +149,7 @@ const rentTitle = [
   "Flexible Access to Top Products.",
 ];
 
-const highPurchaseTitle = [
+const hirePurchaseTitle = [
   "Own it Today, Enjoy it Forever",
   "Invest in Quality, Get Lasting Value.",
 ];
@@ -222,7 +222,7 @@ const PlanComponent = ({ item }: SUB_PROPS) => {
       ? leaseTitle
       : item.value === "rent"
       ? rentTitle
-      : highPurchaseTitle;
+      : hirePurchaseTitle;
 
   const selectedItem = data.find((item) => item.key === selectedPeriod)!;
 

@@ -8,21 +8,27 @@ import "swiper/css";
 import "swiper/css/free-mode";
 
 // import required modules
-import { FreeMode, Autoplay } from "swiper/modules";
+import { FreeMode, Autoplay, Navigation } from "swiper/modules";
 import StyledCard from "../Styled/StyledCard";
 import Link from "next/link";
 import { siteConfig } from "@/src/config/site";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
-import productList from "@/src/utils/productList";
 import CustomNavigationButtons from "./CustomNavigationButtons";
 import useScreenSize from "@/src/hooks/useScreenSize";
+import { TProduct } from "@/src/types";
+import { useUrlChangeListener } from "@/src/hooks/useUrlChangeListener";
+import { SwiperOptions } from "swiper/types";
 
 type PROPS = {
-  onOpenChange: () => void;
+  onOpenChange?: () => void;
+  bestSelling?: TProduct[];
+  onClose?: () => void;
+  forHome?: boolean;
+  textColor?: string;
 };
 
-export default function ProductGallery(props: PROPS) {
-  const { onOpenChange } = props;
+export default function ProductGallery(props: PROPS & SwiperOptions) {
+  const { bestSelling, onClose, forHome, textColor, ...others } = props;
 
   const addToSelectedProduct = useAppStore(
     (state) => state.addToSelectedProduct
@@ -30,7 +36,7 @@ export default function ProductGallery(props: PROPS) {
   const changePlan = useAppStore((state) => state.changePlan);
   const screenSize = useScreenSize();
 
-  const topProducts = productList.slice(3, 12);
+  useUrlChangeListener(onClose);
 
   return (
     <>
@@ -39,30 +45,35 @@ export default function ProductGallery(props: PROPS) {
         spaceBetween={16}
         freeMode={true}
         loop
-        autoplay={{
-          delay: 5000,
-          disableOnInteraction: true,
-          pauseOnMouseEnter: true,
-        }}
+        // autoplay={{
+        //   delay: 5000,
+        //   disableOnInteraction: true,
+        //   pauseOnMouseEnter: true,
+        // }}
         navigation={{
           prevEl: ".custom-prev",
           nextEl: ".custom-next",
         }}
-        modules={[FreeMode, Autoplay]}
-        className="mySwiper_productGallery"
+        modules={[FreeMode, Navigation]}
+        className="mySwiper_productGallery bg-transparent"
+        {...others}
       >
-        {topProducts.map((item) => (
-          <SwiperSlide key={item.productId} className="!h-[120px]">
+        {bestSelling?.map((item) => (
+          <SwiperSlide
+            key={item.id}
+            className={`${forHome ? "!h-[144px]" : "!h-[120px]"} bg-transparent`}
+          >
             <StyledCard
-              {...item}
+              data={item}
               as={Link}
-              link={`${siteConfig.pages.product}/${item.productId}`}
+              link={`${siteConfig.pages.product}/${item.id}`}
               onClick={() => {
                 changePlan("default");
                 addToSelectedProduct(item);
-                onOpenChange();
               }}
-              className="h-[100%]"
+              forHome={forHome}
+              className="h-[100%] bg-transparent"
+              textColor={textColor}
             />
           </SwiperSlide>
         ))}

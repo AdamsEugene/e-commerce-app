@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from "react";
 
 type ScreenSize = "xs" | "sm" | "md" | "lg" | "xl";
@@ -6,7 +8,7 @@ const useScreenSize = (): ScreenSize => {
   const [screenSize, setScreenSize] = useState<ScreenSize>(() => {
     // Initial screen size based on window width
 
-    const width = window ? window.innerWidth : 1200;
+    const width = window.innerWidth || 1200;
     if (width < 576) return "xs"; // Extra small devices (phones)
     if (width < 768) return "sm"; // Small devices (tablets)
     if (width < 992) return "md"; // Medium devices (small laptops)

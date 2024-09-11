@@ -12,14 +12,20 @@ type PROPS = {
   }[];
 };
 
-export default function StyledTab({ data, color }: PROPS & TabsProps) {
+export default function StyledTab({
+  data,
+  color,
+  placement,
+}: PROPS & TabsProps) {
   return (
     <div className="flex w-full flex-col">
       <Tabs
         aria-label="Dynamic tabs"
         items={data}
         fullWidth
+        // isVertical
         color={color || "primary"}
+        placement={placement}
       >
         {(item) => (
           <Tab
@@ -34,7 +40,7 @@ export default function StyledTab({ data, color }: PROPS & TabsProps) {
               </div>
             }
           >
-            <Card>
+            <Card shadow={placement ? "none" : "sm"}>
               <CardBody>{item.content}</CardBody>
             </Card>
           </Tab>

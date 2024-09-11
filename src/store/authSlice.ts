@@ -1,11 +1,14 @@
 import { StateCreator } from "zustand";
+import { UserData } from "../types/@user";
 
 export type AuthState = {
   accountType?: "default" | "employee" | "organization" | "association";
+  user?: UserData;
 };
 
 export type AuthActions = {
   updateAccountType: (type: AuthState["accountType"]) => void;
+  setUser: (user: UserData) => void;
 };
 
 export type AuthSlice = AuthState & AuthActions;
@@ -13,6 +16,7 @@ export type AuthSlice = AuthState & AuthActions;
 export const initAuthStore = (): AuthState => {
   return {
     accountType: undefined,
+    user: undefined,
   };
 };
 
@@ -27,4 +31,5 @@ export const createAuthSlice =
   (set) => ({
     ...initState,
     updateAccountType: (accountType) => set({ accountType }),
+    setUser: (user) => set({ user }),
   });

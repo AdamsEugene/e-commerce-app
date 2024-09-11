@@ -4,19 +4,22 @@ import { useEffect, useRef, useState } from "react";
 import { getProductColors } from "@/src/utils/productList";
 import { Button, Card, CardBody } from "@nextui-org/react";
 import StyledImage from "@/src/components/_shared/Styled/StyledImage";
-import imageByIndex from "@/src/utils/imageByIndex";
 import ConditionalRenderAB from "@/src/components/_shared/Conditional/ConditionalRenderAB";
 
-export default function ProductColor() {
+type PROPS = {
+  images?: string[];
+};
+
+export default function ProductColor({ images }: PROPS) {
   const [showAll, setShowAll] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
-  const [maxHeight, setMaxHeight] = useState("90px");
+  const [maxHeight, setMaxHeight] = useState("100px");
   const [selected, setSelected] = useState<string>();
   const [shouldShowButton, setShouldShowButton] = useState(false);
 
   useEffect(() => {
     if (contentRef.current) {
-      setShouldShowButton(contentRef.current.scrollHeight > 80);
+      setShouldShowButton(contentRef.current.scrollHeight > 90);
     }
   }, []);
 
@@ -24,7 +27,7 @@ export default function ProductColor() {
     if (showAll) {
       setMaxHeight(`${(contentRef?.current?.scrollHeight || 0) + 500}px`);
     } else {
-      setMaxHeight("90px");
+      setMaxHeight("100px");
     }
   }, [showAll]);
 
@@ -52,13 +55,13 @@ export default function ProductColor() {
         style={{ maxHeight }}
       >
         <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-2">
-          {getProductColors(1)?.map((color, index) => (
+          {images?.map((color, index) => (
             <Card
               shadow="none"
               key={index}
               isPressable
               onClick={() => {
-                setSelected(color);
+                setSelected(getProductColors(1)?.[index]);
               }}
               className={`h-full w-full border-4 transition-border duration-500 ease-in-out ${
                 color === selected ? "border-secondary" : "border-transparent"
@@ -71,8 +74,8 @@ export default function ProductColor() {
                   width={300}
                   height={300}
                   alt={color}
-                  className="object-cover product_image xs:w-full !w-full !h-[82px]"
-                  src={imageByIndex(index)}
+                  className="!object-contain product_image xs:w-full !w-full !h-[82px]"
+                  src={color}
                   isZoomed
                 />
               </CardBody>

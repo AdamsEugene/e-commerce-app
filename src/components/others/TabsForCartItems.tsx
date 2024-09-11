@@ -1,14 +1,16 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
-import { useParams, usePathname } from "next/navigation";
+import React, { useMemo } from "react";
+import { usePathname } from "next/navigation";
 import { Tabs, Tab } from "@nextui-org/react";
-import cartItems, { ItemsInCart } from "@/src/utils/cartItem";
 import CartItem from "./CartItem";
 import StyledImage from "../_shared/Styled/StyledImage";
 import ConditionalRenderAB from "../_shared/Conditional/ConditionalRenderAB";
 import { useAppStore } from "../../providers/AppStoreProvider";
 import { type InCart } from "../../store/productSlice";
+import FallbackItemInCart from "../_shared/fallback/FallbackItemInCart";
+import ConditionalRender from "../_shared/Conditional/ConditionalRender";
+import CustomSuspense from "../_shared/Conditional/CustomSuspense";
 
 type PROPS = {
   buyNow?: boolean;
@@ -18,16 +20,12 @@ type PROPS = {
 const TabsForCartItems: React.FC<PROPS> = (props) => {
   const { buyNow: now = false, drawer } = props;
 
-  const [allItems, setAllItems] = useState<ItemsInCart[]>(cartItems);
   const inCart = useAppStore((state) => state.inCart);
   const buyNow = useAppStore((state) => state.buyNow);
   const selectedPlan = useAppStore((state) => state.selectedPlan);
-  // const isDrawerOpen = useAppStore((state) => state.isDrawerOpen);
+  const cartsData = useAppStore((state) => state.cartsData);
+  const isAddingToCart = useAppStore((state) => state.isAddingToCart);
 
-  // console.log({ inCart, buyNow });
-
-  // const params = useParams();
-  // const productId = params.product_id;
   const pathname = usePathname();
   const containsBuyNow = /buy-now/i.test(pathname);
 
@@ -35,11 +33,12 @@ const TabsForCartItems: React.FC<PROPS> = (props) => {
 
   const getItemsByCartType = useMemo(
     () => (cartType: InCart) => {
-      return allItems.filter((item) =>
-        productsInCart[cartType].includes(item.productId)
-      );
+      return cartsData.carts
+        .map((cart) => cart.products)
+        .flat()
+        ?.filter((item) => productsInCart[cartType].includes(String(item.id)));
     },
-    [allItems, productsInCart]
+    [cartsData, productsInCart]
   );
 
   const isCartEmpty = (cartType: InCart) =>
@@ -54,7 +53,7 @@ const TabsForCartItems: React.FC<PROPS> = (props) => {
         fullWidth
         defaultSelectedKey={selectedPlan}
       >
-        {Object.entries(inCart).map(([cartType, _]) =>
+        {Object.entries(inCart)?.map(([cartType, _]) =>
           drawer ? (
             <Tab
               key={cartType}
@@ -65,17 +64,28 @@ const TabsForCartItems: React.FC<PROPS> = (props) => {
               <ConditionalRenderAB
                 ComponentA={
                   <>
-                    {getItemsByCartType(cartType as InCart).map((item) => (
+                    {getItemsByCartType(cartType as InCart)?.map((item) => (
                       <CartItem
-                        key={item.key}
+                        key={item.id}
                         item={item}
                         from={cartType as InCart}
                       />
                     ))}
+                    <ConditionalRender
+                      condition={isAddingToCart}
+                      Component={<FallbackItemInCart />}
+                    />
                   </>
                 }
-                ComponentB={<EmptyCart type={cartType as InCart} />}
-                condition={!isCartEmpty(cartType as InCart)}
+                ComponentB={
+                  <CustomSuspense
+                    condition={!isAddingToCart}
+                    fallback={<FallbackItemInCart />}
+                  >
+                    <EmptyCart type={cartType as InCart} />
+                  </CustomSuspense>
+                }
+                condition={!isCartEmpty(cartType as InCart) || !isAddingToCart}
               />
             </Tab>
           ) : (
@@ -89,17 +99,30 @@ const TabsForCartItems: React.FC<PROPS> = (props) => {
                 <ConditionalRenderAB
                   ComponentA={
                     <>
-                      {getItemsByCartType(cartType as InCart).map((item) => (
+                      {getItemsByCartType(cartType as InCart)?.map((item) => (
                         <CartItem
-                          key={item.key}
+                          key={item.id}
                           item={item}
                           from={cartType as InCart}
                         />
                       ))}
+                      <ConditionalRender
+                        condition={isAddingToCart}
+                        Component={<FallbackItemInCart />}
+                      />
                     </>
                   }
-                  ComponentB={<EmptyCart type={cartType as InCart} />}
-                  condition={!isCartEmpty(cartType as InCart)}
+                  ComponentB={
+                    <CustomSuspense
+                      condition={!isAddingToCart}
+                      fallback={<FallbackItemInCart />}
+                    >
+                      <EmptyCart type={cartType as InCart} />
+                    </CustomSuspense>
+                  }
+                  condition={
+                    !isCartEmpty(cartType as InCart) || !isAddingToCart
+                  }
                 />
               </Tab>
             )
@@ -118,7 +141,7 @@ const EmptyCart = ({ type }: { type?: InCart }) => (
       <StyledImage
         src="/assets/svgs/emptyCart.svg"
         alt=" Your shopping cart is empty"
-        height={400}
+        height={350}
         width={300}
       />
       <p className="text-lg font-semibold text-gray-600">

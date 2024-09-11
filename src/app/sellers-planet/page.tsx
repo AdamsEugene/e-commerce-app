@@ -146,7 +146,7 @@ export default function AdminDashboard() {
               </Chip>,
             ]}
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
               {adminDashboardMetrics.slice(2).map((metrics, index) => (
                 <ProductMetrics {...metrics} key={index} />
               ))}

@@ -11,7 +11,7 @@ import StyledDropdown from "../_shared/others/Dropdown";
 import StyledImage from "../_shared/Styled/StyledImage";
 import { useAppStore } from "../../providers/AppStoreProvider";
 import { type InCart } from "../../store/productSlice";
-import { ItemsInCart } from "../../utils/cartItem";
+import { Product } from "@/src/types/@carts";
 
 type Quantity = {
   key: string;
@@ -33,12 +33,14 @@ const generateQuantity = (count: number): Quantity[] => {
   return quantity;
 };
 
-const CartItem: React.FC<{ item: ItemsInCart; from: InCart }> = ({
+const CartItem: React.FC<{ item: Product; from: InCart }> = ({
   item,
   from,
 }) => {
-  const [selectedQuantity, setSelectedQuantity] = useState("3");
-  const [selectedSize, setSelectedSize] = useState(String(item.size));
+  const [selectedQuantity, setSelectedQuantity] = useState(
+    String(item.quantity)
+  );
+  const [selectedSize, setSelectedSize] = useState(String(item.total));
   const [selectedKeys, setSelectedKeys] = useState("");
 
   const pathname = usePathname();
@@ -48,6 +50,7 @@ const CartItem: React.FC<{ item: ItemsInCart; from: InCart }> = ({
   const moveTo = useAppStore((state) => state.moveTo);
   const moveToBuyNow = useAppStore((state) => state.moveToBuyNow);
   const removeItemFromCart = useAppStore((state) => state.removeItemFromCart);
+  const isAddingToCart = useAppStore((state) => state.isAddingToCart);
   const removeItemFromBuyNow = useAppStore(
     (state) => state.removeItemFromBuyNow
   );
@@ -55,8 +58,8 @@ const CartItem: React.FC<{ item: ItemsInCart; from: InCart }> = ({
   const handleSelect = (key: any) => {
     setSelectedKeys(key);
     containsBuyNow && !isDrawerOpen
-      ? moveToBuyNow(from, key.currentKey as InCart, item.productId)
-      : moveTo(from, key.currentKey as InCart, item.productId);
+      ? moveToBuyNow(from, key.currentKey as InCart, String(item.id))
+      : moveTo(from, key.currentKey as InCart, String(item.id));
   };
 
   const handleSelectQuantity = (key: any) => {
@@ -73,19 +76,19 @@ const CartItem: React.FC<{ item: ItemsInCart; from: InCart }> = ({
     <>
       <div className="flex mb-4 gap-4">
         <StyledImage
-          src={item.image}
-          alt={item.itemName}
+          src={item.thumbnail}
+          alt={item.title}
           className="w-[70px] h-[70px] object-cover mr-4"
           width={70}
           height={70}
         />
         <div className="flex flex-grow flex-col gap-2">
-          <p className="text-base font-semibold text-gray-500">
-            {item.itemName}
-          </p>
+          <p className="text-base font-semibold text-gray-500">{item.title}</p>
           <div className="flex gap-2 items-center">
             <p className="text-sm text-gray-500 w-12">Color: </p>
-            <p className="text-sm text-gray-500">Color: {item.color}</p>
+            <p className="text-sm text-gray-500">
+              Color: {item.discountedTotal}
+            </p>
           </div>
           <div className="flex gap-2 items-center">
             <p className="text-sm text-gray-500 w-12">Size: </p>
@@ -124,8 +127,8 @@ const CartItem: React.FC<{ item: ItemsInCart; from: InCart }> = ({
             size="sm"
             onClick={() =>
               containsBuyNow && !isDrawerOpen
-                ? removeItemFromBuyNow(from, item.productId)
-                : removeItemFromCart(from, item.productId)
+                ? removeItemFromBuyNow(from, String(item.id))
+                : removeItemFromCart(from, String(item.id))
             }
           >
             <IoCloseSharp className="text-1xl text-gray-500" />
@@ -149,7 +152,7 @@ const CartItem: React.FC<{ item: ItemsInCart; from: InCart }> = ({
           />
 
           <p className="text-base font-semibold ml-auto text-gray-500">
-            ${item.amount}
+            ${item.price}
           </p>
         </div>
       </div>

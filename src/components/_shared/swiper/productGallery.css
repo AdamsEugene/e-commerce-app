@@ -30,7 +30,7 @@
 
 .mySwiper_productGallery {
   height: 146px;
-  z-index: 9999;
+  /* z-index: 9999; */
 }
 
 .mySwiper_productGallery .swiper-pagination {

@@ -17,12 +17,9 @@ import { IoPricetag, IoChevronForward, IoStarSharp } from "react-icons/io5";
 import StyledInput from "@/src/components/_shared/Styled/StyledInput";
 import StyledButton from "@/src/components/_shared/Styled/StyledButton";
 import Ratings from "@/src/components/others/Ratings";
-import PurchaseType from "@/src/components/others/PurchaseType";
-import PlansComponent from "@/src/components/others/PlansComponent";
 import StyledButtonGroup from "@/src/components/_shared/button/StyledButtonGroup";
 import ShippingOption from "@/src/components/others/ShippingOption";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
-import cartItems from "@/src/utils/cartItem";
 import { siteConfig } from "@/src/config/site";
 import StyledDropdown from "@/src/components/_shared/others/Dropdown";
 import StyledModal from "@/src/components/_shared/Styled/StyledModal";
@@ -32,10 +29,11 @@ import ProductColor from "./ProductColor";
 import useIsVisible from "@/src/hooks/useIsVisible";
 import FloatingAddToCarts from "./FloatingAddToCarts";
 import OptionsOnProduct from "./OptionsOnProduct";
-import { Options, Size } from "@/src/types";
+import { Options, Size, TProduct } from "@/src/types";
 import DetailsModalContent from "./DetailsModalContent";
-import { purchasePlan } from "@/src/utils/onProduct";
 import { getSelectedPlan } from "@/src/utils/functions";
+import StyledAccordion from "@/src/components/_shared/Styled/StyledAccordion";
+import { addProductToCart } from "@/src/api/cartApis";
 
 const options = [
   { key: "share", label: "Share this product" },
@@ -47,7 +45,11 @@ const options = [
 type DropdownItemsType = (typeof options)[number]["key"];
 export type ModalType = DropdownItemsType | Options;
 
-export default function Details() {
+type PROPS = {
+  product: TProduct;
+};
+
+export default function Details({ product }: PROPS) {
   const [quantity, setQuantity] = useState(1);
   const [value, setValue] = useState(0);
   const size = useRef<Size>();
@@ -59,6 +61,9 @@ export default function Details() {
   const addToCart = useAppStore((state) => state.addToCart);
   const addToBuyNow = useAppStore((state) => state.addToBuyNow);
   const selectedPlan = useAppStore((state) => state.selectedPlan);
+  const setCartData = useAppStore((state) => state.setCartData);
+  const setIsAddingToCart = useAppStore((state) => state.setIsAddingToCart);
+  const user = useAppStore((state) => state.user);
 
   const [ref, isVisible] = useIsVisible();
 
@@ -110,18 +115,38 @@ export default function Details() {
     { name: "+", onClick: () => setQuantity((p) => p + 1) },
   ];
 
-  const getCurrentItem = cartItems.find((item) => item.productId === productId);
+  // const getCurrentItem = cartItems.find((item) => item.productId === productId);
 
   const _addToCart = [
-    { name: getCurrentItem?.price, variant: "bordered" as const },
+    { name: product.price, variant: "bordered" as const },
     {
       name: "ADD TO CART",
-      onClick: (state?: boolean) => {
-        addToCart(selectedPlan, params.product_id as string);
+      onClick: async (state?: boolean) => {
+        addToCart(selectedPlan, productId);
         toggleDrawer(Boolean(state));
+        if (user) {
+          setIsAddingToCart(true);
+          const response = await addProductToCart({
+            userId: String(user.id),
+            products: [{ id: productId, quantity }],
+          });
+          setCartData({ carts: [response] });
+        }
       },
     },
   ];
+
+  const onBuyNow = async () => {
+    addToBuyNow(selectedPlan, productId);
+    if (user) {
+      setIsAddingToCart(true);
+      const response = await addProductToCart({
+        userId: String(user.id),
+        products: [{ id: productId, quantity }],
+      });
+      setCartData({ carts: [response] });
+    }
+  };
 
   const currentPlan = getSelectedPlan(selectedPlan);
   const CurrentPlanIcon = currentPlan?.icon!;
@@ -130,7 +155,7 @@ export default function Details() {
     <div className="w-full mx-auto xs:p-0 px-6 flex flex-col gap-4">
       <div>
         <div className="flex justify-between">
-          <Ratings rating={2.5} numberOfReviews={8} />
+          <Ratings rating={product.rating} numberOfReviews={8} />
           <StyledDropdown
             Trigger={
               <Button
@@ -149,9 +174,9 @@ export default function Details() {
             selectedKeys={""}
           />
         </div>
-        <h1 className="text-4xl font-bold mt-4">{getCurrentItem?.itemName}</h1>
+        <h1 className="text-4xl font-bold mt-4">{product.title}</h1>
         <h2 className="text-2xl font-bold text-default-500 italic mt-1">
-          {getCurrentItem?.price}
+          {product.price}
         </h2>
       </div>
       <p className="text-xs -mb-2">Extra 2% off with coins</p>
@@ -167,18 +192,7 @@ export default function Details() {
         </CardBody>
       </Card>
       <div className="xs:pr-0 pr-16 flex flex-col gap-4">
-        <p className="mt-2">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus
-          minima soluta ullam repellendus delectus! Molestias aspernatur omnis,
-          veritatis accusantium veniam voluptate saepe, molestiae dolorem
-          quisquam, nemo similique vitae maxime reprehenderit.
-        </p>
-        <p className="mt-2">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus
-          minima soluta ullam repellendus delectus! Molestias aspernatur omnis,
-          veritatis accusantium veniam voluptate saepe, molestiae dolorem
-          quisquam, nemo similique vitae maxime reprehenderit.
-        </p>
+        <p className="mt-2">{product.description}</p>
       </div>
       <Divider className="my-1" />
       <ProductVariant field="pattern" />
@@ -189,9 +203,14 @@ export default function Details() {
       <Divider className="my-1" />
       <ProductVariant field="compatibility" />
       <Divider className="my-1" />
-      <ProductColor />
+      <ProductColor images={product.images} />
       <Divider className="my-1" />
-      <OptionsOnProduct optionChanged={optionChanged} />
+      <div className="lg:hidden">
+        <StyledAccordion price={product.price} />
+      </div>
+      <div className="xs:hidden">
+        <OptionsOnProduct optionChanged={optionChanged} />
+      </div>
       {/* <Divider className="my-1" /> */}
       {/* <PurchaseType {...purchasePlan} /> */}
       <Card shadow="sm">
@@ -204,7 +223,7 @@ export default function Details() {
                 <IoChevronForward />
               </div>
               <p className="text-xl font-bold text-default-500">
-                {getCurrentItem?.price}
+                {product.price}
               </p>
             </div>
             <IoStarSharp />
@@ -223,7 +242,7 @@ export default function Details() {
           variant="ghost"
           color="secondary"
           radius="lg"
-          onClick={() => addToBuyNow(selectedPlan, productId)}
+          onClick={onBuyNow}
         />
       </div>
       <Divider className="my-1" />
@@ -243,7 +262,7 @@ export default function Details() {
             <DetailsModalContent
               onCopy={onClose}
               modalType={modalType.current}
-              productName={getCurrentItem?.itemName}
+              productName={product.title}
             />
           )}
         </ModalContent>

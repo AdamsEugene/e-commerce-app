@@ -1,17 +1,20 @@
 import Link from "next/link";
-import { Button, Card, CardBody, CardHeader } from "@nextui-org/react";
+import { Card, CardBody, CardHeader } from "@nextui-org/react";
 import StyledImage from "@/src/components/_shared/Styled/StyledImage";
 import { siteConfig } from "@/src/config/site";
 import imageByIndex from "@/src/utils/imageByIndex";
-import { PRODUCTS_GRID } from "@/src/utils/productList";
+import { PRODUCTS_GRID } from "@/src/types";
+import ConditionalRender from "@/src/components/_shared/Conditional/ConditionalRender";
+import ConditionalRenderAB from "@/src/components/_shared/Conditional/ConditionalRenderAB";
 
 type PROPS = {
   products?: PRODUCTS_GRID;
   reverse?: boolean;
+  myRef?: (node?: Element | null | undefined) => void;
 };
 
 export default function ProductsGrid(props: PROPS) {
-  const { reverse, products } = props;
+  const { reverse, products, myRef } = props;
 
   if (!products) return null;
 
@@ -29,25 +32,43 @@ export default function ProductsGrid(props: PROPS) {
           >
             <Card
               shadow="sm"
-              as={Link}
-              isPressable
-              href={{
-                pathname: `${siteConfig.pages.products}/${products.title}`,
-                query: { image: products.image },
-              }}
-              className="h-full"
+              className={`h-full ${reverse ? "bg-danger-50" : "bg-warning-50"}`}
             >
-              <CardHeader className="pb-0">
+              <div
+                key={index}
+                className="h-[calc(100%)] w-[calc(100%)] bg-100-100 bg-center absolute -z-0 transform perspective-400 rotate-y-30"
+                style={{
+                  backgroundImage: `url(${list?.[0]?.images?.[0]})`,
+                }}
+              />
+              <div className="absolute inset-0 bg-default-50 bg-opacity-80 flex flex-col items-center justify-center text-center rounded-lg" />
+              <CardHeader
+                className={`${reverse ? "bg-danger-500" : "bg-warning-500"} justify-between before:bg-white/10 overflow-hidden py-1 before:rounded-xl rounded-large w-[calc(100%_-_8px)] shadow-small ml-1 z-10`}
+              >
                 <div className="flex items-center justify-between w-full">
-                  <p className="text-lg font-semibold">{list[0].name}</p>
+                  <p className="text-lg font-semibold max-w-[70%] truncate">
+                    {list[0].title}
+                  </p>
+                  <ConditionalRender
+                    condition={list.length !== 4}
+                    Component={
+                      <p className="text-base font-semibold truncate">
+                        We've got all your needs covered
+                      </p>
+                    }
+                  />
                   <div className="flex items-center gap-3">
-                    <Button
-                      color="secondary"
-                      variant="light"
+                    <Link
+                      href={{
+                        pathname: `${siteConfig.pages.products}/${products.title}`,
+                        query: { image: products.image },
+                      }}
+                      className="text-primary"
+                      // variant="light"
                       aria-label="Edit campaign"
                     >
                       {products.cta}
-                    </Button>
+                    </Link>
                   </div>
                 </div>
               </CardHeader>
@@ -60,21 +81,45 @@ export default function ProductsGrid(props: PROPS) {
                   } gap-4 w-full`}
                 >
                   {list?.map((product, index) => (
-                    <div key={index} className="truncate">
+                    <Link
+                      key={index}
+                      className="truncate z-10 text-center"
+                      href={`${siteConfig.pages.product}/${product.id}`}
+                    >
                       <StyledImage
-                        shadow="sm"
+                        shadow="none"
                         radius="lg"
                         width={300}
                         height={300}
                         alt={product.description}
-                        className="object-cover product_image !h-36 w-full"
-                        src={product.image || imageByIndex(index)}
+                        className="!object-contain product_image !h-36 w-full"
+                        src={
+                          product?.thumbnail ||
+                          product?.images?.[0] ||
+                          imageByIndex(index)
+                        }
                         isZoomed
                       />
-                      <b className="text-small text-default-500">
-                        {product.name}
-                      </b>
-                    </div>
+
+                      <ConditionalRenderAB
+                        condition={
+                          list.length === index + 1 && list.length === 4
+                        }
+                        ComponentA={
+                          <b
+                            ref={myRef}
+                            className={`text-small  text-default-500`}
+                          >
+                            {product.title}
+                          </b>
+                        }
+                        ComponentB={
+                          <b className={`text-small  text-default-500`}>
+                            {product.title}
+                          </b>
+                        }
+                      />
+                    </Link>
                   ))}
                 </div>
               </CardBody>
