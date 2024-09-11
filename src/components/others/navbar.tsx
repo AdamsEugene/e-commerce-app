@@ -173,7 +173,7 @@ export const Navbar = (props: PROPS) => {
                   name=""
                   // description="Product Designer"
                   className="transition-transform"
-                  avatarProps={{ src: user.image }}
+                  avatarProps={{ src: user?.image }}
                 />
               </PopoverTrigger>
               <PopoverContent className="p-1">
