@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useParams } from "next/navigation";
 import { Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
 
@@ -9,8 +10,6 @@ import DeliveryInfo from "./DeliveryInfo";
 import PaymentMethod from "./PaymentMethod";
 import OrderSummary from "./OrderSummary";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
-import { useEffect } from "react";
-import productList from "@/src/utils/productList";
 import BackButton from "@/src/components/_shared/button/BackButton";
 
 type PROPS = {
@@ -21,6 +20,7 @@ export default function CheckingOut(props: PROPS) {
   const itemsInCart = useAppStore((state) => state.itemsInCart);
   const selectedProduct = useAppStore((state) => state.selectedProduct);
   const addToBuyNow = useAppStore((state) => state.addToBuyNow);
+  const cartsData = useAppStore((state) => state.cartsData);
   const addToSelectedProduct = useAppStore(
     (state) => state.addToSelectedProduct
   );
@@ -33,14 +33,17 @@ export default function CheckingOut(props: PROPS) {
     if (props.buyNow && !selectedProduct) {
       addToBuyNow("default", param.product_id as string);
       addToSelectedProduct(
-        productList.find((p) => p.productId === param.product_id)!
+        cartsData.carts
+          .map((cart) => cart.products)
+          .flat()
+          .find((p) => p.id === +param.product_id)!
       );
     }
   }, [addToBuyNow, addToSelectedProduct, param, props.buyNow, selectedProduct]);
 
   return (
     <div className="flex flex-col w-full items-center max-w-[1180px] gap-4">
-      <BackButton previousPage={selectedProduct?.name} />
+      <BackButton previousPage={selectedProduct?.title} />
       <div className="flex gap-5 w-full">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="w-full">
