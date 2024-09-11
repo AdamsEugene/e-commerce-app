@@ -11,7 +11,6 @@ import StyledDropdown from "../_shared/others/Dropdown";
 import StyledImage from "../_shared/Styled/StyledImage";
 import { useAppStore } from "../../providers/AppStoreProvider";
 import { type InCart } from "../../store/productSlice";
-import { ItemsInCart } from "../../utils/cartItem";
 import { Product } from "@/src/types/@carts";
 
 type Quantity = {

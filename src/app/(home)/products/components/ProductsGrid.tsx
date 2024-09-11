@@ -5,14 +5,16 @@ import { siteConfig } from "@/src/config/site";
 import imageByIndex from "@/src/utils/imageByIndex";
 import { PRODUCTS_GRID } from "@/src/types";
 import ConditionalRender from "@/src/components/_shared/Conditional/ConditionalRender";
+import ConditionalRenderAB from "@/src/components/_shared/Conditional/ConditionalRenderAB";
 
 type PROPS = {
   products?: PRODUCTS_GRID;
   reverse?: boolean;
+  myRef: (node?: Element | null | undefined) => void;
 };
 
 export default function ProductsGrid(props: PROPS) {
-  const { reverse, products } = props;
+  const { reverse, products, myRef } = props;
 
   if (!products) return null;
 
@@ -39,7 +41,7 @@ export default function ProductsGrid(props: PROPS) {
                   backgroundImage: `url(${list?.[0]?.images?.[0]})`,
                 }}
               />
-                <div className="absolute inset-0 bg-default-50 bg-opacity-80 flex flex-col items-center justify-center text-center rounded-lg" />
+              <div className="absolute inset-0 bg-default-50 bg-opacity-80 flex flex-col items-center justify-center text-center rounded-lg" />
               <CardHeader
                 className={`${reverse ? "bg-danger-500" : "bg-warning-500"} justify-between before:bg-white/10 overflow-hidden py-1 before:rounded-xl rounded-large w-[calc(100%_-_8px)] shadow-small ml-1 z-10`}
               >
@@ -98,9 +100,25 @@ export default function ProductsGrid(props: PROPS) {
                         }
                         isZoomed
                       />
-                      <b className="text-small  text-default-500">
-                        {product.title}
-                      </b>
+
+                      <ConditionalRenderAB
+                        condition={
+                          list.length === index + 1 && list.length === 4
+                        }
+                        ComponentA={
+                          <b
+                            ref={myRef}
+                            className={`text-small  text-default-500`}
+                          >
+                            {product.title}
+                          </b>
+                        }
+                        ComponentB={
+                          <b className={`text-small  text-default-500`}>
+                            {product.title}
+                          </b>
+                        }
+                      />
                     </Link>
                   ))}
                 </div>

@@ -20,19 +20,12 @@ type PROPS = {
 const TabsForCartItems: React.FC<PROPS> = (props) => {
   const { buyNow: now = false, drawer } = props;
 
-  // const [allItems, setAllItems] = useState<ItemsInCart[]>(cartItems);
   const inCart = useAppStore((state) => state.inCart);
   const buyNow = useAppStore((state) => state.buyNow);
   const selectedPlan = useAppStore((state) => state.selectedPlan);
   const cartsData = useAppStore((state) => state.cartsData);
   const isAddingToCart = useAppStore((state) => state.isAddingToCart);
 
-  // const isDrawerOpen = useAppStore((state) => state.isDrawerOpen);
-
-  // console.log({ inCart, buyNow });
-
-  // const params = useParams();
-  // const productId = params.product_id;
   const pathname = usePathname();
   const containsBuyNow = /buy-now/i.test(pathname);
 

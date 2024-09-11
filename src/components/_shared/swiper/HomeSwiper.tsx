@@ -17,6 +17,7 @@ import "swiper/css/pagination";
 import "./homeSwiper.css";
 import { TProduct } from "@/src/types";
 import { getRandomSubsets } from "@/src/utils/functions";
+import { addProductToCart } from "@/src/api/cartApis";
 
 type SwiperCarouselProps = {
   products: TProduct[];
@@ -35,6 +36,10 @@ const SwiperCarousel: FC<SwiperCarouselProps> = ({
 }) => {
   const addToBuyNow = useAppStore((state) => state.addToBuyNow);
   const addToCart = useAppStore((state) => state.addToCart);
+  const toggleDrawer = useAppStore((state) => state.toggleDrawer);
+  const setCartData = useAppStore((state) => state.setCartData);
+  const setIsAddingToCart = useAppStore((state) => state.setIsAddingToCart);
+  const user = useAppStore((state) => state.user);
 
   return (
     <Swiper
@@ -85,7 +90,17 @@ const SwiperCarousel: FC<SwiperCarouselProps> = ({
                   color="default"
                   radius="full"
                   size={half ? "sm" : "lg"}
-                  onClick={() => addToBuyNow("default", String(product.id))}
+                  onClick={async () => {
+                    addToBuyNow("default", String(product.id));
+                    if (user) {
+                      setIsAddingToCart(true);
+                      const response = await addProductToCart({
+                        userId: String(user.id),
+                        products: [{ id: String(product.id), quantity: 1 }],
+                      });
+                      setCartData({ carts: [response] });
+                    }
+                  }}
                 >
                   Buy Now
                 </Button>
@@ -94,7 +109,18 @@ const SwiperCarousel: FC<SwiperCarouselProps> = ({
                   color="secondary"
                   radius="full"
                   size={half ? "sm" : "lg"}
-                  onClick={() => addToCart("default", String(product.id))}
+                  onClick={async () => {
+                    addToCart("default", String(product.id));
+                    toggleDrawer(true);
+                    if (user) {
+                      setIsAddingToCart(true);
+                      const response = await addProductToCart({
+                        userId: String(user.id),
+                        products: [{ id: String(product.id), quantity: 1 }],
+                      });
+                      setCartData({ carts: [response] });
+                    }
+                  }}
                 >
                   Add To Cart
                 </Button>

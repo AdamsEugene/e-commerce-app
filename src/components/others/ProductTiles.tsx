@@ -156,10 +156,11 @@ export default function ProductTiles({ showGrid }: PROP) {
                 <ProductsGrid
                   products={item.productsGrid}
                   reverse={index % 2 === 0}
+                  myRef={ref}
                 />
               }
             />
-            <GridCard data={item.products} myRef={ref} />
+            <GridCard data={item.products} />
             <ConditionalRender
               condition={homeProductList.length !== index}
               Component={<BannerAdsDisplay ads={item.ads} />}

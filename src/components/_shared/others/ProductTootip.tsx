@@ -9,6 +9,7 @@ import { TProduct } from "@/src/types";
 import Ratings from "../../others/Ratings";
 import { IoStar } from "react-icons/io5";
 import { GoSponsorTiers } from "react-icons/go";
+import { addProductToCart } from "@/src/api/cartApis";
 
 type PROPS = {
   item: TProduct;
@@ -20,8 +21,22 @@ export default function ProductTooltip(props: PropsWithChildren<PROPS>) {
   const toggleDrawer = useAppStore((state) => state.toggleDrawer);
   const addToCart = useAppStore((state) => state.addToCart);
   const addToBuyNow = useAppStore((state) => state.addToBuyNow);
-
+  const setCartData = useAppStore((state) => state.setCartData);
+  const setIsAddingToCart = useAppStore((state) => state.setIsAddingToCart);
+  const user = useAppStore((state) => state.user);
   // console.log(props.item);
+
+  const onBuyNow = async () => {
+    addToBuyNow("default", String(item.id));
+    if (user) {
+      setIsAddingToCart(true);
+      const response = await addProductToCart({
+        userId: String(user.id),
+        products: [{ id: String(item.id), quantity: 1 }],
+      });
+      setCartData({ carts: [response] });
+    }
+  };
 
   return (
     <Tooltip
@@ -67,9 +82,17 @@ export default function ProductTooltip(props: PropsWithChildren<PROPS>) {
           </ScrollShadow>
           <ButtonGroup fullWidth size="sm">
             <Button
-              onClick={() => {
+              onClick={async () => {
                 addToCart("default", String(item.id));
                 toggleDrawer(true);
+                if (user) {
+                  setIsAddingToCart(true);
+                  const response = await addProductToCart({
+                    userId: String(user.id),
+                    products: [{ id: String(item.id), quantity: 1 }],
+                  });
+                  setCartData({ carts: [response] });
+                }
               }}
             >
               Add to cart
@@ -77,7 +100,7 @@ export default function ProductTooltip(props: PropsWithChildren<PROPS>) {
             <Button
               as={Link}
               href={`${siteConfig.pages.product}/${item.id}/${siteConfig.pages.buyNow}`}
-              onClick={() => addToBuyNow("default", String(item.id))}
+              onClick={onBuyNow}
             >
               Buy now
             </Button>
