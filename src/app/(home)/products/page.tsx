@@ -13,9 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Products() {
-    const products = await apiGet<TFetchedProduct>(
-      "https://dummyjson.com/products"
-    );
+  const products = await apiGet<TFetchedProduct>("products");
   return (
     <section className="w-full home mb-8">
       <div className="main flex flex-col justify-center items-center">

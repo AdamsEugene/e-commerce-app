@@ -3,11 +3,12 @@ import { InCart } from "./productSlice";
 import { Colors, adColor } from "./initialState";
 import { QueryClient } from "@tanstack/react-query";
 import { Product } from "../types/@carts";
+import { TProduct } from "../types";
 
 export type MicsState = {
   isDrawerOpen: boolean;
   activeStep: number;
-  selectedProduct?: Product;
+  selectedProduct?: Product | TProduct;
   selectedPlan: Exclude<InCart, "later">;
   hasExcelChanged: boolean;
   displayMode: "grid" | "list";
@@ -18,7 +19,7 @@ export type MicsState = {
 
 export type MicsActions = {
   toggleDrawer: (state: boolean) => void;
-  addToSelectedProduct: (item: Product) => void;
+  addToSelectedProduct: (item: Product | TProduct) => void;
   deleteFromSelectedProduct: () => void;
   changePlan: (plan: Exclude<InCart, "later">) => void; // Change this line
   updateActiveStep: (activeStep: number) => void;

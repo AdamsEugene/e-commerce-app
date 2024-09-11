@@ -10,7 +10,7 @@ import ConditionalRenderAB from "@/src/components/_shared/Conditional/Conditiona
 type PROPS = {
   products?: PRODUCTS_GRID;
   reverse?: boolean;
-  myRef: (node?: Element | null | undefined) => void;
+  myRef?: (node?: Element | null | undefined) => void;
 };
 
 export default function ProductsGrid(props: PROPS) {
