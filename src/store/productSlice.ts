@@ -1,5 +1,5 @@
 import { StateCreator } from "zustand";
-import { CartResponse } from "../types/@carts";
+import { Cart, CartResponse } from "../types/@carts";
 
 export type ProductState = {
   itemsInCart: number;
@@ -85,6 +85,11 @@ export const createProductSlice = (
         return {
           ...state,
           itemsInCart: totalItemsInCart,
+          cartsData: {
+            ...state.cartsData,
+            carts: state.cartsData.carts,
+            total: calculateTotalPrice(state.cartsData.carts),
+          },
         };
       }),
     moveTo: (from, to, id) =>
@@ -107,6 +112,11 @@ export const createProductSlice = (
             [from]: updatedFromCart,
             [to]: updatedToCart,
           },
+          cartsData: {
+            ...state.cartsData,
+            carts: state.cartsData.carts,
+            total: calculateTotalPrice(state.cartsData.carts),
+          },
           itemsInCart: totalItemsInCart,
         };
       }),
@@ -125,6 +135,11 @@ export const createProductSlice = (
           inCart: {
             ...state.inCart,
             [cartType]: updatedCart,
+          },
+          cartsData: {
+            ...state.cartsData,
+            carts: state.cartsData.carts,
+            total: calculateTotalPrice(state.cartsData.carts),
           },
           itemsInCart: totalItemsInCart,
         };
@@ -150,6 +165,11 @@ export const createProductSlice = (
             [from]: updatedFromCart,
             [to]: updatedToCart,
           },
+          cartsData: {
+            ...state.cartsData,
+            carts: state.cartsData.carts,
+            total: calculateTotalPrice(state.cartsData.carts),
+          },
         };
       }),
     removeItemFromBuyNow: (cartType, id) =>
@@ -160,13 +180,28 @@ export const createProductSlice = (
             ...state.buyNow,
             [cartType]: [],
           },
+          cartsData: {
+            ...state.cartsData,
+            carts: state.cartsData.carts,
+            total: calculateTotalPrice(state.cartsData.carts),
+          },
         };
       }),
     setCartData: (cartsData) =>
       set((state) => {
-        const index = state.cartsData.carts?.[0]?.products?.findIndex(
-          (item) => item?.id === cartsData?.carts?.[0]?.products?.[0].id
-        );
+        const index = state.cartsData.carts
+          ?.map((p) => p.products)
+          ?.flat()
+          ?.findIndex(
+            (item) => item?.id === cartsData?.carts?.[0]?.products?.[0].id
+          );
+        console.log({
+          index,
+          cartsData: cartsData?.carts,
+          state: state.cartsData.carts,
+          other: state.cartsData.carts.map((p) => p.products).flat(),
+        });
+
         let updatedCarts;
         if (index >= 0) {
           updatedCarts = state.cartsData.carts.map((item, i) =>
@@ -177,16 +212,14 @@ export const createProductSlice = (
             updatedCarts = [...state.cartsData.carts, cartsData.carts[0]];
           else updatedCarts = [...state.cartsData.carts];
         }
-        const totalCartValue = updatedCarts
-          .reduce((pre, cur) => pre + cur.total, 0)
-          .toFixed(2);
+
         return {
           ...state,
           isAddingToCart: false,
           cartsData: {
             ...state.cartsData,
             carts: updatedCarts,
-            total: +totalCartValue,
+            total: calculateTotalPrice(updatedCarts),
           },
         };
       }),
@@ -204,3 +237,6 @@ const calculateTotalItemsInCart = (inCart: ProductState["inCart"]): number => {
     inCart.rent.length
   );
 };
+
+const calculateTotalPrice = (updatedCarts: Cart[]) =>
+  +updatedCarts.reduce((pre, cur) => pre + cur.total, 0).toFixed(2);
