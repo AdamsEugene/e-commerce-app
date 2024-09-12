@@ -22,7 +22,10 @@ export default async function Products() {
           <h3 className="text-3xl font-bold my-2">Products categories</h3>
         </div>
         {productGrids(products.products).map((products, index) => (
-          <div className="mx-auto flex flex-col justify-center items-center gap-4">
+          <div
+            key={index}
+            className="mx-auto flex flex-col justify-center items-center gap-4 w-full"
+          >
             <ProductsGrid products={products} reverse={index % 2 === 0} />
             <StyledCardGrid munPerRow={5} />
           </div>
