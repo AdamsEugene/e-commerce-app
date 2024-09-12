@@ -88,6 +88,7 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
                   content={itemsInCart}
                   isInvisible={!Boolean(itemsInCart)}
                   shape="circle"
+                  size="lg"
                 >
                   <GiShoppingCart className="text-5xl text-gray-700 mb-2" />
                 </Badge>
