@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import { useParams, usePathname } from "next/navigation";
+import React, { useState } from "react";
+import { usePathname } from "next/navigation";
 
 import ConditionalRenderAB from "@/src/components/_shared/Conditional/ConditionalRenderAB";
 import StyledImage from "@/src/components/_shared/Styled/StyledImage";
@@ -9,6 +9,7 @@ import PurchaseType from "@/src/components/others/PurchaseType";
 import ConditionalRender from "@/src/components/_shared/Conditional/ConditionalRender";
 import TabsForCartItems from "@/src/components/others/TabsForCartItems";
 import { useAppStore } from "@/src/providers/AppStoreProvider";
+import { calculateTotalPrice } from "@/src/utils/functions";
 
 type PROPS = {
   buyNow?: boolean;
@@ -36,11 +37,11 @@ export default function ItemsInCarts(props: PROPS) {
   const { buyNow: now = false, drawer } = props;
   const inCart = useAppStore((state) => state.inCart);
   const buyNow = useAppStore((state) => state.buyNow);
-  // const isDrawerOpen = useAppStore((state) => state.isDrawerOpen);
   const cartsData = useAppStore((state) => state.cartsData);
+  const activePlan = useAppStore((state) => state.activePlan);
+  const isDrawerOpen = useAppStore((state) => state.isDrawerOpen);
+  const [initialPlan, _] = useState(activePlan);
 
-  // const params = useParams();
-  // const productId = params.product_id;
   const pathname = usePathname();
   const containsBuyNow = /buy-now/i.test(pathname);
 
@@ -66,7 +67,14 @@ export default function ItemsInCarts(props: PROPS) {
                   <div className="flex justify-between">
                     <p className="text-lg font-bold text-gray-500">SUBTOTAL</p>
                     <p className="text-lg font-bold text-gray-500">
-                      ${cartsData.total || 0}
+                      $
+                      {calculateTotalPrice(
+                        productsInCart,
+                        cartsData.carts,
+                        !isDrawerOpen && containsBuyNow && now
+                          ? activePlan
+                          : initialPlan
+                      )}
                     </p>
                   </div>
                   <PurchaseType {...plan} notPlan />
