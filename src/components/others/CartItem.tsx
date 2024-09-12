@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "@nextui-org/button";
 import { Divider } from "@nextui-org/react";
@@ -43,6 +43,8 @@ const CartItem: React.FC<{ item: Product; from: InCart }> = ({
   const [selectedSize, setSelectedSize] = useState(String(item.total));
   const [selectedKeys, setSelectedKeys] = useState("");
 
+  const formRef = useRef<HTMLDivElement>(null);
+
   const pathname = usePathname();
   const containsBuyNow = /buy-now/i.test(pathname);
 
@@ -70,11 +72,21 @@ const CartItem: React.FC<{ item: Product; from: InCart }> = ({
     setSelectedSize(key);
   };
 
+  useEffect(() => {
+    if (formRef.current) {
+      formRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "nearest",
+      });
+    }
+  }, []);
+
   // console.log(containsBuyNow && !isDrawerOpen);
 
   return (
     <>
-      <div className="flex mb-4 gap-4">
+      <div ref={formRef} className="flex mb-4 gap-4">
         <StyledImage
           src={item.thumbnail}
           alt={item.title}

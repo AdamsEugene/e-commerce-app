@@ -195,12 +195,12 @@ export const createProductSlice = (
           ?.findIndex(
             (item) => item?.id === cartsData?.carts?.[0]?.products?.[0].id
           );
-        console.log({
-          index,
-          cartsData: cartsData?.carts,
-          state: state.cartsData.carts,
-          other: state.cartsData.carts.map((p) => p.products).flat(),
-        });
+        // console.log({
+        //   index,
+        //   cartsData: cartsData?.carts,
+        //   state: state.cartsData.carts,
+        //   other: state.cartsData.carts.map((p) => p.products).flat(),
+        // });
 
         let updatedCarts;
         if (index >= 0) {

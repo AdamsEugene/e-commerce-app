@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useMemo } from "react";
-import { usePathname } from "next/navigation";
+import React, { useEffect, useMemo, useRef } from "react";
+import { useParams, usePathname } from "next/navigation";
 import { Tabs, Tab } from "@nextui-org/react";
 import CartItem from "./CartItem";
 import StyledImage from "../_shared/Styled/StyledImage";
@@ -11,6 +11,7 @@ import { type InCart } from "../../store/productSlice";
 import FallbackItemInCart from "../_shared/fallback/FallbackItemInCart";
 import ConditionalRender from "../_shared/Conditional/ConditionalRender";
 import CustomSuspense from "../_shared/Conditional/CustomSuspense";
+import { addProductToCart } from "@/src/api/cartApis";
 
 type PROPS = {
   buyNow?: boolean;
@@ -20,14 +21,23 @@ type PROPS = {
 const TabsForCartItems: React.FC<PROPS> = (props) => {
   const { buyNow: now = false, drawer } = props;
 
+  const formRef = useRef<HTMLDivElement>(null);
+
   const inCart = useAppStore((state) => state.inCart);
   const buyNow = useAppStore((state) => state.buyNow);
   const selectedPlan = useAppStore((state) => state.selectedPlan);
   const cartsData = useAppStore((state) => state.cartsData);
   const isAddingToCart = useAppStore((state) => state.isAddingToCart);
+  const setActivePlan = useAppStore((state) => state.setActivePlan);
+  const addToBuyNow = useAppStore((state) => state.addToBuyNow);
+  const setCartData = useAppStore((state) => state.setCartData);
+  const setIsAddingToCart = useAppStore((state) => state.setIsAddingToCart);
+  const user = useAppStore((state) => state.user);
 
   const pathname = usePathname();
   const containsBuyNow = /buy-now/i.test(pathname);
+  const params = useParams();
+  const productId = params.product_id as string;
 
   const productsInCart = containsBuyNow && now ? buyNow : inCart;
 
@@ -44,6 +54,34 @@ const TabsForCartItems: React.FC<PROPS> = (props) => {
   const isCartEmpty = (cartType: InCart) =>
     getItemsByCartType(cartType).length === 0;
 
+  const onBuyNow = async () => {
+    addToBuyNow(selectedPlan, productId);
+    if (user) {
+      setIsAddingToCart(true);
+      const response = await addProductToCart({
+        userId: String(user.id),
+        products: [{ id: productId, quantity: 1 }],
+      });
+      setCartData({ carts: [response] });
+    }
+  };
+
+  useEffect(() => {
+    if (formRef.current) {
+      formRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "nearest",
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (containsBuyNow && getItemsByCartType('default').length === 0) {
+      onBuyNow();
+    }
+  }, []);
+
   return (
     <div className="flex w-full flex-col gap-3">
       <Tabs
@@ -52,6 +90,7 @@ const TabsForCartItems: React.FC<PROPS> = (props) => {
         variant="light"
         fullWidth
         defaultSelectedKey={selectedPlan}
+        onSelectionChange={(key) => setActivePlan(key as InCart)}
       >
         {Object.entries(inCart)?.map(([cartType, _]) =>
           drawer ? (
@@ -73,19 +112,27 @@ const TabsForCartItems: React.FC<PROPS> = (props) => {
                     ))}
                     <ConditionalRender
                       condition={isAddingToCart}
-                      Component={<FallbackItemInCart />}
+                      Component={
+                        <div ref={formRef}>
+                          <FallbackItemInCart />
+                        </div>
+                      }
                     />
                   </>
                 }
                 ComponentB={
                   <CustomSuspense
                     condition={!isAddingToCart}
-                    fallback={<FallbackItemInCart />}
+                    fallback={
+                      <div ref={formRef}>
+                        <FallbackItemInCart />
+                      </div>
+                    }
                   >
                     <EmptyCart type={cartType as InCart} />
                   </CustomSuspense>
                 }
-                condition={!isCartEmpty(cartType as InCart) || !isAddingToCart}
+                condition={!isCartEmpty(cartType as InCart)}
               />
             </Tab>
           ) : (
@@ -108,21 +155,27 @@ const TabsForCartItems: React.FC<PROPS> = (props) => {
                       ))}
                       <ConditionalRender
                         condition={isAddingToCart}
-                        Component={<FallbackItemInCart />}
+                        Component={
+                          <div ref={formRef}>
+                            <FallbackItemInCart />
+                          </div>
+                        }
                       />
                     </>
                   }
                   ComponentB={
                     <CustomSuspense
                       condition={!isAddingToCart}
-                      fallback={<FallbackItemInCart />}
+                      fallback={
+                        <div ref={formRef}>
+                          <FallbackItemInCart />
+                        </div>
+                      }
                     >
                       <EmptyCart type={cartType as InCart} />
                     </CustomSuspense>
                   }
-                  condition={
-                    !isCartEmpty(cartType as InCart) || !isAddingToCart
-                  }
+                  condition={!isCartEmpty(cartType as InCart)}
                 />
               </Tab>
             )

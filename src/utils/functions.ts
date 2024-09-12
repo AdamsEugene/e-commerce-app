@@ -4,9 +4,10 @@ import productList from "./productList";
 import { AdCreative } from "../components/_shared/types/@ads";
 import { CampaignType } from "./campaignData";
 import { purchasePlan } from "./onProduct";
-import { InCart } from "../store/productSlice";
+import { InCart, ProductState } from "../store/productSlice";
 import { ProductCategory, TProduct } from "../types";
 import { UserData } from "../types/@user";
+import { Cart } from "../types/@carts";
 
 export const capitalizeFirstLetter = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -408,3 +409,18 @@ export function getDisplayName(user?: UserData): string {
 
   return `${firstName} ${lastName}`;
 }
+
+export const calculateTotalPrice = (
+  inCart: ProductState["inCart"],
+  carts: Cart[],
+  activePlan: InCart
+) => {
+  const currentTabData = inCart[activePlan];
+  if (currentTabData.length === 0) return 0;
+  const productsInSelectedCart = carts
+    .map((cart) => cart.products)
+    .flat()
+    .filter((product) => currentTabData.includes(String(product.id)))
+    .reduce((acc, cur) => acc + cur.price, 0);
+  return +productsInSelectedCart.toFixed(2);
+};

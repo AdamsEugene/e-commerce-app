@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
-import { useParams } from "next/navigation";
+import { useEffect,  } from "react";
+import { useParams,  } from "next/navigation";
 import { Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
 
 import "../../home.css";
@@ -26,6 +26,8 @@ export default function CheckingOut(props: PROPS) {
   );
 
   const totalItems = props.buyNow ? 1 : itemsInCart;
+
+
 
   const param = useParams();
 

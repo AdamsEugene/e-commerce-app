@@ -10,6 +10,7 @@ export type MicsState = {
   activeStep: number;
   selectedProduct?: Product | TProduct;
   selectedPlan: Exclude<InCart, "later">;
+  activePlan: InCart;
   hasExcelChanged: boolean;
   displayMode: "grid" | "list";
   modalFor?: "create_campaign" | "create_ad" | "create_budget" | "create_group";
@@ -22,6 +23,7 @@ export type MicsActions = {
   addToSelectedProduct: (item: Product | TProduct) => void;
   deleteFromSelectedProduct: () => void;
   changePlan: (plan: Exclude<InCart, "later">) => void; // Change this line
+  setActivePlan: (plan: InCart) => void;
   updateActiveStep: (activeStep: number) => void;
   updateExcelStateChange: (newState: boolean) => void;
   toggleDisplayMode: (displayMode: MicsState["displayMode"]) => void;
@@ -43,6 +45,7 @@ export const initMicsStore = (): MicsState => {
     activeStep: 0,
     selectedProduct: undefined,
     selectedPlan: "default",
+    activePlan: "default",
     hasExcelChanged: false,
     displayMode: "grid",
     modalFor: undefined,
@@ -65,6 +68,7 @@ export const createMicsSlice =
     addToSelectedProduct: (selectedProduct) => set({ selectedProduct }),
     deleteFromSelectedProduct: () => set({ selectedProduct: undefined }),
     changePlan: (selectedPlan) => set({ selectedPlan }),
+    setActivePlan: (activePlan) => set({ activePlan }),
     updateActiveStep: (activeStep) => set({ activeStep }),
     updateExcelStateChange: (hasExcelChanged) => set({ hasExcelChanged }),
     toggleDisplayMode: (displayMode) =>

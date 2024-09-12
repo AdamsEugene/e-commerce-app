@@ -22,6 +22,7 @@ import ConditionalRenderAB from "../_shared/Conditional/ConditionalRenderAB";
 import ConditionalRender from "../_shared/Conditional/ConditionalRender";
 import StyledImage from "../_shared/Styled/StyledImage";
 import StyledButton from "../_shared/Styled/StyledButton";
+import { calculateTotalPrice } from "@/src/utils/functions";
 
 type PROPS = {};
 
@@ -33,6 +34,7 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
   const itemsInCart = useAppStore((state) => state.itemsInCart);
   const inCart = useAppStore((state) => state.inCart);
   const cartsData = useAppStore((state) => state.cartsData);
+  const activePlan = useAppStore((state) => state.activePlan);
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const AUTO_CLOSE_DELAY = 2000;
@@ -57,6 +59,7 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
     inCart["rent"].length > 0 ||
     inCart["later"].length > 0;
 
+  // console.log(activePlan, inCart, cartsData);
   return (
     <>
       <Drawer
@@ -80,27 +83,27 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
             setIsMouseOver(false);
           }}
         >
-          <CardBody className="side-drawer-content flex flex-col items-center p-4 xs:!w-full !h-[100vh]">
-            <CardHeader className="w-full flex justify-between items-center mb-4">
-              <div className="flex flex-col justify-center items-center w-full">
-                <Badge
-                  color="secondary"
-                  content={itemsInCart}
-                  isInvisible={!Boolean(itemsInCart)}
-                  shape="circle"
-                  size="lg"
-                >
-                  <GiShoppingCart className="text-5xl text-gray-700 mb-2" />
-                </Badge>
-                <p className="text-base text-gray-700 font-semibold">
-                  Your Shopping Cart
-                </p>
-              </div>
-              <IoCloseSharp
-                className="text-3xl cursor-pointer"
-                onClick={() => toggleDrawer(false)}
-              />
-            </CardHeader>
+          <CardHeader className="w-full flex justify-between items-center mt-4">
+            <div className="flex justify-center items-center gap-4 w-full">
+              <Badge
+                color="secondary"
+                content={itemsInCart}
+                isInvisible={!Boolean(itemsInCart)}
+                shape="circle"
+                size="lg"
+              >
+                <GiShoppingCart className="text-5xl text-gray-700 mb-2" />
+              </Badge>
+              <p className="text-base text-gray-700 font-semibold">
+                Your Shopping Cart
+              </p>
+            </div>
+            <IoCloseSharp
+              className="text-3xl cursor-pointer"
+              onClick={() => toggleDrawer(false)}
+            />
+          </CardHeader>
+          <CardBody className="side-drawer-content flex flex-col items-center xs:!w-full !h-[100vh]">
             <Divider />
             <CardBody>
               <ConditionalRenderAB
@@ -116,7 +119,15 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
             <Divider />
             <ConditionalRender
               condition={isDataInCart}
-              Component={<RenderCartFooter total={cartsData.total} />}
+              Component={
+                <RenderCartFooter
+                  total={calculateTotalPrice(
+                    inCart,
+                    cartsData.carts,
+                    activePlan
+                  )}
+                />
+              }
             />
           </CardBody>
         </Card>
