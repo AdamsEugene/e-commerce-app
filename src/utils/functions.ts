@@ -398,7 +398,7 @@ export const groupProductByCategory = (data: ProductCategory[]) =>
     };
   });
 
-export function getDisplayName(user?: UserData): string {
+export function getDisplayName(user?: Partial<UserData>): string {
   if (!user) return "Guest User";
   const { firstName, lastName, maidenName } = user;
 

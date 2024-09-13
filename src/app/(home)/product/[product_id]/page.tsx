@@ -17,7 +17,9 @@ import { adsPreview } from "@/src/utils/adsData";
 import RecommendedProducts from "../components/RecommendedProducts";
 import RecommendedAds from "../components/RecommendedAds";
 import { apiGet, fetchSimilarProducts } from "@/src/api/apiCalles";
-import { TProduct } from "@/src/types";
+import { TProduct, TReview } from "@/src/types";
+import { getAllUsers } from "@/src/api/userApis";
+import { UserData } from "@/src/types/@user";
 
 type Props = {
   params: { product_id: string };
@@ -52,10 +54,33 @@ type PROPS = {
   searchParams?: { [key: string]: string | string[] | undefined };
 };
 
+export const formReviewData = (
+  users: UserData[],
+  reviews?: TReview[]
+): (TReview & UserData)[] => {
+  if (users.length !== reviews?.length) {
+    throw new Error("The number of users and reviews should be the same");
+  }
+
+  return reviews?.map((review, index) => {
+    const user = users[index];
+
+    return {
+      ...review,
+      ...user,
+    };
+  });
+};
+
 export default async function Products({ params }: PROPS) {
   const product = await apiGet<TProduct>(`products/${params.product_id}`);
+  const totalReviews = product.reviews?.length || 1;
+  const allUsers = await getAllUsers({ limit: totalReviews, skip: 0 });
 
   const similarProducts = await fetchSimilarProducts(product.category);
+
+  // console.log(allUsers);
+  // console.log(product.reviews);
 
   return (
     <section className="w-full home pb-8">
@@ -113,7 +138,9 @@ export default async function Products({ params }: PROPS) {
           <div className="w-full">
             <h3 className="text-3xl font-bold mb-4">Reviews</h3>
           </div>
-          <ReviewList reviews={product.reviews} />
+          <ReviewList
+            reviews={formReviewData(allUsers.users, product.reviews)}
+          />
         </div>
         <div className="main flex flex-col justify-center items-center">
           <div className="w-full">

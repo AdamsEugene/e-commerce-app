@@ -5,13 +5,15 @@ import { Avatar, Card, Divider, Pagination, Button } from "@nextui-org/react";
 import { FiSearch } from "react-icons/fi";
 import { FaFilter } from "react-icons/fa";
 import useKeyboardShortcut from "use-keyboard-shortcut";
+import moment from "moment";
 
 import StyledInput from "../_shared/Styled/StyledInput";
 import StyledDropdown from "../_shared/others/Dropdown";
-import reviewData from "@/src/utils/reviews";
 import Ratings from "./Ratings";
 import ConditionalRender from "../_shared/Conditional/ConditionalRender";
 import { TReview } from "@/src/types";
+import { UserData } from "@/src/types/@user";
+import { getDisplayName } from "@/src/utils/functions";
 
 type ReviewProps = {
   rating: number;
@@ -41,7 +43,7 @@ const dropdownItems = [
 type DropdownItemsType = (typeof dropdownItems)[number]["key"];
 
 type PROPS = {
-  reviews?: TReview[];
+  reviews?: (TReview & UserData)[];
 };
 
 const ReviewList = ({ reviews }: PROPS) => {
@@ -200,10 +202,11 @@ const ReviewList = ({ reviews }: PROPS) => {
           />
         </div>
       </div>
-      {/* 
-      {filteredReviews?.map((review, index) => (
-        <Reviews key={index} {...review} />
-      ))} */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 w-full">
+        {filteredReviews?.map((review, index) => (
+          <Reviews key={index} {...review} />
+        ))}
+      </div>
       <ConditionalRender
         Component={
           <div className="flex justify-end">
@@ -224,8 +227,8 @@ const ReviewList = ({ reviews }: PROPS) => {
   );
 };
 
-function Reviews(props: ReviewProps) {
-  const { date, rating, review, reviewTitle, userImg, userName, verified } =
+function Reviews(props: TReview & UserData) {
+  const { date, rating, comment, firstName, maidenName, lastName, image } =
     props;
 
   const [showReadMore, setShowReadMore] = useState(false);
@@ -243,7 +246,7 @@ function Reviews(props: ReviewProps) {
         setShowReadMore(true);
       }
     }
-  }, [review]);
+  }, [comment]);
 
   const toggleContent = () => {
     setShowFullContent(!showFullContent);
@@ -251,22 +254,24 @@ function Reviews(props: ReviewProps) {
 
   return (
     <>
-      <Divider className="my-4" />
+      {/* <Divider className="my-4" /> */}
       <Card className="p-6 rounded-lg shadow-md w-full" shadow="sm">
         <div className="flex items-center justify-between space-x-4 pt-4">
           <Ratings noComment rating={rating} />
-          <p className="text-gray-500">{date}</p>
+          <p className="text-gray-500">{moment(date, "YYYYMMDD").fromNow()}</p>
         </div>
         <div className="flex items-center space-x-4 mt-4">
-          <Avatar isBordered radius="sm" src={userImg} />
+          <Avatar isBordered radius="sm" src={image} />
           <div>
-            <p className="font-bold text-lg">{userName}</p>
-            <span className={`text-${verified ? "green" : "red"}-500`}>
-              {verified ? "Verified" : "Not Verified"}
+            <p className="font-bold text-lg">
+              {getDisplayName({ firstName, maidenName, lastName })}
+            </p>
+            <span className={`text-${rating > 3 ? "green" : "red"}-500`}>
+              {rating > 3 ? "Verified" : "Not Verified"}
             </span>
           </div>
         </div>
-        <p className="font-bold text-xl mt-4">{reviewTitle}</p>
+        <p className="font-bold text-xl mt-4">{comment}</p>
         <p
           ref={reviewRef}
           className={`text-gray-500 mt-2 overflow-hidden ${
@@ -277,7 +282,7 @@ function Reviews(props: ReviewProps) {
               : "max-h-none"
           } line-clamp-4`}
         >
-          {review}
+          {comment}
         </p>
         {showReadMore && (
           <span
