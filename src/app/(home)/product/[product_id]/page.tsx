@@ -54,7 +54,7 @@ type PROPS = {
   searchParams?: { [key: string]: string | string[] | undefined };
 };
 
-export const formReviewData = (
+const formReviewData = (
   users: UserData[],
   reviews?: TReview[]
 ): (TReview & UserData)[] => {
