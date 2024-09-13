@@ -23,6 +23,7 @@ import ConditionalRender from "../_shared/Conditional/ConditionalRender";
 import StyledImage from "../_shared/Styled/StyledImage";
 import StyledButton from "../_shared/Styled/StyledButton";
 import { calculateTotalPrice } from "@/src/utils/functions";
+import { useUrlChangeListener } from "@/src/hooks/useUrlChangeListener";
 
 type PROPS = {};
 
@@ -42,7 +43,7 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
   useEffect(() => {
     if (!isMouseOver && isDrawerOpen) {
       timerRef.current = setTimeout(() => {
-        // toggleDrawer(false);
+        toggleDrawer(false);
       }, AUTO_CLOSE_DELAY);
     }
 
@@ -52,6 +53,8 @@ const SideDrawer: React.FC<PropsWithChildren<PROPS>> = (props) => {
       }
     };
   }, [isDrawerOpen, isMouseOver, toggleDrawer]);
+
+  useUrlChangeListener(() => toggleDrawer(false));
 
   const isDataInCart =
     inCart["default"].length > 0 ||
@@ -172,6 +175,7 @@ const RenderCartFooter = ({ total }: { total?: number }) => {
         className="w-full"
         content="GO TO CHECKOUT"
         color="secondary"
+        isLoading={isAddingToCart}
       />
     </CardFooter>
   );
