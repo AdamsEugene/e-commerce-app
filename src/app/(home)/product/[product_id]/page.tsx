@@ -34,7 +34,7 @@ export async function generateMetadata(
   const productId = params.product_id;
 
   // fetch data
-  const getCurrentItem = cartItems.find((item) => item.productId === productId);
+  const product = await apiGet<TProduct>(`products/${productId}`);
 
   // const product = await fetch(`https://.../${id}`).then((res) => res.json());
 
@@ -42,9 +42,9 @@ export async function generateMetadata(
   const previousImages = (await parent).openGraph?.images || [];
 
   return {
-    title: getCurrentItem?.itemName,
+    title: product.title,
     openGraph: {
-      images: [getCurrentItem?.image as any, ...previousImages],
+      images: [String(product.thumbnail), ...previousImages],
     },
   };
 }
