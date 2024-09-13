@@ -69,3 +69,10 @@ export interface UserData {
   crypto: Crypto;
   role: "admin" | "moderator" | "user"; // restricted roles
 }
+
+export interface AllUsersData {
+  users: UserData[];
+  total: number;
+  skip: number;
+  limit: number;
+}
